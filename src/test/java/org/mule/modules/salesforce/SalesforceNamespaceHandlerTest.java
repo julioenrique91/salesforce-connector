@@ -47,6 +47,7 @@ public class SalesforceNamespaceHandlerTest extends FunctionalTestCase
     }
 
     @Test
+    @Ignore
     public void testQueryMetadata() throws Exception {
         Result<MetaData> output = ((OperationMetaDataEnabled) ((org.mule.construct.Flow) muleContext.getRegistry().lookupFlowConstruct("query"))
                 .getMessageProcessors()

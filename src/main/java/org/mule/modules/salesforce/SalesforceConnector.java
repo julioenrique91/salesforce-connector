@@ -104,8 +104,6 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         MetaData metaData = null;
         if (describeSObject != null) {
             Field[] fields = describeSObject.getFields();
-//            Map<String, MetaDataModel> map = new HashMap<String, MetaDataModel>(fields.length);
-//            List<MetaDataField> metaDataFieldList = new ArrayList<MetaDataField>();
             DynamicObjectBuilder dynamicObject = new DefaultMetaDataBuilder().createDynamicObject(key.getId());
             for (Field f : fields) {
                 MetaDataModel fieldModel = getModelForField(f);
@@ -121,24 +119,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
                 simpleField.withImplClass("java.lang.Object");
                 simpleField.withDsqlProperty(new DsqlQueryOperatorsMetaDataFieldProperty(
                         SupportedOperatorsFactory.getInstance().getSupportedOperationsFor(fieldModel.getDataType())));
-
-//                List<MetaDataFieldProperty> metaDataFieldProperties = new ArrayList<MetaDataFieldProperty>();
-//                metaDataFieldProperties.add(new DsqlSelectMetaDataFieldProperty());
-//                if (f.isFilterable()){
-//                    metaDataFieldProperties.add(new DsqlWhereMetaDataFieldProperty());
-//                }
-//                if (f.isSortable()){
-//                    metaDataFieldProperties.add(new DsqlOrderMetaDataFieldProperty());
-//                }
-//                metaDataFieldProperties.add(new ImplementationClassMetaDataFieldProperty("java.lang.Object"));
-//                metaDataFieldProperties.add(new DsqlQueryOperatorsMetaDataFieldProperty(
-//                        SupportedOperatorsFactory.getInstance().getSupportedOperationsFor(fieldModel.getDataType())));
-//
-//                DefaultMetaDataField defaultMetaDataField = new DefaultMetaDataField(f.getName(), fieldModel, metaDataFieldProperties );
-//                metaDataFieldList.add(defaultMetaDataField);
             }
-
-//            MetaDataModel model = new DefaultDefinedMapMetaDataModel(metaDataFieldList);
             MetaDataModel model = dynamicObject.build();
             metaData = new DefaultMetaData(model);
         }
