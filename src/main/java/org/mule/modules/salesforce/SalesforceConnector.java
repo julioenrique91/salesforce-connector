@@ -11,10 +11,7 @@ package org.mule.modules.salesforce;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.log4j.Logger;
 import org.mule.api.ConnectionExceptionCode;
@@ -35,6 +32,9 @@ import org.mule.api.construct.FlowConstruct;
 import org.mule.common.DefaultResult;
 import org.mule.common.Result;
 import org.mule.common.metadata.*;
+import org.mule.common.metadata.builder.DefaultMetaDataBuilder;
+import org.mule.common.metadata.builder.DynamicObjectBuilder;
+import org.mule.common.metadata.builder.DynamicObjectFieldBuilder;
 import org.mule.common.metadata.datatype.DataType;
 
 import com.sforce.async.AsyncApiException;
@@ -52,8 +52,9 @@ import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 import com.sforce.ws.MessageHandler;
 import com.sforce.ws.SessionRenewer;
+import org.mule.common.metadata.datatype.SupportedOperatorsFactory;
+import org.mule.common.metadata.field.property.*;
 import org.mule.common.query.DsqlQueryVisitor;
-import org.mule.common.query.Query;
 import org.mule.construct.Flow;
 
 import javax.inject.Inject;
@@ -88,7 +89,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         if (describeGlobal != null) {
             DescribeGlobalSObjectResult[] sobjects = describeGlobal.getSobjects();
             for (DescribeGlobalSObjectResult sobject : sobjects) {
-                keys.add(new DefaultMetaDataKey(sobject.getName(), sobject.getLabel()));
+                keys.add(new DefaultMetaDataKey(sobject.getName(), sobject.getLabel(), sobject.isQueryable()));
             }
         }
 
@@ -103,13 +104,42 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         MetaData metaData = null;
         if (describeSObject != null) {
             Field[] fields = describeSObject.getFields();
-            Map<String, MetaDataModel> map = new HashMap<String, MetaDataModel>(fields.length);
+//            Map<String, MetaDataModel> map = new HashMap<String, MetaDataModel>(fields.length);
+//            List<MetaDataField> metaDataFieldList = new ArrayList<MetaDataField>();
+            DynamicObjectBuilder dynamicObject = new DefaultMetaDataBuilder().createDynamicObject(key.getId());
             for (Field f : fields) {
                 MetaDataModel fieldModel = getModelForField(f);
-                map.put(f.getName(), fieldModel);
+
+                DynamicObjectFieldBuilder simpleField = dynamicObject.addSimpleField(f.getName(), fieldModel.getDataType()) ;
+                simpleField.withDsqlProperty(new DsqlSelectMetaDataFieldProperty());
+                if (f.isFilterable()){
+                    simpleField.withDsqlProperty(new DsqlWhereMetaDataFieldProperty());
+                }
+                if (f.isSortable()){
+                    simpleField.withDsqlProperty(new DsqlOrderMetaDataFieldProperty());
+                }
+                simpleField.withImplClass("java.lang.Object");
+                simpleField.withDsqlProperty(new DsqlQueryOperatorsMetaDataFieldProperty(
+                        SupportedOperatorsFactory.getInstance().getSupportedOperationsFor(fieldModel.getDataType())));
+
+//                List<MetaDataFieldProperty> metaDataFieldProperties = new ArrayList<MetaDataFieldProperty>();
+//                metaDataFieldProperties.add(new DsqlSelectMetaDataFieldProperty());
+//                if (f.isFilterable()){
+//                    metaDataFieldProperties.add(new DsqlWhereMetaDataFieldProperty());
+//                }
+//                if (f.isSortable()){
+//                    metaDataFieldProperties.add(new DsqlOrderMetaDataFieldProperty());
+//                }
+//                metaDataFieldProperties.add(new ImplementationClassMetaDataFieldProperty("java.lang.Object"));
+//                metaDataFieldProperties.add(new DsqlQueryOperatorsMetaDataFieldProperty(
+//                        SupportedOperatorsFactory.getInstance().getSupportedOperationsFor(fieldModel.getDataType())));
+//
+//                DefaultMetaDataField defaultMetaDataField = new DefaultMetaDataField(f.getName(), fieldModel, metaDataFieldProperties );
+//                metaDataFieldList.add(defaultMetaDataField);
             }
 
-            MetaDataModel model = new DefaultDefinedMapMetaDataModel(map, key.getId());
+//            MetaDataModel model = new DefaultDefinedMapMetaDataModel(metaDataFieldList);
+            MetaDataModel model = dynamicObject.build();
             metaData = new DefaultMetaData(model);
         }
         return metaData;
