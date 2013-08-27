@@ -743,7 +743,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = ConnectionException.class)
     @OAuthInvalidateAccessTokenOn(exception = ConnectionException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
-    public List<Map<String, Object>> query( @org.mule.api.annotations.Query @Placement(group = "Query") String query) throws Exception {
+    public List<Map<String, Object>> query( @Query @Placement(group = "Query") String query) throws Exception {
         QueryResult queryResult = getConnection().query(query);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         while (queryResult != null) {
