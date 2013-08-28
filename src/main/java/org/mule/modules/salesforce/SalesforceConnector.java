@@ -15,7 +15,6 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 import org.mule.api.ConnectionExceptionCode;
-import org.mule.api.MuleContext;
 import org.mule.api.annotations.Connect;
 import org.mule.api.annotations.ConnectionIdentifier;
 import org.mule.api.annotations.Disconnect;
@@ -24,17 +23,12 @@ import org.mule.api.annotations.MetaDataRetriever;
 import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
-import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.api.construct.FlowConstruct;
-import org.mule.common.DefaultResult;
-import org.mule.common.Result;
 import org.mule.common.metadata.*;
 import org.mule.common.metadata.builder.DefaultMetaDataBuilder;
 import org.mule.common.metadata.builder.DynamicObjectBuilder;
-import org.mule.common.metadata.builder.DynamicObjectFieldBuilder;
 import org.mule.common.metadata.datatype.DataType;
 
 import com.sforce.async.AsyncApiException;
@@ -52,12 +46,6 @@ import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 import com.sforce.ws.MessageHandler;
 import com.sforce.ws.SessionRenewer;
-import org.mule.common.metadata.datatype.SupportedOperatorsFactory;
-import org.mule.common.metadata.field.property.*;
-import org.mule.common.query.DsqlQueryVisitor;
-import org.mule.construct.Flow;
-
-import javax.inject.Inject;
 
 
 /**
@@ -85,14 +73,12 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         List<MetaDataKey> keys = new ArrayList<MetaDataKey>();
         DescribeGlobalResult describeGlobal = describeGlobal();
 
-
         if (describeGlobal != null) {
             DescribeGlobalSObjectResult[] sobjects = describeGlobal.getSobjects();
             for (DescribeGlobalSObjectResult sobject : sobjects) {
                 keys.add(new DefaultMetaDataKey(sobject.getName(), sobject.getLabel(), sobject.isQueryable()));
             }
         }
-
 
         return keys;
     }
@@ -106,19 +92,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
             Field[] fields = describeSObject.getFields();
             DynamicObjectBuilder dynamicObject = new DefaultMetaDataBuilder().createDynamicObject(key.getId());
             for (Field f : fields) {
-                MetaDataModel fieldModel = getModelForField(f);
-
-                DynamicObjectFieldBuilder simpleField = dynamicObject.addSimpleField(f.getName(), fieldModel.getDataType()) ;
-                simpleField.withDsqlProperty(new DsqlSelectMetaDataFieldProperty());
-                if (f.isFilterable()){
-                    simpleField.withDsqlProperty(new DsqlWhereMetaDataFieldProperty());
-                }
-                if (f.isSortable()){
-                    simpleField.withDsqlProperty(new DsqlOrderMetaDataFieldProperty());
-                }
-                simpleField.withImplClass("java.lang.Object");
-                simpleField.withDsqlProperty(new DsqlQueryOperatorsMetaDataFieldProperty(
-                        SupportedOperatorsFactory.getInstance().getSupportedOperationsFor(fieldModel.getDataType())));
+               addField(f, dynamicObject);
             }
             MetaDataModel model = dynamicObject.build();
             metaData = new DefaultMetaData(model);
@@ -126,12 +100,14 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         return metaData;
     }
 
-    private MetaDataModel getModelForField(Field f) {
+    private void addField(Field f, DynamicObjectBuilder dynamicObject) {
         DataType dataType = getDataType(f.getType());
         if (DataType.POJO.equals(dataType)) {
-            return new DefaultPojoMetaDataModel(f.getClass());
+             dynamicObject.addPojoField(f.getName(),f.getClass());
         } else {
-            return new DefaultSimpleMetaDataModel(dataType);
+            dynamicObject.addSimpleField(f.getName(), dataType)
+                    .isWhereCapable(f.isFilterable())
+                    .isOrderByCapable(f.isSortable());
         }
     }
 
@@ -142,10 +118,10 @@ public class SalesforceConnector extends BaseSalesforceConnector {
                 dt = DataType.BOOLEAN;
                 break;
             case _double:
-                dt = DataType.NUMBER;
+                dt = DataType.DOUBLE;
                 break;
             case _int:
-                dt = DataType.NUMBER;
+                dt = DataType.INTEGER;
                 break;
             case anyType:
                 dt = DataType.POJO;
