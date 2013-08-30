@@ -12,9 +12,7 @@ package org.mule.modules.salesforce;
 
 import com.sforce.ws.bind.XmlObject;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Mulesoft, Inc
@@ -31,10 +29,10 @@ public class SalesforceUtils {
 
             while (childrenIterator.hasNext()) {
                 child = (XmlObject) childrenIterator.next();
-                if (child != null && child.getValue() != null) {
+                if (child.getValue() != null) {
                     map.put(child.getName().getLocalPart(), child.getValue());
                 } else if( child.getChildren().hasNext() ) {
-                    map.put(child.getName().getLocalPart(), toMap(child));
+                    putToMultiMap(map, child.getName().getLocalPart(), toMap(child));
                 } else {
                     map.put(child.getName().getLocalPart(), null);
                 }
@@ -42,5 +40,30 @@ public class SalesforceUtils {
         }
 
         return map;
+    }
+
+    /**
+     * Check whether the key exists, if so creates an array with the key and add the corresponding object.
+     * Apache Commons MultiMap is not suitable because it creates an array for every value, no matter if it is a single one.
+     *
+     * @param map destination map
+     * @param key key to add/populate
+     * @param newValue value to add
+     */
+    @SuppressWarnings("unchecked")
+    private static void putToMultiMap(Map<String, Object> map, String key, Object newValue) {
+        if(map.containsKey(key)) {
+            Object value = map.get(key);
+
+            if(value instanceof List) {
+                ((List) value).add(newValue);
+            }
+            else {
+                map.put(key, new ArrayList(Arrays.asList(value, newValue)));
+            }
+        }
+        else {
+            map.put(key, newValue);
+        }
     }
 }
