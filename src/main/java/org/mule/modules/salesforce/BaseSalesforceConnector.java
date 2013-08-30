@@ -15,7 +15,14 @@ import java.io.InputStream;
 import java.io.SequenceInputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import com.sforce.ws.bind.XmlObject;
 import org.apache.log4j.Logger;
@@ -54,6 +61,7 @@ import com.sforce.async.ContentType;
 import com.sforce.async.JobInfo;
 import com.sforce.async.OperationEnum;
 import com.sforce.async.QueryResultList;
+import com.sforce.lazystreams.impl.LazyQueryResultInputStream;
 import com.sforce.soap.partner.AssignmentRuleHeader_element;
 import com.sforce.soap.partner.CallOptions_element;
 import com.sforce.soap.partner.DeleteResult;
@@ -608,6 +616,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     /**
      * Returns an {@link InputStream} with the query results of a submitted {@link BatchInfo}
+     * <p/> 
+     * Internally the InputStreams contained in the sequence will be requested on-demand (lazy-loading)
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:query-result-stream}
      *
@@ -624,15 +634,20 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = ConnectionException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public InputStream queryResultStream(BatchInfo batchInfo) throws Exception {
-        QueryResultList queryResultList = getBulkConnection().getQueryResultList(batchInfo.getJobId(), batchInfo.getId());
-        String[] results = queryResultList.getResult();
-        if (results.length > 0) {
-            List<InputStream> inputStreams = new ArrayList<InputStream>(results.length);
-            for (String resultId : queryResultList.getResult()) {
-                inputStreams.add(getBulkConnection().getQueryResultStream(batchInfo.getJobId(), batchInfo.getId(), resultId));
-            }
-            return new SequenceInputStream(Collections.enumeration(inputStreams));
+    	
+    	QueryResultList queryResultList = getBulkConnection().getQueryResultList(batchInfo.getJobId(), batchInfo.getId());
+        String[] jobResultIds = queryResultList.getResult();        
+        LOGGER.debug(String.format("SF queryResultStream for JobId[%s] BatchId[%s] - Pages[%s]", batchInfo.getJobId(), batchInfo.getId(), jobResultIds.length));
+        if (jobResultIds.length > 0) {
+        	List<InputStream> inputStreams = new LinkedList<InputStream>();
+        	for (int x = 0 ; x < jobResultIds.length ; x++ ) {
+        		inputStreams.add(new LazyQueryResultInputStream(getBulkConnection(), batchInfo.getJobId(), batchInfo.getId(), jobResultIds[x]));
+        	}
+        	
+        	return new SequenceInputStream(Collections.enumeration(inputStreams));
         }
+        
+        
         return null;
     }
 
