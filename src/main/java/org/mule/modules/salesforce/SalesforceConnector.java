@@ -13,6 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
+import com.sforce.soap.partner.*;
 import org.apache.log4j.Logger;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.Connect;
@@ -29,18 +30,11 @@ import org.mule.api.annotations.param.Optional;
 import org.mule.common.metadata.*;
 import org.mule.common.metadata.builder.DefaultMetaDataBuilder;
 import org.mule.common.metadata.builder.DynamicObjectBuilder;
+import org.mule.common.metadata.builder.EnumMetaDataBuilder;
 import org.mule.common.metadata.datatype.DataType;
 
 import com.sforce.async.AsyncApiException;
 import com.sforce.async.BulkConnection;
-import com.sforce.soap.partner.Connector;
-import com.sforce.soap.partner.DescribeGlobalResult;
-import com.sforce.soap.partner.DescribeGlobalSObjectResult;
-import com.sforce.soap.partner.DescribeSObjectResult;
-import com.sforce.soap.partner.Field;
-import com.sforce.soap.partner.FieldType;
-import com.sforce.soap.partner.LoginResult;
-import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.soap.partner.fault.ApiFault;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
@@ -102,12 +96,28 @@ public class SalesforceConnector extends BaseSalesforceConnector {
 
     private void addField(Field f, DynamicObjectBuilder dynamicObject) {
         DataType dataType = getDataType(f.getType());
-        if (DataType.POJO.equals(dataType)) {
-             dynamicObject.addPojoField(f.getName(),f.getClass());
-        } else {
-            dynamicObject.addSimpleField(f.getName(), dataType)
-                    .isWhereCapable(f.isFilterable())
-                    .isOrderByCapable(f.isSortable());
+        switch (dataType){
+            case POJO:
+                dynamicObject.addPojoField(f.getName(), Object.class);
+                break;
+            case ENUM:
+                EnumMetaDataBuilder enumMetaDataBuilder = dynamicObject.addEnumField(f.getName());
+                if (f.getPicklistValues().length != 0){
+                    String[] values = new String[f.getPicklistValues().length];
+                    int i =0;
+                    for (PicklistEntry picklistEntry : f.getPicklistValues()){
+                        values[i] = (picklistEntry.getValue());
+                        i++;
+                    }
+                    enumMetaDataBuilder.setValues(values)
+                            .isWhereCapable(f.isFilterable())
+                            .isOrderByCapable(f.isSortable());
+                }
+                break;
+            default:
+                dynamicObject.addSimpleField(f.getName(), dataType)
+                        .isWhereCapable(f.isFilterable())
+                        .isOrderByCapable(f.isSortable());
         }
     }
 
