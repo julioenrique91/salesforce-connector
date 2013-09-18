@@ -773,22 +773,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         };
     }
 
-//    public List<Map<String, Object>> query( @Query @Placement(group = "Query") String query) throws Exception {
-//        QueryResult queryResult = getConnection().query(query);
-//        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-//        while (queryResult != null) {
-//            for (SObject object : queryResult.getRecords()) {
-//                result.add(object.toMap());
-//            }
-//            if (queryResult.isDone()) {
-//                break;
-//            }
-//            queryResult = getConnection().queryMore(queryResult.getQueryLocator());
-//        }
-//
-//        return result;
-//    }
-    
     @QueryTranslator
     public String toNativeQuery(DsqlQuery query){
         SfdcQueryVisitor visitor = new SfdcQueryVisitor();
@@ -1478,8 +1462,19 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     private com.sforce.async.SObject toAsyncSObject(Map<String, Object> map) {
         com.sforce.async.SObject sObject = new com.sforce.async.SObject();
         for (String key : map.keySet()) {
-            if (map.get(key) != null) {
-                sObject.setField(key, map.get(key).toString());
+
+            Object object = map.get(key);
+
+            if (object != null) {
+                if (object instanceof Map) {
+                    sObject.setFieldReference(key, toAsyncSObject(toSObjectMap((Map) object)));
+                }
+                else if (isDateField(object)) {
+                    sObject.setField(key, convertDateToString(object));
+                }
+                else {
+                    sObject.setField(key, object.toString());
+                }
             } else {
                 sObject.setField(key, null);
             }
@@ -1602,5 +1597,14 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public void setMuleContext(MuleContext context) {
         setObjectStoreManager(((ObjectStoreManager) context.getRegistry().get(MuleProperties.OBJECT_STORE_MANAGER)));
         setRegistry((Registry) context.getRegistry());
+    }
+
+    protected boolean isDateField(Object object) {
+        return object instanceof Date || object instanceof GregorianCalendar
+                || object instanceof Calendar;
+    }
+
+    protected String convertDateToString(Object object) {
+        return new DateTime(object).toString();
     }
 }
