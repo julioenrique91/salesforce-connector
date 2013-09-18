@@ -10,11 +10,7 @@
 
 package org.mule.modules.salesforce;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNull;
-import static junit.framework.Assert.assertSame;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.argThat;
@@ -463,7 +459,8 @@ public class SalesforceModuleTest {
         result = delegate.getPage();
         assertEquals(2, result.size());
 
-        assertNull(delegate.getPage());
+        assertNotNull(delegate.getPage());
+        assertTrue("The last page should be empty",delegate.getPage().isEmpty());
     }
 
     @Test

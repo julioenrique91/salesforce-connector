@@ -11,6 +11,7 @@
 package org.mule.modules.salesforce;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ public abstract class SalesforcePagingDelegate extends PagingDelegate<Map<String
     private String queryLocator = null;
     private QueryResult cachedQueryResult = null;
     private PartnerConnection connection;
+    private boolean lastPageFound = false;
     
     public SalesforcePagingDelegate(PartnerConnection connection, String query) {
         this.connection = connection;
@@ -36,28 +38,30 @@ public abstract class SalesforcePagingDelegate extends PagingDelegate<Map<String
     
     @Override
     public List<Map<String, Object>> getPage() {
-        
         if (this.cachedQueryResult != null) {
             List<Map<String, Object>> items = this.consume(this.cachedQueryResult);
             this.cachedQueryResult = null;
             
             return items;
         }
+
+        if (this.lastPageFound) {
+            return Collections.emptyList();
+        }
         
         QueryResult queryResult = getQueryResult();
-            
-        this.queryLocator = queryResult.isDone() ? null : queryResult.getQueryLocator();
-        
-        try {
-            return this.consume(queryResult);
-        } finally {
-            if (this.queryLocator == null) {
-                try {
-                    this.close();
-                } catch (MuleException e) {
-                    throw new RuntimeException(e);
-                }
-            }            
+
+        setQueryLocatorStatus(queryResult);
+
+        return this.consume(queryResult);
+    }
+
+    private void setQueryLocatorStatus(QueryResult queryResult) {
+        if (queryResult.isDone()) {
+            this.queryLocator = null;
+            this.lastPageFound = true;
+        } else {
+            this.queryLocator = queryResult.getQueryLocator();
         }
     }
 
@@ -94,6 +98,7 @@ public abstract class SalesforcePagingDelegate extends PagingDelegate<Map<String
     public int getTotalResults() {
         if (this.cachedQueryResult == null) {
             this.cachedQueryResult = this.getQueryResult();
+            setQueryLocatorStatus(this.cachedQueryResult);
         }
         
         return this.cachedQueryResult.getSize();
