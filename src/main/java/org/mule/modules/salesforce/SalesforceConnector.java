@@ -11,37 +11,35 @@ package org.mule.modules.salesforce;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.sforce.soap.partner.*;
 import org.apache.log4j.Logger;
 import org.mule.api.ConnectionExceptionCode;
-import org.mule.api.annotations.*;
+import org.mule.api.annotations.Connect;
+import org.mule.api.annotations.ConnectionIdentifier;
+import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.MetaDataKeyRetriever;
+import org.mule.api.annotations.MetaDataRetriever;
+import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
+import org.mule.common.metadata.*;
+import org.mule.common.metadata.builder.DefaultMetaDataBuilder;
+import org.mule.common.metadata.builder.DynamicObjectBuilder;
+import org.mule.common.metadata.builder.EnumMetaDataBuilder;
+import org.mule.common.metadata.datatype.DataType;
 
 import com.sforce.async.AsyncApiException;
 import com.sforce.async.BulkConnection;
-import com.sforce.soap.partner.Connector;
-import com.sforce.soap.partner.DescribeGlobalResult;
-import com.sforce.soap.partner.DescribeGlobalSObjectResult;
-import com.sforce.soap.partner.DescribeSObjectResult;
-import com.sforce.soap.partner.Field;
-import com.sforce.soap.partner.FieldType;
-import com.sforce.soap.partner.LoginResult;
-import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.soap.partner.fault.ApiFault;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 import com.sforce.ws.MessageHandler;
 import com.sforce.ws.SessionRenewer;
-import org.mule.common.metadata.*;
-import org.mule.common.metadata.datatype.DataType;
 
 
 /**
@@ -66,18 +64,15 @@ public class SalesforceConnector extends BaseSalesforceConnector {
 
     @MetaDataKeyRetriever
     public List<MetaDataKey> getMetaDataKeys() throws Exception {
-
         List<MetaDataKey> keys = new ArrayList<MetaDataKey>();
         DescribeGlobalResult describeGlobal = describeGlobal();
-
 
         if (describeGlobal != null) {
             DescribeGlobalSObjectResult[] sobjects = describeGlobal.getSobjects();
             for (DescribeGlobalSObjectResult sobject : sobjects) {
-                keys.add(new DefaultMetaDataKey(sobject.getName(), sobject.getLabel()));
+                keys.add(new DefaultMetaDataKey(sobject.getName(), sobject.getLabel(), sobject.isQueryable()));
             }
         }
-
 
         return keys;
     }
@@ -89,24 +84,40 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         MetaData metaData = null;
         if (describeSObject != null) {
             Field[] fields = describeSObject.getFields();
-            Map<String, MetaDataModel> map = new HashMap<String, MetaDataModel>(fields.length);
+            DynamicObjectBuilder dynamicObject = new DefaultMetaDataBuilder().createDynamicObject(key.getId());
             for (Field f : fields) {
-                MetaDataModel fieldModel = getModelForField(f);
-                map.put(f.getName(), fieldModel);
+               addField(f, dynamicObject);
             }
-
-            MetaDataModel model = new DefaultDefinedMapMetaDataModel(map, key.getId());
+            MetaDataModel model = dynamicObject.build();
             metaData = new DefaultMetaData(model);
         }
         return metaData;
     }
 
-    private MetaDataModel getModelForField(Field f) {
+    private void addField(Field f, DynamicObjectBuilder dynamicObject) {
         DataType dataType = getDataType(f.getType());
-        if (DataType.POJO.equals(dataType)) {
-            return new DefaultPojoMetaDataModel(f.getClass());
-        } else {
-            return new DefaultSimpleMetaDataModel(dataType);
+        switch (dataType){
+            case POJO:
+                dynamicObject.addPojoField(f.getName(), Object.class);
+                break;
+            case ENUM:
+                EnumMetaDataBuilder enumMetaDataBuilder = dynamicObject.addEnumField(f.getName());
+                if (f.getPicklistValues().length != 0){
+                    String[] values = new String[f.getPicklistValues().length];
+                    int i =0;
+                    for (PicklistEntry picklistEntry : f.getPicklistValues()){
+                        values[i] = (picklistEntry.getValue());
+                        i++;
+                    }
+                    enumMetaDataBuilder.setValues(values)
+                            .isWhereCapable(f.isFilterable())
+                            .isOrderByCapable(f.isSortable());
+                }
+                break;
+            default:
+                dynamicObject.addSimpleField(f.getName(), dataType)
+                        .isWhereCapable(f.isFilterable())
+                        .isOrderByCapable(f.isSortable());
         }
     }
 
@@ -117,10 +128,10 @@ public class SalesforceConnector extends BaseSalesforceConnector {
                 dt = DataType.BOOLEAN;
                 break;
             case _double:
-                dt = DataType.NUMBER;
+                dt = DataType.DOUBLE;
                 break;
             case _int:
-                dt = DataType.NUMBER;
+                dt = DataType.INTEGER;
                 break;
             case anyType:
                 dt = DataType.POJO;

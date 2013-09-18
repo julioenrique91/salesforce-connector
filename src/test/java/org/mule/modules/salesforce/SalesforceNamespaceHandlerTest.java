@@ -14,8 +14,10 @@
 
 package org.mule.modules.salesforce;
 
+import junit.framework.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mule.api.MuleEvent;
 import org.mule.common.Result;
 import org.mule.common.metadata.*;
 import org.mule.common.metadata.datatype.DataType;
@@ -38,6 +40,47 @@ public class SalesforceNamespaceHandlerTest extends FunctionalTestCase
     private boolean hasConfiguration() {
         ConnectorMetaDataEnabled connector = muleContext.getRegistry().lookupObject("Salesforce");
         return connector != null;
+    }
+
+    @Test
+    @Ignore
+    public void testQueryMetadata() throws Exception {
+        Result<MetaData> output = ((OperationMetaDataEnabled) ((org.mule.construct.Flow) muleContext.getRegistry().lookupFlowConstruct("query"))
+                .getMessageProcessors()
+                .get(0)).getOutputMetaData(null);
+
+        Assert.assertEquals(Result.Status.SUCCESS, output.getStatus());
+        Assert.assertEquals(2, output.get().getPayload().as(ListMetaDataModel.class).getElementModel().as(DefinedMapMetaDataModel.class).getKeys().size());
+    }
+
+    @Test
+    public void testOauth() throws Exception {
+        runFlow("authorize");
+        Thread.sleep(50000);
+    }
+
+    @Ignore
+    @Test
+    public void testCreateSingle() throws Exception {
+        runFlow("create-single");
+    }
+
+    @Ignore
+    @Test
+    public void testQuery() throws Exception {
+        MuleEvent muleEvent = runFlow("query");
+        muleEvent.getMessage();
+    }
+
+    protected MuleEvent runFlow(String flowName) throws Exception {
+        String payload = "";
+        Flow flow = lookupFlowConstruct(flowName);
+        MuleEvent event = getTestEvent(payload);
+        MuleEvent responseEvent = flow.process(event);
+        if (responseEvent != null && responseEvent.getMessage() != null && responseEvent.getMessage().getExceptionPayload() != null) {
+            throw new Exception(responseEvent.getMessage().getExceptionPayload().getRootException());
+        }
+        return responseEvent;
     }
 
     @Ignore

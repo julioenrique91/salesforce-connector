@@ -42,7 +42,7 @@ public class QueryTestCases extends SalesforceTestParent {
 			
 			testObjects = (HashMap<String,Object>) context.getBean("queryTestData");
 			
-			flow = lookupFlowConstruct("create-from-message");
+			flow = lookupMessageProcessor("create-from-message");
 	        response = flow.process(getTestEvent(testObjects));
 	        
 	        List<SaveResult> saveResultsList =  (List<SaveResult>) response.getMessage().getPayload();
@@ -75,7 +75,7 @@ public class QueryTestCases extends SalesforceTestParent {
     	
 		try {
 			
-			flow = lookupFlowConstruct("delete-from-message");
+			flow = lookupMessageProcessor("delete-from-message");
 			flow.process(getTestEvent(testObjects));
   
 		} catch (Exception e) {
@@ -95,7 +95,7 @@ public class QueryTestCases extends SalesforceTestParent {
 		
 		try {
 			
-			flow = lookupFlowConstruct("query");
+			flow = lookupMessageProcessor("query");
 			response = flow.process(getTestEvent(testObjects));
 			
 			ConsumerIterator<Map<String, Object>> iter =  (ConsumerIterator<Map<String, Object>>) response.getMessage().getPayload();

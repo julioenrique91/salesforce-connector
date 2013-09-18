@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mule.modules</groupId>
     <artifactId>mule-module-sfdc</artifactId>
-    <version>5.3.2-SNAPSHOT</version>
+    <version>5.4.1-SNAPSHOT</version>
     <packaging>mule-module</packaging>
     <name>Mule Salesforce Connector</name>
 
@@ -95,7 +95,22 @@
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-vm</artifactId>
             <version>${mule.version}</version>
+            <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mule.common</groupId>
+            <artifactId>mule-common</artifactId>
+            <version>3.5.0-M2-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mule.transports</groupId>
+            <artifactId>mule-transport-http</artifactId>
+            <version>${mule.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-scripting</artifactId>
@@ -106,6 +121,7 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.14</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>

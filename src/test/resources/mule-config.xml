@@ -3,14 +3,23 @@
   xmlns:spring="http://www.springframework.org/schema/beans"
   xmlns:context="http://www.springframework.org/schema/context"
   xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc"
+  xmlns:http="http://www.mulesoft.org/schema/mule/http"
   xsi:schemaLocation="
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd
+        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.4/mule-http.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
   <sfdc:config name="salesforce-default" username="${salesforce.username}"
                  password="${salesforce.password}" securityToken="${salesforce.securityToken}"/>
+
+    <sfdc:config-with-oauth name="salesforce-oauth" consumerKey="${consumerKey}" consumerSecret="${consumerSecret}">
+        <sfdc:oauth-callback-config domain="localhost" localPort="8081" remotePort="8081" path="oauthcallback"/>
+        <sfdc:oauth-store-config objectStore-ref="_defaultInMemoryObjectStore"/>
+    </sfdc:config-with-oauth>
+
+    <sfdc:config name="Salesforce" username="${username}" password="${password}" securityToken="${securityToken}"/>
 
   <flow name="Create">
     <sfdc:create type="Account" config-ref="salesforce-default">
@@ -21,6 +30,25 @@
       </sfdc:objects>
     </sfdc:create>
   </flow>
+
+    <flow name="authorize">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="authorize"/>
+        <sfdc:authorize config-ref="salesforce-oauth" display="POPUP" state="" />
+        <set-session-variable value="#[flowVars['OAuthAccessTokenId']]" variableName="accessTokenId"/>
+        <logger message="#[flowVars['OAuthAccessTokenId']]"/>
+    </flow>
+
+    <flow name="create-single">
+        <sfdc:create-single config-ref="Salesforce" type="Account">
+            <sfdc:object>
+                <sfdc:object key="test" value-ref="#[payload]"/>
+            </sfdc:object>
+        </sfdc:create-single>
+    </flow>
+    
+    <flow name="query">
+        <sfdc:query config-ref="Salesforce" query="dsql:SELECT Id, Name FROM ACCOUNT WHERE Name = 'Test Account 2' "/>
+    </flow>
 
 
     <!--<flow name="Create-metaData">-->
