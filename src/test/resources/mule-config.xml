@@ -14,13 +14,6 @@
   <sfdc:config name="salesforce-default" username="${salesforce.username}"
                  password="${salesforce.password}" securityToken="${salesforce.securityToken}"/>
 
-    <sfdc:config-with-oauth name="salesforce-oauth" consumerKey="${consumerKey}" consumerSecret="${consumerSecret}">
-        <sfdc:oauth-callback-config domain="localhost" localPort="8081" remotePort="8081" path="oauthcallback"/>
-        <sfdc:oauth-store-config objectStore-ref="_defaultInMemoryObjectStore"/>
-    </sfdc:config-with-oauth>
-
-    <sfdc:config name="Salesforce" username="${username}" password="${password}" securityToken="${securityToken}"/>
-
   <flow name="Create">
     <sfdc:create type="Account" config-ref="salesforce-default">
       <sfdc:objects>
@@ -30,36 +23,6 @@
       </sfdc:objects>
     </sfdc:create>
   </flow>
-
-    <flow name="authorize">
-        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="authorize"/>
-        <sfdc:authorize config-ref="salesforce-oauth" display="POPUP" state="" />
-        <set-session-variable value="#[flowVars['OAuthAccessTokenId']]" variableName="accessTokenId"/>
-        <logger message="#[flowVars['OAuthAccessTokenId']]"/>
-    </flow>
-
-    <flow name="create-single">
-        <sfdc:create-single config-ref="Salesforce" type="Account">
-            <sfdc:object>
-                <sfdc:object key="test" value-ref="#[payload]"/>
-            </sfdc:object>
-        </sfdc:create-single>
-    </flow>
-    
-    <flow name="query">
-        <sfdc:query config-ref="Salesforce" query="dsql:SELECT Id, Name FROM ACCOUNT WHERE Name = 'Test Account 2' "/>
-    </flow>
-
-
-    <!--<flow name="Create-metaData">-->
-        <!--<sfdc:create type="Account" config-ref="Salesforce">-->
-            <!--<sfdc:objects>-->
-                <!--<sfdc:object>-->
-                    <!--<Name>MuleSoft</Name>-->
-                <!--</sfdc:object>-->
-            <!--</sfdc:objects>-->
-        <!--</sfdc:create>-->
-    <!--</flow>-->
 
     <flow name="Query">
       <message-properties-transformer>

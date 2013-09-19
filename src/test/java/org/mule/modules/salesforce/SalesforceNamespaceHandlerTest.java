@@ -14,18 +14,8 @@
 
 package org.mule.modules.salesforce;
 
-import junit.framework.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.mule.api.MuleEvent;
-import org.mule.common.Result;
-import org.mule.common.metadata.*;
-import org.mule.common.metadata.datatype.DataType;
 import org.mule.construct.Flow;
 import org.mule.tck.junit4.FunctionalTestCase;
-
-import static org.junit.Assert.assertTrue;
-
 /**
  * Verifies that the connector produces a valid xsd.
  */
@@ -36,87 +26,6 @@ public class SalesforceNamespaceHandlerTest extends FunctionalTestCase
     {
         return "mule-config.xml";
     }
-
-    private boolean hasConfiguration() {
-        ConnectorMetaDataEnabled connector = muleContext.getRegistry().lookupObject("Salesforce");
-        return connector != null;
-    }
-
-    @Test
-    @Ignore
-    public void testQueryMetadata() throws Exception {
-        Result<MetaData> output = ((OperationMetaDataEnabled) ((org.mule.construct.Flow) muleContext.getRegistry().lookupFlowConstruct("query"))
-                .getMessageProcessors()
-                .get(0)).getOutputMetaData(null);
-
-        Assert.assertEquals(Result.Status.SUCCESS, output.getStatus());
-        Assert.assertEquals(2, output.get().getPayload().as(ListMetaDataModel.class).getElementModel().as(DefinedMapMetaDataModel.class).getKeys().size());
-    }
-
-    @Test
-    public void testOauth() throws Exception {
-        runFlow("authorize");
-        Thread.sleep(50000);
-    }
-
-    @Ignore
-    @Test
-    public void testCreateSingle() throws Exception {
-        runFlow("create-single");
-    }
-
-    @Ignore
-    @Test
-    public void testQuery() throws Exception {
-        MuleEvent muleEvent = runFlow("query");
-        muleEvent.getMessage();
-    }
-
-    protected MuleEvent runFlow(String flowName) throws Exception {
-        String payload = "";
-        Flow flow = lookupFlowConstruct(flowName);
-        MuleEvent event = getTestEvent(payload);
-        MuleEvent responseEvent = flow.process(event);
-        if (responseEvent != null && responseEvent.getMessage() != null && responseEvent.getMessage().getExceptionPayload() != null) {
-            throw new Exception(responseEvent.getMessage().getExceptionPayload().getRootException());
-        }
-        return responseEvent;
-    }
-
-    @Ignore
-    @Test
-    public void testGetMetaDataKeys() throws Exception
-    {
-        ConnectorMetaDataEnabled connector = (ConnectorMetaDataEnabled) muleContext.getRegistry().lookupObject("Salesforce");
-        if (connector != null) {
-            assertTrue(Result.Status.SUCCESS.equals(connector.getMetaDataKeys().getStatus()));
-        } else {
-            logger.info("Test testGetMetaDataKeys needs the real Salesforce config to work");
-        }
-    }
-
-    @Ignore
-    @Test
-    public void testCreate() throws Exception
-    {
-        if (hasConfiguration()) {
-            Result<MetaData> input = ((OperationMetaDataEnabled) ((org.mule.construct.Flow) muleContext.getRegistry().lookupFlowConstruct("Create-metaData"))
-                    .getMessageProcessors()
-                    .get(0)).getInputMetaData();
-            assertTrue(Result.Status.SUCCESS.equals(input.getStatus()));
-            assertTrue(DataType.LIST.equals(input.get().getPayload().getDataType()));
-            assertTrue(DataType.MAP.equals(input.get().getPayload().as(ListMetaDataModel.class).getElementModel().getDataType()));
-
-            Result<MetaData> output = ((OperationMetaDataEnabled) ((org.mule.construct.Flow) muleContext.getRegistry().lookupFlowConstruct("Create-metaData"))
-                    .getMessageProcessors()
-                    .get(0)).getOutputMetaData(null);
-            assertTrue(Result.Status.SUCCESS.equals(output.getStatus()));
-            assertTrue(DataType.LIST.equals(output.get().getPayload().getDataType()));
-            assertTrue(DataType.POJO.equals(output.get().getPayload().as(ListMetaDataModel.class).getElementModel().getDataType()));
-        } else {
-            logger.info("Test testGetMetaDataKeys needs the real Salesforce config to work");
-        }
-     }
 
     /**
      * Retrieve a flow by name from the registry
