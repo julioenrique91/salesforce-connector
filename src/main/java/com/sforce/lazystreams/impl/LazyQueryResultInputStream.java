@@ -5,10 +5,10 @@ import java.io.InputStream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.mule.modules.salesforce.lazystream.LazyInputStream;
 
 import com.sforce.async.AsyncApiException;
 import com.sforce.async.BulkConnection;
-import com.sforce.lazystreams.LazyInputStream;
 
 public class LazyQueryResultInputStream extends LazyInputStream {
 

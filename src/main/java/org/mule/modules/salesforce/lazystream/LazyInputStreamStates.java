@@ -1,4 +1,4 @@
-package com.sforce.lazystreams;
+package org.mule.modules.salesforce.lazystream;
 
 public enum LazyInputStreamStates {
 	PENDING,

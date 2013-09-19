@@ -1,4 +1,4 @@
-package com.sforce.lazystreams;
+package org.mule.modules.salesforce.lazystream;
 
 import java.io.IOException;
 import java.io.InputStream;
