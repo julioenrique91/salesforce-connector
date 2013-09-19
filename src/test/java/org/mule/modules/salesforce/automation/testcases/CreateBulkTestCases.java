@@ -27,6 +27,7 @@ import org.junit.experimental.categories.Category;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.api.processor.MessageProcessor;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.async.BatchInfo;
 import com.sforce.async.BatchResult;
@@ -37,36 +38,10 @@ import com.sforce.soap.partner.SaveResult;
 
 public class CreateBulkTestCases extends SalesforceTestParent {
 
-	private MessageProcessor createBulkFlow;
-	private MessageProcessor batchInfoFlow;
-	private MessageProcessor batchResultFlow;
-	private MessageProcessor deleteFlow;
-	
-    @Before
-    public void setUp(){
-    	
-    	createBulkFlow = lookupFlowConstruct("create-bulk");
-    	batchInfoFlow = lookupFlowConstruct("batch-info");
-    	batchResultFlow = lookupFlowConstruct("batch-result");
-		deleteFlow = lookupFlowConstruct("delete-from-message");
-
-		testObjects = (HashMap<String,Object>) context.getBean("createBulkTestData");
-		
-    }
-
 	@After
-	public void tearDown() {
+	public void tearDown() throws Exception {
 		
-		try {
-			
-			if (testObjects.containsKey("idsToDeleteFromMessage")) {		
-				deleteFlow.process(getTestEvent(testObjects));	
-			}
-
-		} catch (Exception e) {
-				e.printStackTrace();
-				fail();
-		}
+		runFlowAndGetPayload("delete-from-message");
 		
 	}
 	
@@ -74,27 +49,28 @@ public class CreateBulkTestCases extends SalesforceTestParent {
 	@Test
 	public void testCreateBulk() {
     	
+    	loadTestRunMessage("createBulkTestData");
+    	
     	BatchInfo batchInfo;
     	
 		try {
   
-			batchInfo = getBatchInfoByOperation(createBulkFlow);
+			batchInfo = runFlowAndGetPayload("create-bulk");
 			
 			do {
 				
 				Thread.sleep(BATCH_PROCESSING_DELAY);
-				testObjects.put("batchInfoRef", batchInfo);
-				batchInfo = getBatchInfoByOperation(batchInfoFlow);
+				upsertOnTestRunMessage("batchInfoRef", batchInfo);
+				batchInfo = runFlowAndGetPayload("batch-info");
 
 			} while (batchInfo.getState().equals(com.sforce.async.BatchStateEnum.InProgress) || batchInfo.getState().equals(com.sforce.async.BatchStateEnum.Queued));
 	
 			assertTrue(batchInfo.getState().equals(com.sforce.async.BatchStateEnum.Completed));
 			
-			assertBatchSucessAndGetSObjectIds(getBatchResult(batchResultFlow)); 
+			assertBatchSucessAndGetSObjectIds((BatchResult) runFlowAndGetPayload("batch-result")); 
 	        
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
      
 	}

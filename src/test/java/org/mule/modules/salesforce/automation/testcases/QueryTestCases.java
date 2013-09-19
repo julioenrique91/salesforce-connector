@@ -10,16 +10,11 @@
 
 package org.mule.modules.salesforce.automation.testcases;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.mule.streaming.ConsumerIterator;
-
-import com.sforce.soap.partner.SaveResult;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -28,77 +23,58 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.tests.ConnectorTestUtils;
+import org.mule.streaming.ConsumerIterator;
+
+import com.sforce.soap.partner.SaveResult;
 
 
 
 public class QueryTestCases extends SalesforceTestParent {
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
     	
     	List<String> sObjectsIds = new ArrayList<String>();
-    	
-		try {
-			
-			testObjects = (HashMap<String,Object>) context.getBean("queryTestData");
-			
-			flow = lookupMessageProcessor("create-from-message");
-	        response = flow.process(getTestEvent(testObjects));
-	        
-	        List<SaveResult> saveResultsList =  (List<SaveResult>) response.getMessage().getPayload();
-	        Iterator<SaveResult> saveResultsIter = saveResultsList.iterator();  
 
-	        List<Map<String,Object>> sObjects = (List<Map<String,Object>>) testObjects.get("sObjectFieldMappingsFromMessage");
-			Iterator<Map<String,Object>> sObjectsIterator = sObjects.iterator();
-	        
-			while (saveResultsIter.hasNext()) {
-				
-				SaveResult saveResult = saveResultsIter.next();
-				Map<String,Object> sObject = (Map<String, Object>) sObjectsIterator.next();
-				sObjectsIds.add(saveResult.getId());
-		        sObject.put("Id", saveResult.getId());
-				
-			}
+		loadTestRunMessage("queryTestData");
+        
+        List<SaveResult> saveResultsList =  runFlowAndGetPayload("create-from-message");
+        Iterator<SaveResult> saveResultsIter = saveResultsList.iterator();  
 
-			testObjects.put("idsToDeleteFromMessage", sObjectsIds);
-  
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
+        List<Map<String,Object>> sObjects = getTestRunMessageValue("sObjectFieldMappingsFromMessage");
+		Iterator<Map<String,Object>> sObjectsIterator = sObjects.iterator();
+        
+		while (saveResultsIter.hasNext()) {
+			
+			SaveResult saveResult = saveResultsIter.next();
+			Map<String,Object> sObject = (Map<String, Object>) sObjectsIterator.next();
+			sObjectsIds.add(saveResult.getId());
+	        sObject.put("Id", saveResult.getId());
+			
 		}
+
+		upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
      
 	}
 	
 	@After
-	public void tearDown() {
-    	
-		try {
+	public void tearDown() throws Exception {
 			
-			flow = lookupMessageProcessor("delete-from-message");
-			flow.process(getTestEvent(testObjects));
-  
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
-		}
-     
+		runFlowAndGetPayload("delete-from-message");
+
 	}
 	
 	@Category({RegressionTests.class})
 	@Test
 	public void testQuery() {
 		
-		List<String> queriedRecordIds = (List<String>) testObjects.get("idsToDeleteFromMessage");
+		List<String> queriedRecordIds = getTestRunMessageValue("idsToDeleteFromMessage");
 		List<String> returnedSObjectsIds = new ArrayList<String>();
 		
 		try {
 			
-			flow = lookupMessageProcessor("query");
-			response = flow.process(getTestEvent(testObjects));
-			
-			ConsumerIterator<Map<String, Object>> iter =  (ConsumerIterator<Map<String, Object>>) response.getMessage().getPayload();
+			ConsumerIterator<Map<String, Object>> iter = runFlowAndGetPayload("query");
 			
 			int count = 0;
 			while (iter.hasNext()) {
@@ -115,9 +91,7 @@ public class QueryTestCases extends SalesforceTestParent {
 		     }
 		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
-				fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 		
 	}

@@ -14,14 +14,11 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.DescribeGlobalResult;
 import com.sforce.soap.partner.DescribeGlobalSObjectResult;
@@ -38,24 +35,19 @@ public class DescribeGlobalTestCases extends SalesforceTestParent {
     	
 		try {
 			
-			testObjects = (HashMap<String,Object>) context.getBean("describeGlobalTestData");
-			
-			MessageProcessor flow = lookupFlowConstruct("describe-global");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
+			loadTestRunMessage("describeGlobalTestData");
 
-			DescribeGlobalResult describeGlobalResult = (DescribeGlobalResult) response.getMessage().getPayload();
+			DescribeGlobalResult describeGlobalResult = runFlowAndGetPayload("describe-global");
 			DescribeGlobalSObjectResult[] sObjects = describeGlobalResult.getSobjects();
 			
 			for (int index = 0; index<sObjects.length; index++) {
 				retrievedSObjectNames.add(sObjects[index].getName());	
 			}
 			
-	        assertTrue(retrievedSObjectNames.containsAll((List<String>) testObjects.get("expectedSObjectNames")));
+	        assertTrue(retrievedSObjectNames.containsAll((List<String>) getTestRunMessageValue("expectedSObjectNames")));
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
      
 	}

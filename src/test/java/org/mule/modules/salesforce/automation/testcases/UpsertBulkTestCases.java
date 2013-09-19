@@ -15,70 +15,61 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.async.BatchInfo;
+import com.sforce.async.BatchResult;
+import com.sforce.async.Result;
 import com.sforce.soap.partner.SaveResult;
 
 
 
 public class UpsertBulkTestCases extends SalesforceTestParent {
 
+	private void assertBatchSucessAndUpdatedSObjectId(BatchResult batchResult) {
+		
+		List<String> sObjectsIds = new ArrayList<String>();
+		
+		boolean isSuccess = true;
+		Result[] results = batchResult.getResult();
+		
+		for (int index=0; index<results.length; index++) {
+			
+			if (results[index].isSuccess()) {
+				sObjectsIds.add(results[index].getId());
+			} else {
+				isSuccess = false;	
+			}
 	
-	private MessageProcessor createSingleFlow;
-	private MessageProcessor upsertBulkFlow;
-	private MessageProcessor batchInfoFlow;
-	private MessageProcessor batchResultFlow;
-	private MessageProcessor deleteFlow;
-	
+		}
+		
+		upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
+		
+		assertTrue(sObjectsIds.contains(((HashMap<String,Object>) getBeanFromContext("upsertBulkSObjectToBeUpdated")).get("Id")));
+		assertTrue(isSuccess);
+
+	}
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
+ 
+		loadTestRunMessage("upsertBulkTestData");
 		
-		createSingleFlow = lookupFlowConstruct("create-single-from-message");
-    	upsertBulkFlow = lookupFlowConstruct("upsert-bulk");
-    	batchInfoFlow = lookupFlowConstruct("batch-info");
-    	batchResultFlow = lookupFlowConstruct("batch-result");
-		deleteFlow = lookupFlowConstruct("delete-from-message");
-    	
-		try {
-			
-			testObjects = (HashMap<String,Object>) context.getBean("upsertBulkTestData");
-
-	        MuleEvent response = createSingleFlow.process(getTestEvent(testObjects));
-	        SaveResult saveResult = (SaveResult) response.getMessage().getPayload();
-			((HashMap<String,Object>) context.getBean("upsertBulkSObjectToBeUpdated")).put("Id", saveResult.getId());
-  
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-     
+        SaveResult saveResult = runFlowAndGetPayload("create-single-from-message");
+		((HashMap<String,Object>) getBeanFromContext("upsertBulkSObjectToBeUpdated")).put("Id", saveResult.getId());
+   
 	}
 
 	@After
-	public void tearDown() {
+	public void tearDown() throws Exception {
 		
-		try {
-			
-			if (testObjects.containsKey("idsToDeleteFromMessage")) {		
-				deleteFlow.process(getTestEvent(testObjects));	
-			}
-
-		} catch (Exception e) {
-				e.printStackTrace();
-				fail();
-		}
+		runFlowAndGetPayload("delete-from-message");
 		
 	}
 	
@@ -90,24 +81,22 @@ public class UpsertBulkTestCases extends SalesforceTestParent {
 		
 		try {
 			
-			batchInfo = getBatchInfoByOperation(upsertBulkFlow);
+			batchInfo = runFlowAndGetPayload("upsert-bulk");
 			
 			do {
 				
 				Thread.sleep(BATCH_PROCESSING_DELAY);
-				testObjects.put("batchInfoRef", batchInfo);
-				batchInfo = getBatchInfoByOperation(batchInfoFlow);
+				upsertOnTestRunMessage("batchInfoRef", batchInfo);
+				batchInfo = runFlowAndGetPayload("batch-info");
 
 			} while (batchInfo.getState().equals(com.sforce.async.BatchStateEnum.InProgress) || batchInfo.getState().equals(com.sforce.async.BatchStateEnum.Queued));
 	
 			assertTrue(batchInfo.getState().equals(com.sforce.async.BatchStateEnum.Completed));
 			
-			assertBatchSucessAndUpdatedSObjectId(getBatchResult(batchResultFlow)); 
+			assertBatchSucessAndUpdatedSObjectId((BatchResult) runFlowAndGetPayload("batch-result")); 
 		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
-				fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 		
 	}

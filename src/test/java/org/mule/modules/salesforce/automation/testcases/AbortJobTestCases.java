@@ -13,14 +13,10 @@ package org.mule.modules.salesforce.automation.testcases;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.async.JobInfo;
 
@@ -28,28 +24,12 @@ import com.sforce.async.JobInfo;
 
 public class AbortJobTestCases extends SalesforceTestParent {
 	
-	private MessageProcessor createJob;
-	private MessageProcessor abortJob;
-	
 	@Before
-	public void setUp() {
-		
-    	createJob = lookupFlowConstruct("create-job");
-    	abortJob = lookupFlowConstruct("abort-job");
-		
-		testObjects = (HashMap<String,Object>) context.getBean("abortJobTestData");
-		
-		try {
+	public void setUp() throws Exception {
 
-			MuleEvent response = (MuleEvent) createJob.process(getTestEvent(testObjects));
-			JobInfo jobInfo = (JobInfo) response.getMessage().getPayload();
-
-			testObjects.put("jobId", jobInfo.getId());
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+		loadTestRunMessage("abortJobTestData");
+		JobInfo jobInfo = runFlowAndGetPayload("create-job");
+		upsertOnTestRunMessage("jobId", jobInfo.getId());
 
 	}
 	
@@ -59,18 +39,16 @@ public class AbortJobTestCases extends SalesforceTestParent {
 
 		try {
 
-			MuleEvent response = (MuleEvent) abortJob.process(getTestEvent(testObjects));
-			JobInfo jobInfo = (JobInfo) response.getMessage().getPayload();
+			JobInfo jobInfo = runFlowAndGetPayload("abort-job");
 
 			assertEquals(com.sforce.async.JobStateEnum.Aborted, jobInfo.getState());
-			assertEquals(testObjects.get("jobId").toString(), jobInfo.getId());
-			assertEquals(testObjects.get("concurrencyMode").toString(), jobInfo.getConcurrencyMode().toString());
-			assertEquals(testObjects.get("operation").toString(), jobInfo.getOperation().toString());
-			assertEquals(testObjects.get("contentType").toString(), jobInfo.getContentType().toString());
+			assertEquals(getTestRunMessageValue("jobId").toString(), jobInfo.getId());
+			assertEquals(getTestRunMessageValue("concurrencyMode").toString(), jobInfo.getConcurrencyMode().toString());
+			assertEquals(getTestRunMessageValue("operation").toString(), jobInfo.getOperation().toString());
+			assertEquals(getTestRunMessageValue("contentType").toString(), jobInfo.getContentType().toString());
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 		
 	}

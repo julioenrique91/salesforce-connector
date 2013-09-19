@@ -10,76 +10,41 @@
 
 package org.mule.modules.salesforce.automation.testcases;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
-import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.async.BatchInfo;
+import com.sforce.async.BatchResult;
 import com.sforce.async.JobInfo;
 
 
-
 public class CreateBatchTestCases extends SalesforceTestParent {
-	
-	private MessageProcessor createJobFlow;
-	private MessageProcessor createBatchFlow;
-	private MessageProcessor batchInfoFlow;
-	private MessageProcessor batchResultFlow;
-	private MessageProcessor closeJobFlow;
-	private MessageProcessor deleteFlow;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		
-    	createJobFlow = lookupFlowConstruct("create-job");
-    	createBatchFlow = lookupFlowConstruct("create-batch");
-    	batchInfoFlow = lookupFlowConstruct("batch-info");
-    	batchResultFlow = lookupFlowConstruct("batch-result");
-    	closeJobFlow = lookupFlowConstruct("close-job");
-		deleteFlow = lookupFlowConstruct("delete-from-message");
-		
-		testObjects = (HashMap<String,Object>) context.getBean("createBatchTestData");
-		
-		try {
 
-			MuleEvent response = (MuleEvent) createJobFlow.process(getTestEvent(testObjects));
-			JobInfo jobInfo = (JobInfo) response.getMessage().getPayload();
-			
-			testObjects.put("jobId", jobInfo.getId());
-			testObjects.put("jobInfoRef", jobInfo);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+		loadTestRunMessage("createBatchTestData");
 		
+		JobInfo jobInfo = (JobInfo) runFlowAndGetPayload("create-job");
+		
+		upsertOnTestRunMessage("jobId", jobInfo.getId());
+		upsertOnTestRunMessage("jobInfoRef", jobInfo);
+
 	}
 	
 	@After
-	public void tearDown() {
+	public void tearDown() throws Exception {
 
-		try {
-
-			if (testObjects.containsKey("idsToDeleteFromMessage")) {		
-				deleteFlow.process(getTestEvent(testObjects));	
-			}
-			
-			closeJobFlow.process(getTestEvent(testObjects));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-		
+		runFlowAndGetPayload("delete-from-message");
+		runFlowAndGetPayload("close-job");
+	
 	}
 	
     @Category({RegressionTests.class})
@@ -90,23 +55,22 @@ public class CreateBatchTestCases extends SalesforceTestParent {
     	
 		try {
   
-			batchInfo = getBatchInfoByOperation(createBatchFlow);
+			batchInfo = runFlowAndGetPayload("create-batch");
 			
 			do {
 				
 				Thread.sleep(BATCH_PROCESSING_DELAY);
-				testObjects.put("batchInfoRef", batchInfo);
-				batchInfo = getBatchInfoByOperation(batchInfoFlow);
+				upsertOnTestRunMessage("batchInfoRef", batchInfo);
+				batchInfo = runFlowAndGetPayload("batch-info");
 
 			} while (batchInfo.getState().equals(com.sforce.async.BatchStateEnum.InProgress) || batchInfo.getState().equals(com.sforce.async.BatchStateEnum.Queued));
 	
 			assertTrue(batchInfo.getState().equals(com.sforce.async.BatchStateEnum.Completed));
 			
-			assertBatchSucessAndGetSObjectIds(getBatchResult(batchResultFlow)); 
+			assertBatchSucessAndGetSObjectIds((BatchResult) runFlowAndGetPayload("batch-result")); 
 	        
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
     	     
 	}

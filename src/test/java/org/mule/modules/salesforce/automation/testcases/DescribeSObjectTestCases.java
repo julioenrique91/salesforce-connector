@@ -22,11 +22,11 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.api.MuleEvent;
 import org.mule.api.processor.MessageProcessor;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.DescribeGlobalResult;
 import com.sforce.soap.partner.DescribeGlobalSObjectResult;
 import com.sforce.soap.partner.DescribeSObjectResult;
-
 
 
 public class DescribeSObjectTestCases extends SalesforceTestParent {
@@ -35,24 +35,17 @@ public class DescribeSObjectTestCases extends SalesforceTestParent {
 	@Test
 	public void testDescribeSObject() {
     	
-    	List<String> retrievedSObjectNames = new ArrayList<String>();
-    	
 		try {
 			
-			testObjects = (HashMap<String,Object>) context.getBean("describeSObjectTestData");
+			loadTestRunMessage("describeSObjectTestData");
 			
-			MessageProcessor flow = lookupFlowConstruct("describe-sobject");
-			MuleEvent response = flow.process(getTestEvent(testObjects));
-
-			DescribeSObjectResult describeSObjectResult = (DescribeSObjectResult) response.getMessage().getPayload();
+			DescribeSObjectResult describeSObjectResult = runFlowAndGetPayload("describe-sobject");
 			String sObjectName = describeSObjectResult.getName();
 
-	        assertTrue(sObjectName.equals(testObjects.get("type")));
+	        assertTrue(sObjectName.equals(getTestRunMessageValue("type")));
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
      
 	}

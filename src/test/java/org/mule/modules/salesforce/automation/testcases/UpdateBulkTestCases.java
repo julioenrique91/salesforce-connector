@@ -26,83 +26,46 @@ import org.junit.experimental.categories.Category;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.api.processor.MessageProcessor;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.async.BatchInfo;
+import com.sforce.async.BatchResult;
 import com.sforce.soap.partner.SaveResult;
 
 
 
 public class UpdateBulkTestCases extends SalesforceTestParent {
 
-	
-	private MessageProcessor createFlow;
-	private MessageProcessor updateBulkFlow;
-	private MessageProcessor batchInfoFlow;
-	private MessageProcessor batchResultFlow;
-	private MessageProcessor deleteFlow;
-
 	private List<String> createdSObjectsIds = new ArrayList<String>();
 	
-	
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		
-		createFlow = lookupFlowConstruct("create-from-message");
-    	updateBulkFlow = lookupFlowConstruct("update-bulk");
-    	batchInfoFlow = lookupFlowConstruct("batch-info");
-    	batchResultFlow = lookupFlowConstruct("batch-result");
-		deleteFlow = lookupFlowConstruct("delete-from-message");
-    	
-		try {
+		loadTestRunMessage("updateBulkTestData");
+        
+        List<SaveResult> saveResultsList =  runFlowAndGetPayload("create-from-message");
+        Iterator<SaveResult> saveResultsIter = saveResultsList.iterator();  
+
+        List<Map<String,Object>> sObjects = getTestRunMessageValue("objectsRef");
+		Iterator<Map<String,Object>> sObjectsIterator = sObjects.iterator();
+        
+		while (saveResultsIter.hasNext()) {
 			
-			testObjects = (HashMap<String,Object>) context.getBean("updateBulkTestData");
-
-			createAndSetIdsToSObjects();
-  
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
+			SaveResult saveResult = saveResultsIter.next();
+			Map<String,Object> sObject = (Map<String, Object>) sObjectsIterator.next();
+			createdSObjectsIds.add(saveResult.getId());
+	        sObject.put("Id", saveResult.getId());
+			
 		}
+
+		upsertOnTestRunMessage("idsToDeleteFromMessage", createdSObjectsIds);
      
-	}
-	
-	private void createAndSetIdsToSObjects() throws Exception {
-		 	
-			MuleEvent response = createFlow.process(getTestEvent(testObjects));
-	        
-	        List<SaveResult> saveResultsList =  (List<SaveResult>) response.getMessage().getPayload();
-	        Iterator<SaveResult> saveResultsIter = saveResultsList.iterator();  
-
-	        List<Map<String,Object>> sObjects = (List<Map<String,Object>>) testObjects.get("objectsRef");
-			Iterator<Map<String,Object>> sObjectsIterator = sObjects.iterator();
-	        
-			while (saveResultsIter.hasNext()) {
-				
-				SaveResult saveResult = saveResultsIter.next();
-				Map<String,Object> sObject = (Map<String, Object>) sObjectsIterator.next();
-				createdSObjectsIds.add(saveResult.getId());
-		        sObject.put("Id", saveResult.getId());
-				
-			}
-
-			testObjects.put("idsToDeleteFromMessage", createdSObjectsIds);
-		
 	}
 
 	@After
-	public void tearDown() {
+	public void tearDown() throws Exception {
 		
-		try {
-			
-			if (testObjects.containsKey("idsToDeleteFromMessage")) {		
-				deleteFlow.process(getTestEvent(testObjects));	
-			}
-
-		} catch (Exception e) {
-				e.printStackTrace();
-				fail();
-		}
+		runFlowAndGetPayload("delete-from-message");
 		
 	}
 	
@@ -114,24 +77,22 @@ public class UpdateBulkTestCases extends SalesforceTestParent {
 		
 		try {
 			
-			batchInfo = getBatchInfoByOperation(updateBulkFlow);
+			batchInfo = runFlowAndGetPayload("update-bulk");
 			
 			do {
 				
 				Thread.sleep(BATCH_PROCESSING_DELAY);
-				testObjects.put("batchInfoRef", batchInfo);
-				batchInfo = getBatchInfoByOperation(batchInfoFlow);
+				upsertOnTestRunMessage("batchInfoRef", batchInfo);
+				batchInfo = runFlowAndGetPayload("batch-info");
 
 			} while (batchInfo.getState().equals(com.sforce.async.BatchStateEnum.InProgress) || batchInfo.getState().equals(com.sforce.async.BatchStateEnum.Queued));
 	
 			assertTrue(batchInfo.getState().equals(com.sforce.async.BatchStateEnum.Completed));
 			
-			assertBatchSucessAndCompareSObjectIds(getBatchResult(batchResultFlow), createdSObjectsIds); 
+			assertBatchSucessAndCompareSObjectIds((BatchResult) runFlowAndGetPayload("batch-result"), createdSObjectsIds); 
 		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
-				fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 		
 	}

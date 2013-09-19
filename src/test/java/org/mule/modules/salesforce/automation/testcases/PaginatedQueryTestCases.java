@@ -14,7 +14,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +23,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.salesforce.QueryResultObject;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.SaveResult;
 
@@ -32,52 +32,32 @@ import com.sforce.soap.partner.SaveResult;
 public class PaginatedQueryTestCases extends SalesforceTestParent {
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
     	
     	List<String> sObjectsIds = new ArrayList<String>();
-    	
-		try {
-			
-			testObjects = (HashMap<String,Object>) context.getBean("paginatedQueryTestData");
-			
-			flow = lookupMessageProcessor("create-single-from-message");
-	        response = flow.process(getTestEvent(testObjects));
 
-	        SaveResult saveResult = (SaveResult) response.getMessage().getPayload();
-	        
-	        sObjectsIds.add(saveResult.getId());
-	        
-			testObjects.put("idsToDeleteFromMessage", sObjectsIds);
-  
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
-		}
+		loadTestRunMessage("paginatedQueryTestData");
+
+        SaveResult saveResult = runFlowAndGetPayload("create-single-from-message");
+        
+        sObjectsIds.add(saveResult.getId());
+        
+		upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
      
 	}
 	
 	@After
-	public void tearDown() {
-    	
-		try {
-			
-			flow = lookupMessageProcessor("delete-from-message");
-			flow.process(getTestEvent(testObjects));
-  
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
-		}
-     
+	public void tearDown() throws Exception {
+
+		runFlowAndGetPayload("delete-from-message");
+
 	}
 	
 	@Category({RegressionTests.class})
 	@Test
 	public void testPaginatedQuery() {
 		
-		List<String> queriedRecordIds = (List<String>) testObjects.get("idsToDeleteFromMessage");
+		List<String> queriedRecordIds = getTestRunMessageValue("idsToDeleteFromMessage");
 		String queriedRecordId = queriedRecordIds.get(0).toString();
 		
 		List<String> returnedSObjectsIds;
@@ -86,14 +66,11 @@ public class PaginatedQueryTestCases extends SalesforceTestParent {
 		
 		try {
 			
-			flow = lookupMessageProcessor("paginated-query");
-			response = flow.process(getTestEvent(testObjects));
-			
 			do {
 				
 				returnedSObjectsIds = new ArrayList<String>();
 				
-				queryResult =  (QueryResultObject) response.getMessage().getPayload();
+				queryResult =  (QueryResultObject) runFlowAndGetPayload("paginated-query");
 				
 				records =  (List<Map<String, Object>>) queryResult.getData();
 		        
@@ -108,20 +85,17 @@ public class PaginatedQueryTestCases extends SalesforceTestParent {
 				
 				assertTrue(returnedSObjectsIds.size() > 0);
 				
-				testObjects.put("queryResultObjectRef", queryResult);
+				upsertOnTestRunMessage("queryResultObjectRef", queryResult);
 				
-				flow = lookupMessageProcessor("paginated-query-by-queryResultObject-ref");
-				response = flow.process(getTestEvent(testObjects));
+				runFlowAndGetPayload("paginated-query-by-queryResultObject-ref");
+				
 				
 			} while (!returnedSObjectsIds.contains(queriedRecordId) && queryResult.hasMore());
 			
 			assertTrue(returnedSObjectsIds.contains(queriedRecordId));
 			
-			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
-				fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 		
 	}
@@ -130,7 +104,7 @@ public class PaginatedQueryTestCases extends SalesforceTestParent {
 	@Test
 	public void testPaginatedQueryWithDeletedRecords() {
 		
-		List<String> queriedRecordIds = (List<String>) testObjects.get("idsToDeleteFromMessage");
+		List<String> queriedRecordIds = getTestRunMessageValue("idsToDeleteFromMessage");
 		String queriedRecordId = queriedRecordIds.get(0).toString();
 		
 		List<String> returnedSObjectsIds;
@@ -139,19 +113,15 @@ public class PaginatedQueryTestCases extends SalesforceTestParent {
 		
 		try {
 			
-			flow = lookupMessageProcessor("delete-from-message");
-			flow.process(getTestEvent(testObjects));
-			
+			runFlowAndGetPayload("delete-from-message");
+
 			Thread.sleep(60000);
-			
-			flow = lookupMessageProcessor("paginated-query-with-deleted-records");
-			response = flow.process(getTestEvent(testObjects));
 			
 			do {
 				
 				returnedSObjectsIds = new ArrayList<String>();
 				
-				queryResult =  (QueryResultObject) response.getMessage().getPayload();
+				queryResult =  (QueryResultObject) runFlowAndGetPayload("paginated-query-with-deleted-records");
 				
 				records =  (List<Map<String, Object>>) queryResult.getData();
 		        
@@ -166,20 +136,16 @@ public class PaginatedQueryTestCases extends SalesforceTestParent {
 				
 				assertTrue(returnedSObjectsIds.size() > 0);
 				
-				testObjects.put("queryResultObjectRef", queryResult);
+				upsertOnTestRunMessage("queryResultObjectRef", queryResult);
 				
-				flow = lookupMessageProcessor("paginated-query-by-queryResultObject-ref");
-				response = flow.process(getTestEvent(testObjects));
+				runFlowAndGetPayload("paginated-query-by-queryResultObject-ref");
 				
 			} while (!returnedSObjectsIds.contains(queriedRecordId) && queryResult.hasMore());
 			
 			assertTrue(returnedSObjectsIds.contains(queriedRecordId));
-			
-			
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
-				fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 		
 	}

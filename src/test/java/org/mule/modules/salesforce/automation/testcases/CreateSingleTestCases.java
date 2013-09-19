@@ -10,17 +10,17 @@
 
 package org.mule.modules.salesforce.automation.testcases;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.tests.ConnectorTestUtils;
+
 import com.sforce.soap.partner.SaveResult;
 
 
@@ -28,19 +28,10 @@ import com.sforce.soap.partner.SaveResult;
 public class CreateSingleTestCases extends SalesforceTestParent {
 	
 	@After
-	public void tearDown() {
-		
-		try {
+	public void tearDown() throws Exception {
 			
-	    flow = lookupMessageProcessor("delete-from-message");
-		flow.process(getTestEvent(testObjects));
-	
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
-				fail();
-		}
-		
+	    runFlowAndGetPayload("delete-from-message");
+
 	}
 	
     @Category({RegressionTests.class})
@@ -51,23 +42,18 @@ public class CreateSingleTestCases extends SalesforceTestParent {
     	
 		try {
 			
-			testObjects = (HashMap<String,Object>) context.getBean("createSingleRecord");
-			
-			flow = lookupMessageProcessor("create-single-from-message");
-	        response = flow.process(getTestEvent(testObjects));
+			loadTestRunMessage("createSingleRecord");
 
-	        SaveResult saveResult = (SaveResult) response.getMessage().getPayload();
+	        SaveResult saveResult = runFlowAndGetPayload("create-single-from-message");
 			
 	        assertTrue(saveResult.getSuccess());
 	        
 	        sObjectsIds.add(saveResult.getId());
 	        
-			testObjects.put("idsToDeleteFromMessage", sObjectsIds);
+			upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
 	        
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
      
 	}

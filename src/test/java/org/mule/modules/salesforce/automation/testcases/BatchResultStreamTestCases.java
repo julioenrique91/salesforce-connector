@@ -15,7 +15,6 @@ import static org.junit.Assert.fail;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -23,8 +22,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.modules.tests.ConnectorTestUtils;
 import org.mule.util.IOUtils;
 
 import com.sforce.async.BatchInfo;
@@ -33,57 +31,25 @@ import com.sforce.async.JobInfo;
 
 
 public class BatchResultStreamTestCases extends SalesforceTestParent {
-	
-	private MessageProcessor createJobFlow;
-	private MessageProcessor createBatchFlow;
-	private MessageProcessor batchInfoFlow;
-	private MessageProcessor batchResultStreamFlow;
-	private MessageProcessor closeJobFlow;
-	private MessageProcessor deleteFlow;
 
 	@Before
-	public void setUp() {
-		
-    	createJobFlow = lookupFlowConstruct("create-job");
-    	createBatchFlow = lookupFlowConstruct("create-batch");
-    	batchInfoFlow = lookupFlowConstruct("batch-info");
-    	batchResultStreamFlow = lookupFlowConstruct("batch-result-stream");
-    	closeJobFlow = lookupFlowConstruct("close-job");
-		deleteFlow = lookupFlowConstruct("delete-from-message");
-		
-		testObjects = (HashMap<String,Object>) context.getBean("batchResultStreamTestData");
-		
-		try {
+	public void setUp() throws Exception {
 
-			MuleEvent response = (MuleEvent) createJobFlow.process(getTestEvent(testObjects));
-			JobInfo jobInfo = (JobInfo) response.getMessage().getPayload();
+		loadTestRunMessage("batchResultStreamTestData");
+		
+		JobInfo jobInfo = runFlowAndGetPayload("create-job");
 			
-			testObjects.put("jobId", jobInfo.getId());
-			testObjects.put("jobInfoRef", jobInfo);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+		upsertOnTestRunMessage("jobId", jobInfo.getId());
+		upsertOnTestRunMessage("jobInfoRef", jobInfo);
 		
 	}
 	
 	@After
-	public void tearDown() {
-
-		try {
-
-			if (testObjects.containsKey("idsToDeleteFromMessage")) {		
-				deleteFlow.process(getTestEvent(testObjects));	
-			}
-			
-			closeJobFlow.process(getTestEvent(testObjects));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+	public void tearDown() throws Exception {
 		
+		runFlowAndGetPayload("delete-from-message");
+		runFlowAndGetPayload("close-job");
+
 	}
 	
     @Category({RegressionTests.class})
@@ -101,20 +67,20 @@ public class BatchResultStreamTestCases extends SalesforceTestParent {
 		
 		try {
   
-			batchInfo = getBatchInfoByOperation(createBatchFlow);
+			
+			batchInfo = runFlowAndGetPayload("create-batch");
 			
 			do {
 				
 				Thread.sleep(BATCH_PROCESSING_DELAY);
-				testObjects.put("batchInfoRef", batchInfo);
-				batchInfo = getBatchInfoByOperation(batchInfoFlow);
+				upsertOnTestRunMessage("batchInfoRef", batchInfo);
+				batchInfo = runFlowAndGetPayload("batch-info");
 
 			} while (batchInfo.getState().equals(com.sforce.async.BatchStateEnum.InProgress) || batchInfo.getState().equals(com.sforce.async.BatchStateEnum.Queued));
 	
 			assertTrue(batchInfo.getState().equals(com.sforce.async.BatchStateEnum.Completed));
 			
-			MuleEvent response = (MuleEvent) batchResultStreamFlow.process(getTestEvent(testObjects));
-			String operationResponse = IOUtils.toString((InputStream) response.getMessage().getPayload());
+			String operationResponse = IOUtils.toString((InputStream) runFlowAndGetPayload("batch-result-stream"));
 			
 			results = StringUtils.substringsBetween(operationResponse,"<result>","</result>");
 			for (int index=0; index<results.length; index++) {
@@ -130,13 +96,12 @@ public class BatchResultStreamTestCases extends SalesforceTestParent {
 				
 			}
 			
-			testObjects.put("idsToDeleteFromMessage", sObjectsIds);
+			upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
 			
 			assertTrue(isSuccess);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
     	     
 	}

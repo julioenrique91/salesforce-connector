@@ -22,6 +22,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.LeadConvertResult;
 import com.sforce.soap.partner.SaveResult;
@@ -31,54 +32,31 @@ import com.sforce.soap.partner.SaveResult;
 public class ConvertLeadTestCases extends SalesforceTestParent {
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
     	
     	List<String> sObjectsIds = new ArrayList<String>();
     	SaveResult saveResult;
     	
-		try {
-			
-			testObjects = (HashMap<String,Object>) context.getBean("convertLeadTestData");
-			
-			Map<String,Object> lead = (HashMap<String,Object>) testObjects.get("lead");
-			Map<String,Object> account = (HashMap<String,Object>) testObjects.get("account");
-			
-			flow = lookupMessageProcessor("create-single-from-message");
-	        
-			response = flow.process(getTestEvent(lead)); 
-	        saveResult = (SaveResult) response.getMessage().getPayload();
-	        sObjectsIds.add(saveResult.getId());
-	        testObjects.put("leadId", saveResult.getId());
-	        
-	        response = flow.process(getTestEvent(account)); 
-	        saveResult = (SaveResult) response.getMessage().getPayload();
-	        sObjectsIds.add(saveResult.getId());
-	        testObjects.put("contactId", saveResult.getId());
+		loadTestRunMessage("convertLeadTestData");
+		
+        saveResult = runFlowAndGetPayload("create-single-from-message", "convertLeadLead");
+        sObjectsIds.add(saveResult.getId());
+        upsertOnTestRunMessage("leadId", saveResult.getId());
+        
+        saveResult = runFlowAndGetPayload("create-single-from-message", "convertLeadAccount");
+        sObjectsIds.add(saveResult.getId());
+        upsertOnTestRunMessage("contactId", saveResult.getId());
 
-			testObjects.put("idsToDeleteFromMessage", sObjectsIds);
+		upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
   
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
-		}
      
 	}
 	
 	@After
-	public void tearDown() {
-    	
-		try {
-			
-			flow = lookupMessageProcessor("delete-from-message");
-			flow.process(getTestEvent(testObjects));
-  
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
-		}
-     
+	public void tearDown() throws Exception {
+		
+		runFlowAndGetPayload("delete-from-message");
+
 	}
 	
 	@Category({RegressionTests.class})
@@ -86,18 +64,13 @@ public class ConvertLeadTestCases extends SalesforceTestParent {
 	public void testConvertLeadDefaultValues() {
 			
 		try {
-			
-			flow = lookupMessageProcessor("convert-lead-default-values");
-			response = flow.process(getTestEvent(testObjects));
-			
-			LeadConvertResult leadConvertResult =  (LeadConvertResult) response.getMessage().getPayload();
+
+			LeadConvertResult leadConvertResult =  runFlowAndGetPayload("convert-lead-default-values");
 
 			assertTrue(leadConvertResult.isSuccess());
 		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
-				fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 		
 	}

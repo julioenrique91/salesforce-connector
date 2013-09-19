@@ -10,58 +10,35 @@
 
 package org.mule.modules.salesforce.automation.testcases;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.EmptyRecycleBinResult;
-import com.sforce.soap.partner.GetUserInfoResult;
 import com.sforce.soap.partner.SaveResult;
 
 
 
 public class EmptyRecycleBinTestCases extends SalesforceTestParent {
 	
-	private MessageProcessor createFlow;
-	private MessageProcessor deleteFlow;
-	private MessageProcessor emptyRecycleBinFlow;
-
-	@Before
-	public void setUp() {
-		
-		createFlow = lookupFlowConstruct("create-from-message");
-		deleteFlow = lookupFlowConstruct("delete-from-message");
-		emptyRecycleBinFlow = lookupFlowConstruct("empty-recycle-bin");
-		
-	}
-	
     @Category({RegressionTests.class})
     @Test
 	public void testEmptyRecycleBin() {
-    	
-    	
     	
     	List<String> sObjectsIds = new ArrayList<String>();
     	
 		try {
 			
-			testObjects = (HashMap<String,Object>) context.getBean("emptyRecycleBinTestData");
-			
-	        MuleEvent createResponse = createFlow.process(getTestEvent(testObjects));
-	        List<SaveResult> saveResults =  (List<SaveResult>) createResponse.getMessage().getPayload();
+			loadTestRunMessage("emptyRecycleBinTestData");
+
+	        List<SaveResult> saveResults =  runFlowAndGetPayload("create-from-message");
 	        Iterator<SaveResult> saveResultsIter = saveResults.iterator();  
 
 			while (saveResultsIter.hasNext()) {
@@ -71,13 +48,12 @@ public class EmptyRecycleBinTestCases extends SalesforceTestParent {
 				
 			}
 
-			testObjects.put("idsToDeleteFromMessage", sObjectsIds);
-			testObjects.put("idsRef", sObjectsIds);
+			upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
+			upsertOnTestRunMessage("idsRef", sObjectsIds);
 			
-			deleteFlow.process(getTestEvent(testObjects));	
+			runFlowAndGetPayload("delete-from-message");
 			
-			MuleEvent emptyResponse = emptyRecycleBinFlow.process(getTestEvent(testObjects));
-	        List<EmptyRecycleBinResult> emptyRecycleBinResults =  (List<EmptyRecycleBinResult>) emptyResponse.getMessage().getPayload();
+	        List<EmptyRecycleBinResult> emptyRecycleBinResults =  runFlowAndGetPayload("empty-recycle-bin");
 	        Iterator<EmptyRecycleBinResult> emptyRecycleBinResultsIter = emptyRecycleBinResults.iterator(); 
 	        
 			while (emptyRecycleBinResultsIter.hasNext()) {
@@ -89,9 +65,7 @@ public class EmptyRecycleBinTestCases extends SalesforceTestParent {
 			}
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
      
 	}

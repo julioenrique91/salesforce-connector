@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.api.MuleEvent;
 import org.mule.api.processor.MessageProcessor;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.async.JobInfo;
 
@@ -28,32 +29,10 @@ import com.sforce.async.JobInfo;
 
 public class CreateJobTestCases extends SalesforceTestParent {
 	
-	private MessageProcessor createJob;
-	private MessageProcessor closeJob;
-	
-	@Before
-	public void setUp() {
-		
-    	createJob = lookupFlowConstruct("create-job");
-    	closeJob = lookupFlowConstruct("close-job");
-		
-		testObjects = (HashMap<String,Object>) context.getBean("createJobTestData");
-		
-	}
-	
 	@After
-	public void tearDown() {
+	public void tearDown() throws Exception {
 
-		try {
-
-			if (testObjects.containsKey("jobId")) {
-				closeJob.process(getTestEvent(testObjects));
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
+		runFlowAndGetPayload("close-job");
 		
 	}
 	
@@ -61,21 +40,21 @@ public class CreateJobTestCases extends SalesforceTestParent {
 	@Test
 	public void testCreateJob() {
     	
+		loadTestRunMessage("createJobTestData");
+    	
 		try {
 			
-			MuleEvent response = (MuleEvent) createJob.process(getTestEvent(testObjects));
-			JobInfo jobInfo = (JobInfo) response.getMessage().getPayload();
+			JobInfo jobInfo = runFlowAndGetPayload("create-job");
 			
 			assertEquals(com.sforce.async.JobStateEnum.Open, jobInfo.getState());
-			assertEquals(testObjects.get("concurrencyMode").toString(), jobInfo.getConcurrencyMode().toString());
-			assertEquals(testObjects.get("operation").toString(), jobInfo.getOperation().toString());
-			assertEquals(testObjects.get("contentType").toString(), jobInfo.getContentType().toString());
+			assertEquals(getTestRunMessageValue("concurrencyMode").toString(), jobInfo.getConcurrencyMode().toString());
+			assertEquals(getTestRunMessageValue("operation").toString(), jobInfo.getOperation().toString());
+			assertEquals(getTestRunMessageValue("contentType").toString(), jobInfo.getContentType().toString());
 
-			testObjects.put("jobId", jobInfo.getId());
+			upsertOnTestRunMessage("jobId", jobInfo.getId());
 	        
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
      
 	}

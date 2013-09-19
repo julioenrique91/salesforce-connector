@@ -14,7 +14,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +22,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.SaveResult;
 
@@ -31,51 +31,31 @@ import com.sforce.soap.partner.SaveResult;
 public class RetrieveTestCases extends SalesforceTestParent {
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
     	
     	List<String> sObjectsIds = new ArrayList<String>();
-    	
-		try {
-			
-			testObjects = (HashMap<String,Object>) context.getBean("retrieveTestData");
-			
-			flow = lookupMessageProcessor("create-from-message");
-	        response = flow.process(getTestEvent(testObjects));
-	        
-	        List<SaveResult> saveResultsList =  (List<SaveResult>) response.getMessage().getPayload();
-	        Iterator<SaveResult> saveResultsIter = saveResultsList.iterator();  
-	        
-			while (saveResultsIter.hasNext()) {
-				
-				SaveResult saveResult = saveResultsIter.next();
-				sObjectsIds.add(saveResult.getId());
-				
-			}
 
-			testObjects.put("idsToRetrieveFromMessage", sObjectsIds);
-			testObjects.put("idsToDeleteFromMessage", sObjectsIds);
-  
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
+		loadTestRunMessage("retrieveTestData");
+
+        List<SaveResult> saveResultsList =  runFlowAndGetPayload("create-from-message");
+        Iterator<SaveResult> saveResultsIter = saveResultsList.iterator();  
+        
+		while (saveResultsIter.hasNext()) {
+			
+			SaveResult saveResult = saveResultsIter.next();
+			sObjectsIds.add(saveResult.getId());
+			
 		}
-     
+
+		upsertOnTestRunMessage("idsToRetrieveFromMessage", sObjectsIds);
+		upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
+
 	}
 	
 	@After
-	public void tearDown() {
+	public void tearDown() throws Exception {
     	
-		try {
-			
-			flow = lookupMessageProcessor("delete-from-message");
-			flow.process(getTestEvent(testObjects));
-  
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
-		}
+		runFlowAndGetPayload("delete-from-message");
      
 	}
 	
@@ -83,15 +63,12 @@ public class RetrieveTestCases extends SalesforceTestParent {
 	@Test
 	public void testRetrieveChildElementsFromMessage() {
 		
-		List<String> createdRecordIds = (List<String>) testObjects.get("idsToRetrieveFromMessage");
-		List<String> fieldsToRetrieve = (List<String>) testObjects.get("fieldsToRetrieveFromMessage");
+		List<String> createdRecordIds = getTestRunMessageValue("idsToRetrieveFromMessage");
+		List<String> fieldsToRetrieve = getTestRunMessageValue("fieldsToRetrieveFromMessage");
 		
 		try {
 			
-			flow = lookupMessageProcessor("retrieve-from-message");
-			response = flow.process(getTestEvent(testObjects));
-			
-			List<Map<String, Object>> records =  (List<Map<String, Object>>) response.getMessage().getPayload();
+			List<Map<String, Object>> records =  runFlowAndGetPayload("retrieve-from-message");
 	
 	        Iterator<Map<String, Object>> recordsIter = records.iterator();  
 
@@ -107,9 +84,7 @@ public class RetrieveTestCases extends SalesforceTestParent {
 			}
 		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
-				fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 		
 	}

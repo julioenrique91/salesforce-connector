@@ -23,6 +23,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.GetUpdatedResult;
 import com.sforce.soap.partner.SaveResult;
@@ -32,76 +33,52 @@ import com.sforce.soap.partner.SaveResult;
 public class GetUpdatedTestCases extends SalesforceTestParent {
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
     	
     	List<String> sObjectsIds = new ArrayList<String>();
-    	
-		try {
-			
-			testObjects = (HashMap<String,Object>) context.getBean("getUpdatedTestData");
-			
-			flow = lookupMessageProcessor("create-from-message");
-	        response = flow.process(getTestEvent(testObjects));
-	        
-	        List<SaveResult> saveResultsList =  (List<SaveResult>) response.getMessage().getPayload();
-	        Iterator<SaveResult> saveResultsIter = saveResultsList.iterator();  
 
-	        List<Map<String,Object>> sObjects = (List<Map<String,Object>>) testObjects.get("salesforceSObjectsListFromMessage");
-			Iterator<Map<String,Object>> sObjectsIterator = sObjects.iterator();
-	        
-			while (saveResultsIter.hasNext()) {
-				
-				SaveResult saveResult = saveResultsIter.next();
-				Map<String,Object> sObject = (Map<String, Object>) sObjectsIterator.next();
-				sObjectsIds.add(saveResult.getId());
-		        sObject.put("Id", saveResult.getId());
-				
-			}
+		loadTestRunMessage("getUpdatedTestData");
+        
+        List<SaveResult> saveResultsList =  runFlowAndGetPayload("create-from-message");
+        Iterator<SaveResult> saveResultsIter = saveResultsList.iterator();  
 
-			testObjects.put("idsToDeleteFromMessage", sObjectsIds);
+        List<Map<String,Object>> sObjects = getTestRunMessageValue("salesforceSObjectsListFromMessage");
+		Iterator<Map<String,Object>> sObjectsIterator = sObjects.iterator();
+        
+		while (saveResultsIter.hasNext()) {
 			
-			flow = lookupMessageProcessor("update-from-message");
-			flow.process(getTestEvent(testObjects));
+			SaveResult saveResult = saveResultsIter.next();
+			Map<String,Object> sObject = (Map<String, Object>) sObjectsIterator.next();
+			sObjectsIds.add(saveResult.getId());
+	        sObject.put("Id", saveResult.getId());
 			
-			// because of the rounding applied to the seconds 
-			Thread.sleep(60000);
-  
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
 		}
-     
+
+		upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
+		
+		runFlowAndGetPayload("update-from-message");
+
+		// because of the rounding applied to the seconds 
+		Thread.sleep(60000);
+		
 	}
 	
 	@After
-	public void tearDown() {
+	public void tearDown() throws Exception {
     	
-		try {
-			
-			flow = lookupMessageProcessor("delete-from-message");
-			flow.process(getTestEvent(testObjects));
-  
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
-		}
-     
+		runFlowAndGetPayload("delete-from-message");
+
 	}
 	
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testGetUpdated() {
 		
-		List<String> createdRecordsIds = (List<String>) testObjects.get("idsToDeleteFromMessage");
+		List<String> createdRecordsIds = getTestRunMessageValue("idsToDeleteFromMessage");
 		
 		try {
 			
-			flow = lookupMessageProcessor("get-updated");
-			response = flow.process(getTestEvent(testObjects));
-			
-			GetUpdatedResult updatedResult =  (GetUpdatedResult) response.getMessage().getPayload();
+			GetUpdatedResult updatedResult = runFlowAndGetPayload("get-updated");
 
 			String[] ids = updatedResult.getIds();
 			
@@ -112,9 +89,7 @@ public class GetUpdatedTestCases extends SalesforceTestParent {
 		     }
 		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
-				fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 		
 	}

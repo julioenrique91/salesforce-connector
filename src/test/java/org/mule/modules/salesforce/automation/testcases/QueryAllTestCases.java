@@ -14,7 +14,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +21,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.SaveResult;
 
@@ -30,42 +30,30 @@ import com.sforce.soap.partner.SaveResult;
 public class QueryAllTestCases extends SalesforceTestParent {
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
     	
     	List<String> sObjectsIds = new ArrayList<String>();
-    	
-		try {
-			
-			testObjects = (HashMap<String,Object>) context.getBean("queryAllTestData");
-			
-			flow = lookupMessageProcessor("create-from-message");
-	        response = flow.process(getTestEvent(testObjects));
-	        
-	        List<SaveResult> saveResultsList =  (List<SaveResult>) response.getMessage().getPayload();
-	        Iterator<SaveResult> saveResultsIter = saveResultsList.iterator();  
 
-	        List<Map<String,Object>> sObjects = (List<Map<String,Object>>) testObjects.get("sObjectFieldMappingsFromMessage");
-			Iterator<Map<String,Object>> sObjectsIterator = sObjects.iterator();
-	        
-			while (saveResultsIter.hasNext()) {
-				
-				SaveResult saveResult = saveResultsIter.next();
-				Map<String,Object> sObject = (Map<String, Object>) sObjectsIterator.next();
-				sObjectsIds.add(saveResult.getId());
-		        sObject.put("Id", saveResult.getId());
-				
-			}
+		loadTestRunMessage("queryAllTestData");
+        
+        List<SaveResult> saveResultsList = runFlowAndGetPayload("create-from-message");
+        Iterator<SaveResult> saveResultsIter = saveResultsList.iterator();  
 
-			testObjects.put("idsToDeleteFromMessage", sObjectsIds);
+        List<Map<String,Object>> sObjects = getTestRunMessageValue("sObjectFieldMappingsFromMessage");
+		Iterator<Map<String,Object>> sObjectsIterator = sObjects.iterator();
+        
+		while (saveResultsIter.hasNext()) {
 			
-			flow = lookupMessageProcessor("delete-from-message");
-			flow.process(getTestEvent(testObjects));
-  
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
+			SaveResult saveResult = saveResultsIter.next();
+			Map<String,Object> sObject = (Map<String, Object>) sObjectsIterator.next();
+			sObjectsIds.add(saveResult.getId());
+	        sObject.put("Id", saveResult.getId());
+			
 		}
+
+		upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
+		
+		runFlowAndGetPayload("delete-from-message");
      
 	}
 	
@@ -73,15 +61,12 @@ public class QueryAllTestCases extends SalesforceTestParent {
 	@Test
 	public void testQueryAll() {
 		
-		List<String> queriedRecordIds = (List<String>) testObjects.get("idsToDeleteFromMessage");
+		List<String> queriedRecordIds = getTestRunMessageValue("idsToDeleteFromMessage");
 		List<String> returnedSObjectsIds = new ArrayList<String>();
 		
 		try {
 			
-			flow = lookupMessageProcessor("query-all");
-			response = flow.process(getTestEvent(testObjects));
-			
-			List<Map<String, Object>> records =  (List<Map<String, Object>>) response.getMessage().getPayload();
+			List<Map<String, Object>> records =  runFlowAndGetPayload("query-all");
 	        
 	        Iterator<Map<String, Object>> iter = records.iterator();  
 
@@ -99,9 +84,7 @@ public class QueryAllTestCases extends SalesforceTestParent {
 		     }
 		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
-				fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 		
 	}

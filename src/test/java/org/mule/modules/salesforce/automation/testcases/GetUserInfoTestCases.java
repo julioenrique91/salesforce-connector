@@ -13,10 +13,10 @@ package org.mule.modules.salesforce.automation.testcases;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.tests.ConnectorTestUtils;
+
 import com.sforce.soap.partner.GetUserInfoResult;
 
 
@@ -29,19 +29,14 @@ public class GetUserInfoTestCases extends SalesforceTestParent {
     	
 		try {
 			
-			testObjects = (HashMap<String,Object>) context.getBean("getUserInfoResult");
-			
-			flow = lookupMessageProcessor("get-user-info");
-	        response = flow.process(getTestEvent(null));
+			loadTestRunMessage("getUserInfoResult");
 	        
-	        GetUserInfoResult userInfoResult =  (GetUserInfoResult) response.getMessage().getPayload();
+	        GetUserInfoResult userInfoResult = runFlowAndGetPayload("get-user-info");
 
-	        assertEquals(testObjects.get("userName").toString(), userInfoResult.getUserName()); 
+	        assertEquals(getTestRunMessageValue("userName").toString(), userInfoResult.getUserName()); 
 	        
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			fail();
+			fail(ConnectorTestUtils.getStackTrace(e));
 		}
      
 	}
