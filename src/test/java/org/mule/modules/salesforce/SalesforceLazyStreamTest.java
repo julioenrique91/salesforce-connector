@@ -20,10 +20,10 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mule.modules.salesforce.lazystream.LazyInputStream;
+import org.mule.modules.salesforce.lazystream.LazyInputStreamStates;
 
 import com.sforce.async.BulkConnection;
-import com.sforce.lazystreams.LazyInputStream;
-import com.sforce.lazystreams.LazyInputStreamStates;
 
 public class SalesforceLazyStreamTest {
 
