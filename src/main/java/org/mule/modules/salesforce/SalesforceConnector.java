@@ -9,8 +9,7 @@
  */
 package org.mule.modules.salesforce;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.*;
 import java.util.*;
 
 import com.sforce.soap.partner.*;
@@ -420,14 +419,13 @@ public class SalesforceConnector extends BaseSalesforceConnector {
 
         config.setCompression(false);
 
-        if (proxyHost != null) {
-            config.setProxy(proxyHost, proxyPort);
-            if (proxyUsername != null) {
-                config.setProxyUsername(proxyUsername);
-            }
-            if (proxyPassword != null) {
-                config.setProxyPassword(proxyPassword);
-            }
+        if (proxyHost != null && proxyUsername != null && proxyPassword != null) {
+
+            //Updated to use Proxy instead of proxyUserName since it does not work on ceratain ms proxies.
+            Authenticator.setDefault(new ProxyAuthenticator(proxyUsername, proxyPassword));
+            Proxy  proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost,proxyPort));
+
+             config.setProxy(proxy);
         }
 
         SessionRenewer sessionRenewer = new SessionRenewer() {
