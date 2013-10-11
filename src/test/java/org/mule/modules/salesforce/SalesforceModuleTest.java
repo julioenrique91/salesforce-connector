@@ -50,7 +50,6 @@ import org.mockito.stubbing.Answer;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.SequenceInputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -932,9 +931,9 @@ public class SalesforceModuleTest {
         assertEquals(config.getServiceEndpoint(), "http://www.salesforce.com");
         assertTrue(config.isManualLogin());
         assertFalse(config.isCompression());
-
-        assertEquals(config.getProxyUsername(), "aa");
-        assertEquals(config.getProxyPassword(), "bb");
+        //Albin: Since this is done via the Proxy class now this cannot be validated
+        //assertEquals(config.getProxyUsername(), "aa");
+        //assertEquals(config.getProxyPassword(), "bb");
     }
 
     @Test
