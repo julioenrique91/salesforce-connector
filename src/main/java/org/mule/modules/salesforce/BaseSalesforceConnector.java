@@ -61,6 +61,7 @@ import com.sforce.async.ContentType;
 import com.sforce.async.JobInfo;
 import com.sforce.async.OperationEnum;
 import com.sforce.async.QueryResultList;
+import com.sforce.lazystreams.impl.LazyQueryResultInputStream;
 import com.sforce.soap.partner.AssignmentRuleHeader_element;
 import com.sforce.soap.partner.CallOptions_element;
 import com.sforce.soap.partner.DeleteResult;
@@ -699,6 +700,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     /**
      * Returns an {@link InputStream} with the query results of a submitted {@link BatchInfo}
+     * <p/> 
+     * Internally the InputStreams contained in the sequence will be requested on-demand (lazy-loading)
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:query-result-stream}
      *

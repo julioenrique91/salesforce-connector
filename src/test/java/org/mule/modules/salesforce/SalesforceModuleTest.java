@@ -494,7 +494,7 @@ public class SalesforceModuleTest {
 
         connector.querySingle(MOCK_QUERY);
 
-        verify(sObject, atLeastOnce()).toMap();
+        verify(sObject, atLeastOnce()).hasChildren();
     }
 
     @Test
