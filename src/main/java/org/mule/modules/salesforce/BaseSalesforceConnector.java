@@ -782,7 +782,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 	        if (sObjects != null) {
 	            for (SObject sObject : sObjects) {
-	                result.add(sObject.toMap());
+	                result.add(SalesforceUtils.toMap(sObject));
 	            }
 	        }
 	        return result;
@@ -933,7 +933,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 	        
 	        for (SearchRecord object : searchResult.getSearchRecords()) {
-	            result.add(object.getRecord().toMap());
+	            result.add(SalesforceUtils.toMap(object.getRecord()));
 	        }
 	
 	        return result;
@@ -964,7 +964,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         try {
 	    	SObject[] result = getConnection().query(query).getRecords();
 	        if (result.length > 0) {
-	            return result[0].toMap();
+	            return SalesforceUtils.toMap(result[0]);
 	        }
 	
 	        return null;
