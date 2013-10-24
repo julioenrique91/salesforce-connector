@@ -76,7 +76,7 @@ public class SalesforceConnectorTest {
         assertEquals("Murray", record.getField("LastName"));
         assertEquals("bmurray", record.getField("ExternalId__c"));
 
-        com.sforce.async.SObject  parentRecord = record.getFieldReference("Account");
+        com.sforce.async.SObject  parentRecord = record.getFkRef("Account");
         assertEquals("Account", parentRecord.getField("type"));
         assertEquals("138", parentRecord.getField("ExternalId__c"));
     }
