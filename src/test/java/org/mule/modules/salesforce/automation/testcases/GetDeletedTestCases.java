@@ -57,7 +57,7 @@ public class GetDeletedTestCases extends SalesforceTestParent {
 
 	}
 	
-	@Category({SmokeTests.class, RegressionTests.class})
+	@Category({RegressionTests.class})
 	@Test
 	public void testGetDeleted() {
 		

@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
@@ -66,8 +67,9 @@ public class GetDeletedRangeTestCases extends SalesforceTestParent {
      
 	}
 	
-	@Category({SmokeTests.class, RegressionTests.class})
+	@Category({RegressionTests.class})
 	@Test
+    @Ignore(value = "Run separately")
 	public void testGetDeletedRange() {
 		
 		List<String> createdRecordsIds = getTestRunMessageValue("idsToDeleteFromMessage");

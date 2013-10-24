@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.tests.ConnectorTestUtils;
@@ -79,6 +80,7 @@ public class GetUpdatedRangeTestCases extends SalesforceTestParent {
 	
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
+    @Ignore(value = "Run separately")
 	public void testGetUpdatedRange() {
 		
 		List<String> createdRecordsIds = getTestRunMessageValue("idsToDeleteFromMessage");

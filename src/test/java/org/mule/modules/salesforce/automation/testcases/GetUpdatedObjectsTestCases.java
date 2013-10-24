@@ -55,7 +55,7 @@ public class GetUpdatedObjectsTestCases extends SalesforceTestParent {
 		
 	}
 	
-	@Category({SmokeTests.class, RegressionTests.class})
+	@Category({RegressionTests.class})
 	@Test
 	public void testGetUpdatedObjects() {
 		
