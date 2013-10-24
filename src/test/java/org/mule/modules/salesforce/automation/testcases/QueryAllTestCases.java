@@ -26,7 +26,6 @@ import org.mule.modules.tests.ConnectorTestUtils;
 import com.sforce.soap.partner.SaveResult;
 
 
-
 public class QueryAllTestCases extends SalesforceTestParent {
 
 	@Before
@@ -35,7 +34,7 @@ public class QueryAllTestCases extends SalesforceTestParent {
     	List<String> sObjectsIds = new ArrayList<String>();
 
 		loadTestRunMessage("queryAllTestData");
-        
+
         List<SaveResult> saveResultsList = runFlowAndGetPayload("create-from-message");
         Iterator<SaveResult> saveResultsIter = saveResultsList.iterator();  
 
@@ -45,7 +44,7 @@ public class QueryAllTestCases extends SalesforceTestParent {
 		while (saveResultsIter.hasNext()) {
 			
 			SaveResult saveResult = saveResultsIter.next();
-			Map<String,Object> sObject = (Map<String, Object>) sObjectsIterator.next();
+			Map<String,Object> sObject = sObjectsIterator.next();
 			sObjectsIds.add(saveResult.getId());
 	        sObject.put("Id", saveResult.getId());
 			
@@ -65,28 +64,22 @@ public class QueryAllTestCases extends SalesforceTestParent {
 		List<String> returnedSObjectsIds = new ArrayList<String>();
 		
 		try {
-			
-			List<Map<String, Object>> records =  runFlowAndGetPayload("query-all");
-	        
-	        Iterator<Map<String, Object>> iter = records.iterator();  
 
-			while (iter.hasNext()) {
-				
-				Map<String, Object> sObject = iter.next();
-				returnedSObjectsIds.add(sObject.get("Id").toString());
-				
-			}
+            org.mule.streaming.ConsumerIterator<Map<String, Object>> records =  runFlowAndGetPayload("query-all");
+
+			while(records.hasNext()) {
+                returnedSObjectsIds.add(records.next().get("Id").toString());
+            }
 			
 			assertTrue(returnedSObjectsIds.size() > 0);
 
-			for (int index = 0; index < queriedRecordIds.size(); index++) {
-				assertTrue(returnedSObjectsIds.contains(queriedRecordIds.get(index).toString())); 
-		     }
+            for (String queriedRecordId : queriedRecordIds) {
+                assertTrue(returnedSObjectsIds.contains(queriedRecordId));
+            }
 		
 		} catch (Exception e) {
 			fail(ConnectorTestUtils.getStackTrace(e));
 		}
-		
 	}
 
 }
