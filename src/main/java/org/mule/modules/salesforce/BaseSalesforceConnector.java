@@ -25,6 +25,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sforce.soap.partner.AssignmentRuleHeader_element;
+import com.sforce.soap.partner.CallOptions_element;
+import com.sforce.soap.partner.DeleteResult;
+import com.sforce.soap.partner.DescribeGlobalResult;
+import com.sforce.soap.partner.DescribeSObjectResult;
+import com.sforce.soap.partner.EmptyRecycleBinResult;
+import com.sforce.soap.partner.GetDeletedResult;
+import com.sforce.soap.partner.GetUpdatedResult;
+import com.sforce.soap.partner.GetUserInfoResult;
+import com.sforce.soap.partner.LeadConvert;
+import com.sforce.soap.partner.LeadConvertResult;
+import com.sforce.soap.partner.PartnerConnection;
+import com.sforce.soap.partner.QueryResult;
+import com.sforce.soap.partner.SaveResult;
+import com.sforce.soap.partner.SearchRecord;
+import com.sforce.soap.partner.SearchResult;
+import com.sforce.soap.partner.UpsertResult;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.mule.api.MuleContext;
@@ -61,24 +78,6 @@ import com.sforce.async.ContentType;
 import com.sforce.async.JobInfo;
 import com.sforce.async.OperationEnum;
 import com.sforce.async.QueryResultList;
-import com.sforce.lazystreams.impl.LazyQueryResultInputStream;
-import com.sforce.soap.partner.AssignmentRuleHeader_element;
-import com.sforce.soap.partner.CallOptions_element;
-import com.sforce.soap.partner.DeleteResult;
-import com.sforce.soap.partner.DescribeGlobalResult;
-import com.sforce.soap.partner.DescribeSObjectResult;
-import com.sforce.soap.partner.EmptyRecycleBinResult;
-import com.sforce.soap.partner.GetDeletedResult;
-import com.sforce.soap.partner.GetUpdatedResult;
-import com.sforce.soap.partner.GetUserInfoResult;
-import com.sforce.soap.partner.LeadConvert;
-import com.sforce.soap.partner.LeadConvertResult;
-import com.sforce.soap.partner.PartnerConnection;
-import com.sforce.soap.partner.QueryResult;
-import com.sforce.soap.partner.SaveResult;
-import com.sforce.soap.partner.SearchRecord;
-import com.sforce.soap.partner.SearchResult;
-import com.sforce.soap.partner.UpsertResult;
 import com.sforce.soap.partner.sobject.SObject;
 import com.sforce.ws.ConnectionException;
 
@@ -1081,6 +1080,28 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         	return Arrays.asList(getConnection().emptyRecycleBin(ids.toArray(new String[]{})));
         } catch (Exception e) {
         	throw handleProcessorException(e);
+        }
+    }
+
+    /**
+     * Retrieves the current system timestamp (Coordinated Universal Time (UTC) time zone) from the API.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:get-server-timestamp}
+     *
+     * @return Calendar with the current timestamp
+     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getservertimestamp.htm">getServerTimestamp()</a>
+     */
+    @Processor
+    @OAuthProtected
+    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+    @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
+    public Calendar getServerTimestamp() throws Exception {
+        try {
+            return getConnection().getServerTimestamp().getTimestamp();
+        } catch (Exception e) {
+            throw handleProcessorException(e);
         }
     }
 
