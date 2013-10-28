@@ -967,6 +967,24 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         return Arrays.asList(getConnection().emptyRecycleBin(ids.toArray(new String[]{})));
     }
 
+    /**
+     * Retrieves the current system timestamp (Coordinated Universal Time (UTC) time zone) from the API.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:get-server-timestamp}
+     *
+     * @return Calendar with the current timestamp
+     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getservertimestamp.htm">getServerTimestamp()</a>
+     */
+    @Processor
+    @OAuthProtected
+    @InvalidateConnectionOn(exception = ConnectionException.class)
+    @OAuthInvalidateAccessTokenOn(exception = ConnectionException.class)
+    @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
+    public Calendar getServerTimestamp() throws Exception {
+        return getConnection().getServerTimestamp().getTimestamp();
+    }
+
 
     /**
      * Deletes one or more records from your organization's data.

@@ -286,4 +286,7 @@
     <sfdc:job-info id="#[flowVars['jobInfo']"/>
 </sfdc:create-batch-for-query>
 <!-- END_INCLUDE(sfdc:create-batch-for-query) -->
+<!-- BEGIN_INCLUDE(sfdc:get-server-timestamp) -->
+<sfdc:get-server-timestamp config-ref="mySalesforceConfig"/>
+<!-- END_INCLUDE(sfdc:get-server-timestamp) -->
 
