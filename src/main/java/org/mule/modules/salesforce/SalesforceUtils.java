@@ -10,9 +10,23 @@
 
 package org.mule.modules.salesforce;
 
-import com.sforce.ws.bind.XmlObject;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-import java.util.*;
+import org.mule.common.bulk.BulkItem;
+import org.mule.common.bulk.BulkItem.BulkItemBuilder;
+import org.mule.common.bulk.BulkOperationResult;
+import org.mule.common.bulk.BulkOperationResult.BulkOperationResultBuilder;
+import org.mule.modules.salesforce.exception.SalesforceBulkException;
+
+import com.sforce.soap.partner.SaveResult;
+import com.sforce.soap.partner.UpsertResult;
+import com.sforce.soap.partner.sobject.SObject;
+import com.sforce.ws.bind.XmlObject;
 
 /**
  * @author Mulesoft, Inc
@@ -66,4 +80,53 @@ public class SalesforceUtils {
             map.put(key, newValue);
         }
     }
+    
+    public static BulkOperationResult<SObject> toOperationResult(SObject[] list, SaveResult[] results) {
+    	BulkOperationResultBuilder<SObject> builder = BulkOperationResult.builder();
+    	assertResultLength(list, results);
+    	
+    	for (int i = 0; i < list.length; i++) {
+    		SaveResult sr = results[i];
+
+    		BulkItemBuilder<SObject> itemBuilder = BulkItem.<SObject>builder();
+    		itemBuilder.setPayload(list[i]);
+    		
+    		if (!sr.isSuccess()) {
+    			itemBuilder.setException(new SalesforceBulkException(sr.getErrors()));
+    		}
+    		
+    		builder.addItem(itemBuilder);
+    	}
+    	
+    	return builder.build();
+    }
+    
+    public static BulkOperationResult<SObject> toOperationResult(SObject[] list, UpsertResult[] results) {
+    	BulkOperationResultBuilder<SObject> builder = BulkOperationResult.builder();
+    	assertResultLength(list, results);
+    	
+    	for (int i = 0; i < list.length; i++) {
+    		UpsertResult ur = results[i];
+    		
+    		BulkItemBuilder<SObject> itemBuilder = BulkItem.<SObject>builder();
+    		itemBuilder.setPayload(list[i]);
+    		
+    		if (ur.isSuccess()) {
+    			itemBuilder.setMessage(ur.isCreated() ? "Created" : "Updated");
+    		} else {
+    			itemBuilder.setException(new SalesforceBulkException(ur.getErrors()));
+    		}
+    		
+    		builder.addItem(itemBuilder);
+    	}
+    	
+    	return builder.build();
+    }
+    
+    private static void assertResultLength(SObject[] list, Object[] results) {
+    	if (list.length != results.length) {
+    		throw new IllegalStateException(String.format("Protocol exception: Objects and results lists should have the same lenghts. %d and %d found instead", list.length, results.length));
+    	}
+    }
+
 }
