@@ -118,6 +118,14 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Configurable
     @Optional
     private Boolean useDefaultRule;
+    
+    /**
+     * Creating a batch will create SObjects using this value for the MAX_DEPTH check. 
+     */
+    @Configurable
+    @Optional
+    @Default("")
+    private Integer batchSobjectMaxDepth;
 
     /**
      * If true, truncate field values that are too long, which is the behavior in API versions 14.0 and earlier.
@@ -1641,7 +1649,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     }
 
     private com.sforce.async.SObject toAsyncSObject(Map<String, Object> map) {
-        com.sforce.async.SObject sObject = new com.sforce.async.SObject();
+        com.sforce.async.SObject sObject = batchSobjectMaxDepth != null ? new com.sforce.async.SObject(batchSobjectMaxDepth) : new com.sforce.async.SObject();
         for (String key : map.keySet()) {
 
             Object object = map.get(key);
@@ -1774,7 +1782,15 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         this.allowFieldTruncationSupport = allowFieldTruncationSupport;
     }
     
-    @Override
+    public Integer getBatchSobjectMaxDepth() {
+		return batchSobjectMaxDepth;
+	}
+
+	public void setBatchSobjectMaxDepth(Integer batchSobjectMaxDepth) {
+		this.batchSobjectMaxDepth = batchSobjectMaxDepth;
+	}
+
+	@Override
     public void setMuleContext(MuleContext context) {
         setObjectStoreManager(((ObjectStoreManager) context.getRegistry().get(MuleProperties.OBJECT_STORE_MANAGER)));
         setRegistry((Registry) context.getRegistry());
