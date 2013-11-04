@@ -124,7 +124,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Configurable
     @Optional
-    @Default("")
+    @Default("5")
     private Integer batchSobjectMaxDepth;
 
     /**
