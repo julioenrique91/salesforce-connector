@@ -646,9 +646,9 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         LOGGER.debug(String.format("SF queryResultStream for JobId[%s] BatchId[%s] - Pages[%s]", batchInfo.getJobId(), batchInfo.getId(), jobResultIds.length));
         if (jobResultIds.length > 0) {
         	List<InputStream> inputStreams = new LinkedList<InputStream>();
-        	for (int x = 0 ; x < jobResultIds.length ; x++ ) {
-        		inputStreams.add(new LazyQueryResultInputStream(getBulkConnection(), batchInfo.getJobId(), batchInfo.getId(), jobResultIds[x]));
-        	}
+            for (String jobResultId : jobResultIds) {
+                inputStreams.add(new LazyQueryResultInputStream(getBulkConnection(), batchInfo.getJobId(), batchInfo.getId(), jobResultId));
+            }
         	
         	return new SequenceInputStream(Collections.enumeration(inputStreams));
         }
@@ -970,7 +970,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = ConnectionException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<EmptyRecycleBinResult> emptyRecycleBin(@Placement(group = "Ids to Delete") List<String> ids) throws Exception {
-        return Arrays.asList(getConnection().emptyRecycleBin(ids.toArray(new String[]{})));
+        return Arrays.asList(getConnection().emptyRecycleBin(ids.toArray(new String[ids.size()])));
     }
 
     /**
@@ -1009,7 +1009,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = ConnectionException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<DeleteResult> delete(@Optional @Default("#[payload]") @Placement(group = "Ids to Delete") List<String> ids) throws Exception {
-        return Arrays.asList(getConnection().delete(ids.toArray(new String[]{})));
+        return Arrays.asList(getConnection().delete(ids.toArray(new String[ids.size()])));
     }
 
     /**
@@ -1550,7 +1550,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Override
     public void setMuleContext(MuleContext context) {
         setObjectStoreManager(((ObjectStoreManager) context.getRegistry().get(MuleProperties.OBJECT_STORE_MANAGER)));
-        setRegistry((Registry) context.getRegistry());
+        setRegistry(context.getRegistry());
     }
 
     public Integer getBatchSobjectMaxDepth() {
