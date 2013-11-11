@@ -129,6 +129,14 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Optional
     private Boolean allowFieldTruncationSupport;
 
+    /**
+     * Creating a batch will create SObjects using this value for the MAX_DEPTH check.
+     */
+    @Configurable
+    @Optional
+    @Default("0")
+    private Integer batchSobjectMaxDepth;
+
     private ObjectStoreHelper objectStoreHelper;
 
     private Registry registry;
@@ -232,7 +240,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<SaveResult> create(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
-        return Arrays.asList(getConnection().create(toSObjectList(type, objects)));
+        return Arrays.asList(getConnection().create(SalesforceUtils.toSObjectList(type, objects)));
     }
 
     /**
@@ -418,7 +426,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public SaveResult createSingle(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "sObject Field Mappings") @FriendlyName("sObject") @Optional @Default("#[payload]") Map<String, Object> object) throws Exception {
-        SaveResult[] saveResults = getConnection().create(new SObject[]{toSObject(type, object)});
+        SaveResult[] saveResults = getConnection().create(new SObject[]{SalesforceUtils.toSObject(type, object)});
         if (saveResults.length > 0) {
             return saveResults[0];
         }
@@ -445,7 +453,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<SaveResult> update(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
-        return Arrays.asList(getConnection().update(toSObjectList(type, objects)));
+        return Arrays.asList(getConnection().update(SalesforceUtils.toSObjectList(type, objects)));
     }
 
     /**
@@ -467,7 +475,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public SaveResult updateSingle(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "Salesforce Object") @FriendlyName("sObject") @Optional @Default("#[payload]") Map<String, Object> object) throws Exception {
-        return getConnection().update(new SObject[]{toSObject(type, object)})[0];
+        return getConnection().update(new SObject[]{SalesforceUtils.toSObject(type, object)})[0];
     }
 
     /**
@@ -519,7 +527,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public List<UpsertResult> upsert(@Placement(group = "Information") String externalIdFieldName,
                                      @MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                      @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
-        return Arrays.asList(getConnection().upsert(externalIdFieldName, toSObjectList(type, objects)));
+        return Arrays.asList(getConnection().upsert(externalIdFieldName, SalesforceUtils.toSObjectList(type, objects)));
     }
 
     /**
@@ -1414,31 +1422,10 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         this.registry = registry;
     }
 
-
-    protected com.sforce.async.SObject[] toAsyncSObjectList(List<Map<String, Object>> objects) {
-        com.sforce.async.SObject[] sobjects = new com.sforce.async.SObject[objects.size()];
-        int s = 0;
-        for (Map<String, Object> map : objects) {
-            sobjects[s] = toAsyncSObject(map);
-            s++;
-        }
-        return sobjects;
-    }
-
-    protected SObject[] toSObjectList(String type, List<Map<String, Object>> objects) {
-        SObject[] sobjects = new SObject[objects.size()];
-        int s = 0;
-        for (Map<String, Object> map : objects) {
-            sobjects[s] = toSObject(type, map);
-            s++;
-        }
-        return sobjects;
-    }
-
     private BatchInfo createBatchAndCompleteRequest(JobInfo jobInfo, List<Map<String, Object>> objects) throws ConnectionException {
         try {
             BatchRequest batchRequest = getBulkConnection().createBatch(jobInfo);
-            batchRequest.addSObjects(toAsyncSObjectList(objects));
+            batchRequest.addSObjects(SalesforceUtils.toAsyncSObjectList(objects, getBatchSobjectMaxDepth()));
             return batchRequest.completeRequest();
         } catch (AsyncApiException e) {
             if (e.getExceptionCode() == AsyncExceptionCode.InvalidSessionId) {
@@ -1478,47 +1465,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
             jobInfo.setConcurrencyMode(concurrencyMode);
         }
         return getBulkConnection().createJob(jobInfo);
-    }
-
-    private com.sforce.async.SObject toAsyncSObject(Map<String, Object> map) {
-        com.sforce.async.SObject sObject = new com.sforce.async.SObject();
-        for (String key : map.keySet()) {
-            if (map.get(key) != null) {
-                sObject.setField(key, map.get(key).toString());
-            } else {
-                sObject.setField(key, null);
-            }
-        }
-        return sObject;
-    }
-
-    protected SObject toSObject(String type, Map<String, Object> map) {
-        SObject sObject = new SObject();
-        sObject.setType(type);
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            String key = entry.getKey();
-            if (key.equals("fieldsToNull")) {
-            	sObject.setFieldsToNull((String[]) entry.getValue());
-            } else if (entry.getValue() instanceof Map) {
-                sObject.setField(key, toSObject(key, toSObjectMap((Map) entry.getValue())));
-            } else {
-                sObject.setField(key, entry.getValue());
-            }
-        }
-        return sObject;
-    }
-
-    /**
-     * Enforce map keys are converted to String to comply with generic signature in toSObject
-     *
-     * @see #toSObject(String, java.util.Map)
-     */
-    protected Map<String, Object> toSObjectMap(Map map) {
-        Map<String, Object> sObjectMap = new HashMap<String, Object>();
-        for(Object key : map.keySet()) {
-            sObjectMap.put(key.toString(), map.get(key));
-        }
-        return sObjectMap;
     }
 
     private synchronized ObjectStoreHelper getObjectStoreHelper(String username) {
@@ -1607,5 +1553,13 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public void setMuleContext(MuleContext context) {
         setObjectStoreManager(((ObjectStoreManager) context.getRegistry().get(MuleProperties.OBJECT_STORE_MANAGER)));
         setRegistry((Registry) context.getRegistry());
+    }
+
+    public Integer getBatchSobjectMaxDepth() {
+        return batchSobjectMaxDepth;
+    }
+
+    public void setBatchSobjectMaxDepth(Integer batchSobjectMaxDepth) {
+        this.batchSobjectMaxDepth = batchSobjectMaxDepth;
     }
 }

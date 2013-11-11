@@ -173,7 +173,7 @@ public class SalesforceModuleTest {
         BatchInfo actualBatchInfo = connector.createBatch(jobInfo, objects);
         
         assertEquals(expectedBatchInfo, actualBatchInfo);
-        Mockito.verify(batchRequest).addSObjects(connector.toAsyncSObjectList(objects));
+        Mockito.verify(batchRequest).addSObjects(SalesforceUtils.toAsyncSObjectList(objects, connector.getBatchSobjectMaxDepth()));
     }
     
     @Test(expected = ConnectionException.class)
