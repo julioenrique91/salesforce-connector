@@ -1,0 +1,57 @@
+package org.mule.modules.salesforce.bulk;
+
+import java.util.Collection;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+import org.mule.api.transformer.DataType;
+import org.mule.api.transformer.DiscoverableTransformer;
+import org.mule.api.transformer.Transformer;
+import org.mule.api.transformer.TransformerException;
+import org.mule.common.bulk.BulkOperationResult;
+import org.mule.modules.salesforce.SalesforceConnector;
+import org.mule.tck.junit4.AbstractMuleContextTestCase;
+import org.mule.transformer.types.DataTypeFactory;
+
+public abstract class AbstractBulkOperationTransformerTest extends AbstractMuleContextTestCase {
+	
+	private SalesforceConnector connector;
+	
+	@Override
+	protected void doSetUp() throws Exception {
+		super.doSetUp();
+		this.connector = new SalesforceConnector();
+		this.connector.setMuleContext(muleContext);
+		this.connector.init();
+	}
+	
+	protected abstract Class<?> getSourceClass();
+	
+	protected abstract Class<? extends DiscoverableTransformer> getTransformerClass();
+	
+	@Test
+	public void testRegistered() throws Exception {
+		Transformer t = getTransformer();
+		Assert.assertNotNull(t);
+		Assert.assertEquals(this.getTransformerClass(), t.getClass());
+	}
+	
+	@SuppressWarnings("rawtypes")
+	protected DataType<BulkOperationResult> getTarget() {
+		DataType<BulkOperationResult> target = DataTypeFactory.create(BulkOperationResult.class);
+		return target;
+	}
+
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	protected DataType<Collection> getSource() {
+		DataType<Collection> source = DataTypeFactory.create(Collection.class, this.getSourceClass());
+		return source;
+	}
+	
+	protected Transformer getTransformer() throws TransformerException {
+		return muleContext.getRegistry().lookupTransformer(getSource(), getTarget());
+	}
+
+
+}

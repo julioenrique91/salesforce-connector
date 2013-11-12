@@ -11,6 +11,7 @@
 package org.mule.modules.salesforce;
 
 import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.oauth.OAuth2;
 import org.mule.api.annotations.oauth.OAuthAccessToken;
 import org.mule.api.annotations.oauth.OAuthAuthorizationParameter;
@@ -103,7 +104,11 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     	return this.accessToken != null;
     }
 
-
+    @Start
+    public void init() {
+    	this.registerTransformers();
+    }
+    
     @OAuthPostAuthorization
     public void postAuthorize() throws ConnectionException, MalformedURLException, AsyncApiException {
         ConnectorConfig config = new ConnectorConfig();

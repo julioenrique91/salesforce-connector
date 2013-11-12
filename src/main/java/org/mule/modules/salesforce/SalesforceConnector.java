@@ -13,6 +13,7 @@ import java.net.*;
 import java.util.*;
 
 import com.sforce.soap.partner.*;
+
 import org.apache.log4j.Logger;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.Connect;
@@ -23,6 +24,7 @@ import org.mule.api.annotations.MetaDataRetriever;
 import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
+import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
@@ -288,6 +290,11 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     @Override
     protected boolean isReadyToSubscribe() {
     	return this.isConnected();
+    }
+    
+    @Start
+    public void init() {
+    	this.registerTransformers();
     }
 
     /**

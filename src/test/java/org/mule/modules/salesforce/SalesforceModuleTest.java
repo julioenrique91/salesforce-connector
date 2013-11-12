@@ -48,9 +48,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.mule.common.bulk.BulkItem;
-import org.mule.common.bulk.BulkOperationResult;
-import org.mule.modules.salesforce.exception.SalesforceBulkException;
 import org.mule.streaming.PagingConfiguration;
 import org.mule.streaming.PagingDelegate;
 
@@ -76,9 +73,7 @@ import com.sforce.soap.partner.LoginResult;
 import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.soap.partner.QueryResult;
 import com.sforce.soap.partner.SaveResult;
-import com.sforce.soap.partner.UpsertResult;
 import com.sforce.soap.partner.sobject.SObject;
-import com.sforce.soap.partner.Error;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 
@@ -258,121 +253,24 @@ public class SalesforceModuleTest {
 
     @Test
     public void testCreate() throws Exception {
-        final int objectCount = 10;
-        final int failedIndex = 5;
-        Error error = null;
-        
-        Map<String, Object> sObject = new HashMap<String, Object>();
-        sObject.put(FIRST_NAME_FIELD, FIRST_NAME);
-        sObject.put(LAST_NAME_FIELD, LAST_NAME);
-
-        List<Map<String, Object>> sObjectList = new ArrayList<Map<String, Object>>(objectCount);
-        SaveResult[] results = new SaveResult[objectCount];
-        
-        for (int i = 0; i < objectCount; i++) {
-            sObjectList.add(sObject);
-        	SaveResult result = Mockito.mock(SaveResult.class);
-        	
-        	if (i == failedIndex) {
-        		Mockito.when(result.isSuccess()).thenReturn(false);
-        		error = Mockito.mock(Error.class);
-        		Mockito.when(result.getErrors()).thenReturn(new Error[]{error});
-        	} else {
-        		Mockito.when(result.isSuccess()).thenReturn(true);
-        	}
-        	
-        	results[i] = result;
-        }
-        
-    	SalesforceConnector connector = new SalesforceConnector();
+        SalesforceConnector connector = new SalesforceConnector();
+        SaveResult saveResult = Mockito.mock(SaveResult.class);
         PartnerConnection partnerConnection = Mockito.mock(PartnerConnection.class);
-        when(partnerConnection.create(Mockito.argThat(new SObjectArrayMatcher()))).thenReturn(results);
+        when(partnerConnection.create(Mockito.argThat(new SObjectArrayMatcher()))).thenReturn(new SaveResult[]{saveResult});
         connector.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
         connector.setBulkConnection(bulkConnection);
 
-        BulkOperationResult<SObject> result = connector.create(MOCK_OBJET_TYPE, sObjectList);
-        assertNotNull(result);
-        assertFalse(result.isSuccessful());
-        
-        for (int i = 0; i < objectCount; i++) {
-        	BulkItem<SObject> item = result.getItems().get(i);
-        	assertEquals(sObjectList.get(i).get(FIRST_NAME_FIELD), item.getPayload().getField(FIRST_NAME_FIELD));
-        	assertEquals(sObjectList.get(i).get(LAST_NAME_FIELD), item.getPayload().getField(LAST_NAME_FIELD));
-        	
-        	if (i == failedIndex) {
-        		assertFalse(item.isSuccessful());
-        		Exception e = item.getException();
-        		assertTrue(e instanceof SalesforceBulkException);
-        		SalesforceBulkException sbe = (SalesforceBulkException) e;
-        		assertEquals(1, sbe.getErrors().size());
-        		assertSame(error, sbe.getErrors().get(0));
-        	} else {
-        		assertTrue(item.isSuccessful());
-        	}
-        }
-    }
-    
-    @Test
-    public void testUpsert() throws Exception {
-        final int objectCount = 10;
-        final int failedIndex = 5;
-        final int updatedIndex = 7;
-        Error error = null;
-        
         Map<String, Object> sObject = new HashMap<String, Object>();
         sObject.put(FIRST_NAME_FIELD, FIRST_NAME);
         sObject.put(LAST_NAME_FIELD, LAST_NAME);
+        List<Map<String, Object>> sObjectList = new ArrayList<Map<String, Object>>();
+        sObjectList.add(sObject);
 
-        List<Map<String, Object>> sObjectList = new ArrayList<Map<String, Object>>(objectCount);
-        UpsertResult[] results = new UpsertResult[objectCount];
-        
-        for (int i = 0; i < objectCount; i++) {
-            sObjectList.add(sObject);
-            UpsertResult result = Mockito.mock(UpsertResult.class);
-        	
-        	if (i == failedIndex) {
-        		Mockito.when(result.isSuccess()).thenReturn(false);
-        		error = Mockito.mock(Error.class);
-        		Mockito.when(result.getErrors()).thenReturn(new Error[]{error});
-        	} else {
-        		Mockito.when(result.isSuccess()).thenReturn(true);
-        		Mockito.when(result.isCreated()).thenReturn(i != updatedIndex);
-        	}
-        	
-        	results[i] = result;
-        }
-        
-    	SalesforceConnector connector = new SalesforceConnector();
-        PartnerConnection partnerConnection = Mockito.mock(PartnerConnection.class);
-        when(partnerConnection.upsert(anyString(), Mockito.argThat(new SObjectArrayMatcher()))).thenReturn(results);
-        connector.setConnection(partnerConnection);
-        BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        List<SaveResult> saveResults = connector.create(MOCK_OBJET_TYPE, sObjectList);
 
-        BulkOperationResult<SObject> result = connector.upsert("someField", MOCK_OBJET_TYPE, sObjectList);
-        assertNotNull(result);
-        assertFalse(result.isSuccessful());
-        
-        for (int i = 0; i < objectCount; i++) {
-        	BulkItem<SObject> item = result.getItems().get(i);
-        	assertEquals(sObjectList.get(i).get(FIRST_NAME_FIELD), item.getPayload().getField(FIRST_NAME_FIELD));
-        	assertEquals(sObjectList.get(i).get(LAST_NAME_FIELD), item.getPayload().getField(LAST_NAME_FIELD));
-        	
-        	if (i == failedIndex) {
-        		assertFalse(item.isSuccessful());
-        		Exception e = item.getException();
-        		assertTrue(e instanceof SalesforceBulkException);
-        		SalesforceBulkException sbe = (SalesforceBulkException) e;
-        		assertEquals(1, sbe.getErrors().size());
-        		assertSame(error, sbe.getErrors().get(0));
-        	} else {
-        		assertTrue(item.isSuccessful());
-        		assertEquals(i != updatedIndex ? "Created" : "Updated", item.getMessage());
-        	}
-        }
+        assertEquals(saveResults.get(0), saveResult);
     }
-
 
     @Test
     public void testCreateSingle() throws Exception {
@@ -464,58 +362,23 @@ public class SalesforceModuleTest {
 
     @Test
     public void testUpdate() throws Exception {
-        final int objectCount = 10;
-        final int failedIndex = 5;
-        Error error = null;
-        
+        SalesforceConnector connector = new SalesforceConnector();
+        SaveResult saveResult = Mockito.mock(SaveResult.class);
+        PartnerConnection partnerConnection = Mockito.mock(PartnerConnection.class);
+        when(partnerConnection.update(Mockito.argThat(new SObjectArrayMatcher()))).thenReturn(new SaveResult[]{saveResult});
+        BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
+        connector.setBulkConnection(bulkConnection);
+        connector.setConnection(partnerConnection);
+
         Map<String, Object> sObject = new HashMap<String, Object>();
         sObject.put(FIRST_NAME_FIELD, FIRST_NAME);
         sObject.put(LAST_NAME_FIELD, LAST_NAME);
+        List<Map<String, Object>> sObjectList = new ArrayList<Map<String, Object>>();
+        sObjectList.add(sObject);
 
-        List<Map<String, Object>> sObjectList = new ArrayList<Map<String, Object>>(objectCount);
-        SaveResult[] results = new SaveResult[objectCount];
-        
-        for (int i = 0; i < objectCount; i++) {
-            sObjectList.add(sObject);
-        	SaveResult result = Mockito.mock(SaveResult.class);
-        	
-        	if (i == failedIndex) {
-        		Mockito.when(result.isSuccess()).thenReturn(false);
-        		error = Mockito.mock(Error.class);
-        		Mockito.when(result.getErrors()).thenReturn(new Error[]{error});
-        	} else {
-        		Mockito.when(result.isSuccess()).thenReturn(true);
-        	}
-        	
-        	results[i] = result;
-        }
-        
-    	SalesforceConnector connector = new SalesforceConnector();
-        PartnerConnection partnerConnection = Mockito.mock(PartnerConnection.class);
-        when(partnerConnection.update(Mockito.argThat(new SObjectArrayMatcher()))).thenReturn(results);
-        connector.setConnection(partnerConnection);
-        BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        List<SaveResult> saveResults = connector.update(MOCK_OBJET_TYPE, sObjectList);
 
-        BulkOperationResult<SObject> result = connector.update(MOCK_OBJET_TYPE, sObjectList);
-        assertNotNull(result);
-        assertFalse(result.isSuccessful());
-        
-        for (int i = 0; i < objectCount; i++) {
-        	BulkItem<SObject> item = result.getItems().get(i);
-        	assertEquals(sObjectList.get(i).get(FIRST_NAME_FIELD), item.getPayload().getField(FIRST_NAME_FIELD));
-        	assertEquals(sObjectList.get(i).get(LAST_NAME_FIELD), item.getPayload().getField(LAST_NAME_FIELD));
-        	if (i == failedIndex) {
-        		assertFalse(item.isSuccessful());
-        		Exception e = item.getException();
-        		assertTrue(e instanceof SalesforceBulkException);
-        		SalesforceBulkException sbe = (SalesforceBulkException) e;
-        		assertEquals(1, sbe.getErrors().size());
-        		assertSame(error, sbe.getErrors().get(0));
-        	} else {
-        		assertTrue(item.isSuccessful());
-        	}
-        }
+        assertEquals(saveResults.get(0), saveResult);
     }
 
     @Test

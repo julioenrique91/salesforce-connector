@@ -28,6 +28,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.mule.api.MuleContext;
+import org.mule.api.MuleException;
 import org.mule.api.annotations.Category;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.InvalidateConnectionOn;
@@ -48,12 +49,13 @@ import org.mule.api.callback.SourceCallback;
 import org.mule.api.callback.StopSourceCallback;
 import org.mule.api.config.MuleProperties;
 import org.mule.api.context.MuleContextAware;
-import org.mule.api.registry.Registry;
+import org.mule.api.registry.MuleRegistry;
 import org.mule.api.store.ObjectStore;
 import org.mule.api.store.ObjectStoreException;
 import org.mule.api.store.ObjectStoreManager;
-import org.mule.common.bulk.BulkOperationResult;
 import org.mule.common.query.DsqlQuery;
+import org.mule.modules.salesforce.bulk.SaveResultToBulkOperationTransformer;
+import org.mule.modules.salesforce.bulk.UpsertResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.streaming.PagingConfiguration;
 import org.mule.streaming.PagingDelegate;
@@ -139,7 +141,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     private ObjectStoreHelper objectStoreHelper;
 
-    private Registry registry;
+    private MuleRegistry registry;
     
     private static final List<Subscription> subscriptions = new ArrayList<Subscription>();
     
@@ -244,7 +246,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *
      * @param objects An array of one or more sObjects objects.
      * @param type    Type of object to create
-     * @return An instance of {@link BulkOperationResult<SObject>}
+     * @return An array of {@link com.sforce.soap.partner.SaveResult} if async is false
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_create.htm">create()</a>
      * @since 4.0
@@ -254,12 +256,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
-    public BulkOperationResult<SObject> create(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
+    public List<SaveResult> create(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
-        try {
-        	SObject[] list = toSObjectList(type, objects);
-        	SaveResult[] results = getConnection().create(list);
-        	return SalesforceUtils.toOperationResult(list, results);
+    	try {
+        	
+    		SObject[] sObjects = toSObjectList(type, objects);
+        	return SalesforceUtils.enrichWithPayload(sObjects, getConnection().create(sObjects));
         } catch (Exception e) {
         	throw handleProcessorException(e);
         }
@@ -448,6 +450,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo createBulk(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                 @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
+
         try {
         	return createBatchAndCompleteRequest(createJobInfo(OperationEnum.insert, type), objects);
         } catch (Exception e) {
@@ -494,7 +497,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *
      * @param objects An array of one or more sObjects objects.
      * @param type    Type of object to update
-     * @return A {@link org.mule.common.bulk.BulkOperationResult<SObject>}
+     * @return An array of {@link SaveResult}
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_update.htm">update()</a>
      * @since 4.0
@@ -504,19 +507,16 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
-    public BulkOperationResult<SObject> update(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
+    public List<SaveResult> update(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
-    	try {
-    		SObject[] list = this.toSObjectList(type, objects);
-    		SaveResult[] results = getConnection().update(list);
-    		
-    		return SalesforceUtils.toOperationResult(list, results);
+        try {
+        	SObject[] sObjects = toSObjectList(type, objects);
+        	return SalesforceUtils.enrichWithPayload(sObjects, getConnection().update(sObjects));
         } catch (Exception e) {
         	throw handleProcessorException(e);
         }
     }
-    
-   
+
     /**
      * Updates one or more existing records in your organization's data.
      * <p/>
@@ -583,7 +583,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *                            for custom objects or the idLookup field property for standard objects.
      * @param type                the type of the given objects. The list of objects to upsert must be homogeneous
      * @param objects             the objects to upsert
-     * @return an instance of {@link org.mule.common.bulk.BulkOperationResult<SObject>}
+     * @return a list of {@link com.sforce.soap.partner.UpsertResult}, one for each passed object
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error if a connection error occurs
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_upsert.htm">upsert()</a>
      * @since 4.0
@@ -593,13 +593,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
-    public BulkOperationResult<SObject> upsert(@Placement(group = "Information") String externalIdFieldName,
+    public List<UpsertResult> upsert(@Placement(group = "Information") String externalIdFieldName,
                                      @MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                      @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
         try {
-        	SObject[] list = toSObjectList(type, objects);
-        	UpsertResult[] results = getConnection().upsert(externalIdFieldName, list); 
-        	return SalesforceUtils.toOperationResult(list, results);
+        	SObject[] sObjects = toSObjectList(type, objects);
+        	return SalesforceUtils.enrichWithPayload(sObjects, getConnection().upsert(externalIdFieldName, sObjects));
         } catch (Exception e) {
         	throw handleProcessorException(e);
         }
@@ -1586,7 +1585,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         this.timeObjectStore = timeObjectStore;
     }
 
-    public void setRegistry(Registry registry) {
+    public void setRegistry(MuleRegistry registry) {
         this.registry = registry;
     }
 
@@ -1793,7 +1792,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Override
     public void setMuleContext(MuleContext context) {
         setObjectStoreManager(((ObjectStoreManager) context.getRegistry().get(MuleProperties.OBJECT_STORE_MANAGER)));
-        setRegistry((Registry) context.getRegistry());
+        setRegistry((MuleRegistry) context.getRegistry());
     }
 
     protected boolean isDateField(Object object) {
@@ -1803,5 +1802,14 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     protected String convertDateToString(Object object) {
         return new DateTime(object).toString();
+    }
+    
+    protected void registerTransformers() {
+    	try {
+    		this.registry.registerTransformer(new SaveResultToBulkOperationTransformer());
+    		this.registry.registerTransformer(new UpsertResultToBulkOperationTransformer());
+    	} catch (MuleException e) {
+    		throw new RuntimeException("Could not register bulk operations transformers", e);
+    	}
     }
 }
