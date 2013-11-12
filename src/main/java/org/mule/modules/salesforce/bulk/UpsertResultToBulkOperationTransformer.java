@@ -1,6 +1,7 @@
 package org.mule.modules.salesforce.bulk;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mule.api.transformer.DataType;
 import org.mule.api.transformer.TransformerException;
@@ -14,7 +15,7 @@ import com.sforce.soap.partner.UpsertResult;
 public class UpsertResultToBulkOperationTransformer extends AbstractDiscoverableTransformer {
 
 	@SuppressWarnings("unchecked")
-	private static final DataType<Collection<SaveResult>> UPSERT_RESULT_COLLECTION_DATE_TYPE = DataTypeFactory.create(Collection.class, UpsertResult.class);
+	private static final DataType<Collection<SaveResult>> UPSERT_RESULT_COLLECTION_DATE_TYPE = DataTypeFactory.create(List.class, UpsertResult.class);
 	
 	public UpsertResultToBulkOperationTransformer() {
 		this.registerSourceType(UPSERT_RESULT_COLLECTION_DATE_TYPE);
@@ -24,7 +25,7 @@ public class UpsertResultToBulkOperationTransformer extends AbstractDiscoverable
 	@Override
 	@SuppressWarnings("unchecked")
 	protected Object doTransform(Object src, String enc) throws TransformerException {
-		Collection<UpsertResult> saveResults = (Collection<UpsertResult>) src;
+		List<UpsertResult> saveResults = (List<UpsertResult>) src;
 		return SalesforceUtils.upsertResultToBulkOperationResult(saveResults);
 	}
 
