@@ -25,6 +25,7 @@ import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.lifecycle.Start;
+import org.mule.api.annotations.lifecycle.Stop;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
@@ -295,6 +296,11 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     @Start
     public void init() {
     	this.registerTransformers();
+    }
+    
+    @Stop
+    public void stop() {
+    	this.unregisterTransformers();
     }
 
     /**

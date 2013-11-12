@@ -26,6 +26,12 @@ public abstract class AbstractBulkOperationTransformerTest extends AbstractMuleC
 		this.connector.init();
 	}
 	
+	@Override
+	protected void doTearDown() throws Exception {
+		super.doTearDown();
+		this.connector.stop();
+	}
+	
 	protected abstract Class<?> getSourceClass();
 	
 	protected abstract Class<? extends DiscoverableTransformer> getTransformerClass();

@@ -12,6 +12,7 @@ package org.mule.modules.salesforce;
 
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.lifecycle.Start;
+import org.mule.api.annotations.lifecycle.Stop;
 import org.mule.api.annotations.oauth.OAuth2;
 import org.mule.api.annotations.oauth.OAuthAccessToken;
 import org.mule.api.annotations.oauth.OAuthAuthorizationParameter;
@@ -107,6 +108,11 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     @Start
     public void init() {
     	this.registerTransformers();
+    }
+    
+    @Stop
+    public void stop() {
+    	this.unregisterTransformers();
     }
     
     @OAuthPostAuthorization
