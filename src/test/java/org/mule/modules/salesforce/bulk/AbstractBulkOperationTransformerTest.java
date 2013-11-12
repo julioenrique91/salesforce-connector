@@ -39,14 +39,12 @@ public abstract class AbstractBulkOperationTransformerTest extends AbstractMuleC
 	
 	@SuppressWarnings("rawtypes")
 	protected DataType<BulkOperationResult> getTarget() {
-		DataType<BulkOperationResult> target = DataTypeFactory.create(BulkOperationResult.class);
-		return target;
+		return DataTypeFactory.create(BulkOperationResult.class);
 	}
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	protected DataType<Collection> getSource() {
-		DataType<Collection> source = DataTypeFactory.create(Collection.class, this.getSourceClass());
-		return source;
+		return DataTypeFactory.create(Collection.class, this.getSourceClass());
 	}
 	
 	protected Transformer getTransformer() throws TransformerException {

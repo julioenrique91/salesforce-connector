@@ -53,7 +53,7 @@ public class SaveResultToBulkOperationTransformerTest extends AbstractBulkOperat
 		}
 
 		List<SaveResult> saveResults = SalesforceUtils.enrichWithPayload(objects, results);
-		
+
 		@SuppressWarnings("unchecked")
 		BulkOperationResult<SObject> result = (BulkOperationResult<SObject>) this.getTransformer().transform(saveResults);
 		
