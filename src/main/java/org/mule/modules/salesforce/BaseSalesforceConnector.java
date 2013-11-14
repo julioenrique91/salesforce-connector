@@ -95,6 +95,7 @@ import com.sforce.ws.ConnectionException;
 public abstract class BaseSalesforceConnector implements MuleContextAware {
     
 	private static final Logger LOGGER = Logger.getLogger(BaseSalesforceConnector.class);
+	private static final Object transformerMonitor = new Object();
 	private static Boolean transformerRegistered = false;
 
     /**
@@ -1807,7 +1808,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     }
     
     protected void registerTransformers() {
-    	synchronized (transformerRegistered) {
+    	synchronized (transformerMonitor) {
 			if (!transformerRegistered) {
 				try {
 					this.registry.registerTransformer(new SaveResultToBulkOperationTransformer());
