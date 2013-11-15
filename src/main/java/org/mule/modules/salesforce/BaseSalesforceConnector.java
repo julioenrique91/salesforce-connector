@@ -95,8 +95,6 @@ import com.sforce.ws.ConnectionException;
 public abstract class BaseSalesforceConnector implements MuleContextAware {
     
 	private static final Logger LOGGER = Logger.getLogger(BaseSalesforceConnector.class);
-	private static final Object transformerMonitor = new Object();
-	private static Boolean transformerRegistered = false;
 
     /**
      * Object store manager to obtain a store to support {@link this#getUpdatedObjects}
@@ -1808,21 +1806,18 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     }
     
     protected void registerTransformers() {
-    	synchronized (transformerMonitor) {
-			if (!transformerRegistered) {
-				try {
-					this.registry.registerTransformer(new SaveResultToBulkOperationTransformer());
-					this.registry.registerTransformer(new UpsertResultToBulkOperationTransformer());
-				} catch (MuleException e) {
-					throw new RuntimeException("Could not register bulk operations transformers", e);
-				}
-				
-				transformerRegistered = true;
-			}
+    	synchronized (this.registry) {
+    		try {
+    			if (registry.lookupObject(SaveResultToBulkOperationTransformer.class) == null) {
+    				this.registry.registerTransformer(new SaveResultToBulkOperationTransformer());
+    			}
+    			
+    			if (registry.lookupObject(UpsertResultToBulkOperationTransformer.class) == null) { 
+    				this.registry.registerTransformer(new UpsertResultToBulkOperationTransformer());
+    			}
+    		} catch (MuleException e) {
+    			throw new RuntimeException("Exception found trying to register bulk transformers", e);
+    		}
 		}
-    }
-    
-    protected void unregisterTransformers() {
-    	transformerRegistered = false;
     }
 }

@@ -9,10 +9,13 @@
  */
 package org.mule.modules.salesforce;
 
-import java.net.*;
-import java.util.*;
-
-import com.sforce.soap.partner.*;
+import java.net.Authenticator;
+import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.Proxy;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.mule.api.ConnectionExceptionCode;
@@ -25,11 +28,14 @@ import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.lifecycle.Start;
-import org.mule.api.annotations.lifecycle.Stop;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.common.metadata.*;
+import org.mule.common.metadata.DefaultMetaData;
+import org.mule.common.metadata.DefaultMetaDataKey;
+import org.mule.common.metadata.MetaData;
+import org.mule.common.metadata.MetaDataKey;
+import org.mule.common.metadata.MetaDataModel;
 import org.mule.common.metadata.builder.DefaultMetaDataBuilder;
 import org.mule.common.metadata.builder.DynamicObjectBuilder;
 import org.mule.common.metadata.builder.EnumMetaDataBuilder;
@@ -37,6 +43,15 @@ import org.mule.common.metadata.datatype.DataType;
 
 import com.sforce.async.AsyncApiException;
 import com.sforce.async.BulkConnection;
+import com.sforce.soap.partner.Connector;
+import com.sforce.soap.partner.DescribeGlobalResult;
+import com.sforce.soap.partner.DescribeGlobalSObjectResult;
+import com.sforce.soap.partner.DescribeSObjectResult;
+import com.sforce.soap.partner.Field;
+import com.sforce.soap.partner.FieldType;
+import com.sforce.soap.partner.LoginResult;
+import com.sforce.soap.partner.PartnerConnection;
+import com.sforce.soap.partner.PicklistEntry;
 import com.sforce.soap.partner.fault.ApiFault;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
@@ -298,11 +313,6 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     	this.registerTransformers();
     }
     
-    @Stop
-    public void stop() {
-    	this.unregisterTransformers();
-    }
-
     /**
      * Creates a new Salesforce session
      *
