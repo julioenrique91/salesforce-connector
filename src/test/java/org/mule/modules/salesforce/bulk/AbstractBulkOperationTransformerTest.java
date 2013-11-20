@@ -1,6 +1,7 @@
 package org.mule.modules.salesforce.bulk;
 
 import java.util.Collection;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -26,12 +27,6 @@ public abstract class AbstractBulkOperationTransformerTest extends AbstractMuleC
 		this.connector.init();
 	}
 	
-	@Override
-	protected void doTearDown() throws Exception {
-		super.doTearDown();
-		this.connector.stop();
-	}
-	
 	protected abstract Class<?> getSourceClass();
 	
 	protected abstract Class<? extends DiscoverableTransformer> getTransformerClass();
@@ -50,7 +45,7 @@ public abstract class AbstractBulkOperationTransformerTest extends AbstractMuleC
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	protected DataType<Collection> getSource() {
-		return DataTypeFactory.create(Collection.class, this.getSourceClass());
+		return DataTypeFactory.create(List.class, this.getSourceClass());
 	}
 	
 	protected Transformer getTransformer() throws TransformerException {
