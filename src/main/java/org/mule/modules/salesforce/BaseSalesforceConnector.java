@@ -25,6 +25,53 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.mule.api.MuleContext;
+import org.mule.api.MuleException;
+import org.mule.api.annotations.Category;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.InvalidateConnectionOn;
+import org.mule.api.annotations.Paged;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.Query;
+import org.mule.api.annotations.QueryTranslator;
+import org.mule.api.annotations.Source;
+import org.mule.api.annotations.SourceThreadingModel;
+import org.mule.api.annotations.display.FriendlyName;
+import org.mule.api.annotations.display.Placement;
+import org.mule.api.annotations.oauth.OAuthInvalidateAccessTokenOn;
+import org.mule.api.annotations.oauth.OAuthProtected;
+import org.mule.api.annotations.param.Default;
+import org.mule.api.annotations.param.MetaDataKeyParam;
+import org.mule.api.annotations.param.Optional;
+import org.mule.api.callback.SourceCallback;
+import org.mule.api.callback.StopSourceCallback;
+import org.mule.api.config.MuleProperties;
+import org.mule.api.context.MuleContextAware;
+import org.mule.api.registry.MuleRegistry;
+import org.mule.api.store.ObjectStore;
+import org.mule.api.store.ObjectStoreException;
+import org.mule.api.store.ObjectStoreManager;
+import org.mule.common.query.DsqlQuery;
+import org.mule.modules.salesforce.bulk.SaveResultToBulkOperationTransformer;
+import org.mule.modules.salesforce.bulk.UpsertResultToBulkOperationTransformer;
+import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
+import org.mule.streaming.PagingConfiguration;
+import org.mule.streaming.PagingDelegate;
+import org.springframework.util.StringUtils;
+
+import com.sforce.async.AsyncApiException;
+import com.sforce.async.AsyncExceptionCode;
+import com.sforce.async.BatchInfo;
+import com.sforce.async.BatchRequest;
+import com.sforce.async.BatchResult;
+import com.sforce.async.BulkConnection;
+import com.sforce.async.ConcurrencyMode;
+import com.sforce.async.ContentType;
+import com.sforce.async.JobInfo;
+import com.sforce.async.OperationEnum;
+import com.sforce.async.QueryResultList;
 import com.sforce.soap.partner.AssignmentRuleHeader_element;
 import com.sforce.soap.partner.CallOptions_element;
 import com.sforce.soap.partner.DeleteResult;
@@ -42,47 +89,12 @@ import com.sforce.soap.partner.SaveResult;
 import com.sforce.soap.partner.SearchRecord;
 import com.sforce.soap.partner.SearchResult;
 import com.sforce.soap.partner.UpsertResult;
-import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
-import org.mule.api.MuleContext;
-import org.mule.api.annotations.*;
-import org.mule.api.annotations.display.FriendlyName;
-import org.mule.api.annotations.display.Placement;
-import org.mule.api.annotations.oauth.OAuthInvalidateAccessTokenOn;
-import org.mule.api.annotations.oauth.OAuthProtected;
-import org.mule.api.annotations.param.Default;
-import org.mule.api.annotations.param.MetaDataKeyParam;
-import org.mule.api.annotations.param.Optional;
-import org.mule.api.callback.SourceCallback;
-import org.mule.api.callback.StopSourceCallback;
-import org.mule.api.config.MuleProperties;
-import org.mule.api.context.MuleContextAware;
-import org.mule.api.registry.Registry;
-import org.mule.api.store.ObjectStore;
-import org.mule.api.store.ObjectStoreException;
-import org.mule.api.store.ObjectStoreManager;
-import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
-import org.mule.streaming.PagingConfiguration;
-import org.mule.streaming.PagingDelegate;
-import org.mule.common.query.DsqlQuery;
-import org.springframework.util.StringUtils;
-
-import com.sforce.async.AsyncApiException;
-import com.sforce.async.AsyncExceptionCode;
-import com.sforce.async.BatchInfo;
-import com.sforce.async.BatchRequest;
-import com.sforce.async.BatchResult;
-import com.sforce.async.BulkConnection;
-import com.sforce.async.ConcurrencyMode;
-import com.sforce.async.ContentType;
-import com.sforce.async.JobInfo;
-import com.sforce.async.OperationEnum;
-import com.sforce.async.QueryResultList;
 import com.sforce.soap.partner.sobject.SObject;
 import com.sforce.ws.ConnectionException;
 
 public abstract class BaseSalesforceConnector implements MuleContextAware {
-    private static final Logger LOGGER = Logger.getLogger(BaseSalesforceConnector.class);
+    
+	private static final Logger LOGGER = Logger.getLogger(BaseSalesforceConnector.class);
 
     /**
      * Object store manager to obtain a store to support {@link this#getUpdatedObjects}
@@ -138,7 +150,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     private ObjectStoreHelper objectStoreHelper;
 
-    private Registry registry;
+    private MuleRegistry registry;
     
     private static final List<Subscription> subscriptions = new ArrayList<Subscription>();
     
@@ -255,8 +267,10 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<SaveResult> create(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
-        try {
-        	return Arrays.asList(getConnection().create(toSObjectList(type, objects)));
+    	try {
+        	
+    		SObject[] sObjects = toSObjectList(type, objects);
+        	return SalesforceUtils.enrichWithPayload(sObjects, getConnection().create(sObjects));
         } catch (Exception e) {
         	throw handleProcessorException(e);
         }
@@ -505,7 +519,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public List<SaveResult> update(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
         try {
-        	return Arrays.asList(getConnection().update(toSObjectList(type, objects)));
+        	SObject[] sObjects = toSObjectList(type, objects);
+        	return SalesforceUtils.enrichWithPayload(sObjects, getConnection().update(sObjects));
         } catch (Exception e) {
         	throw handleProcessorException(e);
         }
@@ -591,7 +606,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
                                      @MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                      @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
         try {
-        	return Arrays.asList(getConnection().upsert(externalIdFieldName, toSObjectList(type, objects)));
+        	SObject[] sObjects = toSObjectList(type, objects);
+        	return SalesforceUtils.enrichWithPayload(sObjects, getConnection().upsert(externalIdFieldName, sObjects));
         } catch (Exception e) {
         	throw handleProcessorException(e);
         }
@@ -1578,7 +1594,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         this.timeObjectStore = timeObjectStore;
     }
 
-    public void setRegistry(Registry registry) {
+    public void setRegistry(MuleRegistry registry) {
         this.registry = registry;
     }
 
@@ -1793,7 +1809,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@Override
     public void setMuleContext(MuleContext context) {
         setObjectStoreManager(((ObjectStoreManager) context.getRegistry().get(MuleProperties.OBJECT_STORE_MANAGER)));
-        setRegistry((Registry) context.getRegistry());
+        setRegistry((MuleRegistry) context.getRegistry());
     }
 
     protected boolean isDateField(Object object) {
@@ -1803,5 +1819,21 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     protected String convertDateToString(Object object) {
         return new DateTime(object).toString();
+    }
+    
+    protected void registerTransformers() {
+    	synchronized (this.registry) {
+    		try {
+    			if (registry.lookupObject(SaveResultToBulkOperationTransformer.class) == null) {
+    				this.registry.registerTransformer(new SaveResultToBulkOperationTransformer());
+    			}
+    			
+    			if (registry.lookupObject(UpsertResultToBulkOperationTransformer.class) == null) { 
+    				this.registry.registerTransformer(new UpsertResultToBulkOperationTransformer());
+    			}
+    		} catch (MuleException e) {
+    			throw new RuntimeException("Exception found trying to register bulk transformers", e);
+    		}
+		}
     }
 }

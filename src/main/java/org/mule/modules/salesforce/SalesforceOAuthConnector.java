@@ -10,7 +10,12 @@
 
 package org.mule.modules.salesforce;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.apache.log4j.Logger;
 import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.oauth.OAuth2;
 import org.mule.api.annotations.oauth.OAuthAccessToken;
 import org.mule.api.annotations.oauth.OAuthAuthorizationParameter;
@@ -26,11 +31,6 @@ import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 import com.sforce.ws.MessageHandler;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import org.apache.log4j.Logger;
 
 /**
  * The Salesforce Connector will allow to connect to the Salesforce application using OAuth as the authentication
@@ -103,7 +103,11 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     	return this.accessToken != null;
     }
 
-
+    @Start
+    public void init() {
+    	this.registerTransformers();
+    }
+    
     @OAuthPostAuthorization
     public void postAuthorize() throws ConnectionException, MalformedURLException, AsyncApiException {
         ConnectorConfig config = new ConnectorConfig();

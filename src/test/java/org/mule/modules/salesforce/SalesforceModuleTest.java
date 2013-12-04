@@ -10,7 +10,12 @@
 
 package org.mule.modules.salesforce;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.argThat;
@@ -25,7 +30,6 @@ import static org.mockito.Mockito.when;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.SequenceInputStream;
-import java.net.Authenticator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
