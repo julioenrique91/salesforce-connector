@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
         <artifactId>mule-devkit-parent</artifactId>
-        <version>3.5.0-bighorn</version>
+        <version>3.5.0-cascade</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -19,7 +19,6 @@
         <licensePath>LICENSE.md</licensePath>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
         <wsc.version>29.0.0-hf1</wsc.version>
-        <mule.version>3.5.0-M3-SNAPSHOT</mule.version>
     </properties>
 
     <build>
