@@ -10,20 +10,6 @@
 
 package org.mule.modules.salesforce;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import org.apache.log4j.Logger;
-import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.lifecycle.Start;
-import org.mule.api.annotations.oauth.OAuth2;
-import org.mule.api.annotations.oauth.OAuthAccessToken;
-import org.mule.api.annotations.oauth.OAuthAuthorizationParameter;
-import org.mule.api.annotations.oauth.OAuthCallbackParameter;
-import org.mule.api.annotations.oauth.OAuthConsumerKey;
-import org.mule.api.annotations.oauth.OAuthConsumerSecret;
-import org.mule.api.annotations.oauth.OAuthPostAuthorization;
-
 import com.sforce.async.AsyncApiException;
 import com.sforce.async.BulkConnection;
 import com.sforce.soap.partner.Connector;
@@ -31,6 +17,14 @@ import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 import com.sforce.ws.MessageHandler;
+import org.apache.log4j.Logger;
+import org.mule.RequestContext;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.lifecycle.Start;
+import org.mule.api.annotations.oauth.*;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * The Salesforce Connector will allow to connect to the Salesforce application using OAuth as the authentication
@@ -98,6 +92,9 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     @OAuthCallbackParameter(expression = "#[json:instance_url]")
     private String instanceId;
 
+    @OAuthCallbackParameter(expression = "#[json:id]")
+    private String userId;
+
     @Override
     protected boolean isReadyToSubscribe() {
     	return this.accessToken != null;
@@ -126,7 +123,6 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
                 }
             });
         }
-
         config.setSessionId(accessToken);
         config.setManualLogin(true);
 
@@ -142,8 +138,10 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         config.setRestEndpoint(restEndpoint);
 
         this.bulkConnection = new BulkConnection(config);
-        
+
         this.processSubscriptions();
+
+        RequestContext.getEvent().setFlowVariable("remoteUserId", userId);
     }
 
     public String getConsumerKey() {
@@ -191,5 +189,13 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
 
     public String getInstanceId() {
         return instanceId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
