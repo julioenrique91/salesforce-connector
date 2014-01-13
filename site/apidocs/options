@@ -13,7 +13,7 @@
 '/opt/j2ee/domains/bamboo.mulesource.com/corp/webapps/atlassian-bamboo/data/atlassian-bamboo-4.0.1/xml-data/build-dir/CLDCONNECT-SALESFORCECONNECT-DOC/src/main/java:/opt/j2ee/domains/bamboo.mulesource.com/corp/webapps/atlassian-bamboo/data/atlassian-bamboo-4.0.1/xml-data/build-dir/CLDCONNECT-SALESFORCECONNECT-DOC/target/generated-sources/mule'
 -hdf project.artifactId "mule-module-sfdc"
                         -hdf project.groupId "org.mule.modules"
-                        -hdf project.version "5.4.4-SNAPSHOT"
+                        -hdf project.version "5.4.5-SNAPSHOT"
                         -hdf project.name "Mule Salesforce Connector"
                         -hdf project.repo.name "MuleSoft Repository"
                         -hdf project.repo.id "mulesoft-releases"

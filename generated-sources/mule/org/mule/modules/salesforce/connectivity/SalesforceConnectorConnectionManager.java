@@ -42,7 +42,7 @@ import org.mule.modules.salesforce.connection.ConnectionManager;
  * A {@code SalesforceConnectorConnectionManager} is a wrapper around {@link SalesforceConnector } that adds connection management capabilities to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-01-13T03:30:10-06:00", comments = "Build UNNAMED.1791.ad9d188")
+@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-01-13T03:42:10-06:00", comments = "Build UNNAMED.1791.ad9d188")
 public class SalesforceConnectorConnectionManager implements MetadataAware, MuleContextAware, ProcessAdapter<SalesforceConnectorConnectionIdentifierAdapter> , Capabilities, Disposable, Initialisable, Testable, ConnectorMetaDataEnabled, NativeQueryMetadataTranslator, ConnectionManager<SalesforceConnectorConnectionKey, SalesforceConnectorConnectionIdentifierAdapter>
 {
 
@@ -110,7 +110,7 @@ public class SalesforceConnectorConnectionManager implements MetadataAware, Mule
     protected PoolingProfile connectionPoolingProfile;
     protected RetryPolicyTemplate retryPolicyTemplate;
     private final static String MODULE_NAME = "Salesforce";
-    private final static String MODULE_VERSION = "5.4.4-SNAPSHOT";
+    private final static String MODULE_VERSION = "5.4.5-SNAPSHOT";
     private final static String DEVKIT_VERSION = "3.5.0-cascade";
     private final static String DEVKIT_BUILD = "UNNAMED.1791.ad9d188";
     private final static String MIN_MULE_VERSION = "3.5";

@@ -33,7 +33,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * CreateJobMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#createJob(com.sforce.async.OperationEnum, java.lang.String, java.lang.String, com.sforce.async.ContentType, com.sforce.async.ConcurrencyMode)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-01-13T03:30:10-06:00", comments = "Build UNNAMED.1791.ad9d188")
+@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-01-13T03:42:10-06:00", comments = "Build UNNAMED.1791.ad9d188")
 public class CreateJobMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
