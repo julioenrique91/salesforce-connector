@@ -42,7 +42,7 @@ import org.mule.streaming.PagingDelegate;
  * QueryMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#query(java.lang.String, org.mule.streaming.PagingConfiguration)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-01-13T09:22:38-06:00", comments = "Build UNNAMED.1791.ad9d188")
+@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-01-13T03:30:10-06:00", comments = "Build UNNAMED.1791.ad9d188")
 public class QueryMessageProcessor
     extends AbstractPagedConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
