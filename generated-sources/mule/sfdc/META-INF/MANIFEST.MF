@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Salesforce (OAuth)
 Bundle-SymbolicName: org.mule.tooling.ui.contribution.sfdc.3.5.0;singleton:=true
-Bundle-Version: 5.0.0.201401130919
+Bundle-Version: 5.0.0.201401130922
 Bundle-Activator: org.mule.tooling.ui.contribution.SfdcActivator
 Bundle-Vendor: MuleSoft, Inc.
 Require-Bundle: org.eclipse.ui,
