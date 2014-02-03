@@ -228,7 +228,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * @return The resulted exception. Same as e if it wasn't a credentials problem
      */
     private Exception handleProcessorException(Exception e) {
-    	if (e != null && && e instanceof UnexpectedErrorFault 
+    	if (e != null && e instanceof UnexpectedErrorFault 
     		&& ((UnexpectedErrorFault) e).getExceptionCode().toString().contains("INVALID_SESSION_ID")) {
     		return new SalesforceSessionExpiredException(e);
     	} else {
