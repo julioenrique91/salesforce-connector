@@ -140,7 +140,6 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         this.bulkConnection = new BulkConnection(config);
 
         this.processSubscriptions();
-
         RequestContext.getEvent().setFlowVariable("remoteUserId", userId);
     }
 

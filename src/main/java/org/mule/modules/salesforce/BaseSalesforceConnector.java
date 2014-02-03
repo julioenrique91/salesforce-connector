@@ -10,34 +10,16 @@
 
 package org.mule.modules.salesforce;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.SequenceInputStream;
-import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.sforce.async.*;
+import com.sforce.soap.partner.*;
+import com.sforce.soap.partner.fault.UnexpectedErrorFault;
+import com.sforce.soap.partner.sobject.SObject;
+import com.sforce.ws.ConnectionException;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
-import org.mule.api.annotations.Category;
-import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.InvalidateConnectionOn;
-import org.mule.api.annotations.Paged;
-import org.mule.api.annotations.Processor;
-import org.mule.api.annotations.Query;
-import org.mule.api.annotations.QueryTranslator;
-import org.mule.api.annotations.Source;
-import org.mule.api.annotations.SourceThreadingModel;
+import org.mule.api.annotations.*;
 import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.oauth.OAuthInvalidateAccessTokenOn;
@@ -61,36 +43,12 @@ import org.mule.streaming.PagingConfiguration;
 import org.mule.streaming.PagingDelegate;
 import org.springframework.util.StringUtils;
 
-import com.sforce.async.AsyncApiException;
-import com.sforce.async.AsyncExceptionCode;
-import com.sforce.async.BatchInfo;
-import com.sforce.async.BatchRequest;
-import com.sforce.async.BatchResult;
-import com.sforce.async.BulkConnection;
-import com.sforce.async.ConcurrencyMode;
-import com.sforce.async.ContentType;
-import com.sforce.async.JobInfo;
-import com.sforce.async.OperationEnum;
-import com.sforce.async.QueryResultList;
-import com.sforce.soap.partner.AssignmentRuleHeader_element;
-import com.sforce.soap.partner.CallOptions_element;
-import com.sforce.soap.partner.DeleteResult;
-import com.sforce.soap.partner.DescribeGlobalResult;
-import com.sforce.soap.partner.DescribeSObjectResult;
-import com.sforce.soap.partner.EmptyRecycleBinResult;
-import com.sforce.soap.partner.GetDeletedResult;
-import com.sforce.soap.partner.GetUpdatedResult;
-import com.sforce.soap.partner.GetUserInfoResult;
-import com.sforce.soap.partner.LeadConvert;
-import com.sforce.soap.partner.LeadConvertResult;
-import com.sforce.soap.partner.PartnerConnection;
-import com.sforce.soap.partner.QueryResult;
-import com.sforce.soap.partner.SaveResult;
-import com.sforce.soap.partner.SearchRecord;
-import com.sforce.soap.partner.SearchResult;
-import com.sforce.soap.partner.UpsertResult;
-import com.sforce.soap.partner.sobject.SObject;
-import com.sforce.ws.ConnectionException;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.SequenceInputStream;
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.util.*;
 
 public abstract class BaseSalesforceConnector implements MuleContextAware {
     
@@ -228,7 +186,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * @return The resulted exception. Same as e if it wasn't a credentials problem
      */
     private Exception handleProcessorException(Exception e) {
-    	if (e != null && !StringUtils.isEmpty(e.getMessage()) && e.getMessage().contains("INVALID_SESSION_ID")) {
+    	if (e != null && e instanceof UnexpectedErrorFault && ((UnexpectedErrorFault) e).getExceptionCode().toString().contains("INVALID_SESSION_ID")) {
     		return new SalesforceSessionExpiredException(e);
     	} else {
     		return e;
