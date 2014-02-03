@@ -4345,63 +4345,19 @@ Default is false: no change in behavior. If a string or textarea value is too la
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:simpleType name="JobStateEnumEnumType">
+  <xs:simpleType name="ConcurrencyModeEnumType">
     <xs:annotation>
       <xs:documentation></xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:enumeration value="Open">
+          <xs:enumeration value="Parallel">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="Closed">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="Aborted">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="Failed">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType>
-        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
-      </xs:simpleType>
-    </xs:union>
-  </xs:simpleType>
-  <xs:simpleType name="ContentTypeEnumType">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-    </xs:annotation>
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="XML">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="CSV">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="ZIP_XML">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="ZIP_CSV">
+          <xs:enumeration value="Serial">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
@@ -4479,6 +4435,65 @@ the immediate_unsuccessful error code.</xs:documentation>
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
+  <xs:simpleType name="JobStateEnumEnumType">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+    </xs:annotation>
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Open">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Closed">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Aborted">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Failed">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="SalesforceOAuthPromptEnumType">
+    <xs:annotation>
+      <xs:documentation>Specifies how the authorization server prompts the user for reauthentication and reapproval</xs:documentation>
+    </xs:annotation>
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="LOGIN">
+            <xs:annotation>
+              <xs:documentation>The authorization server must prompt the user for reauthentication, forcing the user to log in again.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CONSENT">
+            <xs:annotation>
+              <xs:documentation>The authorization server must prompt the user for reapproval before returning information to the client.
+It is valid to pass both values, separated by a space, to require the user to both log in and reauthorize.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
   <xs:simpleType name="SalesforceOAuthDisplayEnumType">
     <xs:annotation>
       <xs:documentation>Tailors the login page to the user's device type.</xs:documentation>
@@ -4499,30 +4514,6 @@ the immediate_unsuccessful error code.</xs:documentation>
           <xs:enumeration value="TOUCH">
             <xs:annotation>
               <xs:documentation>Mobile-optimized dialog designed for modern smartphones, such as Android and iPhone.</xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType>
-        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
-      </xs:simpleType>
-    </xs:union>
-  </xs:simpleType>
-  <xs:simpleType name="ConcurrencyModeEnumType">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-    </xs:annotation>
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="Parallel">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="Serial">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
         </xs:restriction>
@@ -4576,22 +4567,31 @@ the immediate_unsuccessful error code.</xs:documentation>
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
-  <xs:simpleType name="SalesforceOAuthPromptEnumType">
+  <xs:simpleType name="ContentTypeEnumType">
     <xs:annotation>
-      <xs:documentation>Specifies how the authorization server prompts the user for reauthentication and reapproval</xs:documentation>
+      <xs:documentation></xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:enumeration value="LOGIN">
+          <xs:enumeration value="XML">
             <xs:annotation>
-              <xs:documentation>The authorization server must prompt the user for reauthentication, forcing the user to log in again.</xs:documentation>
+              <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="CONSENT">
+          <xs:enumeration value="CSV">
             <xs:annotation>
-              <xs:documentation>The authorization server must prompt the user for reapproval before returning information to the client.
-It is valid to pass both values, separated by a space, to require the user to both log in and reauthorize.</xs:documentation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ZIP_XML">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ZIP_CSV">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
         </xs:restriction>

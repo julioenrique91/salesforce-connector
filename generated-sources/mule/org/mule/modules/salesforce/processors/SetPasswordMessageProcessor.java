@@ -27,7 +27,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * SetPasswordMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#setPassword(java.lang.String, java.lang.String)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-01-15T04:12:08-06:00", comments = "Build UNNAMED.1791.ad9d188")
+@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-03T11:16:26-06:00", comments = "Build UNNAMED.1791.ad9d188")
 public class SetPasswordMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
