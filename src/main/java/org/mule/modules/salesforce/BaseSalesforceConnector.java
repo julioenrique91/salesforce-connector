@@ -71,6 +71,7 @@ import com.sforce.async.ConcurrencyMode;
 import com.sforce.async.ContentType;
 import com.sforce.async.JobInfo;
 import com.sforce.async.OperationEnum;
+import com.sforce.soap.partner.fault.UnexpectedErrorFault;
 import com.sforce.async.QueryResultList;
 import com.sforce.soap.partner.AssignmentRuleHeader_element;
 import com.sforce.soap.partner.CallOptions_element;
