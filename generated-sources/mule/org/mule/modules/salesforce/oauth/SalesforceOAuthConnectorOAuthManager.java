@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * A {@code SalesforceOAuthConnectorOAuthManager} is a wrapper around {@link SalesforceOAuthConnector } that adds access token management capabilities to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-03T11:24:15-06:00", comments = "Build UNNAMED.1791.ad9d188")
+@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-03T12:06:26-06:00", comments = "Build UNNAMED.1791.ad9d188")
 public class SalesforceOAuthConnectorOAuthManager
     extends BaseOAuth2Manager<OAuth2Adapter>
 {
@@ -216,6 +216,7 @@ public class SalesforceOAuthConnectorOAuthManager
         ExpressionManager expressionManager = (muleContext.getExpressionManager());
         MuleMessage muleMessage = new DefaultMuleMessage(response, (muleContext));
         connector.setInstanceId(((String) expressionManager.evaluate("#[json:instance_url]", muleMessage)));
+        connector.setUserId(((String) expressionManager.evaluate("#[json:id]", muleMessage)));
     }
 
     public void setOnNoToken(OnNoTokenPolicy policy) {
