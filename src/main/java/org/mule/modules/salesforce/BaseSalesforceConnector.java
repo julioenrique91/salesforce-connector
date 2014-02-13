@@ -890,6 +890,41 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     }
 
     /**
+     * Executes a query against the specified object and returns data that matches the specified criteria.
+     * <p/>
+     * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:non-paginated-query}
+     *
+     * @param query Query string that specifies the object to query, the fields to return, and any conditions for
+     *              including a specific object in the query. For more information, see Salesforce Object Query
+     *              Language (SOQL).
+     * @return An array of {@link SObject}s
+     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_query.htm">query()</a>
+     * @since 4.0
+     * This method should be deprecated at some point since we only want paginated queries
+     */
+    @Processor
+    @OAuthProtected
+    @InvalidateConnectionOn(exception = ConnectionException.class)
+    @OAuthInvalidateAccessTokenOn(exception = ConnectionException.class)
+    @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
+    public List<Map<String, Object>> nonPaginatedQuery( @org.mule.api.annotations.Query @Placement(group = "Query") String query) throws Exception {
+        QueryResult queryResult = getConnection().query(query);
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+        while (queryResult != null) {
+            for (SObject object : queryResult.getRecords()) {
+                result.add(SalesforceUtils.toMap(object));
+            }
+            if (queryResult.isDone()) {
+                break;
+            }
+            queryResult = getConnection().queryMore(queryResult.getQueryLocator());
+        }
+
+        return result;
+    }
+
+    /**
      * Retrieves data from specified objects, whether or not they have been deleted.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:query}
