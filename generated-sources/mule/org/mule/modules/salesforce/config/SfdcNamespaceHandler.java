@@ -13,7 +13,7 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  * Registers bean definitions parsers for handling elements in <code>http://www.mulesoft.org/schema/mule/sfdc</code>.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:48:49-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T01:39:50-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class SfdcNamespaceHandler
     extends NamespaceHandlerSupport
 {
@@ -161,6 +161,11 @@ public class SfdcNamespaceHandler
             this.registerBeanDefinitionParser("query", new QueryDefinitionParser());
         } catch (NoClassDefFoundError ex) {
             handleException("query", "@Processor", ex);
+        }
+        try {
+            this.registerBeanDefinitionParser("non-paginated-query", new NonPaginatedQueryDefinitionParser());
+        } catch (NoClassDefFoundError ex) {
+            handleException("non-paginated-query", "@Processor", ex);
         }
         try {
             this.registerBeanDefinitionParser("query-all", new QueryAllDefinitionParser());
@@ -371,6 +376,11 @@ public class SfdcNamespaceHandler
             this.registerBeanDefinitionParser("query", new QueryDefinitionParser());
         } catch (NoClassDefFoundError ex) {
             handleException("query", "@Processor", ex);
+        }
+        try {
+            this.registerBeanDefinitionParser("non-paginated-query", new NonPaginatedQueryDefinitionParser());
+        } catch (NoClassDefFoundError ex) {
+            handleException("non-paginated-query", "@Processor", ex);
         }
         try {
             this.registerBeanDefinitionParser("query-all", new QueryAllDefinitionParser());
