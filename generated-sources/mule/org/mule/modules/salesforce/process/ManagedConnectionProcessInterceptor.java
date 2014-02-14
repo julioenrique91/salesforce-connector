@@ -20,7 +20,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-03T12:06:26-06:00", comments = "Build UNNAMED.1791.ad9d188")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:48:49-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class ManagedConnectionProcessInterceptor<T >
     extends ExpressionEvaluatorSupport
     implements ProcessInterceptor<T, SalesforceConnectorConnectionIdentifierAdapter>
@@ -37,12 +37,13 @@ public class ManagedConnectionProcessInterceptor<T >
         this.muleContext = muleContext;
     }
 
+    @Override
     public T execute(ProcessCallback<T, SalesforceConnectorConnectionIdentifierAdapter> processCallback, SalesforceConnectorConnectionIdentifierAdapter object, MessageProcessor messageProcessor, MuleEvent event)
         throws Exception
     {
         SalesforceConnectorConnectionIdentifierAdapter connection = null;
         SalesforceConnectorConnectionKey key = null;
-        if ((messageProcessor!= null)&&((messageProcessor instanceof AbstractConnectedProcessor)&&(((AbstractConnectedProcessor) messageProcessor).getUsername()!= null))) {
+        if (hasConnectionKeysOverride(messageProcessor)) {
             final String _transformedUsername = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_usernameType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getUsername()));
             if (_transformedUsername == null) {
                 throw new UnableToAcquireConnectionException("Parameter username in method connect can't be null because is not @Optional");
@@ -64,7 +65,7 @@ public class ManagedConnectionProcessInterceptor<T >
             final String _transformedServiceEndpoint = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_serviceEndpointType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getServiceEndpoint()));
             key = new SalesforceConnectorConnectionKey(_transformedUsername, _transformedPassword, _transformedSecurityToken, _transformedUrl, _transformedProxyHost, _transformedProxyPort, _transformedProxyUsername, _transformedProxyPassword, _transformedSessionId, _transformedServiceEndpoint);
         } else {
-            key = connectionManager.getDefaultConnectionKey();
+            key = connectionManager.getEvaluatedConnectionKey(event);
         }
         try {
             if (logger.isDebugEnabled()) {
@@ -110,6 +111,24 @@ public class ManagedConnectionProcessInterceptor<T >
                 throw new UnableToReleaseConnectionException(e);
             }
         }
+    }
+
+    /**
+     * Validates that the current message processor has changed any of its connection parameters at processor level. If so, a new SalesforceConnectorConnectionKey must be generated
+     * 
+     * @param messageProcessor
+     *     the message processor to test against the keys
+     * @return
+     */
+    private Boolean hasConnectionKeysOverride(MessageProcessor messageProcessor) {
+        if ((messageProcessor == null)||(!(messageProcessor instanceof AbstractConnectedProcessor))) {
+            return false;
+        }
+        AbstractConnectedProcessor abstractConnectedProcessor = ((AbstractConnectedProcessor) messageProcessor);
+        if (abstractConnectedProcessor.getUsername()!= null) {
+            return true;
+        }
+        return false;
     }
 
     public T execute(ProcessCallback<T, SalesforceConnectorConnectionIdentifierAdapter> processCallback, SalesforceConnectorConnectionIdentifierAdapter object, Filter filter, MuleMessage message)

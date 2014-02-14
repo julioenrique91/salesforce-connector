@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * A {@code SalesforceOAuthConnectorOAuthManager} is a wrapper around {@link SalesforceOAuthConnector } that adds access token management capabilities to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-03T12:06:26-06:00", comments = "Build UNNAMED.1791.ad9d188")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:48:49-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class SalesforceOAuthConnectorOAuthManager
     extends BaseOAuth2Manager<OAuth2Adapter>
 {
@@ -32,8 +32,8 @@ public class SalesforceOAuthConnectorOAuthManager
     private static Logger logger = LoggerFactory.getLogger(SalesforceOAuthConnectorOAuthManager.class);
     private final static String MODULE_NAME = "Salesforce (OAuth)";
     private final static String MODULE_VERSION = "5.4.5-SNAPSHOT";
-    private final static String DEVKIT_VERSION = "3.5.0-cascade";
-    private final static String DEVKIT_BUILD = "UNNAMED.1791.ad9d188";
+    private final static String DEVKIT_VERSION = "3.5.0-SNAPSHOT";
+    private final static String DEVKIT_BUILD = "UNKNOWN_BUILDNUMBER";
 
     @Override
     protected Logger getLogger() {

@@ -27,6 +27,7 @@ import org.mule.common.metadata.MetaDataModel;
 import org.mule.common.metadata.OperationMetaDataEnabled;
 import org.mule.common.metadata.datatype.DataType;
 import org.mule.common.metadata.datatype.DataTypeFactory;
+import org.mule.common.metadata.key.property.TypeDescribingProperty;
 import org.mule.modules.salesforce.BaseSalesforceConnector;
 import org.mule.modules.salesforce.SalesforceOAuthConnector;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
@@ -37,7 +38,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * GetUpdatedObjectsMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#getUpdatedObjects(java.lang.String, int, java.util.List)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-03T12:06:26-06:00", comments = "Build UNNAMED.1791.ad9d188")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:48:49-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class GetUpdatedObjectsMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -164,6 +165,24 @@ public class GetUpdatedObjectsMessageProcessor
             return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error retrieving metadata from parameter: type at processor getUpdatedObjects at module SalesforceOAuthConnector");
         }
         MetaDataKey metaDataKey = new DefaultMetaDataKey((type).toString(), null);
+        metaDataKey.addProperty(new TypeDescribingProperty(TypeDescribingProperty.TypeScope.OUTPUT, "getUpdatedObjects"));
+        Result<MetaData> genericMetaData = getGenericMetaData(metaDataKey);
+        if ((Result.Status.FAILURE).equals(genericMetaData.getStatus())) {
+            return genericMetaData;
+        }
+        return new DefaultResult<MetaData>(new DefaultMetaData(new DefaultListMetaDataModel(genericMetaData.get().getPayload())));
+    }
+
+    private MetaDataModel getPojoOrSimpleModel(Class clazz) {
+        DataType dataType = DataTypeFactory.getInstance().getDataType(clazz);
+        if (DataType.POJO.equals(dataType)) {
+            return new DefaultPojoMetaDataModel(clazz);
+        } else {
+            return new DefaultSimpleMetaDataModel(dataType);
+        }
+    }
+
+    public Result<MetaData> getGenericMetaData(MetaDataKey metaDataKey) {
         ConnectorMetaDataEnabled connector;
         try {
             connector = ((ConnectorMetaDataEnabled) findOrCreate(SalesforceOAuthConnector.class, true, null));
@@ -175,7 +194,7 @@ public class GetUpdatedObjectsMessageProcessor
                 if (metadata.get() == null) {
                     return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error processing metadata at SalesforceOAuthConnector at getUpdatedObjects retrieving was successful but result is null");
                 }
-                return new DefaultResult<MetaData>(new DefaultMetaData(new DefaultListMetaDataModel(metadata.get().getPayload())));
+                return metadata;
             } catch (Exception e) {
                 return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), e.getMessage(), FailureType.UNSPECIFIED, e);
             }
@@ -191,15 +210,6 @@ public class GetUpdatedObjectsMessageProcessor
             return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), e.getMessage(), FailureType.UNSPECIFIED, e);
         } catch (Exception e) {
             return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), e.getMessage(), FailureType.UNSPECIFIED, e);
-        }
-    }
-
-    private MetaDataModel getPojoOrSimpleModel(Class clazz) {
-        DataType dataType = DataTypeFactory.getInstance().getDataType(clazz);
-        if (DataType.POJO.equals(dataType)) {
-            return new DefaultPojoMetaDataModel(clazz);
-        } else {
-            return new DefaultSimpleMetaDataModel(dataType);
         }
     }
 

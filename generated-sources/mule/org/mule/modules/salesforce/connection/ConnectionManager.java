@@ -10,10 +10,10 @@ import javax.annotation.Generated;
  * @param <C> Actual connector object that represents a connection
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-03T12:06:26-06:00", comments = "Build UNNAMED.1791.ad9d188")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:48:49-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public interface ConnectionManager<K, C extends Connection >{
 
-    /**
+     /**
      * Set the connection pooling profile
      *
      * @param value PoolingProfile representing the pooling parameters
@@ -61,6 +61,15 @@ public interface ConnectionManager<K, C extends Connection >{
      */
     K getDefaultConnectionKey();
 
+
+    /**
+     * Retrieve the connection key evaluated with the received mule event
+     *
+     * @return The default connection key
+     */
+
+    K getEvaluatedConnectionKey(org.mule.api.MuleEvent event) throws Exception;
+
     /**
      * Retrieve the reconnection strategy used by this connection
      * manager.
@@ -68,4 +77,5 @@ public interface ConnectionManager<K, C extends Connection >{
      * @return The reconnection strategy {@see RetryPolicyTemplate}
      */
     org.mule.api.retry.RetryPolicyTemplate getRetryPolicyTemplate();
+
 }

@@ -9,6 +9,7 @@ import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.MetadataAware;
 import org.mule.api.MuleContext;
+import org.mule.api.MuleEvent;
 import org.mule.api.config.MuleProperties;
 import org.mule.api.construct.FlowConstruct;
 import org.mule.api.context.MuleContextAware;
@@ -33,17 +34,22 @@ import org.mule.common.metadata.MetaDataKey;
 import org.mule.common.metadata.NativeQueryMetadataTranslator;
 import org.mule.common.query.DsqlQuery;
 import org.mule.config.PoolingProfile;
+import org.mule.devkit.processor.ExpressionEvaluatorSupport;
 import org.mule.modules.salesforce.SalesforceConnector;
 import org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter;
 import org.mule.modules.salesforce.connection.ConnectionManager;
+import org.mule.modules.salesforce.connection.UnableToAcquireConnectionException;
+import org.mule.modules.salesforce.processors.AbstractConnectedProcessor;
 
 
 /**
  * A {@code SalesforceConnectorConnectionManager} is a wrapper around {@link SalesforceConnector } that adds connection management capabilities to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-03T12:06:26-06:00", comments = "Build UNNAMED.1791.ad9d188")
-public class SalesforceConnectorConnectionManager implements MetadataAware, MuleContextAware, ProcessAdapter<SalesforceConnectorConnectionIdentifierAdapter> , Capabilities, Disposable, Initialisable, Testable, ConnectorMetaDataEnabled, NativeQueryMetadataTranslator, ConnectionManager<SalesforceConnectorConnectionKey, SalesforceConnectorConnectionIdentifierAdapter>
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:48:49-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+public class SalesforceConnectorConnectionManager
+    extends ExpressionEvaluatorSupport
+    implements MetadataAware, MuleContextAware, ProcessAdapter<SalesforceConnectorConnectionIdentifierAdapter> , Capabilities, Disposable, Initialisable, Testable, ConnectorMetaDataEnabled, NativeQueryMetadataTranslator, ConnectionManager<SalesforceConnectorConnectionKey, SalesforceConnectorConnectionIdentifierAdapter>
 {
 
     /**
@@ -111,8 +117,8 @@ public class SalesforceConnectorConnectionManager implements MetadataAware, Mule
     protected RetryPolicyTemplate retryPolicyTemplate;
     private final static String MODULE_NAME = "Salesforce";
     private final static String MODULE_VERSION = "5.4.5-SNAPSHOT";
-    private final static String DEVKIT_VERSION = "3.5.0-cascade";
-    private final static String DEVKIT_BUILD = "UNNAMED.1791.ad9d188";
+    private final static String DEVKIT_VERSION = "3.5.0-SNAPSHOT";
+    private final static String DEVKIT_BUILD = "UNKNOWN_BUILDNUMBER";
     private final static String MIN_MULE_VERSION = "3.5";
 
     /**
@@ -516,8 +522,38 @@ public class SalesforceConnectorConnectionManager implements MetadataAware, Mule
         return new ManagedConnectionProcessTemplate(this, muleContext);
     }
 
+    @Override
     public SalesforceConnectorConnectionKey getDefaultConnectionKey() {
         return new SalesforceConnectorConnectionKey(getUsername(), getPassword(), getSecurityToken(), getUrl(), getProxyHost(), getProxyPort(), getProxyUsername(), getProxyPassword(), getSessionId(), getServiceEndpoint());
+    }
+
+    @Override
+    public SalesforceConnectorConnectionKey getEvaluatedConnectionKey(MuleEvent event)
+        throws Exception
+    {
+        if (event!= null) {
+            final String _transformedUsername = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_usernameType").getGenericType(), null, getUsername()));
+            if (_transformedUsername == null) {
+                throw new UnableToAcquireConnectionException("Parameter username in method connect can't be null because is not @Optional");
+            }
+            final String _transformedPassword = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_passwordType").getGenericType(), null, getPassword()));
+            if (_transformedPassword == null) {
+                throw new UnableToAcquireConnectionException("Parameter password in method connect can't be null because is not @Optional");
+            }
+            final String _transformedSecurityToken = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_securityTokenType").getGenericType(), null, getSecurityToken()));
+            if (_transformedSecurityToken == null) {
+                throw new UnableToAcquireConnectionException("Parameter securityToken in method connect can't be null because is not @Optional");
+            }
+            final String _transformedUrl = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_urlType").getGenericType(), null, getUrl()));
+            final String _transformedProxyHost = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_proxyHostType").getGenericType(), null, getProxyHost()));
+            final Integer _transformedProxyPort = ((Integer) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_proxyPortType").getGenericType(), null, getProxyPort()));
+            final String _transformedProxyUsername = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_proxyUsernameType").getGenericType(), null, getProxyUsername()));
+            final String _transformedProxyPassword = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_proxyPasswordType").getGenericType(), null, getProxyPassword()));
+            final String _transformedSessionId = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_sessionIdType").getGenericType(), null, getSessionId()));
+            final String _transformedServiceEndpoint = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_serviceEndpointType").getGenericType(), null, getServiceEndpoint()));
+            return new SalesforceConnectorConnectionKey(_transformedUsername, _transformedPassword, _transformedSecurityToken, _transformedUrl, _transformedProxyHost, _transformedProxyPort, _transformedProxyUsername, _transformedProxyPassword, _transformedSessionId, _transformedServiceEndpoint);
+        }
+        return getDefaultConnectionKey();
     }
 
     public String getModuleName() {

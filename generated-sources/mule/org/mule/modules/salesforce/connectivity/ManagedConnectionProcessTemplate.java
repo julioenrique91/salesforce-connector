@@ -16,7 +16,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
 import org.mule.security.oauth.process.ProcessCallbackProcessInterceptor;
 import org.mule.security.oauth.process.RetryProcessInterceptor;
 
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-03T12:06:26-06:00", comments = "Build UNNAMED.1791.ad9d188")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-14T12:48:49-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class ManagedConnectionProcessTemplate<P >implements ProcessTemplate<P, SalesforceConnectorConnectionIdentifierAdapter>
 {
 
