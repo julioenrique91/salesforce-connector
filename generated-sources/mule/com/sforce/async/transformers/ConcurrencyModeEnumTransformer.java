@@ -8,7 +8,7 @@ import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractTransformer;
 import org.mule.transformer.types.DataTypeFactory;
 
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T12:03:36-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T01:03:20-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class ConcurrencyModeEnumTransformer
     extends AbstractTransformer
     implements DiscoverableTransformer
