@@ -17,7 +17,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * A <code>SalesforceConnectorProcessAdapter</code> is a wrapper around {@link SalesforceConnector } that enables custom processing strategies.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T03:16:10-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T03:28:31-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class SalesforceConnectorProcessAdapter
     extends SalesforceConnectorLifecycleAdapter
     implements ProcessAdapter<SalesforceConnectorCapabilitiesAdapter>
