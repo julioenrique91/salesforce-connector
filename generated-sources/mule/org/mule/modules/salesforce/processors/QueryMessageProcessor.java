@@ -32,7 +32,7 @@ import org.mule.common.metadata.util.MetaDataQueryFilter;
 import org.mule.common.query.DsqlQuery;
 import org.mule.common.query.dsql.parser.MuleDsqlParser;
 import org.mule.modules.salesforce.BaseSalesforceConnector;
-import org.mule.modules.salesforce.connectivity.SalesforceConnectorConnectionManager;
+import org.mule.modules.salesforce.SalesforceOAuthConnector;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.security.oauth.callback.ProcessCallback;
 import org.mule.streaming.PagingConfiguration;
@@ -43,7 +43,7 @@ import org.mule.streaming.PagingDelegate;
  * QueryMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#query(java.lang.String, org.mule.streaming.PagingConfiguration)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T03:28:31-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T03:32:41-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class QueryMessageProcessor
     extends AbstractPagedConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -181,7 +181,7 @@ public class QueryMessageProcessor
 
     public Result<MetaData> auxOutputMetaData(MetaData inputMetadata, String key) {
         if (((key) == null)||((key).toString() == null)) {
-            return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error retrieving metadata from parameter: key at processor query at module SalesforceConnector");
+            return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error retrieving metadata from parameter: key at processor query at module SalesforceOAuthConnector");
         }
         MetaDataKey metaDataKey = new DefaultMetaDataKey((key).toString(), null);
         metaDataKey.addProperty(new TypeDescribingProperty(TypeDescribingProperty.TypeScope.OUTPUT, "query"));
@@ -204,14 +204,14 @@ public class QueryMessageProcessor
     public Result<MetaData> getGenericMetaData(MetaDataKey metaDataKey) {
         ConnectorMetaDataEnabled connector;
         try {
-            connector = ((ConnectorMetaDataEnabled) findOrCreate(SalesforceConnectorConnectionManager.class, true, null));
+            connector = ((ConnectorMetaDataEnabled) findOrCreate(SalesforceOAuthConnector.class, true, null));
             try {
                 Result<MetaData> metadata = connector.getMetaData(metaDataKey);
                 if ((Result.Status.FAILURE).equals(metadata.getStatus())) {
                     return metadata;
                 }
                 if (metadata.get() == null) {
-                    return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error processing metadata at SalesforceConnector at query retrieving was successful but result is null");
+                    return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error processing metadata at SalesforceOAuthConnector at query retrieving was successful but result is null");
                 }
                 return metadata;
             } catch (Exception e) {

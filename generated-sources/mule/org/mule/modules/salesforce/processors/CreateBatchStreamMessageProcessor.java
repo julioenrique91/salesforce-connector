@@ -29,7 +29,7 @@ import org.mule.common.metadata.OperationMetaDataEnabled;
 import org.mule.common.metadata.datatype.DataType;
 import org.mule.common.metadata.datatype.DataTypeFactory;
 import org.mule.modules.salesforce.BaseSalesforceConnector;
-import org.mule.modules.salesforce.connectivity.SalesforceConnectorConnectionManager;
+import org.mule.modules.salesforce.SalesforceOAuthConnector;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.security.oauth.callback.ProcessCallback;
 
@@ -38,7 +38,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * CreateBatchStreamMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#createBatchStream(com.sforce.async.JobInfo, java.io.InputStream)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T03:28:31-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T03:32:41-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class CreateBatchStreamMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -164,14 +164,14 @@ public class CreateBatchStreamMessageProcessor
     public Result<MetaData> getGenericMetaData(MetaDataKey metaDataKey) {
         ConnectorMetaDataEnabled connector;
         try {
-            connector = ((ConnectorMetaDataEnabled) findOrCreate(SalesforceConnectorConnectionManager.class, true, null));
+            connector = ((ConnectorMetaDataEnabled) findOrCreate(SalesforceOAuthConnector.class, true, null));
             try {
                 Result<MetaData> metadata = connector.getMetaData(metaDataKey);
                 if ((Result.Status.FAILURE).equals(metadata.getStatus())) {
                     return metadata;
                 }
                 if (metadata.get() == null) {
-                    return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error processing metadata at SalesforceConnector at createBatchStream retrieving was successful but result is null");
+                    return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error processing metadata at SalesforceOAuthConnector at createBatchStream retrieving was successful but result is null");
                 }
                 return metadata;
             } catch (Exception e) {
