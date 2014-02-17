@@ -12,7 +12,7 @@ import org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentif
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T10:24:09-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T12:03:36-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class SalesforceConnectorConnectionFactory implements KeyedPoolableObjectFactory
 {
 
