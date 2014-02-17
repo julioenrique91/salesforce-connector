@@ -5,7 +5,7 @@ import java.util.Calendar;
 import javax.annotation.Generated;
 import com.sforce.async.BatchStateEnum;
 
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T01:03:20-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T01:15:14-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class BatchInfoExpressionHolder {
 
     protected Object id;
