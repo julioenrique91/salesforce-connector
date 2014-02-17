@@ -30,7 +30,7 @@ import org.mule.common.metadata.datatype.DataType;
 import org.mule.common.metadata.datatype.DataTypeFactory;
 import org.mule.common.metadata.key.property.TypeDescribingProperty;
 import org.mule.modules.salesforce.BaseSalesforceConnector;
-import org.mule.modules.salesforce.SalesforceOAuthConnector;
+import org.mule.modules.salesforce.connectivity.SalesforceConnectorConnectionManager;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.security.oauth.callback.ProcessCallback;
 
@@ -39,7 +39,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * CreateSingleMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#createSingle(java.lang.String, java.util.Map)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T01:15:14-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T03:02:51-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class CreateSingleMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -146,7 +146,7 @@ public class CreateSingleMessageProcessor
     @Override
     public Result<MetaData> getInputMetaData() {
         if (((type) == null)||((type).toString() == null)) {
-            return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error retrieving metadata from parameter: type at processor createSingle at module SalesforceOAuthConnector");
+            return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error retrieving metadata from parameter: type at processor createSingle at module SalesforceConnector");
         }
         MetaDataKey metaDataKey = new DefaultMetaDataKey((type).toString(), null);
         metaDataKey.addProperty(new TypeDescribingProperty(TypeDescribingProperty.TypeScope.INPUT, "createSingle"));
@@ -174,14 +174,14 @@ public class CreateSingleMessageProcessor
     public Result<MetaData> getGenericMetaData(MetaDataKey metaDataKey) {
         ConnectorMetaDataEnabled connector;
         try {
-            connector = ((ConnectorMetaDataEnabled) findOrCreate(SalesforceOAuthConnector.class, true, null));
+            connector = ((ConnectorMetaDataEnabled) findOrCreate(SalesforceConnectorConnectionManager.class, true, null));
             try {
                 Result<MetaData> metadata = connector.getMetaData(metaDataKey);
                 if ((Result.Status.FAILURE).equals(metadata.getStatus())) {
                     return metadata;
                 }
                 if (metadata.get() == null) {
-                    return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error processing metadata at SalesforceOAuthConnector at createSingle retrieving was successful but result is null");
+                    return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error processing metadata at SalesforceConnector at createSingle retrieving was successful but result is null");
                 }
                 return metadata;
             } catch (Exception e) {

@@ -27,7 +27,7 @@ import org.mule.security.oauth.OnNoTokenPolicy;
  * A {@code SalesforceOAuthConnectorOAuth2Adapter} is a wrapper around {@link SalesforceOAuthConnector } that adds OAuth capabilites to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T01:15:14-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T03:02:51-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class SalesforceOAuthConnectorOAuth2Adapter
     extends SalesforceOAuthConnectorProcessAdapter
     implements OAuth2Adapter, OAuth2Connector
