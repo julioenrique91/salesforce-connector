@@ -8,7 +8,7 @@ import javax.annotation.Generated;
  * A tuple of connection parameters
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T03:32:41-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-19T08:16:01-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class SalesforceConnectorConnectionKey {
 
     /**
@@ -235,15 +235,13 @@ public class SalesforceConnectorConnectionKey {
         return this.url;
     }
 
+    @Override
     public int hashCode() {
-        int hash = 1;
-        hash = (hash* 31);
-        if (this.username!= null) {
-            hash += this.username.hashCode();
-        }
-        return hash;
+        int result = ((this.username!= null)?this.username.hashCode(): 0);
+        return result;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

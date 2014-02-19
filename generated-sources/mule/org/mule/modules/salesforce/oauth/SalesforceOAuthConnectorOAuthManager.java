@@ -24,14 +24,14 @@ import org.slf4j.LoggerFactory;
  * A {@code SalesforceOAuthConnectorOAuthManager} is a wrapper around {@link SalesforceOAuthConnector } that adds access token management capabilities to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T03:32:41-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-19T08:16:01-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class SalesforceOAuthConnectorOAuthManager
     extends BaseOAuth2Manager<OAuth2Adapter>
 {
 
     private static Logger logger = LoggerFactory.getLogger(SalesforceOAuthConnectorOAuthManager.class);
     private final static String MODULE_NAME = "Salesforce (OAuth)";
-    private final static String MODULE_VERSION = "5.4.5-SNAPSHOT";
+    private final static String MODULE_VERSION = "5.4.6-SNAPSHOT";
     private final static String DEVKIT_VERSION = "3.5.0-SNAPSHOT";
     private final static String DEVKIT_BUILD = "UNKNOWN_BUILDNUMBER";
 

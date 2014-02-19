@@ -8,7 +8,7 @@ import com.sforce.async.ContentType;
 import com.sforce.async.JobStateEnum;
 import com.sforce.async.OperationEnum;
 
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-17T03:32:41-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-02-19T08:16:01-06:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class JobInfoExpressionHolder {
 
     protected Object id;
