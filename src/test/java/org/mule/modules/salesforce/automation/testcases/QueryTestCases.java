@@ -10,6 +10,7 @@
 
 package org.mule.modules.salesforce.automation.testcases;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -25,7 +26,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import com.sforce.soap.partner.SaveResult;
-
+import org.mule.modules.salesforce.QueryResultObject;
 
 
 public class QueryTestCases extends SalesforceTestParent {
@@ -120,4 +121,26 @@ public class QueryTestCases extends SalesforceTestParent {
 		
 	}
 
+    @Category({RegressionTests.class})
+    @Test
+    public void testQueryBatchSize() {
+
+        testObjects.put("query", "SELECT Id, Name FROM Account");
+
+        try {
+
+            flow = lookupFlowConstruct("query-batch-size");
+            response = flow.process(getTestEvent(testObjects));
+
+            QueryResultObject queryResultObject =  (QueryResultObject) response.getMessage().getPayload();
+
+            assertEquals(260, queryResultObject.getData().size());
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            fail();
+        }
+
+    }
 }

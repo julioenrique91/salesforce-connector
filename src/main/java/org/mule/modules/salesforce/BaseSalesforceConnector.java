@@ -135,6 +135,14 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Default("0")
     private Integer batchSobjectMaxDepth;
 
+    /**
+     * Sets a Query Batch Size value. More info <a href="http://www.salesforce.com/us/developer/docs/soql_sosl/index_Left.htm#StartTopic=Content/sforce_api_calls_soql_changing_batch_size.htm">Salesforce Query Batch Size reference</a>
+     */
+    @Configurable
+    @Optional
+    @Default("500")
+    private Integer queryBatchSize;
+
     private ObjectStoreHelper objectStoreHelper;
 
     private Registry registry;
@@ -1559,5 +1567,13 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     public void setBatchSobjectMaxDepth(Integer batchSobjectMaxDepth) {
         this.batchSobjectMaxDepth = batchSobjectMaxDepth;
+    }
+
+    public Integer getQueryBatchSize() {
+        return queryBatchSize;
+    }
+
+    public void setQueryBatchSize(Integer queryBatchSize) {
+        this.queryBatchSize = queryBatchSize;
     }
 }

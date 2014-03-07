@@ -18,6 +18,10 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 		password="${salesforce.password}" username="${salesforce.username}"
 		securityToken="${salesforce.securityToken}" url="${salesforce.url}" />
 
+    <sfdc:config name="SalesforceQueryBatchSize" doc:name="Salesforce"
+                 password="${salesforce.password}" username="${salesforce.username}"
+                 securityToken="${salesforce.securityToken}" url="${salesforce.url}" queryBatchSize="260" />
+
 	<flow name="convert-lead-default-values" doc:name="convert-lead-default-values">
 		<sfdc:convert-lead config-ref="Salesforce" doc:name="Salesforce"
 			contactId="#[payload.contactId]" convertedStatus="#[payload.convertedStatus]"
@@ -112,6 +116,12 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 			query="#[payload.query]">
 		</sfdc:query>
 	</flow>
+
+    <flow name="query-batch-size" doc:name="query">
+        <sfdc:paginated-query config-ref="SalesforceQueryBatchSize" doc:name="Query"
+                    query="#[payload.query]">
+        </sfdc:paginated-query>
+    </flow>
 
 	<flow name="query-all" doc:name="query-all">
 		<sfdc:query-all config-ref="Salesforce" doc:name="Query all"

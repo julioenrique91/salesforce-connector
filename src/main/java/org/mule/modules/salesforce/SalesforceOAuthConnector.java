@@ -140,6 +140,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         config.setServiceEndpoint(serviceEndpoint);
 
         this.partnerConnection = Connector.newConnection(config);
+        this.partnerConnection.setQueryOptions(getQueryBatchSize());
         setConnectionOptions(this.partnerConnection);
 
         String restEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/async/28.0";
