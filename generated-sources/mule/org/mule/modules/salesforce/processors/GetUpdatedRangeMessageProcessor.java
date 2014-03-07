@@ -37,7 +37,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * GetUpdatedRangeMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#getUpdatedRange(java.lang.String, java.util.Calendar, java.util.Calendar)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-07T01:13:44-06:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-07T01:16:09-06:00", comments = "Build M4.1875.17b58a3")
 public class GetUpdatedRangeMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled

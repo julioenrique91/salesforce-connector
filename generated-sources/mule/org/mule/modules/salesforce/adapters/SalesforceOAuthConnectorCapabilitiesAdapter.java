@@ -11,7 +11,7 @@ import org.mule.modules.salesforce.SalesforceOAuthConnector;
  * A <code>SalesforceOAuthConnectorCapabilitiesAdapter</code> is a wrapper around {@link SalesforceOAuthConnector } that implements {@link org.mule.api.Capabilities} interface.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-07T01:13:44-06:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-07T01:16:09-06:00", comments = "Build M4.1875.17b58a3")
 public class SalesforceOAuthConnectorCapabilitiesAdapter
     extends SalesforceOAuthConnector
     implements Capabilities
