@@ -153,6 +153,7 @@ username/password/securityToken combination.
           <mode modeLabel="Get updated range" modeId="http://www.mulesoft.org/schema/mule/sfdc/get-updated-range"></mode>
           <mode modeLabel="Get user info" modeId="http://www.mulesoft.org/schema/mule/sfdc/get-user-info"></mode>
           <mode modeLabel="Hard delete bulk" modeId="http://www.mulesoft.org/schema/mule/sfdc/hard-delete-bulk"></mode>
+          <mode modeLabel="Job info" modeId="http://www.mulesoft.org/schema/mule/sfdc/job-info"></mode>
           <mode modeLabel="Non paginated query" modeId="http://www.mulesoft.org/schema/mule/sfdc/non-paginated-query"></mode>
           <mode modeLabel="Paginated query" modeId="http://www.mulesoft.org/schema/mule/sfdc/paginated-query"></mode>
           <mode modeLabel="Publish topic" modeId="http://www.mulesoft.org/schema/mule/sfdc/publish-topic"></mode>
@@ -533,6 +534,18 @@ username/password/securityToken combination.
       </group>
       <group caption="Salesforce sObjects list" id="salesforce sObjects list">
         <element-controller-listOfMap innerName="inner-object" listName="objects" defaultValue="#[payload]" itemName="object" localName="hard-delete-bulk-objects" javaType="java.util.List&lt;java.util.Map&lt;java.lang.String,java.lang.Object&gt;&gt;" required="false" description="An array of one or more sObjects objects." caption="sObjects"></element-controller-listOfMap>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.sforce.async.JobInfo" metaData="static" extends="http://www.mulesoft.org/schema/mule/sfdc/abstractSfdcConnectorGeneric" abstract="true" image="icons/large/sfdc-connector-48x32.png" localId="job-info" icon="icons/small/sfdc-connector-24x16.png" caption="Job Info">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The  being monitored." caption="Job Id" name="jobId"></string>
       </group>
     </attribute-category>
     <attribute-category description="Connection" caption="Connection">

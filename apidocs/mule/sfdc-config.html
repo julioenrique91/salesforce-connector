@@ -809,6 +809,16 @@ Summary:
 	 
     <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/sfdc-config.html#job-info">&lt;sfdc:job-info&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Access latest JobInfo of a submitted JobInfo.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#query-result-stream">&lt;sfdc:query-result-stream&gt;</a></nobr>
         
         <div class="jd-descrdiv">Returns an InputStream with the query results of a submitted BatchInfo
@@ -821,7 +831,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#update-bulk">&lt;sfdc:update-bulk&gt;</a></nobr>
         
@@ -831,7 +841,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#upsert-bulk">&lt;sfdc:upsert-bulk&gt;</a></nobr>
         
@@ -9438,6 +9448,205 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
     <div class="jd-tagdata">
         <h5 class="jd-tagtitle">API Information</h5>
         <ul class="nolist"><li><a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_create.htm">createBatch()</a></li></ul>
+    </div>
+  
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
+        <tr>
+            <td>Exception</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="job-info"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;sfdc:job-info&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>
+      
+        Access latest JobInfo of a submitted JobInfo. Allows to track execution status.
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:job-info config-ref="mySalesforceConfig" jobId="ID" /&gt;</pre></div>
+      
+  </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    
+                        <tr class=" api apilevel-" >
+                            <td class="jd-linkcol"><nobr>jobId</nobr></td>
+                            <td class="jd-descrcol"></td>
+                            <td class="jd-descrcol">The JobInfo being monitored</td>
+                            <td class="jd-descrcol">String</td>
+                            <td class="jd-descrcol">*/*</td>
+                            <td class="jd-descrcol">UTF-8</td>
+                        </tr>
+                    
+                
+                
+          
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Username used to initialize the session</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate the user</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>securityToken</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>User's security token</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>url</nobr></td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>proxyHost</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Hostname of the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>proxyPort</nobr></td>
+                        <td class="jd-descrcol">80</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Port of the proxy</td>
+                        <td class="jd-descrcol">int</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>proxyUsername</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Username used to authenticate against the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>proxyPassword</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate against the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                
+                    <td class="jd-descrcol">JobInfo</td>
+                    <td class="jd-descrcol">Latest JobInfo representing status of the job result.</td>
+                
+
+             </tr>
+         </table>
+  </div>
+    
+    <div class="jd-tagdata">
+        <h5 class="jd-tagtitle">API Information</h5>
+        <ul class="nolist"><li><a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_jobs_get_details.htm">getJobInfo()</a></li></ul>
     </div>
   
   <div class="jd-tagdata">

@@ -576,6 +576,83 @@ evaluator as &lt;i&gt;#[groovy:Date.parse("yyyy-MM-dd", "2011-12-13")]&lt;/i&gt;
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/sfdc" xmlns:mule="http://www.mulesoft.org/schema/mule/core" name="job-info" substitutionGroup="mule:abstract-message-processor" type="JobInfoType">
+    <xs:annotation>
+      <xs:documentation>Access latest  of a submitted . Allows to track execution status.
+&lt;p/&gt;</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="JobInfoType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageProcessorType">
+        <xs:attribute name="config-ref" use="required" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Specify which configuration to use for this invocation.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="jobId" use="required" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>the  being monitored</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="username" use="optional" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Username used to initialize the session</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="password" use="optional" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Password used to authenticate the user</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="securityToken" use="optional" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>User's security token</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="url" default="https://login.salesforce.com/services/Soap/u/28.0" use="optional" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Salesforce endpoint URL</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="proxyHost" use="optional" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Hostname of the proxy</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/sfdc" name="proxyPort" default="80" use="optional" type="integerType">
+          <xs:annotation>
+            <xs:documentation>Port of the proxy</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="proxyUsername" use="optional" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Username used to authenticate against the proxy</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="proxyPassword" use="optional" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Password used to authenticate against the proxy</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="sessionId" use="optional" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="serviceEndpoint" use="optional" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property. Otherwise the service endpoint will be retrieved from the login results.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="accessTokenId" use="optional" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>The id of the access token that will be used to authenticate the call</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:element xmlns="http://www.mulesoft.org/schema/mule/sfdc" xmlns:mule="http://www.mulesoft.org/schema/mule/core" name="create-batch" substitutionGroup="mule:abstract-message-processor" type="CreateBatchType">
     <xs:annotation>
       <xs:documentation>Creates a Batch using the given objects within the specified Job.
@@ -4422,29 +4499,34 @@ Default is false: no change in behavior. If a string or textarea value is too la
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:simpleType name="JobStateEnumEnumType">
+  <xs:simpleType name="BatchStateEnumEnumType">
     <xs:annotation>
       <xs:documentation></xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:enumeration value="Open">
+          <xs:enumeration value="Queued">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="Closed">
+          <xs:enumeration value="InProgress">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="Aborted">
+          <xs:enumeration value="Completed">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
           <xs:enumeration value="Failed">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="NotProcessed">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
@@ -4471,6 +4553,60 @@ Default is false: no change in behavior. If a string or textarea value is too la
           <xs:enumeration value="Serial">
             <xs:annotation>
               <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="SalesforceOAuthDisplayEnumType">
+    <xs:annotation>
+      <xs:documentation>Tailors the login page to the user's device type.</xs:documentation>
+    </xs:annotation>
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="PAGE">
+            <xs:annotation>
+              <xs:documentation>Full-page authorization screen (default)</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="POPUP">
+            <xs:annotation>
+              <xs:documentation>Compact dialog optimized for modern web browser popup windows.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TOUCH">
+            <xs:annotation>
+              <xs:documentation>Mobile-optimized dialog designed for modern smartphones, such as Android and iPhone.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="SalesforceOAuthPromptEnumType">
+    <xs:annotation>
+      <xs:documentation>Specifies how the authorization server prompts the user for reauthentication and reapproval</xs:documentation>
+    </xs:annotation>
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="LOGIN">
+            <xs:annotation>
+              <xs:documentation>The authorization server must prompt the user for reauthentication, forcing the user to log in again.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CONSENT">
+            <xs:annotation>
+              <xs:documentation>The authorization server must prompt the user for reapproval before returning information to the client.
+It is valid to pass both values, separated by a space, to require the user to both log in and reauthorize.</xs:documentation>
             </xs:annotation>
           </xs:enumeration>
         </xs:restriction>
@@ -4558,51 +4694,31 @@ Default is false: no change in behavior. If a string or textarea value is too la
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
-  <xs:simpleType name="SalesforceOAuthDisplayEnumType">
+  <xs:simpleType name="JobStateEnumEnumType">
     <xs:annotation>
-      <xs:documentation>Tailors the login page to the user's device type.</xs:documentation>
+      <xs:documentation></xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:enumeration value="PAGE">
+          <xs:enumeration value="Open">
             <xs:annotation>
-              <xs:documentation>Full-page authorization screen (default)</xs:documentation>
+              <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="POPUP">
+          <xs:enumeration value="Closed">
             <xs:annotation>
-              <xs:documentation>Compact dialog optimized for modern web browser popup windows.</xs:documentation>
+              <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="TOUCH">
+          <xs:enumeration value="Aborted">
             <xs:annotation>
-              <xs:documentation>Mobile-optimized dialog designed for modern smartphones, such as Android and iPhone.</xs:documentation>
+              <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType>
-        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
-      </xs:simpleType>
-    </xs:union>
-  </xs:simpleType>
-  <xs:simpleType name="SalesforceOAuthPromptEnumType">
-    <xs:annotation>
-      <xs:documentation>Specifies how the authorization server prompts the user for reauthentication and reapproval</xs:documentation>
-    </xs:annotation>
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="LOGIN">
+          <xs:enumeration value="Failed">
             <xs:annotation>
-              <xs:documentation>The authorization server must prompt the user for reauthentication, forcing the user to log in again.</xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="CONSENT">
-            <xs:annotation>
-              <xs:documentation>The authorization server must prompt the user for reapproval before returning information to the client.
-It is valid to pass both values, separated by a space, to require the user to both log in and reauthorize.</xs:documentation>
+              <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
         </xs:restriction>
@@ -4630,45 +4746,6 @@ It is valid to pass both values, separated by a space, to require the user to bo
 and the browser is immediately redirected to the callback with an authorization code. If the user is not
 logged in or has not previously approved the client, the flow immediately terminates with
 the immediate_unsuccessful error code.</xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType>
-        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
-      </xs:simpleType>
-    </xs:union>
-  </xs:simpleType>
-  <xs:simpleType name="BatchStateEnumEnumType">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-    </xs:annotation>
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="Queued">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="InProgress">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="Completed">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="Failed">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="NotProcessed">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
         </xs:restriction>

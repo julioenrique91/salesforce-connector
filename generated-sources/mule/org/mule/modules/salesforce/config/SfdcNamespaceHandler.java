@@ -13,7 +13,7 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  * Registers bean definitions parsers for handling elements in <code>http://www.mulesoft.org/schema/mule/sfdc</code>.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-07T01:16:09-06:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-10T01:04:06-05:00", comments = "Build M4.1875.17b58a3")
 public class SfdcNamespaceHandler
     extends NamespaceHandlerSupport
 {
@@ -71,6 +71,11 @@ public class SfdcNamespaceHandler
             this.registerBeanDefinitionParser("abort-job", new AbortJobDefinitionParser());
         } catch (NoClassDefFoundError ex) {
             handleException("abort-job", "@Processor", ex);
+        }
+        try {
+            this.registerBeanDefinitionParser("job-info", new JobInfoDefinitionParser());
+        } catch (NoClassDefFoundError ex) {
+            handleException("job-info", "@Processor", ex);
         }
         try {
             this.registerBeanDefinitionParser("create-batch", new CreateBatchDefinitionParser());
@@ -286,6 +291,11 @@ public class SfdcNamespaceHandler
             this.registerBeanDefinitionParser("abort-job", new AbortJobDefinitionParser());
         } catch (NoClassDefFoundError ex) {
             handleException("abort-job", "@Processor", ex);
+        }
+        try {
+            this.registerBeanDefinitionParser("job-info", new JobInfoDefinitionParser());
+        } catch (NoClassDefFoundError ex) {
+            handleException("job-info", "@Processor", ex);
         }
         try {
             this.registerBeanDefinitionParser("create-batch", new CreateBatchDefinitionParser());
