@@ -509,6 +509,16 @@ Summary:
 	 
     <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/sfdc-config.html#get-server-timestamp">&lt;sfdc:get-server-timestamp&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Retrieves the current system timestamp (Coordinated Universal Time (UTC) time zone) from the API.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#get-updated">&lt;sfdc:get-updated&gt;</a></nobr>
         
         <div class="jd-descrdiv">Retrieves the list of individual records that have been updated between the range of now to the duration before now.</div>
@@ -517,7 +527,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#get-updated-range">&lt;sfdc:get-updated-range&gt;</a></nobr>
         
@@ -527,7 +537,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#paginated-query">&lt;sfdc:paginated-query&gt;</a></nobr>
         
@@ -537,7 +547,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#query">&lt;sfdc:query&gt;</a></nobr>
         
@@ -547,7 +557,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#query-all">&lt;sfdc:query-all&gt;</a></nobr>
         
@@ -557,7 +567,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#query-single">&lt;sfdc:query-single&gt;</a></nobr>
         
@@ -567,7 +577,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#retrieve">&lt;sfdc:retrieve&gt;</a></nobr>
         
@@ -577,7 +587,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#search">&lt;sfdc:search&gt;</a></nobr>
         
@@ -589,7 +599,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#update">&lt;sfdc:update&gt;</a></nobr>
         
@@ -599,7 +609,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#update-single">&lt;sfdc:update-single&gt;</a></nobr>
         
@@ -609,7 +619,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#upsert">&lt;sfdc:upsert&gt;</a></nobr>
         
@@ -658,7 +668,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#batch-result">&lt;sfdc:batch-result&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Access <code><a href="../java/com/sforce/async/BatchResult.html">BatchResult</a></code> of a submitted BatchInfo.</div>
+        <div class="jd-descrdiv">Access com.sforce.async.BatchResult of a submitted BatchInfo.</div>
         
   </td></tr>
 
@@ -668,7 +678,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config.html#batch-result-stream">&lt;sfdc:batch-result-stream&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Access <code><a href="../java/com/sforce/async/BatchResult.html">BatchResult</a></code> of a submitted BatchInfo.</div>
+        <div class="jd-descrdiv">Access com.sforce.async.BatchResult of a submitted BatchInfo.</div>
         
   </td></tr>
 
@@ -749,6 +759,8 @@ Summary:
         <span class="sympad"><a href="../mule/sfdc-config.html#query-result-stream">&lt;sfdc:query-result-stream&gt;</a></nobr>
         
         <div class="jd-descrdiv">Returns an InputStream with the query results of a submitted BatchInfo
+ <p/> 
+ Internally the InputStreams contained in the sequence will be requested on-demand (lazy-loading)
  <p/>
  </div>
         
@@ -873,7 +885,7 @@ resolution.</p>
     
       <tr class="alt-color api apilevel-" >
           <td class="jd-linkcol"><nobr>url</nobr></td>
-          <td class="jd-descrcol"><nobr>https://login.salesforce.com/services/Soap/u/26.0</nobr></td>
+          <td class="jd-descrcol"><nobr>https://login.salesforce.com/services/Soap/u/28.0</nobr></td>
           <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
           <td class="jd-descrcol">String</td>
           <td class="jd-descrcol">*/*</td>
@@ -915,6 +927,29 @@ resolution.</p>
           <td class="jd-linkcol"><nobr>proxyPassword</nobr></td>
           <td class="jd-descrcol"><nobr></nobr></td>
           <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate against the proxy</td>
+          <td class="jd-descrcol">String</td>
+          <td class="jd-descrcol">*/*</td>
+          <td class="jd-descrcol">UTF-8</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+          <td class="jd-descrcol"><nobr></nobr></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+          <td class="jd-descrcol">String</td>
+          <td class="jd-descrcol">*/*</td>
+          <td class="jd-descrcol">UTF-8</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+          <td class="jd-descrcol"><nobr></nobr></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
           <td class="jd-descrcol">String</td>
           <td class="jd-descrcol">*/*</td>
           <td class="jd-descrcol">UTF-8</td>
@@ -989,7 +1024,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Retrieves the list of records that have been updated between the last time this method was called and now. This
- method will save the timestamp of the latest date covered by Salesforce represented by latestDateCovered.
+ method will save the timestamp of the latest date covered by Salesforce represented by GetUpdatedResult#latestDateCovered.
  IMPORTANT: In order to use this method in a reliable way user must ensure that right after this method returns the result is
  stored in a persistent way since the timestamp of the latest . In order to reset the latest update time
  use <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#resetUpdatedObjectsTimestamp(java.lang.String)">resetUpdatedObjectsTimestamp</a></code>
@@ -1098,7 +1133,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -1140,6 +1175,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>proxyPassword</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate against the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -1201,7 +1259,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -1276,7 +1334,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -1324,6 +1382,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -1356,7 +1437,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -1445,7 +1526,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -1493,6 +1574,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -1508,7 +1612,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>ObjectStoreException</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error
+            <td>com.sforce.ws.ConnectionException when there is an error
 </td>
         </tr>
       </table>
@@ -1608,7 +1712,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -1656,6 +1760,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -1671,7 +1798,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error
+            <td>com.sforce.ws.ConnectionException when there is an error
 
 </td>
         </tr>
@@ -1793,7 +1920,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -1841,6 +1968,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -1860,7 +2010,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -1941,7 +2091,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -1989,6 +2139,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -2021,7 +2194,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2109,7 +2282,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -2157,6 +2330,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -2189,7 +2385,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2398,7 +2594,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -2446,6 +2642,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -2478,7 +2697,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2590,7 +2809,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -2632,6 +2851,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>proxyPassword</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate against the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -2691,7 +2933,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2790,7 +3032,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -2838,6 +3080,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -2874,7 +3139,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
              </tr>
              <tr>
                 <td class="jd-descrcol"><a href="../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a></td>
-                <td class="jd-descrcol">An array of <code><a href="../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a></code></td>
+                <td class="jd-descrcol">An array of SaveResult</td>
              </tr>
          </table>
   </div>
@@ -2891,7 +3156,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2972,7 +3237,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -3014,6 +3279,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>proxyPassword</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate against the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -3071,7 +3359,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -3156,7 +3444,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -3198,6 +3486,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>proxyPassword</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate against the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -3256,7 +3567,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -3355,7 +3666,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -3403,6 +3714,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -3418,7 +3752,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
              </tr>
              <tr>
                 <td class="jd-descrcol"><a href="../java/com/sforce/soap/partner/GetDeletedResult.html">GetDeletedResult</a></td>
-                <td class="jd-descrcol"><code><a href="../java/com/sforce/soap/partner/GetDeletedResult.html">GetDeletedResult</a></code></td>
+                <td class="jd-descrcol">GetDeletedResult</td>
              </tr>
          </table>
   </div>
@@ -3435,7 +3769,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -3552,7 +3886,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -3600,6 +3934,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -3632,7 +3989,185 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="get-server-timestamp"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;sfdc:get-server-timestamp&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves the current system timestamp (Coordinated Universal Time (UTC) time zone) from the API.
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:get-server-timestamp config-ref="mySalesforceConfig"/&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+          
+              <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>username</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Username used to initialize the session</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>password</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate the user</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>securityToken</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>User's security token</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>url</nobr></td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>proxyHost</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Hostname of the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>proxyPort</nobr></td>
+                        <td class="jd-descrcol">80</td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Port of the proxy</td>
+                        <td class="jd-descrcol">int</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>proxyUsername</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Username used to authenticate against the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>proxyPassword</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate against the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+          
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">Calendar</td>
+                <td class="jd-descrcol">Calendar with the current timestamp</td>
+             </tr>
+         </table>
+  </div>
+    
+    <div class="jd-tagdata">
+        <h5 class="jd-tagtitle">API Information</h5>
+        <ul class="nolist"><li><a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getservertimestamp.htm">getServerTimestamp()</a></li></ul>
+    </div>
+  
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
+        <tr>
+            <td>Exception</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -3732,7 +4267,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -3780,6 +4315,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -3795,7 +4353,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
              </tr>
              <tr>
                 <td class="jd-descrcol"><a href="../java/com/sforce/soap/partner/GetUpdatedResult.html">GetUpdatedResult</a></td>
-                <td class="jd-descrcol"><code><a href="../java/com/sforce/soap/partner/GetUpdatedResult.html">GetUpdatedResult</a></code> object containing an array of GetUpdatedResult objects containing the ID of each
+                <td class="jd-descrcol">GetUpdatedResult object containing an array of GetUpdatedResult objects containing the ID of each
  created or updated object and the date/time (Coordinated Universal Time (UTC) time zone) on which it was created
  or updated, respectively</td>
              </tr>
@@ -3814,7 +4372,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -3930,7 +4488,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -3978,6 +4536,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -4010,7 +4591,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4127,7 +4708,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -4175,6 +4756,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -4207,7 +4811,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4296,7 +4900,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -4344,6 +4948,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -4376,7 +5003,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4463,7 +5090,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -4511,6 +5138,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -4543,7 +5193,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4632,7 +5282,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -4680,6 +5330,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -4712,7 +5385,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4812,7 +5485,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -4854,6 +5527,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>proxyPassword</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate against the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -4919,7 +5615,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error
+            <td>com.sforce.ws.ConnectionException when there is an error
 </td>
         </tr>
       </table>
@@ -5007,7 +5703,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -5055,6 +5751,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -5087,7 +5806,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -5180,7 +5899,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -5228,6 +5947,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -5264,7 +6006,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
              </tr>
              <tr>
                 <td class="jd-descrcol">List&lt;<a href="../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a>&gt;</td>
-                <td class="jd-descrcol">An array of <code><a href="../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a></code></td>
+                <td class="jd-descrcol">An array of SaveResult</td>
              </tr>
          </table>
   </div>
@@ -5281,7 +6023,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -5372,7 +6114,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -5420,6 +6162,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -5456,7 +6221,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
              </tr>
              <tr>
                 <td class="jd-descrcol"><a href="../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a></td>
-                <td class="jd-descrcol">A <code><a href="../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a></code></td>
+                <td class="jd-descrcol">A SaveResult</td>
              </tr>
          </table>
   </div>
@@ -5473,7 +6238,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -5590,7 +6355,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -5632,6 +6397,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>proxyPassword</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate against the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -5693,7 +6481,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error if a connection error occurs</td>
+            <td>com.sforce.ws.ConnectionException when there is an error if a connection error occurs</td>
         </tr>
       </table>
   </div>
@@ -5785,7 +6573,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -5833,6 +6621,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -5847,7 +6658,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></td>
+                <td class="jd-descrcol">JobInfo</td>
                 <td class="jd-descrcol">A JobInfo that identifies the aborted Job. </td>
              </tr>
          </table>
@@ -5865,7 +6676,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -5912,7 +6723,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>batchInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The BatchInfo being monitored</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                        <td class="jd-descrcol">BatchInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -5954,7 +6765,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -6002,6 +6813,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -6016,7 +6850,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                <td class="jd-descrcol">BatchInfo</td>
                 <td class="jd-descrcol">Latest BatchInfo representing status of the batch job result.</td>
              </tr>
          </table>
@@ -6034,7 +6868,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -6056,7 +6890,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Access <code><a href="../java/com/sforce/async/BatchResult.html">BatchResult</a></code> of a submitted BatchInfo.
+  <div class="jd-tagdata jd-tagdescr"><p>Access com.sforce.async.BatchResult of a submitted BatchInfo.
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:batch-result config-ref="mySalesforceConfig"&gt;
     &lt;sfdc:batch-info ref="#[payload]"/&gt;
@@ -6081,7 +6915,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>batchInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The BatchInfo being monitored</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                        <td class="jd-descrcol">BatchInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -6123,7 +6957,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -6171,6 +7005,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -6185,8 +7042,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchResult.html">BatchResult</a></td>
-                <td class="jd-descrcol"><code><a href="../java/com/sforce/async/BatchResult.html">BatchResult</a></code> representing result of the batch job result.</td>
+                <td class="jd-descrcol">BatchResult</td>
+                <td class="jd-descrcol">com.sforce.async.BatchResult representing result of the batch job result.</td>
              </tr>
          </table>
   </div>
@@ -6203,7 +7060,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -6225,7 +7082,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Access <code><a href="../java/com/sforce/async/BatchResult.html">BatchResult</a></code> of a submitted BatchInfo.
+  <div class="jd-tagdata jd-tagdescr"><p>Access com.sforce.async.BatchResult of a submitted BatchInfo.
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:batch-result-stream config-ref="mySalesforceConfig"&gt;
     &lt;sfdc:batch-info ref="#[payload]"/&gt;
@@ -6250,7 +7107,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>batchInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The BatchInfo being monitored</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                        <td class="jd-descrcol">BatchInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -6292,7 +7149,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -6334,6 +7191,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>proxyPassword</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate against the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -6372,7 +7252,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -6458,7 +7338,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -6506,6 +7386,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -6520,7 +7423,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></td>
+                <td class="jd-descrcol">JobInfo</td>
                 <td class="jd-descrcol">A JobInfo that identifies the closed Job. </td>
              </tr>
          </table>
@@ -6538,7 +7441,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -6590,7 +7493,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>jobInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The JobInfo in which the batch will be created.</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></td>
+                        <td class="jd-descrcol">JobInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -6634,7 +7537,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -6682,6 +7585,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -6717,8 +7643,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
-                <td class="jd-descrcol">A <code><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></code> that identifies the batch job. </td>
+                <td class="jd-descrcol">BatchInfo</td>
+                <td class="jd-descrcol">A com.sforce.async.BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
   </div>
@@ -6735,7 +7661,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -6784,7 +7710,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>jobInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The JobInfo in which the batch will be created.</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></td>
+                        <td class="jd-descrcol">JobInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -6838,7 +7764,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -6886,6 +7812,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -6900,7 +7849,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                <td class="jd-descrcol">BatchInfo</td>
                 <td class="jd-descrcol">A BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
@@ -6918,7 +7867,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -6967,7 +7916,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>jobInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The JobInfo in which the batch will be created.</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></td>
+                        <td class="jd-descrcol">JobInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -7021,7 +7970,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -7069,6 +8018,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -7083,8 +8055,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
-                <td class="jd-descrcol">A <code><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></code> that identifies the batch job. </td>
+                <td class="jd-descrcol">BatchInfo</td>
+                <td class="jd-descrcol">A com.sforce.async.BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
   </div>
@@ -7101,7 +8073,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -7203,7 +8175,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -7251,6 +8223,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -7286,7 +8281,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                <td class="jd-descrcol">BatchInfo</td>
                 <td class="jd-descrcol">A BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
@@ -7304,7 +8299,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -7353,8 +8348,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>operation</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">The <code><a href="../java/com/sforce/async/OperationEnum.html">OperationEnum</a></code> that will be executed by the job.</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/OperationEnum.html">OperationEnum</a></td>
+                        <td class="jd-descrcol">The com.sforce.async.OperationEnum that will be executed by the job.</td>
+                        <td class="jd-descrcol">OperationEnum</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -7394,7 +8389,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The Content Type for this Job results. When specifying a content type different from
                             XML for a query type use <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#queryResultStream(com.sforce.async.BatchInfo)">queryResultStream(com.sforce.async.BatchInfo)</a></code>
                             batchResultStream} method to retrieve results.</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/ContentType.html">ContentType</a></td>
+                        <td class="jd-descrcol">ContentType</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -7406,7 +8401,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>concurrencyMode</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The concurrency mode of the job, either Parallel or Serial.</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/ConcurrencyMode.html">ConcurrencyMode</a></td>
+                        <td class="jd-descrcol">ConcurrencyMode</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -7448,7 +8443,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -7496,6 +8491,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -7510,8 +8528,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></td>
-                <td class="jd-descrcol">A <code><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></code> that identifies the created Job. </td>
+                <td class="jd-descrcol">JobInfo</td>
+                <td class="jd-descrcol">A com.sforce.async.JobInfo that identifies the created Job. </td>
              </tr>
          </table>
   </div>
@@ -7528,7 +8546,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -7626,7 +8644,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -7668,6 +8686,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>proxyPassword</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate against the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -7709,7 +8750,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                <td class="jd-descrcol">BatchInfo</td>
                 <td class="jd-descrcol">A BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
@@ -7727,7 +8768,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -7750,6 +8791,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns an InputStream with the query results of a submitted BatchInfo
+ <p/> 
+ Internally the InputStreams contained in the sequence will be requested on-demand (lazy-loading)
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:query-result-stream config-ref="mySalesforceConfig"&gt;
     &lt;sfdc:batch-info ref="#[payload]"/&gt;
@@ -7774,7 +8817,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>batchInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The BatchInfo being monitored</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                        <td class="jd-descrcol">BatchInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -7816,7 +8859,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -7864,6 +8907,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -7896,7 +8962,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -7991,7 +9057,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -8039,6 +9105,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -8074,7 +9163,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                <td class="jd-descrcol">BatchInfo</td>
                 <td class="jd-descrcol">A BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
@@ -8092,7 +9181,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -8211,7 +9300,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -8259,6 +9348,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     </tr>
                     
                 
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
           
           
         </table>
@@ -8296,7 +9408,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                <td class="jd-descrcol">BatchInfo</td>
                 <td class="jd-descrcol">A BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
@@ -8314,7 +9426,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -8445,7 +9557,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>url</nobr></td>
-                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/26.0</td>
+                        <td class="jd-descrcol">https://login.salesforce.com/services/Soap/u/28.0</td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Salesforce endpoint URL</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
@@ -8487,6 +9599,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td class="jd-linkcol"><nobr>proxyPassword</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Password used to authenticate against the proxy</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>sessionId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>This value could be used for specifing an active Salesforce session.
+ Please take into account you must specify all the connection parameters anyway since they will be used
+ in case of needing a reconnection.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                    
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>serviceEndpoint</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
+ Otherwise the service endpoint will be retrieved from the login results.</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>

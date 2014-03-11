@@ -512,6 +512,16 @@ Summary:
 	 
     <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#get-server-timestamp">&lt;sfdc:get-server-timestamp&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Retrieves the current system timestamp (Coordinated Universal Time (UTC) time zone) from the API.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#get-updated">&lt;sfdc:get-updated&gt;</a></nobr>
         
         <div class="jd-descrdiv">Retrieves the list of individual records that have been updated between the range of now to the duration before now.</div>
@@ -520,7 +530,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#get-updated-range">&lt;sfdc:get-updated-range&gt;</a></nobr>
         
@@ -530,7 +540,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#paginated-query">&lt;sfdc:paginated-query&gt;</a></nobr>
         
@@ -540,7 +550,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#query">&lt;sfdc:query&gt;</a></nobr>
         
@@ -550,7 +560,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#query-all">&lt;sfdc:query-all&gt;</a></nobr>
         
@@ -560,7 +570,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#query-single">&lt;sfdc:query-single&gt;</a></nobr>
         
@@ -570,7 +580,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#retrieve">&lt;sfdc:retrieve&gt;</a></nobr>
         
@@ -580,7 +590,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#search">&lt;sfdc:search&gt;</a></nobr>
         
@@ -592,7 +602,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#update">&lt;sfdc:update&gt;</a></nobr>
         
@@ -602,7 +612,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#update-single">&lt;sfdc:update-single&gt;</a></nobr>
         
@@ -612,7 +622,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#upsert">&lt;sfdc:upsert&gt;</a></nobr>
         
@@ -661,7 +671,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#batch-result">&lt;sfdc:batch-result&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Access <code><a href="../java/com/sforce/async/BatchResult.html">BatchResult</a></code> of a submitted BatchInfo.</div>
+        <div class="jd-descrdiv">Access com.sforce.async.BatchResult of a submitted BatchInfo.</div>
         
   </td></tr>
 
@@ -671,7 +681,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#batch-result-stream">&lt;sfdc:batch-result-stream&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Access <code><a href="../java/com/sforce/async/BatchResult.html">BatchResult</a></code> of a submitted BatchInfo.</div>
+        <div class="jd-descrdiv">Access com.sforce.async.BatchResult of a submitted BatchInfo.</div>
         
   </td></tr>
 
@@ -752,6 +762,8 @@ Summary:
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#query-result-stream">&lt;sfdc:query-result-stream&gt;</a></nobr>
         
         <div class="jd-descrdiv">Returns an InputStream with the query results of a submitted BatchInfo
+ <p/> 
+ Internally the InputStreams contained in the sequence will be requested on-demand (lazy-loading)
  <p/>
  </div>
         
@@ -1028,7 +1040,7 @@ grants authorization to the connector to access his private information.</p>
 <p>The callback can be customized in the config element of the this connector as follows:</p>
 <pre>
     &lt;sfdc:config&gt;
-        &lt;sfdc:oauth-callback-config domain="${fullDomain}" localPort="${http.port}" remotePort="80"/&gt;
+        &lt;sfdc:oauth-callback-config domain="${fullDomain}" localPort="10010" remotePort="80"/&gt;
     &lt;/sfdc:config&gt;
 </pre>
 <p>The <i>oauth-callback-config</i> element can be used to customize the endpoint that gets created for the callback. It
@@ -1046,7 +1058,7 @@ features the following attributes:</p>
 </tr>
 <tr class="api" >
 <td class="jd-linkcol"><nobr>localPort</nobr></td>
-<td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The local port number that the endpoint will listen on. Normally 80, in the case of CloudHub you can use the environment variable ${http.port}.</td>
+<td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The local port number that the endpoint will listen on. Normally 80, in the case of CloudHub you can use the environment variable 10010.</td>
 </tr>
 <tr class="api" >
 <td class="jd-linkcol"><nobr>remotePort</nobr></td>
@@ -1236,7 +1248,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -1318,7 +1330,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -1397,7 +1409,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>ObjectStoreException</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error
+            <td>com.sforce.ws.ConnectionException when there is an error
 </td>
         </tr>
       </table>
@@ -1487,7 +1499,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error
+            <td>com.sforce.ws.ConnectionException when there is an error
 
 </td>
         </tr>
@@ -1603,7 +1615,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -1691,7 +1703,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -1786,7 +1798,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2002,7 +2014,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2142,7 +2154,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2269,7 +2281,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2376,7 +2388,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2488,7 +2500,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2594,7 +2606,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2718,7 +2730,89 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="get-server-timestamp"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;sfdc:get-server-timestamp&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves the current system timestamp (Coordinated Universal Time (UTC) time zone) from the API.
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:get-server-timestamp config-ref="mySalesforceConfig"/&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+          
+          
+              <tr><th colspan="12">OAuth Parameters<br/><span style="font-weight: 200;">The following values are always required when using OAuth as the authentication mechanism.</span></th></tr>
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accessTokenId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%">Access token identifier used to retrieve an access token from the store</td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">Calendar</td>
+                <td class="jd-descrcol">Calendar with the current timestamp</td>
+             </tr>
+         </table>
+  </div>
+    
+    <div class="jd-tagdata">
+        <h5 class="jd-tagtitle">API Information</h5>
+        <ul class="nolist"><li><a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getservertimestamp.htm">getServerTimestamp()</a></li></ul>
+    </div>
+  
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
+        <tr>
+            <td>Exception</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2827,7 +2921,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -2950,7 +3044,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -3074,7 +3168,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -3170,7 +3264,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -3264,7 +3358,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -3360,7 +3454,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -3494,7 +3588,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error
+            <td>com.sforce.ws.ConnectionException when there is an error
 </td>
         </tr>
       </table>
@@ -3589,7 +3683,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -3710,7 +3804,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -3829,7 +3923,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -3976,7 +4070,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error if a connection error occurs</td>
+            <td>com.sforce.ws.ConnectionException when there is an error if a connection error occurs</td>
         </tr>
       </table>
   </div>
@@ -4057,7 +4151,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></td>
+                <td class="jd-descrcol">JobInfo</td>
                 <td class="jd-descrcol">A JobInfo that identifies the aborted Job. </td>
              </tr>
          </table>
@@ -4075,7 +4169,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4122,7 +4216,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                         <td class="jd-linkcol"><nobr>batchInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The BatchInfo being monitored</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                        <td class="jd-descrcol">BatchInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -4153,7 +4247,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                <td class="jd-descrcol">BatchInfo</td>
                 <td class="jd-descrcol">Latest BatchInfo representing status of the batch job result.</td>
              </tr>
          </table>
@@ -4171,7 +4265,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4193,7 +4287,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Access <code><a href="../java/com/sforce/async/BatchResult.html">BatchResult</a></code> of a submitted BatchInfo.
+  <div class="jd-tagdata jd-tagdescr"><p>Access com.sforce.async.BatchResult of a submitted BatchInfo.
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:batch-result config-ref="mySalesforceConfig"&gt;
     &lt;sfdc:batch-info ref="#[payload]"/&gt;
@@ -4218,7 +4312,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                         <td class="jd-linkcol"><nobr>batchInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The BatchInfo being monitored</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                        <td class="jd-descrcol">BatchInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -4249,8 +4343,8 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchResult.html">BatchResult</a></td>
-                <td class="jd-descrcol"><code><a href="../java/com/sforce/async/BatchResult.html">BatchResult</a></code> representing result of the batch job result.</td>
+                <td class="jd-descrcol">BatchResult</td>
+                <td class="jd-descrcol">com.sforce.async.BatchResult representing result of the batch job result.</td>
              </tr>
          </table>
   </div>
@@ -4267,7 +4361,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4289,7 +4383,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Access <code><a href="../java/com/sforce/async/BatchResult.html">BatchResult</a></code> of a submitted BatchInfo.
+  <div class="jd-tagdata jd-tagdescr"><p>Access com.sforce.async.BatchResult of a submitted BatchInfo.
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:batch-result-stream config-ref="mySalesforceConfig"&gt;
     &lt;sfdc:batch-info ref="#[payload]"/&gt;
@@ -4314,7 +4408,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                         <td class="jd-linkcol"><nobr>batchInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The BatchInfo being monitored</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                        <td class="jd-descrcol">BatchInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -4363,7 +4457,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4438,7 +4532,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></td>
+                <td class="jd-descrcol">JobInfo</td>
                 <td class="jd-descrcol">A JobInfo that identifies the closed Job. </td>
              </tr>
          </table>
@@ -4456,7 +4550,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4508,7 +4602,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                         <td class="jd-linkcol"><nobr>jobInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The JobInfo in which the batch will be created.</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></td>
+                        <td class="jd-descrcol">JobInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -4562,8 +4656,8 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
-                <td class="jd-descrcol">A <code><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></code> that identifies the batch job. </td>
+                <td class="jd-descrcol">BatchInfo</td>
+                <td class="jd-descrcol">A com.sforce.async.BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
   </div>
@@ -4580,7 +4674,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4629,7 +4723,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                         <td class="jd-linkcol"><nobr>jobInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The JobInfo in which the batch will be created.</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></td>
+                        <td class="jd-descrcol">JobInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -4672,7 +4766,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                <td class="jd-descrcol">BatchInfo</td>
                 <td class="jd-descrcol">A BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
@@ -4690,7 +4784,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4739,7 +4833,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                         <td class="jd-linkcol"><nobr>jobInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The JobInfo in which the batch will be created.</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></td>
+                        <td class="jd-descrcol">JobInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -4782,8 +4876,8 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
-                <td class="jd-descrcol">A <code><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></code> that identifies the batch job. </td>
+                <td class="jd-descrcol">BatchInfo</td>
+                <td class="jd-descrcol">A com.sforce.async.BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
   </div>
@@ -4800,7 +4894,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4912,7 +5006,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                <td class="jd-descrcol">BatchInfo</td>
                 <td class="jd-descrcol">A BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
@@ -4930,7 +5024,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -4979,8 +5073,8 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                     <tr class=" api apilevel-" >
                         <td class="jd-linkcol"><nobr>operation</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol">The <code><a href="../java/com/sforce/async/OperationEnum.html">OperationEnum</a></code> that will be executed by the job.</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/OperationEnum.html">OperationEnum</a></td>
+                        <td class="jd-descrcol">The com.sforce.async.OperationEnum that will be executed by the job.</td>
+                        <td class="jd-descrcol">OperationEnum</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -5020,7 +5114,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The Content Type for this Job results. When specifying a content type different from
                             XML for a query type use <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#queryResultStream(com.sforce.async.BatchInfo)">queryResultStream(com.sforce.async.BatchInfo)</a></code>
                             batchResultStream} method to retrieve results.</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/ContentType.html">ContentType</a></td>
+                        <td class="jd-descrcol">ContentType</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -5032,7 +5126,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                         <td class="jd-linkcol"><nobr>concurrencyMode</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol"><i>Optional.&nbsp;</i>The concurrency mode of the job, either Parallel or Serial.</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/ConcurrencyMode.html">ConcurrencyMode</a></td>
+                        <td class="jd-descrcol">ConcurrencyMode</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -5063,8 +5157,8 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></td>
-                <td class="jd-descrcol">A <code><a href="../java/com/sforce/async/JobInfo.html">JobInfo</a></code> that identifies the created Job. </td>
+                <td class="jd-descrcol">JobInfo</td>
+                <td class="jd-descrcol">A com.sforce.async.JobInfo that identifies the created Job. </td>
              </tr>
          </table>
   </div>
@@ -5081,7 +5175,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -5189,7 +5283,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                <td class="jd-descrcol">BatchInfo</td>
                 <td class="jd-descrcol">A BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
@@ -5207,7 +5301,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -5230,6 +5324,8 @@ of the object store that he wishes to use to save and restore access tokens.</p>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns an InputStream with the query results of a submitted BatchInfo
+ <p/> 
+ Internally the InputStreams contained in the sequence will be requested on-demand (lazy-loading)
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:query-result-stream config-ref="mySalesforceConfig"&gt;
     &lt;sfdc:batch-info ref="#[payload]"/&gt;
@@ -5254,7 +5350,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                         <td class="jd-linkcol"><nobr>batchInfo</nobr></td>
                         <td class="jd-descrcol"></td>
                         <td class="jd-descrcol">The BatchInfo being monitored</td>
-                        <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                        <td class="jd-descrcol">BatchInfo</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol"></td>
                     </tr>
@@ -5303,7 +5399,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -5408,7 +5504,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                <td class="jd-descrcol">BatchInfo</td>
                 <td class="jd-descrcol">A BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
@@ -5426,7 +5522,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
@@ -5557,7 +5653,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
                 <th>Description</th>
              </tr>
              <tr>
-                <td class="jd-descrcol"><a href="../java/com/sforce/async/BatchInfo.html">BatchInfo</a></td>
+                <td class="jd-descrcol">BatchInfo</td>
                 <td class="jd-descrcol">A BatchInfo that identifies the batch job. </td>
              </tr>
          </table>
@@ -5575,7 +5671,7 @@ of the object store that he wishes to use to save and restore access tokens.</p>
         
         <tr>
             <td>Exception</td>
-            <td><code><a href="../java/com/sforce/ws/ConnectionException.html">ConnectionException</a></code> when there is an error</td>
+            <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
       </table>
   </div>
