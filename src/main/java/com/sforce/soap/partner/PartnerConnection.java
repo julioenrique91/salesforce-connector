@@ -351,7 +351,9 @@ public class PartnerConnection {
     __AllOrNoneHeader = __header ;
   }
 
+  public PartnerConnection() {
 
+  }
 
   public PartnerConnection(ConnectorConfig config) throws ConnectionException {
     this.__config = config;

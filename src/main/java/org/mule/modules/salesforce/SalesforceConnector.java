@@ -330,7 +330,6 @@ public class SalesforceConnector extends BaseSalesforceConnector {
 
         try {
             connection = Connector.newConnection(connectorConfig);
-            connection.setQueryOptions(getQueryBatchSize());
             setConnectionOptions(connection);
         } catch (ConnectionException e) {
             throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);

@@ -263,7 +263,7 @@ public class SalesforceModuleTest {
         List<Map<String, Object>> sObjectList = new ArrayList<Map<String, Object>>();
         sObjectList.add(sObject);
 
-        List<SaveResult> saveResults = connector.create(MOCK_OBJET_TYPE, sObjectList);
+        List<SaveResult> saveResults = connector.create(MOCK_OBJET_TYPE, sObjectList, null);
 
         assertEquals(saveResults.get(0), saveResult);
     }
@@ -282,7 +282,7 @@ public class SalesforceModuleTest {
         sObject.put(FIRST_NAME_FIELD, FIRST_NAME);
         sObject.put(LAST_NAME_FIELD, LAST_NAME);
 
-        SaveResult returnedSaveResult = connector.createSingle(MOCK_OBJET_TYPE, sObject);
+        SaveResult returnedSaveResult = connector.createSingle(MOCK_OBJET_TYPE, sObject, null);
 
         assertEquals(returnedSaveResult, saveResult);
     }
@@ -300,7 +300,7 @@ public class SalesforceModuleTest {
         sObject.put(FIRST_NAME_FIELD, FIRST_NAME);
         sObject.put(LAST_NAME_FIELD, LAST_NAME);
 
-        SaveResult returnedSaveResult = connector.createSingle(MOCK_OBJET_TYPE, sObject);
+        SaveResult returnedSaveResult = connector.createSingle(MOCK_OBJET_TYPE, sObject, null);
 
         assertNull(returnedSaveResult);
     }
@@ -372,7 +372,7 @@ public class SalesforceModuleTest {
         List<Map<String, Object>> sObjectList = new ArrayList<Map<String, Object>>();
         sObjectList.add(sObject);
 
-        List<SaveResult> saveResults = connector.update(MOCK_OBJET_TYPE, sObjectList);
+        List<SaveResult> saveResults = connector.update(MOCK_OBJET_TYPE, sObjectList, null);
 
         assertEquals(saveResults.get(0), saveResult);
     }
@@ -406,7 +406,7 @@ public class SalesforceModuleTest {
 
         when(partnerConnection.retrieve(eq("Id,Name"), eq("Account"), eq(new String[]{"id1", "id2"}))).thenReturn(new SObject[]{sObject1, sObject2});
 
-        List<Map<String, Object>> result = connector.retrieve("Account", Arrays.asList("id1", "id2"), Arrays.asList("Id", "Name"));
+        List<Map<String, Object>> result = connector.retrieve("Account", Arrays.asList("id1", "id2"), Arrays.asList("Id", "Name"), null);
 
         assertEquals(2, result.size());
     }
@@ -432,7 +432,7 @@ public class SalesforceModuleTest {
         when(partnerConnection.query(eq(MOCK_QUERY))).thenReturn(queryResult1);
         when(partnerConnection.queryMore(eq("001"))).thenReturn(queryResult2);
 
-        List<Map<String, Object>> result = connector.query(MOCK_QUERY);
+        List<Map<String, Object>> result = connector.query(MOCK_QUERY, null);
 
         assertEquals(2, result.size());
     }
@@ -449,7 +449,7 @@ public class SalesforceModuleTest {
 
         when(partnerConnection.query(eq(MOCK_QUERY))).thenReturn(queryResult);
 
-        connector.querySingle(MOCK_QUERY);
+        connector.querySingle(MOCK_QUERY, null);
     }
 
     @Test
@@ -465,7 +465,7 @@ public class SalesforceModuleTest {
 
         when(partnerConnection.query(eq(MOCK_QUERY))).thenReturn(queryResult);
 
-        connector.querySingle(MOCK_QUERY);
+        connector.querySingle(MOCK_QUERY, null);
 
         verify(sObject, atLeastOnce()).hasChildren();
     }
@@ -485,7 +485,7 @@ public class SalesforceModuleTest {
         List<String> ids = new ArrayList<String>();
         ids.add(MOCKED_ID);
 
-        connector.emptyRecycleBin(ids);
+        connector.emptyRecycleBin(ids, null);
     }
 
     @Test
@@ -503,7 +503,7 @@ public class SalesforceModuleTest {
         List<String> ids = new ArrayList<String>();
         ids.add(MOCKED_ID);
 
-        connector.delete(ids);
+        connector.delete(ids, null);
     }
 
     @Test
@@ -717,7 +717,7 @@ public class SalesforceModuleTest {
         GetServerTimestampResult getServerTimestampResult = Mockito.mock(GetServerTimestampResult.class);
         when(partnerConnection.getServerTimestamp()).thenReturn(getServerTimestampResult);
 
-        connector.getUpdatedRange("Account", Calendar.getInstance(), Calendar.getInstance());
+        connector.getUpdatedRange("Account", Calendar.getInstance(), Calendar.getInstance(), null);
 
         verify(partnerConnection, atLeastOnce()).getUpdated(eq("Account"), any(Calendar.class), any(Calendar.class));
     }
@@ -733,7 +733,7 @@ public class SalesforceModuleTest {
         when(partnerConnection.getServerTimestamp()).thenReturn(getServerTimestampResult);
         when(getServerTimestampResult.getTimestamp()).thenReturn(Calendar.getInstance());
 
-        connector.getUpdated("Account", 30);
+        connector.getUpdated("Account", 30, null);
 
         verify(partnerConnection, atLeastOnce()).getUpdated(eq("Account"), any(Calendar.class), any(Calendar.class));
     }
@@ -748,7 +748,7 @@ public class SalesforceModuleTest {
         GetServerTimestampResult getServerTimestampResult = Mockito.mock(GetServerTimestampResult.class);
         when(partnerConnection.getServerTimestamp()).thenReturn(getServerTimestampResult);
 
-        connector.getDeletedRange("Account", Calendar.getInstance(), Calendar.getInstance());
+        connector.getDeletedRange("Account", Calendar.getInstance(), Calendar.getInstance(), null);
 
         verify(partnerConnection, atLeastOnce()).getDeleted(eq("Account"), any(Calendar.class), any(Calendar.class));
     }
@@ -764,7 +764,7 @@ public class SalesforceModuleTest {
         when(partnerConnection.getServerTimestamp()).thenReturn(getServerTimestampResult);
         when(getServerTimestampResult.getTimestamp()).thenReturn(Calendar.getInstance());
 
-        connector.getDeleted("Account", 30);
+        connector.getDeleted("Account", 30, null);
 
         verify(partnerConnection, atLeastOnce()).getDeleted(eq("Account"), any(Calendar.class), any(Calendar.class));
     }
@@ -902,7 +902,7 @@ public class SalesforceModuleTest {
             }
         }))).thenReturn(new LeadConvertResult[]{result});
 
-        connector.convertLead(LEAD_ID, CONTACT_ID, ACCOUNT_ID, true, true, OPPORTUNITY_NAME, CONVERTED_STATUS, true);
+        connector.convertLead(LEAD_ID, CONTACT_ID, ACCOUNT_ID, true, true, OPPORTUNITY_NAME, CONVERTED_STATUS, true, null);
     }
 
     @Test
@@ -951,9 +951,9 @@ public class SalesforceModuleTest {
         when(getUpdatedResult.getIds()).thenReturn(new String[]{"1", "3"});
 
         List<Map<String, Object>> updatedObjects = new ArrayList<Map<String, Object>>();
-        doReturn(updatedObjects).when(connector).retrieve("Account", Arrays.asList("1", "3"), Arrays.asList("Id", "Name"));
+        doReturn(updatedObjects).when(connector).retrieve("Account", Arrays.asList("1", "3"), Arrays.asList("Id", "Name"), null);
 
-        assertSame(updatedObjects, connector.getUpdatedObjects("Account", 60, Arrays.asList("Id", "Name")));
+        assertSame(updatedObjects, connector.getUpdatedObjects("Account", 60, Arrays.asList("Id", "Name"), null));
 
         verify(connection).getUpdated(eq("Account"), startTimeCaptor.capture(), endTimeCaptor.capture());
         assertStartTime(4, 15);
@@ -977,9 +977,9 @@ public class SalesforceModuleTest {
         when(getUpdatedResult.getIds()).thenReturn(new String[]{"1", "3"});
 
         List<Map<String, Object>> updatedObjects = new ArrayList<Map<String, Object>>();
-        doReturn(updatedObjects).when(connector).retrieve("Account", Arrays.asList("1", "3"), Arrays.asList("Id", "Name"));
+        doReturn(updatedObjects).when(connector).retrieve("Account", Arrays.asList("1", "3"), Arrays.asList("Id", "Name"), null);
 
-        assertSame(updatedObjects, connector.getUpdatedObjects("Account", 60, Arrays.asList("Id", "Name")));
+        assertSame(updatedObjects, connector.getUpdatedObjects("Account", 60, Arrays.asList("Id", "Name"), null));
 
         verify(connection).getUpdated(eq("Account"), startTimeCaptor.capture(), endTimeCaptor.capture());
         assertStartTime(4, 15);

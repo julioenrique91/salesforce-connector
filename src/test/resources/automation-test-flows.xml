@@ -18,11 +18,11 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 		password="${salesforce.password}" username="${salesforce.username}"
 		securityToken="${salesforce.securityToken}" url="${salesforce.url}" />
 
-    <sfdc:config name="SalesforceQueryBatchSize" doc:name="Salesforce"
-                 password="${salesforce.password}" username="${salesforce.username}"
-                 securityToken="${salesforce.securityToken}" url="${salesforce.url}" queryBatchSize="260" />
+    <sfdc:config name="Salesforce_wrong_config" doc:name="Salesforce"
+                 sessionId="wrongSessionId" url="${salesforce.url}"
+                 serviceEndpoint="https://na6.salesforce.com/services/Soap/u/28.0/wrongurl" />
 
-	<flow name="convert-lead-default-values" doc:name="convert-lead-default-values">
+    <flow name="convert-lead-default-values" doc:name="convert-lead-default-values">
 		<sfdc:convert-lead config-ref="Salesforce" doc:name="Salesforce"
 			contactId="#[payload.contactId]" convertedStatus="#[payload.convertedStatus]"
 			leadId="#[payload.leadId]">
@@ -36,6 +36,14 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 			</sfdc:objects>
 		</sfdc:create>
 	</flow>
+
+    <flow name="create-from-message-wrong" doc:name="create-from-message">
+        <sfdc:create config-ref="Salesforce" doc:name="Create"
+                     type="#[payload.type]">
+            <sfdc:objects ref="#[payload.sObjectFieldMappingsFromMessage]">
+            </sfdc:objects>
+        </sfdc:create>
+    </flow>
 
 	<flow name="create-single-from-message" doc:name="create-single-from-message">
 		<sfdc:create-single config-ref="Salesforce"
@@ -117,9 +125,18 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 		</sfdc:query>
 	</flow>
 
-    <flow name="query-batch-size" doc:name="query">
-        <sfdc:paginated-query config-ref="SalesforceQueryBatchSize" doc:name="Query"
+    <flow name="query-wrong-config" doc:name="query">
+        <sfdc:query config-ref="Salesforce_wrong_config" doc:name="Query"
                     query="#[payload.query]">
+        </sfdc:query>
+    </flow>
+
+    <flow name="query-batch-size" doc:name="query">
+        <sfdc:paginated-query config-ref="Salesforce" doc:name="Query"
+                    query="#[payload.query]">
+            <sfdc:headers>
+                <sfdc:header key="QUERY_OPTIONS" value-ref="#[[ 'batchSize' : '260' ]]" />
+            </sfdc:headers>
         </sfdc:paginated-query>
     </flow>
 
