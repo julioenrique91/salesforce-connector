@@ -236,7 +236,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<SaveResult> create(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
-                                   @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         return Arrays.asList(getSalesforceSoapAdapter(headers).create(SalesforceUtils.toSObjectList(type, objects)));
     }
 
@@ -424,7 +424,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public SaveResult createSingle(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "sObject Field Mappings") @FriendlyName("sObject") @Optional @Default("#[payload]") Map<String, Object> object,
-                                   @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         SaveResult[] saveResults = getSalesforceSoapAdapter(headers).create(new SObject[]{SalesforceUtils.toSObject(type, object)});
         if (saveResults.length > 0) {
             return saveResults[0];
@@ -453,7 +453,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<SaveResult> update(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
-                                   @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         return Arrays.asList(getSalesforceSoapAdapter(headers).update(SalesforceUtils.toSObjectList(type, objects)));
     }
 
@@ -477,7 +477,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public SaveResult updateSingle(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "Salesforce Object") @FriendlyName("sObject") @Optional @Default("#[payload]") Map<String, Object> object,
-                                   @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         return getSalesforceSoapAdapter(headers).update(new SObject[]{SalesforceUtils.toSObject(type, object)})[0];
     }
 
@@ -531,7 +531,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public List<UpsertResult> upsert(@Placement(group = "Information") String externalIdFieldName,
                                      @MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                      @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
-                                     @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                     @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         return Arrays.asList(getSalesforceSoapAdapter(headers).upsert(externalIdFieldName, SalesforceUtils.toSObjectList(type, objects)));
     }
 
@@ -703,7 +703,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public List<Map<String, Object>> retrieve(@MetaDataKeyParam @Placement(group = "Information", order = 1) @FriendlyName("sObject Type") String type,
                                               @Placement(group = "Ids to Retrieve") List<String> ids,
                                               @Placement(group = "Fields to Retrieve") List<String> fields,
-                                              @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                              @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         String fiedsCommaDelimited = StringUtils.collectionToCommaDelimitedString(fields);
         SObject[] sObjects = getSalesforceSoapAdapter(headers).retrieve(fiedsCommaDelimited, type, ids.toArray(new String[ids.size()]));
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
@@ -743,7 +743,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public QueryResultObject paginatedQuery(@Placement(group = "Query") @Optional String query, 
                                             @Optional QueryResultObject queryResultObject, 
                                             @Optional @Default("false") Boolean withDeletedRecords,
-                                            @Optional Map<SalesforceHeader, Object> headers)
+                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers)
            throws Exception {
         
         if (queryResultObject == null) {
@@ -782,7 +782,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<Map<String, Object>> query(@Placement(group = "Query") String query,
-                                           @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                           @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         QueryResult queryResult = getSalesforceSoapAdapter(headers).query(query);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         while (queryResult != null) {
@@ -815,7 +815,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<Map<String, Object>> queryAll(@Placement(group = "Query") String query,
-                                              @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                              @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         QueryResult queryResult = getSalesforceSoapAdapter(headers).queryAll(query);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         while (queryResult != null) {
@@ -848,7 +848,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<Map<String, Object>> search(@Placement(group = "Query") String query,
-                                            @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         SearchResult searchResult = getSalesforceSoapAdapter(headers).search(query);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         
@@ -879,7 +879,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public Map<String, Object> querySingle(@Placement(group = "Query") String query,
-                                           @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                           @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         SObject[] result = getSalesforceSoapAdapter(headers).query(query).getRecords();
         if (result.length > 0) {
             return SalesforceUtils.toMap(result[0]);
@@ -949,7 +949,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
                                          @Optional String opportunityName,
                                          String convertedStatus,
                                          @Optional @Default("false") Boolean sendEmailToOwner,
-                                         @Optional Map<SalesforceHeader, Object> headers)
+                                         @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers)
             throws Exception {
 
         LeadConvert leadConvert = new LeadConvert();
@@ -992,7 +992,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<EmptyRecycleBinResult> emptyRecycleBin(@Placement(group = "Ids to Delete") List<String> ids,
-                                                       @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         return Arrays.asList(getSalesforceSoapAdapter(headers).emptyRecycleBin(ids.toArray(new String[ids.size()])));
     }
 
@@ -1033,7 +1033,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<DeleteResult> delete(@Optional @Default("#[payload]") @Placement(group = "Ids to Delete") List<String> ids,
-                                     @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                     @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         return Arrays.asList(getSalesforceSoapAdapter(headers).delete(ids.toArray(new String[ids.size()])));
     }
 
@@ -1089,7 +1089,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public GetUpdatedResult getUpdatedRange(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                             @Placement(group = "Information") @FriendlyName("Start Time Reference") Calendar startTime,
                                             @Placement(group = "Information") @FriendlyName("End Time Reference") @Optional Calendar endTime,
-                                            @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         if (endTime == null) {
             Calendar serverTime = getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
             endTime = (Calendar) serverTime.clone();
@@ -1131,7 +1131,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public GetDeletedResult getDeletedRange(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                             @Placement(group = "Information") @FriendlyName("Start Time Reference") Calendar startTime,
                                             @Placement(group = "Information") @FriendlyName("End Time Reference") @Optional Calendar endTime,
-                                            @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         if (endTime == null) {
             Calendar serverTime = getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
             endTime = (Calendar) serverTime.clone();
@@ -1186,7 +1186,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public GetDeletedResult getDeleted(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                        @Placement(group = "Information") int duration,
-                                       @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         Calendar serverTime = getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
         Calendar startTime = (Calendar) serverTime.clone();
         Calendar endTime = (Calendar) serverTime.clone();
@@ -1217,7 +1217,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public GetUpdatedResult getUpdated(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                        @Placement(group = "Information") int duration,
-                                       @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         Calendar serverTime = getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
         Calendar startTime = (Calendar) serverTime.clone();
         Calendar endTime = (Calendar) serverTime.clone();
@@ -1255,7 +1255,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public List<Map<String, Object>> getUpdatedObjects(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                                        @Placement(group = "Information") int initialTimeWindow,
                                                        @Optional @Default("#[payload]") @Placement(group = "Fields") List<String> fields,
-                                                       @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
 
         Calendar now = (Calendar) getSalesforceSoapAdapter().getServerTimestamp().getTimestamp().clone();
         boolean initialTimeWindowUsed = false;
@@ -1317,7 +1317,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Utility Calls", description = "API calls that your client applications can invoke to obtain the system timestamp, user information, and change user passwords.")
     public void setPassword(@Placement(group = "Information") @FriendlyName("User ID") String userId,
                             @Placement(group = "Information") @FriendlyName("Password") String newPassword,
-                            @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         getSalesforceSoapAdapter(headers).setPassword(userId, newPassword);
     }
 
