@@ -16,7 +16,7 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-14T09:57:57-05:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-03-14T01:50:54-05:00", comments = "Build M4.1875.17b58a3")
 public class EmptyRecycleBinDefinitionParser
     extends AbstractDevkitBasedDefinitionParser
 {
