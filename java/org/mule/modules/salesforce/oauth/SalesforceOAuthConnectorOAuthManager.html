@@ -231,6 +231,10 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/agents/package-summary.html">org.mule.modules.salesforce.agents</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/salesforce/api/package-summary.html">org.mule.modules.salesforce.api</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/salesforce/api/transformers/package-summary.html">org.mule.modules.salesforce.api.transformers</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/basic/package-summary.html">org.mule.modules.salesforce.basic</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/callback/package-summary.html">org.mule.modules.salesforce.callback</a></li>
@@ -242,6 +246,8 @@
   <a href="../../../../../../java/org/mule/modules/salesforce/connectivity/package-summary.html">org.mule.modules.salesforce.connectivity</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/devkit/package-summary.html">org.mule.modules.salesforce.devkit</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/salesforce/exception/package-summary.html">org.mule.modules.salesforce.exception</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/lazystream/package-summary.html">org.mule.modules.salesforce.lazystream</a></li>
     <li class="api apilevel-">
@@ -861,24 +867,13 @@ org.mule.api.lifecycle.Initialisable
           private
           
           
-          Integer</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/oauth/SalesforceOAuthConnectorOAuthManager.html#queryBatchSize">queryBatchSize</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
           ObjectStore&lt;?&nbsp;extends&nbsp;Serializable&gt;</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/oauth/SalesforceOAuthConnectorOAuthManager.html#timeObjectStore">timeObjectStore</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -1502,26 +1497,6 @@ org.mule.api.lifecycle.Initialisable
             
             
             
-            Integer</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/oauth/SalesforceOAuthConnectorOAuthManager.html#getQueryBatchSize()">getQueryBatchSize</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves queryBatchSize
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             ObjectStore&lt;?&nbsp;extends&nbsp;Serializable&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1535,7 +1510,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1555,7 +1530,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1571,7 +1546,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1591,7 +1566,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1607,7 +1582,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1625,7 +1600,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1643,7 +1618,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1661,7 +1636,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1679,7 +1654,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1697,7 +1672,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1715,7 +1690,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1733,7 +1708,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1751,7 +1726,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1769,7 +1744,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1785,7 +1760,7 @@ org.mule.api.lifecycle.Initialisable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1797,24 +1772,6 @@ org.mule.api.lifecycle.Initialisable
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/oauth/SalesforceOAuthConnectorOAuthManager.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext muleContext)</nobr>
         
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/oauth/SalesforceOAuthConnectorOAuthManager.html#setQueryBatchSize(java.lang.Integer)">setQueryBatchSize</a></span>(Integer value)</nobr>
-        
-        <div class="jd-descrdiv">Sets queryBatchSize</div>
-  
   </td></tr>
 
 
@@ -3538,36 +3495,6 @@ From interface
 
 
 
-<A NAME="queryBatchSize"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Integer
-      </span>
-        queryBatchSize
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="timeObjectStore"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -4510,39 +4437,6 @@ From interface
 </div>
 
 
-<A NAME="getQueryBatchSize()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        Integer
-      </span>
-      <span class="sympad">getQueryBatchSize</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieves queryBatchSize
- 
-</p></div>
-
-    </div>
-</div>
-
-
 <A NAME="getTimeObjectStore()"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -5190,47 +5084,6 @@ From interface
         <tr>
           <th>muleContext</td>
           <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setQueryBatchSize(java.lang.Integer)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setQueryBatchSize</span>
-      <span class="normal">(Integer value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets queryBatchSize</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
         </tr>
       </table>
   </div>

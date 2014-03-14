@@ -10,12 +10,15 @@ org.mule.modules.salesforce
 org.mule.modules.salesforce.adapter
 org.mule.modules.salesforce.adapters
 org.mule.modules.salesforce.agents
+org.mule.modules.salesforce.api
+org.mule.modules.salesforce.api.transformers
 org.mule.modules.salesforce.basic
 org.mule.modules.salesforce.callback
 org.mule.modules.salesforce.config
 org.mule.modules.salesforce.connection
 org.mule.modules.salesforce.connectivity
 org.mule.modules.salesforce.devkit
+org.mule.modules.salesforce.exception
 org.mule.modules.salesforce.lazystream
 org.mule.modules.salesforce.lazystream.impl
 org.mule.modules.salesforce.oauth

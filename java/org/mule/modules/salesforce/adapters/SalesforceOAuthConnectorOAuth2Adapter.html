@@ -231,6 +231,10 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/agents/package-summary.html">org.mule.modules.salesforce.agents</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/salesforce/api/package-summary.html">org.mule.modules.salesforce.api</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/salesforce/api/transformers/package-summary.html">org.mule.modules.salesforce.api.transformers</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/basic/package-summary.html">org.mule.modules.salesforce.basic</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/callback/package-summary.html">org.mule.modules.salesforce.callback</a></li>
@@ -242,6 +246,8 @@
   <a href="../../../../../../java/org/mule/modules/salesforce/connectivity/package-summary.html">org.mule.modules.salesforce.connectivity</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/devkit/package-summary.html">org.mule.modules.salesforce.devkit</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/salesforce/exception/package-summary.html">org.mule.modules.salesforce.exception</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/lazystream/package-summary.html">org.mule.modules.salesforce.lazystream</a></li>
     <li class="api apilevel-">
@@ -1336,24 +1342,13 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          Integer</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#queryBatchSize">queryBatchSize</a></td>
-          <td class="jd-descrcol" width="100%">Sets a Query Batch Size value.</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
           Registry</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#registry">registry</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           static
@@ -1364,7 +1359,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -1376,7 +1371,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -2547,7 +2542,7 @@ From class
             <a href="../../../../../../java/com/sforce/soap/partner/LeadConvertResult.html">LeadConvertResult</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#convertLead(java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.Boolean, java.lang.String, java.lang.String, java.lang.Boolean)">convertLead</a></span>(String leadId, String contactId, String accountId, Boolean overWriteLeadSource, Boolean doNotCreateOpportunity, String opportunityName, String convertedStatus, Boolean sendEmailToOwner)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#convertLead(java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.Boolean, java.lang.String, java.lang.String, java.lang.Boolean, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">convertLead</a></span>(String leadId, String contactId, String accountId, Boolean overWriteLeadSource, Boolean doNotCreateOpportunity, String opportunityName, String convertedStatus, Boolean sendEmailToOwner, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Converts a Lead into an Account, Contact, or (optionally) an Opportunity.</div>
   
@@ -2565,7 +2560,7 @@ From class
             List&lt;<a href="../../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#create(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">create</a></span>(String type, List&lt;Map&lt;String,&nbsp;Object&gt;&gt; objects)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#create(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">create</a></span>(String type, List&lt;Map&lt;String,&nbsp;Object&gt;&gt; objects, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Adds one or more new records to your organization's data.</div>
   
@@ -2673,7 +2668,7 @@ From class
             <a href="../../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#createSingle(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>)">createSingle</a></span>(String type, Map&lt;String,&nbsp;Object&gt; object)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#createSingle(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">createSingle</a></span>(String type, Map&lt;String,&nbsp;Object&gt; object, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Adds one new records to your organization's data.</div>
   
@@ -2691,7 +2686,7 @@ From class
             List&lt;<a href="../../../../../../java/com/sforce/soap/partner/DeleteResult.html">DeleteResult</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#delete(java.util.List<java.lang.String>)">delete</a></span>(List&lt;String&gt; ids)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#delete(java.util.List<java.lang.String>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">delete</a></span>(List&lt;String&gt; ids, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Deletes one or more records from your organization's data.</div>
   
@@ -2745,7 +2740,7 @@ From class
             List&lt;<a href="../../../../../../java/com/sforce/soap/partner/EmptyRecycleBinResult.html">EmptyRecycleBinResult</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#emptyRecycleBin(java.util.List<java.lang.String>)">emptyRecycleBin</a></span>(List&lt;String&gt; ids)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#emptyRecycleBin(java.util.List<java.lang.String>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">emptyRecycleBin</a></span>(List&lt;String&gt; ids, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">The recycle bin lets you view and restore recently deleted records for 30 days before they are
  permanently deleted.</div>
@@ -2876,7 +2871,7 @@ From class
             <a href="../../../../../../java/com/sforce/soap/partner/GetDeletedResult.html">GetDeletedResult</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#getDeleted(java.lang.String, int)">getDeleted</a></span>(String type, int duration)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#getDeleted(java.lang.String, int, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">getDeleted</a></span>(String type, int duration, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Retrieves the list of individual records that have been deleted between the range of now to the duration before now.</div>
   
@@ -2894,7 +2889,7 @@ From class
             <a href="../../../../../../java/com/sforce/soap/partner/GetDeletedResult.html">GetDeletedResult</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#getDeletedRange(java.lang.String, java.util.Calendar, java.util.Calendar)">getDeletedRange</a></span>(String type, Calendar startTime, Calendar endTime)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#getDeletedRange(java.lang.String, java.util.Calendar, java.util.Calendar, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">getDeletedRange</a></span>(String type, Calendar startTime, Calendar endTime, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Retrieves the list of individual records that have been deleted within the given timespan for the specified object.</div>
   
@@ -2909,16 +2904,32 @@ From class
             
             
             
-            Integer</nobr>
+            <a href="../../../../../../java/com/sforce/soap/partner/PartnerConnection.html">PartnerConnection</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#getQueryBatchSize()">getQueryBatchSize</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#getSalesforceSoapAdapter(java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">getSalesforceSoapAdapter</a></span>(Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../../java/com/sforce/soap/partner/PartnerConnection.html">PartnerConnection</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#getSalesforceSoapAdapter()">getSalesforceSoapAdapter</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2936,7 +2947,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -2952,7 +2963,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2968,7 +2979,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2978,7 +2989,7 @@ From class
             <a href="../../../../../../java/com/sforce/soap/partner/GetUpdatedResult.html">GetUpdatedResult</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#getUpdated(java.lang.String, int)">getUpdated</a></span>(String type, int duration)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#getUpdated(java.lang.String, int, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">getUpdated</a></span>(String type, int duration, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Retrieves the list of individual records that have been updated between the range of now to the duration before now.</div>
   
@@ -2986,7 +2997,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2996,7 +3007,7 @@ From class
             List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#getUpdatedObjects(java.lang.String, int, java.util.List<java.lang.String>)">getUpdatedObjects</a></span>(String type, int initialTimeWindow, List&lt;String&gt; fields)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#getUpdatedObjects(java.lang.String, int, java.util.List<java.lang.String>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">getUpdatedObjects</a></span>(String type, int initialTimeWindow, List&lt;String&gt; fields, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Retrieves the list of records that have been updated between the last time this method was called and now.</div>
   
@@ -3004,7 +3015,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3014,7 +3025,7 @@ From class
             <a href="../../../../../../java/com/sforce/soap/partner/GetUpdatedResult.html">GetUpdatedResult</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#getUpdatedRange(java.lang.String, java.util.Calendar, java.util.Calendar)">getUpdatedRange</a></span>(String type, Calendar startTime, Calendar endTime)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#getUpdatedRange(java.lang.String, java.util.Calendar, java.util.Calendar, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">getUpdatedRange</a></span>(String type, Calendar startTime, Calendar endTime, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Retrieves the list of individual records that have been created/updated within the given timespan for the specified object.</div>
   
@@ -3022,7 +3033,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3038,7 +3049,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3056,7 +3067,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3074,7 +3085,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3090,7 +3101,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -3106,7 +3117,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3116,7 +3127,7 @@ From class
             <a href="../../../../../../java/org/mule/modules/salesforce/QueryResultObject.html">QueryResultObject</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#paginatedQuery(java.lang.String, org.mule.modules.salesforce.QueryResultObject, java.lang.Boolean)">paginatedQuery</a></span>(String query, <a href="../../../../../../java/org/mule/modules/salesforce/QueryResultObject.html">QueryResultObject</a> queryResultObject, Boolean withDeletedRecords)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#paginatedQuery(java.lang.String, org.mule.modules.salesforce.QueryResultObject, java.lang.Boolean, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">paginatedQuery</a></span>(String query, <a href="../../../../../../java/org/mule/modules/salesforce/QueryResultObject.html">QueryResultObject</a> queryResultObject, Boolean withDeletedRecords, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Executes a paginated query against the specified object and returns data that matches the specified criteria.</div>
   
@@ -3124,7 +3135,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3140,7 +3151,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3159,24 +3170,6 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#query(java.lang.String)">query</a></span>(String query)</nobr>
-        
-        <div class="jd-descrdiv">Executes a query against the specified object and returns data that matches the specified criteria.</div>
-  
-  </td></tr>
-
-
-	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -3187,7 +3180,25 @@ From class
             List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#queryAll(java.lang.String)">queryAll</a></span>(String query)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#query(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">query</a></span>(String query, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
+        
+        <div class="jd-descrdiv">Executes a query against the specified object and returns data that matches the specified criteria.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#queryAll(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">queryAll</a></span>(String query, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Retrieves data from specified objects, whether or not they have been deleted.</div>
   
@@ -3195,7 +3206,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3217,7 +3228,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3227,7 +3238,7 @@ From class
             Map&lt;String,&nbsp;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#querySingle(java.lang.String)">querySingle</a></span>(String query)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#querySingle(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">querySingle</a></span>(String query, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Executes a query against the specified object and returns the first record that matches the specified criteria.</div>
   
@@ -3235,7 +3246,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3253,24 +3264,6 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#retrieve(java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>)">retrieve</a></span>(String type, List&lt;String&gt; ids, List&lt;String&gt; fields)</nobr>
-        
-        <div class="jd-descrdiv">Retrieves one or more records based on the specified IDs.</div>
-  
-  </td></tr>
-
-
-	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -3281,7 +3274,25 @@ From class
             List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#search(java.lang.String)">search</a></span>(String query)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#retrieve(java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">retrieve</a></span>(String type, List&lt;String&gt; ids, List&lt;String&gt; fields, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
+        
+        <div class="jd-descrdiv">Retrieves one or more records based on the specified IDs.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#search(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">search</a></span>(String query, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Search for objects using Salesforce Object Search Language
  <p/>
@@ -3291,7 +3302,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3307,7 +3318,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3323,7 +3334,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3339,7 +3350,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3355,7 +3366,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3371,7 +3382,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3387,7 +3398,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3403,7 +3414,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3419,7 +3430,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3435,24 +3446,6 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#setPassword(java.lang.String, java.lang.String)">setPassword</a></span>(String userId, String newPassword)</nobr>
-        
-        <div class="jd-descrdiv">Change the password of a User or SelfServiceUser to a value that you specify.</div>
-  
-  </td></tr>
-
-
-	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -3463,8 +3456,10 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#setQueryBatchSize(java.lang.Integer)">setQueryBatchSize</a></span>(Integer queryBatchSize)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#setPassword(java.lang.String, java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">setPassword</a></span>(String userId, String newPassword, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
+        <div class="jd-descrdiv">Change the password of a User or SelfServiceUser to a value that you specify.</div>
+  
   </td></tr>
 
 
@@ -3545,7 +3540,7 @@ From class
             List&lt;<a href="../../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#update(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">update</a></span>(String type, List&lt;Map&lt;String,&nbsp;Object&gt;&gt; objects)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#update(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">update</a></span>(String type, List&lt;Map&lt;String,&nbsp;Object&gt;&gt; objects, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Updates one or more existing records in your organization's data.</div>
   
@@ -3581,7 +3576,7 @@ From class
             <a href="../../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#updateSingle(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>)">updateSingle</a></span>(String type, Map&lt;String,&nbsp;Object&gt; object)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#updateSingle(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">updateSingle</a></span>(String type, Map&lt;String,&nbsp;Object&gt; object, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Updates one or more existing records in your organization's data.</div>
   
@@ -3599,7 +3594,7 @@ From class
             List&lt;<a href="../../../../../../java/com/sforce/soap/partner/UpsertResult.html">UpsertResult</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#upsert(java.lang.String, java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">upsert</a></span>(String externalIdFieldName, String type, List&lt;Map&lt;String,&nbsp;Object&gt;&gt; objects)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#upsert(java.lang.String, java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">upsert</a></span>(String externalIdFieldName, String type, List&lt;Map&lt;String,&nbsp;Object&gt;&gt; objects, Map&lt;<a href="../../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv"><a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_upsert.htm">Upserts</a>
  an homogeneous list of objects: creates new records and updates existing records, using a custom field to determine the presence of existing records.</div>
