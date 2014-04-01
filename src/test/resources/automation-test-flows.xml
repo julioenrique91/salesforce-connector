@@ -19,6 +19,13 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
         <sfdc:connection-pooling-profile initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/>
     </sfdc:config>
 
+    <sfdc:config name="SalesforceReconnectForever" doc:name="Salesforce"
+                 password="${salesforce.password}" username="${salesforce.username}"
+                 securityToken="${salesforce.securityToken}" url="${salesforce.url}" >
+        <sfdc:connection-pooling-profile initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/>
+        <reconnect-forever />
+    </sfdc:config>
+
 	<flow name="convert-lead-default-values" doc:name="convert-lead-default-values">
 		<sfdc:convert-lead config-ref="Salesforce" doc:name="Salesforce"
 			contactId="#[payload.contactId]" convertedStatus="#[payload.convertedStatus]"
@@ -96,7 +103,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 	</flow>
 
 	<flow name="get-user-info" doc:name="get-user-info">
-		<sfdc:get-user-info config-ref="Salesforce"
+		<sfdc:get-user-info config-ref="SalesforceReconnectForever"
 			doc:name="Get user info">
 		</sfdc:get-user-info>
 	</flow>
@@ -120,7 +127,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 		</sfdc:query-all>
 	</flow>
 
-	<flow name="query-single" doc:name="query-single">
+    <flow name="query-single" doc:name="query-single">
 		<sfdc:query-single config-ref="Salesforce" doc:name="Query single"
 			query="#[payload.query]">
 		</sfdc:query-single>
