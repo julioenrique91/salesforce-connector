@@ -15,6 +15,7 @@ import com.sforce.soap.partner.fault.UnexpectedErrorFault;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.InvocationHandler;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 
@@ -53,16 +54,17 @@ public class SalesforceSoapAdapter {
                         }
 
                         return ret;
-                    } catch (Throwable t) {
+                    } catch (Exception e) {
                         if (logger.isDebugEnabled()) {
-                            logger.debug("Method " + method.getName() + " thew " + t.getClass());
+                            logger.debug("Method " + method.getName() + " thew " + e.getClass());
                         }
 
-                        if (t.getCause() instanceof UnexpectedErrorFault
-                                && ((UnexpectedErrorFault) t.getCause()).getExceptionCode().toString().contains("INVALID_SESSION_ID")) {
-                            throw new SalesforceSessionExpiredException(t.getCause());
+                        if (e.getCause() instanceof UnexpectedErrorFault
+                                && (!StringUtils.isEmpty(e.getCause().getMessage()) && e.getCause().getMessage().contains("INVALID_SESSION_ID"))
+                                || (e.getCause().toString() != null && e.getCause().toString().contains("INVALID_SESSION_ID"))) {
+                            throw new SalesforceSessionExpiredException(e.getCause());
                         } else {
-                            throw new RuntimeException(t.getCause());
+                            throw new RuntimeException(e.getCause());
                         }
                     }
 
