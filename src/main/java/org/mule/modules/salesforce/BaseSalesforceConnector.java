@@ -39,6 +39,7 @@ import org.mule.modules.salesforce.bulk.UpsertResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.streaming.PagingConfiguration;
 import org.mule.streaming.PagingDelegate;
+import org.mule.streaming.ProviderAwarePagingDelegate;
 import org.springframework.util.StringUtils;
 
 import com.sforce.async.AsyncApiException;
@@ -889,18 +890,14 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     @Paged
-    public PagingDelegate<Map<String, Object>> query(@Query @Placement(group = "Query") final String query, final PagingConfiguration pagingConfiguration) throws Exception {
-        try {
-	    	return new SalesforcePagingDelegate(this.getConnection(), query) {
-	            
-	            @Override
-	            protected QueryResult doQuery(String query) throws ConnectionException {
-	                return getConnection().query(query);
-	            }
-	        };
-        } catch (Exception e) {
-        	throw handleProcessorException(e);
-        }
+    public ProviderAwarePagingDelegate<Map<String, Object>,BaseSalesforceConnector> query(@Query @Placement(group = "Query") final String query, final PagingConfiguration pagingConfiguration) throws Exception {
+        return new SalesforcePagingDelegate(query) {
+
+            @Override
+            protected QueryResult doQuery(PartnerConnection connection, String query) throws ConnectionException {
+                return connection.query(query);
+            }
+        };
     }
 
     @QueryTranslator
@@ -962,18 +959,14 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     @Paged
-    public PagingDelegate<Map<String, Object>> queryAll(@Placement(group = "Query") String query, PagingConfiguration pagingConfiguration) throws Exception {
-        try {
-	    	return new SalesforcePagingDelegate(this.getConnection(), query) {
-	            
-	            @Override
-	            protected QueryResult doQuery(String query) throws ConnectionException {
-	                return getConnection().queryAll(query);
-	            }
-	        };
-        } catch (Exception e) {
-        	throw handleProcessorException(e);
-        }
+    public ProviderAwarePagingDelegate<Map<String, Object>,BaseSalesforceConnector> queryAll(@Placement(group = "Query") String query, PagingConfiguration pagingConfiguration) throws Exception {
+        return new SalesforcePagingDelegate(query) {
+
+            @Override
+            protected QueryResult doQuery(PartnerConnection connection, String query) throws ConnectionException {
+                return connection.queryAll(query);
+            }
+        };
     }
 
     /**
