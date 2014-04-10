@@ -33,7 +33,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * SetPasswordMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#setPassword(java.lang.String, java.lang.String)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T11:05:43-05:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-10T12:22:40-05:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class SetPasswordMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -109,7 +109,7 @@ public class SetPasswordMessageProcessor
             moduleObject = findOrCreate(ProcessAdapter.class, false, event);
             final String _transformedUserId = ((String) evaluateAndTransform(getMuleContext(), event, SetPasswordMessageProcessor.class.getDeclaredField("_userIdType").getGenericType(), null, userId));
             final String _transformedNewPassword = ((String) evaluateAndTransform(getMuleContext(), event, SetPasswordMessageProcessor.class.getDeclaredField("_newPasswordType").getGenericType(), null, newPassword));
-            ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
+            final ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             processTemplate.execute(new ProcessCallback<Object,Object>() {
 
 

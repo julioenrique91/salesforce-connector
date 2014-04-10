@@ -35,7 +35,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * PublishTopicMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#publishTopic(java.lang.String, java.lang.String, java.lang.String)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T11:05:43-05:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-10T12:22:40-05:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class PublishTopicMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -123,12 +123,12 @@ public class PublishTopicMessageProcessor
             final String _transformedTopicName = ((String) evaluateAndTransform(getMuleContext(), event, PublishTopicMessageProcessor.class.getDeclaredField("_topicNameType").getGenericType(), null, topicName));
             final String _transformedQuery = ((String) evaluateAndTransform(getMuleContext(), event, PublishTopicMessageProcessor.class.getDeclaredField("_queryType").getGenericType(), null, query));
             final String _transformedDescription = ((String) evaluateAndTransform(getMuleContext(), event, PublishTopicMessageProcessor.class.getDeclaredField("_descriptionType").getGenericType(), null, description));
-            ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
+            final ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             processTemplate.execute(new ProcessCallback<Object,Object>() {
 
 
                 public List<Class<? extends Exception>> getManagedExceptions() {
-                    return Arrays.asList(((Class<? extends Exception> []) new Class[] {SalesforceSessionExpiredException.class }));
+                    return Arrays.asList(((Class<? extends Exception> []) new Class[] {SalesforceSessionExpiredException.class, SalesforceSessionExpiredException.class }));
                 }
 
                 public boolean isProtected() {

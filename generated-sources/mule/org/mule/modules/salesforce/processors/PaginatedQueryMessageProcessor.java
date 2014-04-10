@@ -36,7 +36,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * PaginatedQueryMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#paginatedQuery(java.lang.String, org.mule.modules.salesforce.QueryResultObject, java.lang.Boolean)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T11:05:43-05:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-10T12:22:40-05:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class PaginatedQueryMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -125,12 +125,12 @@ public class PaginatedQueryMessageProcessor
             final QueryResultObject _transformedQueryResultObject = ((QueryResultObject) evaluateAndTransform(getMuleContext(), event, PaginatedQueryMessageProcessor.class.getDeclaredField("_queryResultObjectType").getGenericType(), null, queryResultObject));
             final Boolean _transformedWithDeletedRecords = ((Boolean) evaluateAndTransform(getMuleContext(), event, PaginatedQueryMessageProcessor.class.getDeclaredField("_withDeletedRecordsType").getGenericType(), null, withDeletedRecords));
             Object resultPayload;
-            ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
+            final ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             resultPayload = processTemplate.execute(new ProcessCallback<Object,Object>() {
 
 
                 public List<Class<? extends Exception>> getManagedExceptions() {
-                    return Arrays.asList(((Class<? extends Exception> []) new Class[] {SalesforceSessionExpiredException.class }));
+                    return Arrays.asList(((Class<? extends Exception> []) new Class[] {SalesforceSessionExpiredException.class, SalesforceSessionExpiredException.class }));
                 }
 
                 public boolean isProtected() {

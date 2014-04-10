@@ -1,12 +1,14 @@
 
 package org.mule.modules.salesforce.processors;
 
+import java.lang.reflect.Type;
 import javax.annotation.Generated;
 import org.mule.devkit.processor.DevkitBasedMessageProcessor;
 
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T11:05:43-05:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-10T12:22:40-05:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public abstract class AbstractConnectedProcessor
     extends DevkitBasedMessageProcessor
+    implements ConnectivityProcessor
 {
 
     protected Object username;
@@ -47,6 +49,7 @@ public abstract class AbstractConnectedProcessor
      * Retrieves proxyUsername
      * 
      */
+    @Override
     public Object getProxyUsername() {
         return this.proxyUsername;
     }
@@ -64,6 +67,7 @@ public abstract class AbstractConnectedProcessor
      * Retrieves username
      * 
      */
+    @Override
     public Object getUsername() {
         return this.username;
     }
@@ -81,6 +85,7 @@ public abstract class AbstractConnectedProcessor
      * Retrieves sessionId
      * 
      */
+    @Override
     public Object getSessionId() {
         return this.sessionId;
     }
@@ -98,6 +103,7 @@ public abstract class AbstractConnectedProcessor
      * Retrieves proxyHost
      * 
      */
+    @Override
     public Object getProxyHost() {
         return this.proxyHost;
     }
@@ -115,6 +121,7 @@ public abstract class AbstractConnectedProcessor
      * Retrieves securityToken
      * 
      */
+    @Override
     public Object getSecurityToken() {
         return this.securityToken;
     }
@@ -132,6 +139,7 @@ public abstract class AbstractConnectedProcessor
      * Retrieves serviceEndpoint
      * 
      */
+    @Override
     public Object getServiceEndpoint() {
         return this.serviceEndpoint;
     }
@@ -149,6 +157,7 @@ public abstract class AbstractConnectedProcessor
      * Retrieves proxyPort
      * 
      */
+    @Override
     public Object getProxyPort() {
         return this.proxyPort;
     }
@@ -166,6 +175,7 @@ public abstract class AbstractConnectedProcessor
      * Retrieves password
      * 
      */
+    @Override
     public Object getPassword() {
         return this.password;
     }
@@ -183,6 +193,7 @@ public abstract class AbstractConnectedProcessor
      * Retrieves proxyPassword
      * 
      */
+    @Override
     public Object getProxyPassword() {
         return this.proxyPassword;
     }
@@ -200,8 +211,20 @@ public abstract class AbstractConnectedProcessor
      * Retrieves url
      * 
      */
+    @Override
     public Object getUrl() {
         return this.url;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public Type typeFor(String fieldName)
+        throws NoSuchFieldException
+    {
+        return AbstractConnectedProcessor.class.getDeclaredField(fieldName).getGenericType();
     }
 
 }

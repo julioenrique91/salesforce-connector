@@ -40,7 +40,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * UpdateBulkMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#updateBulk(java.lang.String, java.util.List)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T11:05:43-05:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-10T12:22:40-05:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class UpdateBulkMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -117,12 +117,12 @@ public class UpdateBulkMessageProcessor
             final String _transformedType = ((String) evaluateAndTransform(getMuleContext(), event, UpdateBulkMessageProcessor.class.getDeclaredField("_typeType").getGenericType(), null, type));
             final List<Map<String, Object>> _transformedObjects = ((List<Map<String, Object>> ) evaluateAndTransform(getMuleContext(), event, UpdateBulkMessageProcessor.class.getDeclaredField("_objectsType").getGenericType(), null, objects));
             Object resultPayload;
-            ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
+            final ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             resultPayload = processTemplate.execute(new ProcessCallback<Object,Object>() {
 
 
                 public List<Class<? extends Exception>> getManagedExceptions() {
-                    return Arrays.asList(((Class<? extends Exception> []) new Class[] {SalesforceSessionExpiredException.class }));
+                    return Arrays.asList(((Class<? extends Exception> []) new Class[] {SalesforceSessionExpiredException.class, SalesforceSessionExpiredException.class }));
                 }
 
                 public boolean isProtected() {
@@ -149,7 +149,7 @@ public class UpdateBulkMessageProcessor
         if (((type) == null)||((type).toString() == null)) {
             return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error retrieving metadata from parameter: type at processor updateBulk at module SalesforceOAuthConnector");
         }
-        MetaDataKey metaDataKey = new DefaultMetaDataKey((type).toString(), null);
+        DefaultMetaDataKey metaDataKey = new DefaultMetaDataKey((type).toString(), null);
         metaDataKey.addProperty(new TypeDescribingProperty(TypeDescribingProperty.TypeScope.INPUT, "updateBulk"));
         Result<MetaData> genericMetaData = getGenericMetaData(metaDataKey);
         if ((Result.Status.FAILURE).equals(genericMetaData.getStatus())) {

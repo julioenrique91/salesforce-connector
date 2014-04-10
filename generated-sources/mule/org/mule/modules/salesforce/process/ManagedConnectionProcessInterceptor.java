@@ -15,12 +15,12 @@ import org.mule.modules.salesforce.connection.ConnectionManager;
 import org.mule.modules.salesforce.connection.UnableToAcquireConnectionException;
 import org.mule.modules.salesforce.connection.UnableToReleaseConnectionException;
 import org.mule.modules.salesforce.connectivity.SalesforceConnectorConnectionKey;
-import org.mule.modules.salesforce.processors.AbstractConnectedProcessor;
+import org.mule.modules.salesforce.processors.ConnectivityProcessor;
 import org.mule.security.oauth.callback.ProcessCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T11:05:43-05:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-10T12:22:40-05:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class ManagedConnectionProcessInterceptor<T >
     extends ExpressionEvaluatorSupport
     implements ProcessInterceptor<T, SalesforceConnectorConnectionIdentifierAdapter>
@@ -44,25 +44,26 @@ public class ManagedConnectionProcessInterceptor<T >
         SalesforceConnectorConnectionIdentifierAdapter connection = null;
         SalesforceConnectorConnectionKey key = null;
         if (hasConnectionKeysOverride(messageProcessor)) {
-            final String _transformedUsername = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_usernameType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getUsername()));
+            ConnectivityProcessor connectivityProcessor = ((ConnectivityProcessor) messageProcessor);
+            final String _transformedUsername = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_usernameType"), null, connectivityProcessor.getUsername()));
             if (_transformedUsername == null) {
                 throw new UnableToAcquireConnectionException("Parameter username in method connect can't be null because is not @Optional");
             }
-            final String _transformedPassword = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_passwordType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getPassword()));
+            final String _transformedPassword = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_passwordType"), null, connectivityProcessor.getPassword()));
             if (_transformedPassword == null) {
                 throw new UnableToAcquireConnectionException("Parameter password in method connect can't be null because is not @Optional");
             }
-            final String _transformedSecurityToken = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_securityTokenType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getSecurityToken()));
+            final String _transformedSecurityToken = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_securityTokenType"), null, connectivityProcessor.getSecurityToken()));
             if (_transformedSecurityToken == null) {
                 throw new UnableToAcquireConnectionException("Parameter securityToken in method connect can't be null because is not @Optional");
             }
-            final String _transformedUrl = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_urlType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getUrl()));
-            final String _transformedProxyHost = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_proxyHostType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getProxyHost()));
-            final Integer _transformedProxyPort = ((Integer) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_proxyPortType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getProxyPort()));
-            final String _transformedProxyUsername = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_proxyUsernameType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getProxyUsername()));
-            final String _transformedProxyPassword = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_proxyPasswordType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getProxyPassword()));
-            final String _transformedSessionId = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_sessionIdType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getSessionId()));
-            final String _transformedServiceEndpoint = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_serviceEndpointType").getGenericType(), null, ((AbstractConnectedProcessor) messageProcessor).getServiceEndpoint()));
+            final String _transformedUrl = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_urlType"), null, connectivityProcessor.getUrl()));
+            final String _transformedProxyHost = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_proxyHostType"), null, connectivityProcessor.getProxyHost()));
+            final Integer _transformedProxyPort = ((Integer) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_proxyPortType"), null, connectivityProcessor.getProxyPort()));
+            final String _transformedProxyUsername = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_proxyUsernameType"), null, connectivityProcessor.getProxyUsername()));
+            final String _transformedProxyPassword = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_proxyPasswordType"), null, connectivityProcessor.getProxyPassword()));
+            final String _transformedSessionId = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_sessionIdType"), null, connectivityProcessor.getSessionId()));
+            final String _transformedServiceEndpoint = ((String) evaluateAndTransform(muleContext, event, connectivityProcessor.typeFor("_serviceEndpointType"), null, connectivityProcessor.getServiceEndpoint()));
             key = new SalesforceConnectorConnectionKey(_transformedUsername, _transformedPassword, _transformedSecurityToken, _transformedUrl, _transformedProxyHost, _transformedProxyPort, _transformedProxyUsername, _transformedProxyPassword, _transformedSessionId, _transformedServiceEndpoint);
         } else {
             key = connectionManager.getEvaluatedConnectionKey(event);
@@ -119,13 +120,14 @@ public class ManagedConnectionProcessInterceptor<T >
      * @param messageProcessor
      *     the message processor to test against the keys
      * @return
+     *     true if any of the parameters in @Connect method annotated with @ConnectionKey was override in the XML, false otherwise  
      */
     private Boolean hasConnectionKeysOverride(MessageProcessor messageProcessor) {
-        if ((messageProcessor == null)||(!(messageProcessor instanceof AbstractConnectedProcessor))) {
+        if ((messageProcessor == null)||(!(messageProcessor instanceof ConnectivityProcessor))) {
             return false;
         }
-        AbstractConnectedProcessor abstractConnectedProcessor = ((AbstractConnectedProcessor) messageProcessor);
-        if (abstractConnectedProcessor.getUsername()!= null) {
+        ConnectivityProcessor connectivityProcessor = ((ConnectivityProcessor) messageProcessor);
+        if (connectivityProcessor.getUsername()!= null) {
             return true;
         }
         return false;

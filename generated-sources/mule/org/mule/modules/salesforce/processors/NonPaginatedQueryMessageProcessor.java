@@ -41,7 +41,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * NonPaginatedQueryMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#nonPaginatedQuery(java.lang.String)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T11:05:43-05:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-10T12:22:40-05:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class NonPaginatedQueryMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
@@ -106,12 +106,12 @@ public class NonPaginatedQueryMessageProcessor
             moduleObject = findOrCreate(ProcessAdapter.class, false, event);
             final String _transformedQuery = ((String) evaluateAndTransform(getMuleContext(), event, NonPaginatedQueryMessageProcessor.class.getDeclaredField("_queryType").getGenericType(), null, query));
             Object resultPayload;
-            ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
+            final ProcessTemplate<Object, Object> processTemplate = ((ProcessAdapter<Object> ) moduleObject).getProcessTemplate();
             resultPayload = processTemplate.execute(new ProcessCallback<Object,Object>() {
 
 
                 public List<Class<? extends Exception>> getManagedExceptions() {
-                    return Arrays.asList(((Class<? extends Exception> []) new Class[] {ConnectionException.class }));
+                    return Arrays.asList(((Class<? extends Exception> []) new Class[] {ConnectionException.class, ConnectionException.class }));
                 }
 
                 public boolean isProtected() {
@@ -170,7 +170,7 @@ public class NonPaginatedQueryMessageProcessor
         if (((key) == null)||((key).toString() == null)) {
             return new DefaultResult<MetaData>(null, (Result.Status.FAILURE), "There was an error retrieving metadata from parameter: key at processor nonPaginatedQuery at module SalesforceOAuthConnector");
         }
-        MetaDataKey metaDataKey = new DefaultMetaDataKey((key).toString(), null);
+        DefaultMetaDataKey metaDataKey = new DefaultMetaDataKey((key).toString(), null);
         metaDataKey.addProperty(new TypeDescribingProperty(TypeDescribingProperty.TypeScope.OUTPUT, "nonPaginatedQuery"));
         Result<MetaData> genericMetaData = getGenericMetaData(metaDataKey);
         if ((Result.Status.FAILURE).equals(genericMetaData.getStatus())) {

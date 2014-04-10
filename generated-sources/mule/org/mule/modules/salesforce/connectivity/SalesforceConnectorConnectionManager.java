@@ -39,14 +39,13 @@ import org.mule.modules.salesforce.SalesforceConnector;
 import org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter;
 import org.mule.modules.salesforce.connection.ConnectionManager;
 import org.mule.modules.salesforce.connection.UnableToAcquireConnectionException;
-import org.mule.modules.salesforce.processors.AbstractConnectedProcessor;
 
 
 /**
  * A {@code SalesforceConnectorConnectionManager} is a wrapper around {@link SalesforceConnector } that adds connection management capabilities to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-M4", date = "2014-04-09T11:05:43-05:00", comments = "Build M4.1875.17b58a3")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-10T12:22:40-05:00", comments = "Build UNKNOWN_BUILDNUMBER")
 public class SalesforceConnectorConnectionManager
     extends ExpressionEvaluatorSupport
     implements MetadataAware, MuleContextAware, ProcessAdapter<SalesforceConnectorConnectionIdentifierAdapter> , Capabilities, Disposable, Initialisable, Testable, ConnectorMetaDataEnabled, NativeQueryMetadataTranslator, ConnectionManager<SalesforceConnectorConnectionKey, SalesforceConnectorConnectionIdentifierAdapter>
@@ -117,8 +116,8 @@ public class SalesforceConnectorConnectionManager
     protected RetryPolicyTemplate retryPolicyTemplate;
     private final static String MODULE_NAME = "Salesforce";
     private final static String MODULE_VERSION = "5.4.7-SNAPSHOT";
-    private final static String DEVKIT_VERSION = "3.5.0-M4";
-    private final static String DEVKIT_BUILD = "M4.1875.17b58a3";
+    private final static String DEVKIT_VERSION = "3.5.0-SNAPSHOT";
+    private final static String DEVKIT_BUILD = "UNKNOWN_BUILDNUMBER";
     private final static String MIN_MULE_VERSION = "3.5";
 
     /**
@@ -532,25 +531,25 @@ public class SalesforceConnectorConnectionManager
         throws Exception
     {
         if (event!= null) {
-            final String _transformedUsername = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_usernameType").getGenericType(), null, getUsername()));
+            final String _transformedUsername = ((String) evaluateAndTransform(muleContext, event, this.getClass().getDeclaredField("username").getGenericType(), null, getUsername()));
             if (_transformedUsername == null) {
                 throw new UnableToAcquireConnectionException("Parameter username in method connect can't be null because is not @Optional");
             }
-            final String _transformedPassword = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_passwordType").getGenericType(), null, getPassword()));
+            final String _transformedPassword = ((String) evaluateAndTransform(muleContext, event, this.getClass().getDeclaredField("password").getGenericType(), null, getPassword()));
             if (_transformedPassword == null) {
                 throw new UnableToAcquireConnectionException("Parameter password in method connect can't be null because is not @Optional");
             }
-            final String _transformedSecurityToken = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_securityTokenType").getGenericType(), null, getSecurityToken()));
+            final String _transformedSecurityToken = ((String) evaluateAndTransform(muleContext, event, this.getClass().getDeclaredField("securityToken").getGenericType(), null, getSecurityToken()));
             if (_transformedSecurityToken == null) {
                 throw new UnableToAcquireConnectionException("Parameter securityToken in method connect can't be null because is not @Optional");
             }
-            final String _transformedUrl = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_urlType").getGenericType(), null, getUrl()));
-            final String _transformedProxyHost = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_proxyHostType").getGenericType(), null, getProxyHost()));
-            final Integer _transformedProxyPort = ((Integer) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_proxyPortType").getGenericType(), null, getProxyPort()));
-            final String _transformedProxyUsername = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_proxyUsernameType").getGenericType(), null, getProxyUsername()));
-            final String _transformedProxyPassword = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_proxyPasswordType").getGenericType(), null, getProxyPassword()));
-            final String _transformedSessionId = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_sessionIdType").getGenericType(), null, getSessionId()));
-            final String _transformedServiceEndpoint = ((String) evaluateAndTransform(muleContext, event, AbstractConnectedProcessor.class.getDeclaredField("_serviceEndpointType").getGenericType(), null, getServiceEndpoint()));
+            final String _transformedUrl = ((String) evaluateAndTransform(muleContext, event, this.getClass().getDeclaredField("url").getGenericType(), null, getUrl()));
+            final String _transformedProxyHost = ((String) evaluateAndTransform(muleContext, event, this.getClass().getDeclaredField("proxyHost").getGenericType(), null, getProxyHost()));
+            final Integer _transformedProxyPort = ((Integer) evaluateAndTransform(muleContext, event, this.getClass().getDeclaredField("proxyPort").getGenericType(), null, getProxyPort()));
+            final String _transformedProxyUsername = ((String) evaluateAndTransform(muleContext, event, this.getClass().getDeclaredField("proxyUsername").getGenericType(), null, getProxyUsername()));
+            final String _transformedProxyPassword = ((String) evaluateAndTransform(muleContext, event, this.getClass().getDeclaredField("proxyPassword").getGenericType(), null, getProxyPassword()));
+            final String _transformedSessionId = ((String) evaluateAndTransform(muleContext, event, this.getClass().getDeclaredField("sessionId").getGenericType(), null, getSessionId()));
+            final String _transformedServiceEndpoint = ((String) evaluateAndTransform(muleContext, event, this.getClass().getDeclaredField("serviceEndpoint").getGenericType(), null, getServiceEndpoint()));
             return new SalesforceConnectorConnectionKey(_transformedUsername, _transformedPassword, _transformedSecurityToken, _transformedUrl, _transformedProxyHost, _transformedProxyPort, _transformedProxyUsername, _transformedProxyPassword, _transformedSessionId, _transformedServiceEndpoint);
         }
         return getDefaultConnectionKey();
