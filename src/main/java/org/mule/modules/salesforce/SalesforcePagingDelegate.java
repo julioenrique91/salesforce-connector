@@ -15,44 +15,38 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.mule.api.MuleException;
-import org.mule.streaming.PagingDelegate;
-
 import com.sforce.soap.partner.PartnerConnection;
+import com.sforce.ws.ConnectionException;
+import org.mule.api.MuleException;
+
 import com.sforce.soap.partner.QueryResult;
 import com.sforce.soap.partner.sobject.SObject;
-import com.sforce.ws.ConnectionException;
+import org.mule.streaming.ProviderAwarePagingDelegate;
 
-public abstract class SalesforcePagingDelegate extends PagingDelegate<Map<String, Object>>
-{
+public abstract class SalesforcePagingDelegate extends ProviderAwarePagingDelegate<Map<String, Object>, BaseSalesforceConnector> {
     private String query;
     private String queryLocator = null;
     private QueryResult cachedQueryResult = null;
-    private PartnerConnection connection;
     private boolean lastPageFound = false;
-    
-    public SalesforcePagingDelegate(PartnerConnection connection, String query) {
-        this.connection = connection;
+
+    public SalesforcePagingDelegate(String query) {
         this.query = query;
     }
-    
+
     @Override
-    public List<Map<String, Object>> getPage() {
+    public List<Map<String, Object>> getPage(BaseSalesforceConnector connector) throws Exception {
         if (this.cachedQueryResult != null) {
             List<Map<String, Object>> items = this.consume(this.cachedQueryResult);
             this.cachedQueryResult = null;
-            
             return items;
         }
 
         if (this.lastPageFound) {
             return Collections.emptyList();
         }
-        
-        QueryResult queryResult = getQueryResult();
 
+        QueryResult queryResult = getQueryResult(connector);
         setQueryLocatorStatus(queryResult);
-
         return this.consume(queryResult);
     }
 
@@ -65,16 +59,16 @@ public abstract class SalesforcePagingDelegate extends PagingDelegate<Map<String
         }
     }
 
-    private QueryResult getQueryResult() {
+    private QueryResult getQueryResult(BaseSalesforceConnector connector) throws Exception {
         try {
-            return this.queryLocator != null ? this.connection.queryMore(this.queryLocator) : this.doQuery(this.query); 
-        } catch (ConnectionException e) {
-            throw new RuntimeException(e);
+            return this.queryLocator != null ? connector.getConnection().queryMore(this.queryLocator) : this.doQuery(connector.getConnection(), query);
+        } catch (Exception e) {
+            throw connector.handleProcessorException(e);
         }
     }
-    
-    protected abstract QueryResult doQuery(String query) throws ConnectionException;
-    
+
+    protected abstract QueryResult doQuery(PartnerConnection connection, String query) throws ConnectionException;
+
     private List<Map<String, Object>> consume(QueryResult queryResult) {
         List<Map<String, Object>> result = null;
         SObject[] records = queryResult.getRecords();
@@ -85,7 +79,7 @@ public abstract class SalesforcePagingDelegate extends PagingDelegate<Map<String
                 result.add(SalesforceUtils.toMap(object));
             }
         }
-        
+
         return result;
     }
 
@@ -93,14 +87,13 @@ public abstract class SalesforcePagingDelegate extends PagingDelegate<Map<String
     public void close() throws MuleException {
         this.cachedQueryResult = null;
     }
-    
+
     @Override
-    public int getTotalResults() {
+    public int getTotalResults(BaseSalesforceConnector connector) throws Exception {
         if (this.cachedQueryResult == null) {
-            this.cachedQueryResult = this.getQueryResult();
+            this.cachedQueryResult = this.getQueryResult(connector);
             setQueryLocatorStatus(this.cachedQueryResult);
         }
-        
         return this.cachedQueryResult.getSize();
     }
 
