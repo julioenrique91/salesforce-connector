@@ -76,6 +76,7 @@ import com.sforce.soap.partner.SaveResult;
 import com.sforce.soap.partner.sobject.SObject;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
+import org.mule.streaming.ProviderAwarePagingDelegate;
 
 public class SalesforceModuleTest {
 
@@ -471,15 +472,15 @@ public class SalesforceModuleTest {
         when(partnerConnection.query(eq(MOCK_QUERY))).thenReturn(queryResult);
         when(partnerConnection.queryMore("001")).thenReturn(queryResult);
 
-        PagingDelegate<Map<String, Object>> delegate = connector.query(MOCK_QUERY, new PagingConfiguration(1));
-        List<Map<String, Object>> result = delegate.getPage();
+        ProviderAwarePagingDelegate<Map<String,Object>,BaseSalesforceConnector> delegate = connector.query(MOCK_QUERY, new PagingConfiguration(1));
+        List<Map<String, Object>> result = delegate.getPage(connector);
         assertEquals(1, result.size());
 
-        result = delegate.getPage();
+        result = delegate.getPage(connector);
         assertEquals(2, result.size());
 
-        assertNotNull(delegate.getPage());
-        assertTrue("The last page should be empty",delegate.getPage().isEmpty());
+        assertNotNull(delegate.getPage(connector));
+        assertTrue("The last page should be empty",delegate.getPage(connector).isEmpty());
     }
 
     @Test
