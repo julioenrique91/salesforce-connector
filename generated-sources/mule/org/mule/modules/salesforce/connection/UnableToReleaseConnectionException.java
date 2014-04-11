@@ -9,7 +9,7 @@ import javax.annotation.Generated;
  *  connection manager fails.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-10T01:06:10-05:00", comments = "Build UNKNOWN_BUILDNUMBER")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-11T04:25:40-05:00", comments = "Build master.1913.fb52000")
 public class UnableToReleaseConnectionException
     extends Exception
 {
