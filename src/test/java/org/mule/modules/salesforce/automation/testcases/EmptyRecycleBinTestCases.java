@@ -19,6 +19,8 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.salesforce.automation.RegressionTests;
+import org.mule.modules.salesforce.automation.SalesforceTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.EmptyRecycleBinResult;

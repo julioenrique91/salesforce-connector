@@ -20,8 +20,11 @@ import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.salesforce.automation.RegressionTests;
+import org.mule.modules.salesforce.automation.SalesforceTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.LeadConvertResult;
@@ -42,10 +45,6 @@ public class ConvertLeadTestCases extends SalesforceTestParent {
         saveResult = runFlowAndGetPayload("create-single-from-message", "convertLeadLead");
         sObjectsIds.add(saveResult.getId());
         upsertOnTestRunMessage("leadId", saveResult.getId());
-        
-        saveResult = runFlowAndGetPayload("create-single-from-message", "convertLeadAccount");
-        sObjectsIds.add(saveResult.getId());
-        upsertOnTestRunMessage("contactId", saveResult.getId());
 
 		upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
   

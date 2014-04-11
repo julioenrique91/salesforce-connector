@@ -23,6 +23,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.salesforce.automation.RegressionTests;
+import org.mule.modules.salesforce.automation.SalesforceTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.SaveResult;
@@ -50,7 +52,7 @@ public class SearchTestCases extends SalesforceTestParent {
 
 		upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
 		
-		Thread.sleep(60000);
+		Thread.sleep(BEFORE_SEARCH_DELAY);
  
 	}
 	

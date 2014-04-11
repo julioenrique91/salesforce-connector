@@ -20,6 +20,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.salesforce.automation.RegressionTests;
+import org.mule.modules.salesforce.automation.SalesforceTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.DeletedRecord;
@@ -53,7 +55,7 @@ public class GetDeletedTestCases extends SalesforceTestParent {
 		runFlowAndGetPayload("delete-from-message");
 		
 		// because of the rounding applied to the seconds 
-		Thread.sleep(60000);
+		Thread.sleep(AFTER_DELETE_DELAY);
 
 	}
 	
@@ -62,6 +64,7 @@ public class GetDeletedTestCases extends SalesforceTestParent {
 	public void testGetDeleted() {
 		
 		List<String> createdRecordsIds = getTestRunMessageValue("idsToDeleteFromMessage");
+		List<String> deletedRecordsIds = new ArrayList<String>();
 		
 		try {
 			
@@ -70,10 +73,12 @@ public class GetDeletedTestCases extends SalesforceTestParent {
 			DeletedRecord[] deletedRecords = deletedResult.getDeletedRecords();
 			
 			assertTrue(deletedRecords != null && deletedRecords.length > 0);
-
+			
 			for (int i = 0; i < deletedRecords.length; i++) {
-				assertTrue(createdRecordsIds.contains(((DeletedRecord) deletedRecords[i]).getId())); 
-		     }
+				deletedRecordsIds.add(((DeletedRecord) deletedRecords[i]).getId());
+			}
+			
+			assertTrue(deletedRecordsIds.containsAll(createdRecordsIds));
 		
 		} catch (Exception e) {
 			fail(ConnectorTestUtils.getStackTrace(e));

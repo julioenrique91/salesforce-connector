@@ -19,8 +19,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.salesforce.automation.RegressionTests;
+import org.mule.modules.salesforce.automation.SalesforceTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.async.BatchInfo;
@@ -58,6 +61,7 @@ public class HardDeleteBulkTestCases extends SalesforceTestParent {
 	}
 	
 	@Category({RegressionTests.class})
+	@Ignore("hardDelete operation requires special user profile permission.")
 	@Test
 	public void testHardDeleteBulk() {
 		

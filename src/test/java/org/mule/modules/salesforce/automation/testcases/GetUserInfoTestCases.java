@@ -15,6 +15,9 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.salesforce.automation.RegressionTests;
+import org.mule.modules.salesforce.automation.SalesforceTestParent;
+import org.mule.modules.salesforce.automation.SmokeTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.GetUserInfoResult;

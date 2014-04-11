@@ -13,6 +13,8 @@ package org.mule.modules.salesforce.automation.testcases;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.salesforce.automation.RegressionTests;
+import org.mule.modules.salesforce.automation.SalesforceTestParent;
 
 import java.util.ArrayList;
 import java.util.List;

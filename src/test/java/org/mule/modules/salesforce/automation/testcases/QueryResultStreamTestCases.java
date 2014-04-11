@@ -20,8 +20,11 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.salesforce.automation.RegressionTests;
+import org.mule.modules.salesforce.automation.SalesforceTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 import org.mule.util.IOUtils;
 
@@ -62,6 +65,7 @@ public class QueryResultStreamTestCases extends SalesforceTestParent {
 	}
 	
     @Category({RegressionTests.class})
+    @Ignore("https://www.mulesoft.org/jira/browse/CLDCONNECT-691")
 	@Test
 	public void testQueryResultStream() {
     	

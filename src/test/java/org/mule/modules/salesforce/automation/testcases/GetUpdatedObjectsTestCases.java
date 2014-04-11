@@ -22,6 +22,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mule.modules.salesforce.automation.RegressionTests;
+import org.mule.modules.salesforce.automation.SalesforceTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
 import com.sforce.soap.partner.SaveResult;
@@ -44,7 +46,7 @@ public class GetUpdatedObjectsTestCases extends SalesforceTestParent {
 		runFlowAndGetPayload("get-updated-objects");
 		
 		runFlowAndGetPayload("update-single-from-message");
-		Thread.sleep(UPDATE_DELAY);
+		Thread.sleep(AFTER_UPDATE_DELAY);
 
 	}
 	
@@ -59,21 +61,23 @@ public class GetUpdatedObjectsTestCases extends SalesforceTestParent {
 	@Test
 	public void testGetUpdatedObjects() {
 		
-		List<String> updatedRecordId = getTestRunMessageValue("idsToDeleteFromMessage");
+		List<String> updatedRecordsList = getTestRunMessageValue("idsToDeleteFromMessage");
 		List<String> returnedSObjectsIds;
+		
+		String anUpdatedRecordId = updatedRecordsList.get(0).toString();
 
 		try {
 
-	        returnedSObjectsIds = runFlowAndGetPayload("get-updated-objects");
+	        returnedSObjectsIds = getReturnedSObjectsIds((List<Map<String, Object>>) runFlowAndGetPayload("get-updated-objects"));
 			
-			assertTrue(returnedSObjectsIds.size() > 0);
-			assertTrue(returnedSObjectsIds.containsAll(updatedRecordId)); 
+			assertTrue(updatedRecordsList.size() > 0);
+			assertTrue(returnedSObjectsIds.contains(anUpdatedRecordId)); 
 			
 			runFlowAndGetPayload("reset-updated-objects-timestamp");
 			
 	        returnedSObjectsIds = getReturnedSObjectsIds((List<Map<String, Object>>) runFlowAndGetPayload("get-updated-objects"));
 			
-			assertTrue(!returnedSObjectsIds.containsAll(updatedRecordId)); 
+			assertTrue(!returnedSObjectsIds.contains(anUpdatedRecordId)); 
 			
 		} catch (Exception e) {
 			fail(ConnectorTestUtils.getStackTrace(e));
