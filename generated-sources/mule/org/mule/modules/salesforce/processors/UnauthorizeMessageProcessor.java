@@ -9,7 +9,7 @@ import org.mule.security.oauth.processor.BaseOAuth2UnauthorizeMessageProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-11T04:37:26-05:00", comments = "Build master.1913.fb52000")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-11T04:46:13-05:00", comments = "Build master.1913.fb52000")
 public class UnauthorizeMessageProcessor
     extends BaseOAuth2UnauthorizeMessageProcessor
     implements FlowConstructAware, MessageProcessor

@@ -10,7 +10,7 @@ import org.mule.modules.salesforce.SalesforceConnector;
  * A <code>SalesforceConnectorMetadataAdapater</code> is a wrapper around {@link SalesforceConnector } that adds support for querying metadata about the extension.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-11T04:37:26-05:00", comments = "Build master.1913.fb52000")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-11T04:46:13-05:00", comments = "Build master.1913.fb52000")
 public class SalesforceConnectorMetadataAdapater
     extends SalesforceConnectorCapabilitiesAdapter
     implements MetadataAware

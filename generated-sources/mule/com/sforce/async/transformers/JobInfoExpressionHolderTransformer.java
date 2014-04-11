@@ -24,7 +24,7 @@ import org.mule.config.i18n.CoreMessages;
 import org.mule.devkit.processor.ExpressionEvaluatorSupport;
 import org.mule.transformer.types.DataTypeFactory;
 
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-11T04:37:26-05:00", comments = "Build master.1913.fb52000")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-11T04:46:13-05:00", comments = "Build master.1913.fb52000")
 public class JobInfoExpressionHolderTransformer
     extends ExpressionEvaluatorSupport
     implements DiscoverableTransformer, MessageTransformer
