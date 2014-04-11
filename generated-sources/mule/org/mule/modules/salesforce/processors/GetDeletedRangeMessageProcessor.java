@@ -37,7 +37,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * GetDeletedRangeMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#getDeletedRange(java.lang.String, java.util.Calendar, java.util.Calendar)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-11T04:25:40-05:00", comments = "Build master.1913.fb52000")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-11T04:37:26-05:00", comments = "Build master.1913.fb52000")
 public class GetDeletedRangeMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
