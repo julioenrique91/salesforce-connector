@@ -12,7 +12,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
 
-	<context:property-placeholder location="{SALESFORCE_CREDENTIALS}" />
+	<context:property-placeholder location="${SALESFORCE_CREDENTIALS}" />
 
 	<sfdc:config name="Salesforce" doc:name="Salesforce"
 		password="${salesforce.password}" username="${salesforce.username}"
