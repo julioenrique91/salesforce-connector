@@ -26,7 +26,7 @@ import org.mule.security.oauth.processor.AbstractListeningMessageProcessor;
  * SubscribeTopicMessageSource wraps {@link org.mule.modules.salesforce.BaseSalesforceConnector#subscribeTopic(java.lang.String, org.mule.api.callback.SourceCallback)} method in {@link BaseSalesforceConnector } as a message source capable of generating Mule events.  The POJO's method is invoked in its own thread.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-11T04:46:13-05:00", comments = "Build master.1913.fb52000")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-14T09:34:33-05:00", comments = "Build master.1913.fb52000")
 public class SubscribeTopicMessageSource
     extends AbstractListeningMessageProcessor
     implements FlowConstructAware, MuleContextAware, Startable, Stoppable, ClusterizableMessageSource

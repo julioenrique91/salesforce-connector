@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * A <code>SalesforceConnectorLifecycleAdapter</code> is a wrapper around {@link SalesforceConnector } that adds lifecycle methods to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-11T04:46:13-05:00", comments = "Build master.1913.fb52000")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-14T09:34:33-05:00", comments = "Build master.1913.fb52000")
 public class SalesforceConnectorLifecycleAdapter
     extends SalesforceConnectorMetadataAdapater
     implements Disposable, Initialisable, Startable, Stoppable
