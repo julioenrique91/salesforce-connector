@@ -4499,64 +4499,6 @@ Default is false: no change in behavior. If a string or textarea value is too la
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:simpleType name="ContentTypeEnumType">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-    </xs:annotation>
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="XML">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="CSV">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="ZIP_XML">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="ZIP_CSV">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType>
-        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
-      </xs:simpleType>
-    </xs:union>
-  </xs:simpleType>
-  <xs:simpleType name="ConcurrencyModeEnumType">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-    </xs:annotation>
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="Parallel">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="Serial">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType>
-        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
-      </xs:simpleType>
-    </xs:union>
-  </xs:simpleType>
   <xs:simpleType name="OperationEnumEnumType">
     <xs:annotation>
       <xs:documentation></xs:documentation>
@@ -4601,24 +4543,22 @@ Default is false: no change in behavior. If a string or textarea value is too la
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
-  <xs:simpleType name="SalesforceOAuthImmediateEnumType">
+  <xs:simpleType name="SalesforceOAuthPromptEnumType">
     <xs:annotation>
-      <xs:documentation>Avoid interacting with the user.</xs:documentation>
+      <xs:documentation>Specifies how the authorization server prompts the user for reauthentication and reapproval</xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:enumeration value="TRUE">
+          <xs:enumeration value="LOGIN">
             <xs:annotation>
-              <xs:documentation>Prompt the user for login and approval</xs:documentation>
+              <xs:documentation>The authorization server must prompt the user for reauthentication, forcing the user to log in again.</xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="FALSE">
+          <xs:enumeration value="CONSENT">
             <xs:annotation>
-              <xs:documentation>If the user is currently logged in and has previously approved the client_id, the approval step is skipped,
-and the browser is immediately redirected to the callback with an authorization code. If the user is not
-logged in or has not previously approved the client, the flow immediately terminates with
-the immediate_unsuccessful error code.</xs:documentation>
+              <xs:documentation>The authorization server must prompt the user for reapproval before returning information to the client.
+It is valid to pass both values, separated by a space, to require the user to both log in and reauthorize.</xs:documentation>
             </xs:annotation>
           </xs:enumeration>
         </xs:restriction>
@@ -4648,6 +4588,91 @@ the immediate_unsuccessful error code.</xs:documentation>
           <xs:enumeration value="TOUCH">
             <xs:annotation>
               <xs:documentation>Mobile-optimized dialog designed for modern smartphones, such as Android and iPhone.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="ContentTypeEnumType">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+    </xs:annotation>
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="XML">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CSV">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ZIP_XML">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ZIP_CSV">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="SalesforceOAuthImmediateEnumType">
+    <xs:annotation>
+      <xs:documentation>Avoid interacting with the user.</xs:documentation>
+    </xs:annotation>
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="TRUE">
+            <xs:annotation>
+              <xs:documentation>Prompt the user for login and approval</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="FALSE">
+            <xs:annotation>
+              <xs:documentation>If the user is currently logged in and has previously approved the client_id, the approval step is skipped,
+and the browser is immediately redirected to the callback with an authorization code. If the user is not
+logged in or has not previously approved the client, the flow immediately terminates with
+the immediate_unsuccessful error code.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="ConcurrencyModeEnumType">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+    </xs:annotation>
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Parallel">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Serial">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
         </xs:restriction>
@@ -4721,31 +4746,6 @@ the immediate_unsuccessful error code.</xs:documentation>
           <xs:enumeration value="Failed">
             <xs:annotation>
               <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType>
-        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
-      </xs:simpleType>
-    </xs:union>
-  </xs:simpleType>
-  <xs:simpleType name="SalesforceOAuthPromptEnumType">
-    <xs:annotation>
-      <xs:documentation>Specifies how the authorization server prompts the user for reauthentication and reapproval</xs:documentation>
-    </xs:annotation>
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="LOGIN">
-            <xs:annotation>
-              <xs:documentation>The authorization server must prompt the user for reauthentication, forcing the user to log in again.</xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="CONSENT">
-            <xs:annotation>
-              <xs:documentation>The authorization server must prompt the user for reapproval before returning information to the client.
-It is valid to pass both values, separated by a space, to require the user to both log in and reauthorize.</xs:documentation>
             </xs:annotation>
           </xs:enumeration>
         </xs:restriction>

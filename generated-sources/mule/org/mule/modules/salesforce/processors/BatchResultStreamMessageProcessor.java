@@ -37,7 +37,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * BatchResultStreamMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#batchResultStream(com.sforce.async.BatchInfo)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T08:29:18-05:00", comments = "Build master.1915.dd1962d")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T02:41:26-05:00", comments = "Build master.1915.dd1962d")
 public class BatchResultStreamMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled

@@ -10,7 +10,7 @@ import org.osgi.framework.BundleContext;
  * The activator class controls the plug-in life cycle
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T08:29:18-05:00", comments = "Build master.1915.dd1962d")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T02:41:26-05:00", comments = "Build master.1915.dd1962d")
 public class SfdcActivator
     extends AbstractUIPlugin
 {

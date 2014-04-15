@@ -8,7 +8,7 @@ import javax.annotation.Generated;
  * Marks DevKit {@link org.mule.api.agent.Agent} implementations to take care of logging information at Mule app level mainly for troubleshooting purposes.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T08:29:18-05:00", comments = "Build master.1915.dd1962d")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T02:41:26-05:00", comments = "Build master.1915.dd1962d")
 public interface SplashScreenAgent {
 
       /**
