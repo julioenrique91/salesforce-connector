@@ -45,7 +45,7 @@ import org.mule.modules.salesforce.connection.UnableToAcquireConnectionException
  * A {@code SalesforceConnectorConnectionManager} is a wrapper around {@link SalesforceConnector } that adds connection management capabilities to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-14T09:34:33-05:00", comments = "Build master.1913.fb52000")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T08:29:18-05:00", comments = "Build master.1915.dd1962d")
 public class SalesforceConnectorConnectionManager
     extends ExpressionEvaluatorSupport
     implements MetadataAware, MuleContextAware, ProcessAdapter<SalesforceConnectorConnectionIdentifierAdapter> , Capabilities, Disposable, Initialisable, Testable, ConnectorMetaDataEnabled, NativeQueryMetadataTranslator, ConnectionManager<SalesforceConnectorConnectionKey, SalesforceConnectorConnectionIdentifierAdapter>
@@ -117,7 +117,7 @@ public class SalesforceConnectorConnectionManager
     private final static String MODULE_NAME = "Salesforce";
     private final static String MODULE_VERSION = "5.4.7-SNAPSHOT";
     private final static String DEVKIT_VERSION = "3.5.0-SNAPSHOT";
-    private final static String DEVKIT_BUILD = "master.1913.fb52000";
+    private final static String DEVKIT_BUILD = "master.1915.dd1962d";
     private final static String MIN_MULE_VERSION = "3.5";
 
     /**
