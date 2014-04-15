@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * A {@code SalesforceOAuthConnectorOAuthManager} is a wrapper around {@link SalesforceOAuthConnector } that adds access token management capabilities to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T02:45:32-05:00", comments = "Build master.1915.dd1962d")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T03:57:33-05:00", comments = "Build master.1915.dd1962d")
 public class SalesforceOAuthConnectorOAuthManager
     extends BaseOAuth2Manager<OAuth2Adapter>
 {
@@ -226,8 +226,8 @@ public class SalesforceOAuthConnectorOAuthManager
     @Override
     protected Set<Class<? extends Exception>> refreshAccessTokenOn() {
         Set<Class<? extends Exception>> types = new HashSet<Class<? extends Exception>>();
-        types.add((org.mule.modules.salesforce.exception.SalesforceSessionExpiredException.class));
         types.add((com.sforce.ws.ConnectionException.class));
+        types.add((org.mule.modules.salesforce.exception.SalesforceSessionExpiredException.class));
         return types;
     }
 
