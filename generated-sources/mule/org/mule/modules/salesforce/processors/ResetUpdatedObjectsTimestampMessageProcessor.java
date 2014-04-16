@@ -33,7 +33,7 @@ import org.mule.security.oauth.callback.ProcessCallback;
  * ResetUpdatedObjectsTimestampMessageProcessor invokes the {@link org.mule.modules.salesforce.BaseSalesforceConnector#resetUpdatedObjectsTimestamp(java.lang.String)} method in {@link BaseSalesforceConnector }. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-15T03:57:33-05:00", comments = "Build master.1915.dd1962d")
+@Generated(value = "Mule DevKit Version 3.5.0-SNAPSHOT", date = "2014-04-16T09:56:28-05:00", comments = "Build master.1915.dd1962d")
 public class ResetUpdatedObjectsTimestampMessageProcessor
     extends AbstractConnectedProcessor
     implements MessageProcessor, OperationMetaDataEnabled
