@@ -66,6 +66,49 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -159,7 +202,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="search" >
+  <div id="searchContainer" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -211,6 +254,8 @@
     <li class="api apilevel-">
   <a href="../java/com/sforce/async/transformers/package-summary.html">com.sforce.async.transformers</a></li>
     <li class="api apilevel-">
+  <a href="../java/com/sforce/lazystreams/impl/package-summary.html">com.sforce.lazystreams.impl</a></li>
+    <li class="api apilevel-">
   <a href="../java/com/sforce/rest/package-summary.html">com.sforce.rest</a></li>
     <li class="api apilevel-">
   <a href="../java/com/sforce/rest/pojo/package-summary.html">com.sforce.rest.pojo</a></li>
@@ -231,13 +276,7 @@
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/salesforce/agents/package-summary.html">org.mule.modules.salesforce.agents</a></li>
     <li class="api apilevel-">
-  <a href="../java/org/mule/modules/salesforce/api/package-summary.html">org.mule.modules.salesforce.api</a></li>
-    <li class="api apilevel-">
-  <a href="../java/org/mule/modules/salesforce/api/transformers/package-summary.html">org.mule.modules.salesforce.api.transformers</a></li>
-    <li class="api apilevel-">
-  <a href="../java/org/mule/modules/salesforce/basic/package-summary.html">org.mule.modules.salesforce.basic</a></li>
-    <li class="api apilevel-">
-  <a href="../java/org/mule/modules/salesforce/callback/package-summary.html">org.mule.modules.salesforce.callback</a></li>
+  <a href="../java/org/mule/modules/salesforce/bulk/package-summary.html">org.mule.modules.salesforce.bulk</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/salesforce/config/package-summary.html">org.mule.modules.salesforce.config</a></li>
     <li class="api apilevel-">
@@ -251,9 +290,9 @@
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/salesforce/lazystream/package-summary.html">org.mule.modules.salesforce.lazystream</a></li>
     <li class="api apilevel-">
-  <a href="../java/org/mule/modules/salesforce/lazystream/impl/package-summary.html">org.mule.modules.salesforce.lazystream.impl</a></li>
-    <li class="api apilevel-">
   <a href="../java/org/mule/modules/salesforce/oauth/package-summary.html">org.mule.modules.salesforce.oauth</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/salesforce/pooling/package-summary.html">org.mule.modules.salesforce.pooling</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/salesforce/process/package-summary.html">org.mule.modules.salesforce.process</a></li>
     <li class="api apilevel-">
@@ -355,31 +394,7 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/AbstractDefinitionParser.html">AbstractDefinitionParser</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/AbstractDefinitionParser.ParseDelegate.html">AbstractDefinitionParser.ParseDelegate</a>&lt;T&gt;</td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html">AbstractExpressionEvaluator</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/AbstractListeningMessageProcessor.html">AbstractListeningMessageProcessor</a>&lt;O&gt;</td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/AbstractMessageProcessor.html">AbstractMessageProcessor</a>&lt;O&gt;</td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
@@ -507,18 +522,6 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/basic/Capabilities.html">Capabilities</a></td>
-            <td class="jd-descrcol" width="100%">This interface is implemented for every org.mule.api.annotations.Module annotated class, to dynamically query what its capabilities are.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/basic/Capability.html">Capability</a></td>
-            <td class="jd-descrcol" width="100%">Enumeration of possible capabilities of Mule modules.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/ChildRelationship.html">ChildRelationship</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
@@ -568,140 +571,148 @@
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/ConnectivityProcessor.html">ConnectivityProcessor</a></td>
+            <td class="jd-descrcol" width="100%">Interface used to unify all message processors (those which use (or not) pagination) from the ManagedConnectionProcessInterceptor
+ 
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/Connector.html">Connector</a></td>
             <td class="jd-descrcol" width="100%">Generated by ConnectionCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/rest/ContentType.html">ContentType</a></td>
             <td class="jd-descrcol" width="100%">ContentType&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/async/transformers/ContentTypeEnumTransformer.html">ContentTypeEnumTransformer</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/ConvertLead_element.html">ConvertLead_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/ConvertLeadDefinitionParser.html">ConvertLeadDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/ConvertLeadMessageProcessor.html">ConvertLeadMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">ConvertLeadMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#convertLead(java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.Boolean, java.lang.String, java.lang.String, java.lang.Boolean, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">convertLead(java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.Boolean, java.lang.String, java.lang.String, java.lang.Boolean, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">ConvertLeadMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#convertLead(java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.Boolean, java.lang.String, java.lang.String, java.lang.Boolean)">convertLead(java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.Boolean, java.lang.String, java.lang.String, java.lang.Boolean)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/ConvertLeadResponse_element.html">ConvertLeadResponse_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/Create_element.html">Create_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/CreateBatchDefinitionParser.html">CreateBatchDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/CreateBatchForQueryDefinitionParser.html">CreateBatchForQueryDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/CreateBatchForQueryMessageProcessor.html">CreateBatchForQueryMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">CreateBatchForQueryMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#createBatchForQuery(com.sforce.async.JobInfo, java.lang.String)">createBatchForQuery(com.sforce.async.JobInfo, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/CreateBatchMessageProcessor.html">CreateBatchMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">CreateBatchMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#createBatch(com.sforce.async.JobInfo, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">createBatch(com.sforce.async.JobInfo, java.util.List)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/CreateBatchStreamDefinitionParser.html">CreateBatchStreamDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/CreateBatchStreamMessageProcessor.html">CreateBatchStreamMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">CreateBatchStreamMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#createBatchStream(com.sforce.async.JobInfo, java.io.InputStream)">createBatchStream(com.sforce.async.JobInfo, java.io.InputStream)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/CreateBulkDefinitionParser.html">CreateBulkDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/CreateBulkMessageProcessor.html">CreateBulkMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">CreateBulkMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#createBulk(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">createBulk(java.lang.String, java.util.List)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/CreateDefinitionParser.html">CreateDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/CreateJobDefinitionParser.html">CreateJobDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/CreateJobMessageProcessor.html">CreateJobMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">CreateJobMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#createJob(com.sforce.async.OperationEnum, java.lang.String, java.lang.String, com.sforce.async.ContentType, com.sforce.async.ConcurrencyMode)">createJob(com.sforce.async.OperationEnum, java.lang.String, java.lang.String, com.sforce.async.ContentType, com.sforce.async.ConcurrencyMode)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/CreateMessageProcessor.html">CreateMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">CreateMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#create(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">create(java.lang.String, java.util.List, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">CreateMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#create(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">create(java.lang.String, java.util.List)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/CreateResponse_element.html">CreateResponse_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/CreateSingleDefinitionParser.html">CreateSingleDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/CreateSingleMessageProcessor.html">CreateSingleMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">CreateSingleMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#createSingle(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">createSingle(java.lang.String, java.util.Map, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">CreateSingleMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#createSingle(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>)">createSingle(java.lang.String, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -743,18 +754,6 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/process/DefaultHttpCallback.html">DefaultHttpCallback</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/process/DefaultHttpCallback.FlowRefMessageProcessor.html">DefaultHttpCallback.FlowRefMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/agents/DefaultSplashScreenAgent.html">DefaultSplashScreenAgent</a></td>
             <td class="jd-descrcol" width="100%">Agent implementation to add splash screen information for DevKit extensions at application startup
  
@@ -782,7 +781,7 @@
     
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/DeleteMessageProcessor.html">DeleteMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">DeleteMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#delete(java.util.List<java.lang.String>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">delete(java.util.List, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">DeleteMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#delete(java.util.List<java.lang.String>)">delete(java.util.List)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -1173,12 +1172,18 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/pooling/DevkitGenericKeyedObjectPool.html">DevkitGenericKeyedObjectPool</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/DisableFeedTrackingHeader_element.html">DisableFeedTrackingHeader_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/rest/tools/DotNetCodeGenerator.html">DotNetCodeGenerator</a></td>
             <td class="jd-descrcol" width="100%">Generates C# objects from api describe calls&nbsp;</td>
         </tr>
@@ -1229,7 +1234,7 @@
     
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/EmptyRecycleBinMessageProcessor.html">EmptyRecycleBinMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">EmptyRecycleBinMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#emptyRecycleBin(java.util.List<java.lang.String>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">emptyRecycleBin(java.util.List, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">EmptyRecycleBinMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#emptyRecycleBin(java.util.List<java.lang.String>)">emptyRecycleBin(java.util.List)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -1246,6 +1251,18 @@
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/bulk/EnrichedSaveResult.html">EnrichedSaveResult</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/bulk/EnrichedUpsertResult.html">EnrichedUpsertResult</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/Error.html">Error</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
@@ -1254,12 +1271,6 @@
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/fault/ExceptionCode.html">ExceptionCode</a></td>
             <td class="jd-descrcol" width="100%">Generated by SimpleTypeCodeGenerator.java.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/ExtractAuthorizationCodeMessageProcessor.html">ExtractAuthorizationCodeMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
@@ -1277,18 +1288,12 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/FetchAccessTokenMessageProcessor.html">FetchAccessTokenMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/Field.html">Field</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/FieldType.html">FieldType</a></td>
             <td class="jd-descrcol" width="100%">Generated by SimpleTypeCodeGenerator.java.&nbsp;</td>
         </tr>
@@ -1315,7 +1320,7 @@
     
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/GetDeletedMessageProcessor.html">GetDeletedMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">GetDeletedMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#getDeleted(java.lang.String, int, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">getDeleted(java.lang.String, int, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">GetDeletedMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#getDeleted(java.lang.String, int)">getDeleted(java.lang.String, int)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -1327,7 +1332,7 @@
     
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/GetDeletedRangeMessageProcessor.html">GetDeletedRangeMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">GetDeletedRangeMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#getDeletedRange(java.lang.String, java.util.Calendar, java.util.Calendar, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">getDeletedRange(java.lang.String, java.util.Calendar, java.util.Calendar, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">GetDeletedRangeMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#getDeletedRange(java.lang.String, java.util.Calendar, java.util.Calendar)">getDeletedRange(java.lang.String, java.util.Calendar, java.util.Calendar)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -1387,7 +1392,7 @@
     
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/GetUpdatedMessageProcessor.html">GetUpdatedMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">GetUpdatedMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#getUpdated(java.lang.String, int, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">getUpdated(java.lang.String, int, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">GetUpdatedMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#getUpdated(java.lang.String, int)">getUpdated(java.lang.String, int)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -1399,7 +1404,7 @@
     
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/GetUpdatedObjectsMessageProcessor.html">GetUpdatedObjectsMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">GetUpdatedObjectsMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#getUpdatedObjects(java.lang.String, int, java.util.List<java.lang.String>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">getUpdatedObjects(java.lang.String, int, java.util.List, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">GetUpdatedObjectsMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#getUpdatedObjects(java.lang.String, int, java.util.List<java.lang.String>)">getUpdatedObjects(java.lang.String, int, java.util.List)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -1411,7 +1416,7 @@
     
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/GetUpdatedRangeMessageProcessor.html">GetUpdatedRangeMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">GetUpdatedRangeMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#getUpdatedRange(java.lang.String, java.util.Calendar, java.util.Calendar, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">getUpdatedRange(java.lang.String, java.util.Calendar, java.util.Calendar, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">GetUpdatedRangeMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#getUpdatedRange(java.lang.String, java.util.Calendar, java.util.Calendar)">getUpdatedRange(java.lang.String, java.util.Calendar, java.util.Calendar)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -1473,18 +1478,6 @@
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/HardDeleteBulkMessageProcessor.html">HardDeleteBulkMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">HardDeleteBulkMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#hardDeleteBulk(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">hardDeleteBulk(java.lang.String, java.util.List)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/callback/HttpCallback.html">HttpCallback</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/adapter/HttpCallbackAdapter.html">HttpCallbackAdapter</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
@@ -1551,14 +1544,26 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/com/sforce/async/holders/JobInfoExpressionHolder.html">JobInfoExpressionHolder</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/JobInfoDefinitionParser.html">JobInfoDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/com/sforce/async/holders/JobInfoExpressionHolder.html">JobInfoExpressionHolder</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/async/transformers/JobInfoExpressionHolderTransformer.html">JobInfoExpressionHolderTransformer</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/JobInfoMessageProcessor.html">JobInfoMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">JobInfoMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#jobInfo(java.lang.String)">jobInfo(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -1596,7 +1601,7 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/lazystream/impl/LazyQueryResultInputStream.html">LazyQueryResultInputStream</a></td>
+            <td class="jd-linkcol"><a href="../java/com/sforce/lazystreams/impl/LazyQueryResultInputStream.html">LazyQueryResultInputStream</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
@@ -1681,18 +1686,6 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/ManagedAccessTokenProcessInterceptor.html">ManagedAccessTokenProcessInterceptor</a>&lt;T&gt;</td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/ManagedAccessTokenProcessTemplate.html">ManagedAccessTokenProcessTemplate</a>&lt;P&gt;</td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/process/ManagedConnectionProcessInterceptor.html">ManagedConnectionProcessInterceptor</a>&lt;T&gt;</td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
@@ -1735,12 +1728,6 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/basic/MetadataAware.html">MetadataAware</a></td>
-            <td class="jd-descrcol" width="100%">This interface is implemented for every org.mule.api.annotations.Module and org.mule.api.annotations.Connector annotated class and its purpose is to define a contract to query the annotated class about its metadata.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/MruHeader_element.html">MruHeader_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
@@ -1754,14 +1741,14 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/process/NestedProcessorChain.html">NestedProcessorChain</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/NonPaginatedQueryDefinitionParser.html">NonPaginatedQueryDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/NotAuthorizedException.html">NotAuthorizedException</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/NonPaginatedQueryMessageProcessor.html">NonPaginatedQueryMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">NonPaginatedQueryMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#nonPaginatedQuery(java.lang.String)">nonPaginatedQuery(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -1773,49 +1760,18 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/OAuth1Adapter.html">OAuth1Adapter</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/OAuth2Adapter.html">OAuth2Adapter</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/OAuthAdapter.html">OAuthAdapter</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/OAuthManager.html">OAuthManager</a>&lt;C&nbsp;extends&nbsp;<a href="../java/org/mule/modules/salesforce/oauth/OAuthAdapter.html">OAuthAdapter</a>&gt;</td>
-            <td class="jd-descrcol" width="100%">Wrapper around org.mule.api.annotations.oauth.OAuth annotated class that will infuse it with
- access token management capabilities.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/OAuthProcessTemplate.html">OAuthProcessTemplate</a>&lt;P&gt;</td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/ObjectStoreHelper.html">ObjectStoreHelper</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/async/transformers/OperationEnumEnumTransformer.html">OperationEnumEnumTransformer</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/OwnerChangeOptions_element.html">OwnerChangeOptions_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
@@ -1848,7 +1804,7 @@
     
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/PaginatedQueryMessageProcessor.html">PaginatedQueryMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">PaginatedQueryMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#paginatedQuery(java.lang.String, org.mule.modules.salesforce.QueryResultObject, java.lang.Boolean, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">paginatedQuery(java.lang.String, org.mule.modules.salesforce.QueryResultObject, java.lang.Boolean, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">PaginatedQueryMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#paginatedQuery(java.lang.String, org.mule.modules.salesforce.QueryResultObject, java.lang.Boolean)">paginatedQuery(java.lang.String, org.mule.modules.salesforce.QueryResultObject, java.lang.Boolean)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -1913,30 +1869,6 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/process/ProcessAdapter.html">ProcessAdapter</a>&lt;O&gt;</td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/process/ProcessCallback.html">ProcessCallback</a>&lt;T,&nbsp;O&gt;</td>
-            <td class="jd-descrcol" width="100%">Callback with logic to execute within a controlled environment provided by <code><a href="../java/org/mule/modules/salesforce/process/ProcessTemplate.html">ProcessTemplate</a></code>&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/process/ProcessCallbackProcessInterceptor.html">ProcessCallbackProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/process/ProcessInterceptor.html">ProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/ProcessRequest.html">ProcessRequest</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
@@ -1961,30 +1893,24 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/process/ProcessTemplate.html">ProcessTemplate</a>&lt;T,&nbsp;O&gt;</td>
-            <td class="jd-descrcol" width="100%">ProcessTemplate provides a processing context for message processing.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/ProcessWorkitemRequest.html">ProcessWorkitemRequest</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/ProxyAuthenticator.html">ProxyAuthenticator</a></td>
             <td class="jd-descrcol" width="100%">Created with IntelliJ IDEA.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/PublishTopicDefinitionParser.html">PublishTopicDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/PublishTopicMessageProcessor.html">PublishTopicMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">PublishTopicMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#publishTopic(java.lang.String, java.lang.String, java.lang.String)">publishTopic(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
@@ -2017,7 +1943,7 @@
     
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/QueryAllMessageProcessor.html">QueryAllMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">QueryAllMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#queryAll(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">queryAll(java.lang.String, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">QueryAllMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#queryAll(java.lang.String, org.mule.streaming.PagingConfiguration)">queryAll(java.lang.String, org.mule.streaming.PagingConfiguration)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -2035,7 +1961,7 @@
     
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/QueryMessageProcessor.html">QueryMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">QueryMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#query(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">query(java.lang.String, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">QueryMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#query(java.lang.String, org.mule.streaming.PagingConfiguration)">query(java.lang.String, org.mule.streaming.PagingConfiguration)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -2101,7 +2027,7 @@
     
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/QuerySingleMessageProcessor.html">QuerySingleMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">QuerySingleMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#querySingle(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">querySingle(java.lang.String, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">QuerySingleMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#querySingle(java.lang.String)">querySingle(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -2125,122 +2051,110 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/RefreshTokenProcessInterceptor.html">RefreshTokenProcessInterceptor</a>&lt;T&gt;</td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/RelatedList.html">RelatedList</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/RelatedListColumn.html">RelatedListColumn</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/RelatedListSort.html">RelatedListSort</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/ResetPassword_element.html">ResetPassword_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/ResetPasswordResponse_element.html">ResetPasswordResponse_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/ResetPasswordResult.html">ResetPasswordResult</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/ResetUpdatedObjectsTimestampDefinitionParser.html">ResetUpdatedObjectsTimestampDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/ResetUpdatedObjectsTimestampMessageProcessor.html">ResetUpdatedObjectsTimestampMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">ResetUpdatedObjectsTimestampMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#resetUpdatedObjectsTimestamp(java.lang.String)">resetUpdatedObjectsTimestamp(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/rest/RestApiException.html">RestApiException</a></td>
             <td class="jd-descrcol" width="100%">RestApiException&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/rest/RestConnection.html">RestConnection</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/rest/RestConnectionImpl.html">RestConnectionImpl</a></td>
             <td class="jd-descrcol" width="100%">RestConnection&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/rest/RestExceptionCode.html">RestExceptionCode</a></td>
             <td class="jd-descrcol" width="100%">RestExceptionCode&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/RestoreAccessTokenCallback.html">RestoreAccessTokenCallback</a></td>
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/RestoreAccessTokenCallbackFactoryBean.html">RestoreAccessTokenCallbackFactoryBean</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/rest/ResultInfo.html">ResultInfo</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/Retrieve_element.html">Retrieve_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/RetrieveDefinitionParser.html">RetrieveDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/RetrieveMessageProcessor.html">RetrieveMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">RetrieveMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#retrieve(java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">retrieve(java.lang.String, java.util.List, java.util.List, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">RetrieveMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#retrieve(java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>)">retrieve(java.lang.String, java.util.List, java.util.List)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/RetrieveResponse_element.html">RetrieveResponse_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/process/RetryProcessInterceptor.html">RetryProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
@@ -2265,37 +2179,43 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/exception/SalesforceBulkException.html">SalesforceBulkException</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/SalesforceConnector.html">SalesforceConnector</a></td>
             <td class="jd-descrcol" width="100%">The Salesforce Connector will allow to connect to the Salesforce application using regular username and password via
  the SOAP API.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/adapters/SalesforceConnectorCapabilitiesAdapter.html">SalesforceConnectorCapabilitiesAdapter</a></td>
             <td class="jd-descrcol" width="100%">A <code>SalesforceConnectorCapabilitiesAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/salesforce/SalesforceConnector.html">SalesforceConnector</a></code> that implements org.mule.api.Capabilities interface.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/SalesforceConnectorConfigDefinitionParser.html">SalesforceConnectorConfigDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/connectivity/SalesforceConnectorConnectionFactory.html">SalesforceConnectorConnectionFactory</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/adapters/SalesforceConnectorConnectionIdentifierAdapter.html">SalesforceConnectorConnectionIdentifierAdapter</a></td>
             <td class="jd-descrcol" width="100%">A <code>SalesforceConnectorConnectionIdentifierAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/salesforce/SalesforceConnector.html">SalesforceConnector</a></code> that implements org.mule.devkit.dynamic.api.helper.Connection interface.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/connectivity/SalesforceConnectorConnectionKey.html">SalesforceConnectorConnectionKey</a></td>
             <td class="jd-descrcol" width="100%">A tuple of connection parameters
  
@@ -2303,76 +2223,58 @@
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/connectivity/SalesforceConnectorConnectionManager.html">SalesforceConnectorConnectionManager</a></td>
             <td class="jd-descrcol" width="100%">A <code>SalesforceConnectorConnectionManager</code> is a wrapper around <code><a href="../java/org/mule/modules/salesforce/SalesforceConnector.html">SalesforceConnector</a></code> that adds connection management capabilities to the pojo.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/adapters/SalesforceConnectorLifecycleAdapter.html">SalesforceConnectorLifecycleAdapter</a></td>
             <td class="jd-descrcol" width="100%">A <code>SalesforceConnectorLifecycleAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/salesforce/SalesforceConnector.html">SalesforceConnector</a></code> that adds lifecycle methods to the pojo.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/adapters/SalesforceConnectorMetadataAdapater.html">SalesforceConnectorMetadataAdapater</a></td>
             <td class="jd-descrcol" width="100%">A <code>SalesforceConnectorMetadataAdapater</code> is a wrapper around <code><a href="../java/org/mule/modules/salesforce/SalesforceConnector.html">SalesforceConnector</a></code> that adds support for querying metadata about the extension.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/adapters/SalesforceConnectorProcessAdapter.html">SalesforceConnectorProcessAdapter</a></td>
             <td class="jd-descrcol" width="100%">A <code>SalesforceConnectorProcessAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/salesforce/SalesforceConnector.html">SalesforceConnector</a></code> that enables custom processing strategies.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/SalesforceException.html">SalesforceException</a></td>
             <td class="jd-descrcol" width="100%">A runtime exception that wraps a <code><a href="../java/com/sforce/soap/partner/StatusCode.html">StatusCode</a></code>
 &nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/api/transformers/SalesforceHeaderEnumTransformer.html">SalesforceHeaderEnumTransformer</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/SalesforceLongPollingTransport.html">SalesforceLongPollingTransport</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/SalesforceOAuthConnector.html">SalesforceOAuthConnector</a></td>
             <td class="jd-descrcol" width="100%">The Salesforce Connector will allow to connect to the Salesforce application using OAuth as the authentication
  mechanism.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/adapters/SalesforceOAuthConnectorCapabilitiesAdapter.html">SalesforceOAuthConnectorCapabilitiesAdapter</a></td>
             <td class="jd-descrcol" width="100%">A <code>SalesforceOAuthConnectorCapabilitiesAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/salesforce/SalesforceOAuthConnector.html">SalesforceOAuthConnector</a></code> that implements org.mule.api.Capabilities interface.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/SalesforceOAuthConnectorConfigDefinitionParser.html">SalesforceOAuthConnectorConfigDefinitionParser</a></td>
-            <td class="jd-descrcol" width="100%">&nbsp;</td>
-        </tr>
-    
-    
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/adapters/SalesforceOAuthConnectorHttpCallbackAdapter.html">SalesforceOAuthConnectorHttpCallbackAdapter</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/SalesforceOAuthConnectorConfigDefinitionParser.html">SalesforceOAuthConnectorConfigDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
@@ -2459,14 +2361,14 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/exception/SalesforceSessionExpiredException.html">SalesforceSessionExpiredException</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/SalesforcePagingDelegate.html">SalesforcePagingDelegate</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/api/SalesforceSoapAdapter.html">SalesforceSoapAdapter</a></td>
-            <td class="jd-descrcol" width="100%">Adapter for Salesforce Partner Connection&nbsp;</td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/exception/SalesforceSessionExpiredException.html">SalesforceSessionExpiredException</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
@@ -2477,7 +2379,7 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/SaveAccessTokenCallback.html">SaveAccessTokenCallback</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/SaveAccessTokenCallbackFactoryBean.html">SaveAccessTokenCallbackFactoryBean</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
@@ -2489,158 +2391,170 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/bulk/SaveResultToBulkOperationTransformer.html">SaveResultToBulkOperationTransformer</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/Search_element.html">Search_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/SearchDefinitionParser.html">SearchDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/SearchMessageProcessor.html">SearchMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">SearchMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#search(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">search(java.lang.String, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">SearchMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#search(java.lang.String)">search(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SearchRecord.html">SearchRecord</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SearchResponse_element.html">SearchResponse_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/rest/SearchResult.html">SearchResult</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SearchResult.html">SearchResult</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SendEmail_element.html">SendEmail_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SendEmailError.html">SendEmailError</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SendEmailMessage_element.html">SendEmailMessage_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SendEmailMessageResponse_element.html">SendEmailMessageResponse_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SendEmailResponse_element.html">SendEmailResponse_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SendEmailResult.html">SendEmailResult</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SessionHeader_element.html">SessionHeader_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SetPassword_element.html">SetPassword_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/SetPasswordDefinitionParser.html">SetPasswordDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/SetPasswordMessageProcessor.html">SetPasswordMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">SetPasswordMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#setPassword(java.lang.String, java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">setPassword(java.lang.String, java.lang.String, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">SetPasswordMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#setPassword(java.lang.String, java.lang.String)">setPassword(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SetPasswordResponse_element.html">SetPasswordResponse_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SetPasswordResult.html">SetPasswordResult</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/SfdcNamespaceHandler.html">SfdcNamespaceHandler</a></td>
             <td class="jd-descrcol" width="100%">Registers bean definitions parsers for handling elements in <code>http://www.mulesoft.org/schema/mule/sfdc</code>.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SingleEmailMessage.html">SingleEmailMessage</a></td>
-            <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
-        </tr>
-    
-    
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SoapType.html">SoapType</a></td>
-            <td class="jd-descrcol" width="100%">Generated by SimpleTypeCodeGenerator.java.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/com/sforce/rest/pojo/SObject.html">SObject</a></td>
-            <td class="jd-descrcol" width="100%">Parent class for all generated objects.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/sobject/SObject.html">SObject</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/SfdcOperatorVisitor.html">SfdcOperatorVisitor</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/com/sforce/rest/SObjectResult.html">SObjectResult</a></td>
-            <td class="jd-descrcol" width="100%">This is the response from the server when you perform an create, update, delete operation on a single record.&nbsp;</td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/SfdcQueryVisitor.html">SfdcQueryVisitor</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/callback/SourceCallback.html">SourceCallback</a></td>
-            <td class="jd-descrcol" width="100%">Callback interface used by org.mule.api.annotations.Source annotated methods to dispatch messages.&nbsp;</td>
+            <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SingleEmailMessage.html">SingleEmailMessage</a></td>
+            <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/SoapType.html">SoapType</a></td>
+            <td class="jd-descrcol" width="100%">Generated by SimpleTypeCodeGenerator.java.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/com/sforce/rest/pojo/SObject.html">SObject</a></td>
+            <td class="jd-descrcol" width="100%">Parent class for all generated objects.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/sobject/SObject.html">SObject</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/com/sforce/rest/SObjectResult.html">SObjectResult</a></td>
+            <td class="jd-descrcol" width="100%">This is the response from the server when you perform an create, update, delete operation on a single record.&nbsp;</td>
         </tr>
     
     
@@ -2657,32 +2571,24 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/callback/StopSourceCallback.html">StopSourceCallback</a></td>
-            <td class="jd-descrcol" width="100%">Callback returned by methods that are annotated with @Source
- <p/>
- It will be executed when the MessageSource is being stopped.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/StreamingEnabledHeader_element.html">StreamingEnabledHeader_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/transformers/StringToCalendarTransformer.html">StringToCalendarTransformer</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/config/SubscribeTopicDefinitionParser.html">SubscribeTopicDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/sources/SubscribeTopicMessageSource.html">SubscribeTopicMessageSource</a></td>
             <td class="jd-descrcol" width="100%">SubscribeTopicMessageSource wraps <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#subscribeTopic(java.lang.String, org.mule.api.callback.SourceCallback)">subscribeTopic(java.lang.String, org.mule.api.callback.SourceCallback)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code> as a message source capable of generating Mule events.&nbsp;</td>
         </tr>
@@ -2696,25 +2602,9 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/UnableToAcquireAccessTokenException.html">UnableToAcquireAccessTokenException</a></td>
-            <td class="jd-descrcol" width="100%">Exception thrown when the access token needed for accessing a protected resource cannot be acquired
- 
-&nbsp;</td>
-        </tr>
-    
-    
-        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/connection/UnableToAcquireConnectionException.html">UnableToAcquireConnectionException</a></td>
             <td class="jd-descrcol" width="100%">Exception thrown when the connection needed for executing an
   operation is null.&nbsp;</td>
-        </tr>
-    
-    
-        <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/oauth/UnableToAcquireRequestTokenException.html">UnableToAcquireRequestTokenException</a></td>
-            <td class="jd-descrcol" width="100%">Exception thrown when the request token needed for building the authorization URL cannot be acquired
- 
-&nbsp;</td>
         </tr>
     
     
@@ -2787,7 +2677,7 @@
     
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/UpdateMessageProcessor.html">UpdateMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">UpdateMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#update(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">update(java.lang.String, java.util.List, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">UpdateMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#update(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">update(java.lang.String, java.util.List)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -2805,7 +2695,7 @@
     
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/UpdateSingleMessageProcessor.html">UpdateSingleMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">UpdateSingleMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#updateSingle(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">updateSingle(java.lang.String, java.util.Map, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">UpdateSingleMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#updateSingle(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>)">updateSingle(java.lang.String, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -2835,7 +2725,7 @@
     
         <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/processors/UpsertMessageProcessor.html">UpsertMessageProcessor</a></td>
-            <td class="jd-descrcol" width="100%">UpsertMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#upsert(java.lang.String, java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">upsert(java.lang.String, java.lang.String, java.util.List, java.util.Map)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+            <td class="jd-descrcol" width="100%">UpsertMessageProcessor invokes the <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#upsert(java.lang.String, java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">upsert(java.lang.String, java.lang.String, java.util.List)</a></code> method in <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
         </tr>
     
     
@@ -2852,6 +2742,12 @@
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/salesforce/bulk/UpsertResultToBulkOperationTransformer.html">UpsertResultToBulkOperationTransformer</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/com/sforce/soap/partner/UserTerritoryDeleteHeader_element.html">UserTerritoryDeleteHeader_element</a></td>
             <td class="jd-descrcol" width="100%">Generated by ComplexTypeCodeGenerator.java.&nbsp;</td>
         </tr>
