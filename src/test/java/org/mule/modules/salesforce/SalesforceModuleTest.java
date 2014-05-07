@@ -48,7 +48,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.streaming.PagingConfiguration;
+import org.mule.streaming.PagingDelegate;
 
 import com.sforce.async.AsyncApiException;
 import com.sforce.async.AsyncExceptionCode;
@@ -74,7 +76,6 @@ import com.sforce.soap.partner.QueryResult;
 import com.sforce.soap.partner.SaveResult;
 import com.sforce.soap.partner.sobject.SObject;
 import com.sforce.ws.ConnectorConfig;
-import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.streaming.ProviderAwarePagingDelegate;
 
 public class SalesforceModuleTest {
@@ -193,9 +194,9 @@ public class SalesforceModuleTest {
         assertEquals(expectedBatchInfo, actualBatchInfo);
         Mockito.verify(batchRequest).addSObjects(SalesforceUtils.toAsyncSObjectList(objects, connector.getBatchSobjectMaxDepth()));
     }
-    
+
     @Test(expected = SalesforceSessionExpiredException.class)
-    public void testCreateBatchWithConnectionException() throws Exception {
+    public void testCreateBatchWithSalesforceSessionExpiredException() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
         AsyncApiException exception = Mockito.mock(AsyncApiException.class);
@@ -248,7 +249,7 @@ public class SalesforceModuleTest {
     }
 
     @Test(expected = SalesforceSessionExpiredException.class)
-    public void testCreateBatchForQueryWithConnectionException() throws Exception {
+    public void testCreateBatchForQueryWithSalesforceSessionExpiredException() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
         ArgumentCaptor<JobInfo> expectedJobInfo = ArgumentCaptor.forClass(JobInfo.class);
@@ -471,7 +472,7 @@ public class SalesforceModuleTest {
         when(partnerConnection.query(eq(MOCK_QUERY))).thenReturn(queryResult);
         when(partnerConnection.queryMore("001")).thenReturn(queryResult);
 
-        ProviderAwarePagingDelegate<Map<String,Object>,BaseSalesforceConnector> delegate = connector.query(MOCK_QUERY, new PagingConfiguration(1));
+        ProviderAwarePagingDelegate<Map<String,Object>,BaseSalesforceConnector> delegate = connector.query(MOCK_QUERY, new PagingConfiguration(1), null);
         List<Map<String, Object>> result = delegate.getPage(connector);
         assertEquals(1, result.size());
 

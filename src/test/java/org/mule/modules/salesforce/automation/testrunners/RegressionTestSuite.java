@@ -52,8 +52,7 @@ import org.mule.modules.salesforce.automation.testcases.*;
 	UpsertBulkTestCases.class,
 	CreateSingleTestCases.class,
 	GetUpdatedRangeTestCases.class,
-	UpsertTestCases.class,
-    ExceptionTestCases.class
+	UpsertTestCases.class
 	
 		})
 

@@ -43,7 +43,7 @@ public class SalesforceConnectorTest {
         contact.put("Account", account);
 
 
-        SObject record = SalesforceUtils.toSObject("Contact", contact);
+        SObject record = connector.toSObject("Contact", contact);
         assertEquals("Contact", record.getType());
         assertEquals("Bill", record.getField("FirstName"));
         assertEquals("Murray", record.getField("LastName"));
@@ -69,7 +69,7 @@ public class SalesforceConnectorTest {
         List<Map<String, Object>> listRecords = new ArrayList<Map<String, Object>>();
         listRecords.add(contact);
 
-        com.sforce.async.SObject record = connector.toAsyncSObjectList(listRecords)[0];
+        com.sforce.async.SObject record = SalesforceUtils.toAsyncSObjectList(listRecords, connector.getBatchSobjectMaxDepth())[0];
 
         assertEquals("Contact", record.getField("type"));
         assertEquals("Bill", record.getField("FirstName"));
@@ -96,7 +96,7 @@ public class SalesforceConnectorTest {
         List<Map<String, Object>> listRecords = new ArrayList<Map<String, Object>>();
         listRecords.add(account);
 
-        com.sforce.async.SObject record = connector.toAsyncSObjectList(listRecords)[0];
+        com.sforce.async.SObject record = SalesforceUtils.toAsyncSObjectList(listRecords, connector.getBatchSobjectMaxDepth())[0];
         assertEquals(birthDateString, record.getField("BirthDate"));
         assertEquals(birthDateString, record.getField("BirthDateCalendar"));
     }
@@ -107,7 +107,7 @@ public class SalesforceConnectorTest {
         map.put(123, "number key");
         map.put("abc", "string key");
         map.put(new URL("http://localhost"), "url key");
-        Map<String, Object> sObjectMap = SalesforceUtils.toSObjectMap(map);
+        Map<String, Object> sObjectMap = connector.toSObjectMap(map);
         assertEquals("number key", sObjectMap.get("123"));
         assertEquals("string key", sObjectMap.get("abc"));
         assertEquals("url key", sObjectMap.get("http://localhost"));
@@ -133,28 +133,8 @@ public class SalesforceConnectorTest {
         opportunity.put("Name", "Example Opportunity");
         opportunity.put("Owner", owner);
 
-        SObject record = SalesforceUtils.toSObject("Opportunity", opportunity);
+        SObject record = connector.toSObject("Opportunity", opportunity);
         SObject convertedOwnerObject = (SObject) record.getField("Owner");
         assertEquals("User", convertedOwnerObject.getType());
-    }
-
-    @Test
-    public void shouldRecursivelyConvertMapsToAsyncSObjects() {
-        Map<String, Object> account = new HashMap<String, Object>();
-        account.put("ExternalId__c", "138");
-        Map<String, Object> contact = new HashMap<String, Object>();
-        contact.put("ExternalId__c", "bmurray");
-        contact.put("FirstName", "Bill");
-        contact.put("LastName", "Murray");
-        contact.put("Account", account);
-
-
-        com.sforce.async.SObject record = SalesforceUtils.toAsyncSObject(contact, 0);
-        assertEquals("Bill", record.getField("FirstName"));
-        assertEquals("Murray", record.getField("LastName"));
-        assertEquals("bmurray", record.getField("ExternalId__c"));
-
-        com.sforce.async.SObject parentRecord = record.getFkRef("Account");
-        assertEquals("138", parentRecord.getField("ExternalId__c"));
     }
 }

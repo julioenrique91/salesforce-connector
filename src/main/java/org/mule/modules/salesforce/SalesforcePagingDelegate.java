@@ -21,16 +21,19 @@ import org.mule.api.MuleException;
 
 import com.sforce.soap.partner.QueryResult;
 import com.sforce.soap.partner.sobject.SObject;
+import org.mule.modules.salesforce.api.SalesforceHeader;
 import org.mule.streaming.ProviderAwarePagingDelegate;
 
 public abstract class SalesforcePagingDelegate extends ProviderAwarePagingDelegate<Map<String, Object>, BaseSalesforceConnector> {
     private String query;
+    private Map<SalesforceHeader, Object> headers;
     private String queryLocator = null;
     private QueryResult cachedQueryResult = null;
     private boolean lastPageFound = false;
 
-    public SalesforcePagingDelegate(String query) {
+    public SalesforcePagingDelegate(String query,  Map<SalesforceHeader, Object> headers) {
         this.query = query;
+        this.headers = headers;
     }
 
     @Override
@@ -60,11 +63,7 @@ public abstract class SalesforcePagingDelegate extends ProviderAwarePagingDelega
     }
 
     private QueryResult getQueryResult(BaseSalesforceConnector connector) throws Exception {
-        try {
-            return this.queryLocator != null ? connector.getConnection().queryMore(this.queryLocator) : this.doQuery(connector.getConnection(), query);
-        } catch (Exception e) {
-            throw connector.handleProcessorException(e);
-        }
+        return this.queryLocator != null ? connector.getSalesforceSoapAdapter(headers).queryMore(this.queryLocator) : this.doQuery(connector.getSalesforceSoapAdapter(headers), query);
     }
 
     protected abstract QueryResult doQuery(PartnerConnection connection, String query) throws ConnectionException;

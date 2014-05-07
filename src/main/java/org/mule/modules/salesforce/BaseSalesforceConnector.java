@@ -10,7 +10,6 @@
 
 package org.mule.modules.salesforce;
 
-import com.sforce.soap.partner.fault.UnexpectedErrorFault;
 import com.sforce.soap.partner.sobject.SObject;
 import com.sforce.ws.ConnectionException;
 import java.io.ByteArrayInputStream;
@@ -20,7 +19,6 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.*;
 
-import com.sforce.async.*;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.mule.api.MuleContext;
@@ -46,17 +44,14 @@ import org.mule.modules.salesforce.bulk.SaveResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.bulk.UpsertResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.streaming.PagingConfiguration;
-import org.mule.streaming.PagingDelegate;
 import org.mule.streaming.ProviderAwarePagingDelegate;
 import org.mule.modules.salesforce.api.SalesforceExceptionHandlerAdapter;
 import org.mule.modules.salesforce.api.SalesforceRestAdapter;
 import org.mule.modules.salesforce.api.SalesforceSoapAdapter;
 import org.mule.modules.salesforce.api.SalesforceHeader;
-import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.springframework.util.StringUtils;
 
 import com.sforce.async.AsyncApiException;
-import com.sforce.async.AsyncExceptionCode;
 import com.sforce.async.BatchInfo;
 import com.sforce.async.BatchRequest;
 import com.sforce.async.BatchResult;
@@ -84,13 +79,6 @@ import com.sforce.soap.partner.SaveResult;
 import com.sforce.soap.partner.SearchRecord;
 import com.sforce.soap.partner.SearchResult;
 import com.sforce.soap.partner.UpsertResult;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.SequenceInputStream;
-import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.util.*;
-import com.sforce.soap.partner.sobject.SObject;
 
 public abstract class BaseSalesforceConnector implements MuleContextAware {
     
@@ -220,25 +208,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         this.objectStoreHelper = objectStoreHelper;
     }
 
-//    Deprecated.. now the handler is within the adaptee .. TODO fix after merge
-//    /**
-//     * When the operations handle the exceptions we must filter those that correspond to session expiration or credentials invalid exceptions.
-//     * This discrimination will allow to throw a new type of exception {@link SalesforceSessionExpiredException} that will force the reconnection
-//     * 
-//     * @param e The exception to examine
-//     * @return The resulted exception. Same as e if it wasn't a credentials problem
-//     */
-//    public Exception handleProcessorException(Exception e) {
-//        if (e != null &&
-//                ((!StringUtils.isEmpty(e.getMessage()) && e.getMessage().contains("INVALID_SESSION_ID")) ||
-//                (e.toString().contains("INVALID_SESSION_ID")))) {
-//            return new SalesforceSessionExpiredException(e);
-//        } else {
-//            return e;
-//        }
-//    }
-    
-    
     /**
      * Adds one or more new records to your organization's data.
      * <p/>
@@ -272,10 +241,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public List<SaveResult> create(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
                                    @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
-        return Arrays.asList(getSalesforceSoapAdapter(headers).create(SalesforceUtils.toSObjectList(type, objects)));
-//        TODO fix after merge
-//        SObject[] sObjects = toSObjectList(type, objects);
-//        return SalesforceUtils.enrichWithPayload(sObjects, getConnection().create(sObjects));
+        SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
+        return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).create(sObjects));
     }
 
     /**
@@ -512,10 +479,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public List<SaveResult> update(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
                                    @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
-        return Arrays.asList(getSalesforceSoapAdapter(headers).update(SalesforceUtils.toSObjectList(type, objects)));
-//        TODO fix after merge
-//        SObject[] sObjects = toSObjectList(type, objects);
-//        return SalesforceUtils.enrichWithPayload(sObjects, getConnection().update(sObjects));
+        SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
+        return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).update(sObjects));
     }
 
     /**
@@ -593,10 +558,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
                                      @MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                      @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
                                      @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
-        return Arrays.asList(getSalesforceSoapAdapter(headers).upsert(externalIdFieldName, SalesforceUtils.toSObjectList(type, objects)));
-//        TODO fix after merge
-//        SObject[] sObjects = toSObjectList(type, objects);
-//        return SalesforceUtils.enrichWithPayload(sObjects, getConnection().upsert(externalIdFieldName, sObjects));
+        SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
+        return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).upsert(externalIdFieldName, sObjects));
     }
 
     /**
@@ -726,18 +689,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         
         
         return null;
-
-//        TODO fix after merge
-//        QueryResultList queryResultList = getBulkConnection().getQueryResultList(batchInfo.getJobId(), batchInfo.getId());
-//        String[] results = queryResultList.getResult();
-//        if (results.length > 0) {
-//            List<InputStream> inputStreams = new ArrayList<InputStream>(results.length);
-//            for (String resultId : queryResultList.getResult()) {
-//                inputStreams.add(getBulkConnection().getQueryResultStream(batchInfo.getJobId(), batchInfo.getId(), resultId));
-//            }
-//            return new SequenceInputStream(Collections.enumeration(inputStreams));
-//        }
-//        return null;
     }
 
     /**
@@ -860,29 +811,14 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     @Paged
     public ProviderAwarePagingDelegate<Map<String, Object>,BaseSalesforceConnector> query(@Query @Placement(group = "Query") final String query, final PagingConfiguration pagingConfiguration,
-                                                                                          @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
-        return new SalesforcePagingDelegate(query) {
+                                                                                          @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional final Map<SalesforceHeader, Object> headers) throws Exception {
+        return new SalesforcePagingDelegate(query, headers) {
 
             @Override
             protected QueryResult doQuery(PartnerConnection connection, String query) throws ConnectionException {
                 return connection.query(query);
             }
         };
-        
-//        TODO fix after merge 3.4.x-RestAdapter
-//        QueryResult queryResult = getSalesforceSoapAdapter(headers).query(query);
-//        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-//        while (queryResult != null) {
-//            for (SObject object : queryResult.getRecords()) {
-//                result.add(SalesforceUtils.toMap(object));
-//            }
-//            if (queryResult.isDone()) {
-//                break;
-//            }
-//            queryResult = getSalesforceSoapAdapter(headers).queryMore(queryResult.getQueryLocator());
-//        }
-//
-//        return result;
     }
 
     @QueryTranslator
@@ -908,12 +844,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = ConnectionException.class)
-    @OAuthInvalidateAccessTokenOn(exception = ConnectionException.class)
+    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<Map<String, Object>> nonPaginatedQuery( @org.mule.api.annotations.Query @Placement(group = "Query") String query,
                                                         @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
-        QueryResult queryResult = getConnection().query(query);
+        QueryResult queryResult = getSalesforceSoapAdapter(headers).query(query);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         while (queryResult != null) {
             for (SObject object : queryResult.getRecords()) {
@@ -927,42 +863,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
         return result;
     }
-    
-    /**
-     * Executes a query against the specified object and returns data that matches the specified criteria.
-     * <p/>
-     * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:non-paginated-query}
-     *
-     * @param query Query string that specifies the object to query, the fields to return, and any conditions for
-     *              including a specific object in the query. For more information, see Salesforce Object Query
-     *              Language (SOQL).
-     * @return An array of {@link SObject}s
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
-     * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_query.htm">query()</a>
-     * @since 4.0
-     * This method should be deprecated at some point since we only want paginated queries
-     */
-    @Processor
-    @OAuthProtected
-    @InvalidateConnectionOn(exception = ConnectionException.class)
-    @OAuthInvalidateAccessTokenOn(exception = ConnectionException.class)
-    @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
-    public List<Map<String, Object>> nonPaginatedQuery( @org.mule.api.annotations.Query @Placement(group = "Query") String query) throws Exception {
-        QueryResult queryResult = getConnection().query(query);
-        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-        while (queryResult != null) {
-            for (SObject object : queryResult.getRecords()) {
-                result.add(SalesforceUtils.toMap(object));
-            }
-            if (queryResult.isDone()) {
-                break;
-            }
-            queryResult = getConnection().queryMore(queryResult.getQueryLocator());
-        }
 
-        return result;
-    }
-    
     /**
      * Retrieves data from specified objects, whether or not they have been deleted.
      * <p/>
@@ -983,28 +884,13 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Paged
     public ProviderAwarePagingDelegate<Map<String, Object>,BaseSalesforceConnector> queryAll(@Placement(group = "Query") String query, PagingConfiguration pagingConfiguration, 
                                                                                              @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
-        return new SalesforcePagingDelegate(query) {
+        return new SalesforcePagingDelegate(query, headers) {
 
             @Override
             protected QueryResult doQuery(PartnerConnection connection, String query) throws ConnectionException {
                 return connection.queryAll(query);
             }
         };
-
-//        TODO fix after merge    3.4.x-RestAdapter
-//        QueryResult queryResult = getSalesforceSoapAdapter(headers).queryAll(query);
-//        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-//        while (queryResult != null) {
-//            for (SObject object : queryResult.getRecords()) {
-//                result.add(SalesforceUtils.toMap(object));
-//            }
-//            if (queryResult.isDone()) {
-//                break;
-//            }
-//            queryResult = getSalesforceSoapAdapter(headers).queryMore(queryResult.getQueryLocator());
-//        }
-//
-//        return result;
     }
 
     /**
@@ -1633,27 +1519,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         this.registry = registry;
     }
 
-//    Deprecated, should be using SalesforceUtils TODO fix after merge
-//    protected com.sforce.async.SObject[] toAsyncSObjectList(List<Map<String, Object>> objects) {
-//        com.sforce.async.SObject[] sobjects = new com.sforce.async.SObject[objects.size()];
-//        int s = 0;
-//        for (Map<String, Object> map : objects) {
-//            sobjects[s] = toAsyncSObject(map);
-//            s++;
-//        }
-//        return sobjects;
-//    }
-//
-//    protected SObject[] toSObjectList(String type, List<Map<String, Object>> objects) {
-//        SObject[] sobjects = new SObject[objects.size()];
-//        int s = 0;
-//        for (Map<String, Object> map : objects) {
-//            sobjects[s] = toSObject(type, map);
-//            s++;
-//        }
-//        return sobjects;
-//    }
-    
     private BatchInfo createBatchAndCompleteRequest(JobInfo jobInfo, List<Map<String, Object>> objects) throws Exception {
         BatchRequest batchRequest = getSalesforceRestAdapter().createBatch(jobInfo);
         try {
@@ -1868,11 +1733,10 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     			throw new RuntimeException("Exception found trying to register bulk transformers", e);
     		}
 		}
-        setRegistry(context.getRegistry());
     }
 
     public PartnerConnection getSalesforceSoapAdapter() {
-        return SalesforceSoapAdapter.adapt(getConnection(), new HashMap<SalesforceHeader, Object>());
+        return getSalesforceSoapAdapter(new HashMap<SalesforceHeader, Object>());
     }
 
     public PartnerConnection getSalesforceSoapAdapter(Map<SalesforceHeader, Object> headers) {
