@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.*;
 
+import com.sforce.async.*;
 import org.apache.log4j.Logger;
 import org.mule.api.MuleContext;
 import org.mule.api.annotations.Category;
@@ -40,23 +41,13 @@ import org.mule.api.registry.Registry;
 import org.mule.api.store.ObjectStore;
 import org.mule.api.store.ObjectStoreException;
 import org.mule.api.store.ObjectStoreManager;
+import org.mule.modules.salesforce.api.SalesforceExceptionHandlerAdapter;
 import org.mule.modules.salesforce.api.SalesforceRestAdapter;
 import org.mule.modules.salesforce.api.SalesforceSoapAdapter;
 import org.mule.modules.salesforce.api.SalesforceHeader;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.springframework.util.StringUtils;
 
-import com.sforce.async.AsyncApiException;
-import com.sforce.async.AsyncExceptionCode;
-import com.sforce.async.BatchInfo;
-import com.sforce.async.BatchRequest;
-import com.sforce.async.BatchResult;
-import com.sforce.async.BulkConnection;
-import com.sforce.async.ConcurrencyMode;
-import com.sforce.async.ContentType;
-import com.sforce.async.JobInfo;
-import com.sforce.async.OperationEnum;
-import com.sforce.async.QueryResultList;
 import org.mule.modules.salesforce.lazystream.impl.LazyQueryResultInputStream;
 import com.sforce.soap.partner.AssignmentRuleHeader_element;
 import com.sforce.soap.partner.CallOptions_element;
@@ -76,7 +67,6 @@ import com.sforce.soap.partner.SearchRecord;
 import com.sforce.soap.partner.SearchResult;
 import com.sforce.soap.partner.UpsertResult;
 import com.sforce.soap.partner.sobject.SObject;
-import com.sforce.ws.ConnectionException;
 
 public abstract class BaseSalesforceConnector implements MuleContextAware {
     private static final Logger LOGGER = Logger.getLogger(BaseSalesforceConnector.class);
@@ -1459,29 +1449,27 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         this.registry = registry;
     }
 
-    private BatchInfo createBatchAndCompleteRequest(JobInfo jobInfo, List<Map<String, Object>> objects) throws ConnectionException {
+    private BatchInfo createBatchAndCompleteRequest(JobInfo jobInfo, List<Map<String, Object>> objects) throws Exception {
+        BatchRequest batchRequest = getSalesforceRestAdapter().createBatch(jobInfo);
         try {
-            BatchRequest batchRequest = getSalesforceRestAdapter().createBatch(jobInfo);
             batchRequest.addSObjects(SalesforceUtils.toAsyncSObjectList(objects, getBatchSobjectMaxDepth()));
             return batchRequest.completeRequest();
-        } catch (AsyncApiException e) {
-            if (e.getExceptionCode() == AsyncExceptionCode.InvalidSessionId) {
-                throw new ConnectionException(e.getMessage(), e);
+        } catch (Exception e) {
+            /**
+             * Added custom handler if {@link com.sforce.async.BatchRequest#completeRequest()} fails while processing.
+             * If so, throws the correct exception to reconnect.
+             * TODO check if this is really necessary, as the Salesforce API has already make a successful response.
+             */
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Problem when completing the request from the batch " + jobInfo.getId() + ", threw " + e.getClass());
             }
-        }
 
-        return null;
+            throw SalesforceExceptionHandlerAdapter.analyzeRestException(e);
+        }
     }
 
-    private BatchInfo createBatchForQuery(JobInfo jobInfo, InputStream query) throws ConnectionException {
-        try {
-            return getSalesforceRestAdapter().createBatchFromStream(jobInfo, query);
-        } catch (AsyncApiException e) {
-            if (e.getExceptionCode() == AsyncExceptionCode.InvalidSessionId) {
-                throw new ConnectionException(e.getMessage(), e);
-            }
-        }
-        return null;
+    private BatchInfo createBatchForQuery(JobInfo jobInfo, InputStream query) throws AsyncApiException {
+        return getSalesforceRestAdapter().createBatchFromStream(jobInfo, query);
     }
 
     private JobInfo createJobInfo(OperationEnum op, String type) throws AsyncApiException {

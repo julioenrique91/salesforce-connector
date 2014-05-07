@@ -770,7 +770,7 @@ public class SalesforceModuleTest {
         verify(partnerConnection, atLeastOnce()).getDeleted(eq("Account"), any(Calendar.class), any(Calendar.class));
     }
 
-    @Test(expected = ConnectionException.class)
+    @Test(expected = SalesforceSessionExpiredException.class)
     public void testCreateBulkWithTimeOutException() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
         SaveResult saveResult = Mockito.mock(SaveResult.class);
@@ -782,6 +782,7 @@ public class SalesforceModuleTest {
         JobInfo jobInfo = Mockito.mock(JobInfo.class);
         BatchRequest batchRequest = Mockito.mock(BatchRequest.class);
         AsyncApiException exception = Mockito.mock(AsyncApiException.class);
+        doReturn(exception).when(exception).getCause();
         doReturn(AsyncExceptionCode.InvalidSessionId).when(exception).getExceptionCode();
         doReturn(jobInfo).when(bulkConnection).createJob(any(JobInfo.class));
         doReturn(batchRequest).when(bulkConnection).createBatch(any(JobInfo.class));

@@ -10,13 +10,10 @@
 
 package org.mule.modules.salesforce.api;
 
-import com.sforce.async.AsyncApiException;
-import com.sforce.async.AsyncExceptionCode;
 import com.sforce.async.BulkConnection;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.InvocationHandler;
 import org.apache.log4j.Logger;
-import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -55,12 +52,7 @@ public class SalesforceRestAdapter {
                             logger.debug("Method " + method.getName() + " threw " + e.getClass());
                         }
 
-                        if (e.getCause() instanceof AsyncApiException &&
-                                (((AsyncApiException) e.getCause()).getExceptionCode() == AsyncExceptionCode.InvalidSessionId)) {
-                            throw new SalesforceSessionExpiredException(e.getCause().getMessage(), e.getCause());
-                        } else {
-                            throw new RuntimeException(e.getCause());
-                        }
+                        throw SalesforceExceptionHandlerAdapter.analyzeRestException(e);
                     }
 
                 }
