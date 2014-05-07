@@ -65,49 +65,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -202,7 +159,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../../../../../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="searchContainer" >
+  <div id="search" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -254,8 +211,6 @@
     <li class="api apilevel-">
   <a href="../../../../../java/com/sforce/async/transformers/package-summary.html">com.sforce.async.transformers</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../java/com/sforce/lazystreams/impl/package-summary.html">com.sforce.lazystreams.impl</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../java/com/sforce/rest/package-summary.html">com.sforce.rest</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/com/sforce/rest/pojo/package-summary.html">com.sforce.rest.pojo</a></li>
@@ -276,7 +231,13 @@
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/salesforce/agents/package-summary.html">org.mule.modules.salesforce.agents</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../java/org/mule/modules/salesforce/bulk/package-summary.html">org.mule.modules.salesforce.bulk</a></li>
+  <a href="../../../../../java/org/mule/modules/salesforce/api/package-summary.html">org.mule.modules.salesforce.api</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/salesforce/api/transformers/package-summary.html">org.mule.modules.salesforce.api.transformers</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/salesforce/basic/package-summary.html">org.mule.modules.salesforce.basic</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/salesforce/callback/package-summary.html">org.mule.modules.salesforce.callback</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/salesforce/config/package-summary.html">org.mule.modules.salesforce.config</a></li>
     <li class="api apilevel-">
@@ -290,9 +251,9 @@
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/salesforce/lazystream/package-summary.html">org.mule.modules.salesforce.lazystream</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../java/org/mule/modules/salesforce/oauth/package-summary.html">org.mule.modules.salesforce.oauth</a></li>
+  <a href="../../../../../java/org/mule/modules/salesforce/lazystream/impl/package-summary.html">org.mule.modules.salesforce.lazystream.impl</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../java/org/mule/modules/salesforce/pooling/package-summary.html">org.mule.modules.salesforce.pooling</a></li>
+  <a href="../../../../../java/org/mule/modules/salesforce/oauth/package-summary.html">org.mule.modules.salesforce.oauth</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/salesforce/process/package-summary.html">org.mule.modules.salesforce.process</a></li>
     <li class="api apilevel-">
@@ -319,10 +280,7 @@
           <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SalesforceConnector.html">SalesforceConnector</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SalesforceLongPollingTransport.html">SalesforceLongPollingTransport</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SalesforceOAuthConnector.html">SalesforceOAuthConnector</a></li>
-          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SalesforcePagingDelegate.html">SalesforcePagingDelegate</a></li>
           <li class="selected api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SalesforceUtils.html">SalesforceUtils</a></li>
-          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SfdcOperatorVisitor.html">SfdcOperatorVisitor</a></li>
-          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SfdcQueryVisitor.html">SfdcQueryVisitor</a></li>
       </ul>
     </li>
               
@@ -397,12 +355,9 @@ Summary:
 
 
 
-  <a href="#lfields">Fields</a>
-  
 
 
-
-  &#124; <a href="#pubctors">Ctors</a>
+  <a href="#pubctors">Ctors</a>
   
 
 
@@ -410,6 +365,9 @@ Summary:
   &#124; <a href="#pubmethods">Methods</a>
   
 
+
+  &#124; <a href="#promethods">Protected Methods</a>
+  
 
 
   &#124; <a href="#inhmethods">Inherited Methods</a>
@@ -527,26 +485,6 @@ Summary:
 
 
 
-<!-- =========== FIELD SUMMARY =========== -->
-<table id="lfields" class="jd-sumtable"><tr><th colspan="12">Fields</th></tr>
-
-
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          public
-          static
-          final
-          DataType&lt;BulkOperationResult&gt;</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#BULK_OPERATION_RESULT_DATA_TYPE">BULK_OPERATION_RESULT_DATA_TYPE</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-
-</table>
-
-
 
 
 
@@ -594,11 +532,13 @@ Summary:
             
             static
             
-            <a href="../../../../../java/org/mule/modules/salesforce/bulk/EnrichedUpsertResult.html">EnrichedUpsertResult</a></nobr>
+            SObject</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#enrich(com.sforce.soap.partner.UpsertResult)">enrich</a></span>(<a href="../../../../../java/com/sforce/soap/partner/UpsertResult.html">UpsertResult</a> upsertResult)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#toAsyncSObject(java.util.Map<java.lang.String, java.lang.Object>, java.lang.Integer)">toAsyncSObject</a></span>(Map&lt;String,&nbsp;Object&gt; map, Integer batchSobjectMaxDepth)</nobr>
         
+        <div class="jd-descrdiv">Converts a Salesforce object map to Bulk API SObject</div>
+  
   </td></tr>
 
 
@@ -610,11 +550,13 @@ Summary:
             
             static
             
-            <a href="../../../../../java/org/mule/modules/salesforce/bulk/EnrichedSaveResult.html">EnrichedSaveResult</a></nobr>
+            SObject[]</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#enrich(com.sforce.soap.partner.SaveResult)">enrich</a></span>(<a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a> saveResut)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#toAsyncSObjectList(java.util.List<java.util.Map<java.lang.String, java.lang.Object>>, java.lang.Integer)">toAsyncSObjectList</a></span>(List&lt;Map&lt;String,&nbsp;Object&gt;&gt; objects, Integer batchSobjectMaxDepth)</nobr>
         
+        <div class="jd-descrdiv">Creates a Salesforce Async Sobject (Bulk API) array from a List of Maps</div>
+  
   </td></tr>
 
 
@@ -626,11 +568,13 @@ Summary:
             
             static
             
-            List&lt;<a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a>&gt;</nobr>
+            Map&lt;String,&nbsp;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#enrichWithPayload(com.sforce.soap.partner.sobject.SObject[], com.sforce.soap.partner.SaveResult[])">enrichWithPayload</a></span>(<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject[]</a> objects, <a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult[]</a> results)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#toMap(com.sforce.ws.bind.XmlObject)">toMap</a></span>(XmlObject xmlObject)</nobr>
         
+        <div class="jd-descrdiv">Converts a Salesforce XML Object to Map</div>
+  
   </td></tr>
 
 
@@ -642,11 +586,13 @@ Summary:
             
             static
             
-            <a href="../../../../../java/org/mule/modules/salesforce/bulk/EnrichedUpsertResult.html">EnrichedUpsertResult</a></nobr>
+            <a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#enrichWithPayload(com.sforce.soap.partner.UpsertResult, com.sforce.soap.partner.sobject.SObject)">enrichWithPayload</a></span>(<a href="../../../../../java/com/sforce/soap/partner/UpsertResult.html">UpsertResult</a> upsertResult, <a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject</a> payload)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#toSObject(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>)">toSObject</a></span>(String type, Map&lt;String,&nbsp;Object&gt; map)</nobr>
         
+        <div class="jd-descrdiv">Converts a Salesforce object map to SObject using the given type</div>
+  
   </td></tr>
 
 
@@ -658,43 +604,13 @@ Summary:
             
             static
             
-            List&lt;<a href="../../../../../java/com/sforce/soap/partner/UpsertResult.html">UpsertResult</a>&gt;</nobr>
+            <a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject[]</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#enrichWithPayload(com.sforce.soap.partner.sobject.SObject[], com.sforce.soap.partner.UpsertResult[])">enrichWithPayload</a></span>(<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject[]</a> objects, <a href="../../../../../java/com/sforce/soap/partner/UpsertResult.html">UpsertResult[]</a> results)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#toSObjectList(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">toSObjectList</a></span>(String type, List&lt;Map&lt;String,&nbsp;Object&gt;&gt; objects)</nobr>
         
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            <a href="../../../../../java/org/mule/modules/salesforce/bulk/EnrichedSaveResult.html">EnrichedSaveResult</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#enrichWithPayload(com.sforce.soap.partner.SaveResult, com.sforce.soap.partner.sobject.SObject)">enrichWithPayload</a></span>(<a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a> saveResult, <a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject</a> payload)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            BulkOperationResult&lt;<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject</a>&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#saveResultToBulkOperationResult(java.util.Collection<com.sforce.soap.partner.SaveResult>)">saveResultToBulkOperationResult</a></span>(Collection&lt;<a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a>&gt; results)</nobr>
-        
+        <div class="jd-descrdiv">Creates a Salesforce SObject array from a List of Maps</div>
+  
   </td></tr>
 
 
@@ -709,9 +625,24 @@ Summary:
             Map&lt;String,&nbsp;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#toMap(com.sforce.ws.bind.XmlObject)">toMap</a></span>(XmlObject xmlObject)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#toSObjectMap(java.util.Map)">toSObjectMap</a></span>(Map map)</nobr>
         
+        <div class="jd-descrdiv">Enforce map keys are converted to String to comply with generic signature in toSObject
+
+</div>
+  
   </td></tr>
+
+
+
+</table>
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+<table id="promethods" class="jd-sumtable"><tr><th colspan="12">Protected Methods</th></tr>
+
 
 
 	 
@@ -722,18 +653,32 @@ Summary:
             
             static
             
-            BulkOperationResult&lt;<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject</a>&gt;</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#upsertResultToBulkOperationResult(java.util.Collection<com.sforce.soap.partner.UpsertResult>)">upsertResultToBulkOperationResult</a></span>(Collection&lt;<a href="../../../../../java/com/sforce/soap/partner/UpsertResult.html">UpsertResult</a>&gt; results)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#convertDateToString(java.lang.Object)">convertDateToString</a></span>(Object object)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#isDateField(java.lang.Object)">isDateField</a></span>(Object object)</nobr>
         
   </td></tr>
 
 
 
 </table>
-
-
 
 
 
@@ -972,43 +917,6 @@ From class
 <!-- Fields -->
 
 
-<!-- ========= FIELD DETAIL ======== -->
-<h2>Fields</h2>
-
-
-
-
-<A NAME="BULK_OPERATION_RESULT_DATA_TYPE"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        DataType&lt;BulkOperationResult&gt;
-      </span>
-        BULK_OPERATION_RESULT_DATA_TYPE
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-
 <!-- Public ctors -->
 
 
@@ -1063,7 +971,7 @@ From class
 
 
 
-<A NAME="enrich(com.sforce.soap.partner.UpsertResult)"></A>
+<A NAME="toAsyncSObject(java.util.Map<java.lang.String, java.lang.Object>, java.lang.Integer)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1073,10 +981,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/salesforce/bulk/EnrichedUpsertResult.html">EnrichedUpsertResult</a>
+        SObject
       </span>
-      <span class="sympad">enrich</span>
-      <span class="normal">(<a href="../../../../../java/com/sforce/soap/partner/UpsertResult.html">UpsertResult</a> upsertResult)</span>
+      <span class="sympad">toAsyncSObject</span>
+      <span class="normal">(Map&lt;String,&nbsp;Object&gt; map, Integer batchSobjectMaxDepth)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1088,22 +996,31 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Converts a Salesforce object map to Bulk API SObject</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>upsertResult</td>
-          <td></td>
+          <th>map</td>
+          <td>Salesforce object fields</td>
+        </tr>
+        <tr>
+          <th>batchSobjectMaxDepth</td>
+          <td>Async SObject recursive MAX_DEPTH check</td>
         </tr>
       </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>Async SObject
+</li></ul>
   </div>
 
     </div>
 </div>
 
 
-<A NAME="enrich(com.sforce.soap.partner.SaveResult)"></A>
+<A NAME="toAsyncSObjectList(java.util.List<java.util.Map<java.lang.String, java.lang.Object>>, java.lang.Integer)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1113,10 +1030,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/salesforce/bulk/EnrichedSaveResult.html">EnrichedSaveResult</a>
+        SObject[]
       </span>
-      <span class="sympad">enrich</span>
-      <span class="normal">(<a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a> saveResut)</span>
+      <span class="sympad">toAsyncSObjectList</span>
+      <span class="normal">(List&lt;Map&lt;String,&nbsp;Object&gt;&gt; objects, Integer batchSobjectMaxDepth)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1128,229 +1045,17 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>saveResut</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="enrichWithPayload(com.sforce.soap.partner.sobject.SObject[], com.sforce.soap.partner.SaveResult[])"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        List&lt;<a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a>&gt;
-      </span>
-      <span class="sympad">enrichWithPayload</span>
-      <span class="normal">(<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject[]</a> objects, <a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult[]</a> results)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a Salesforce Async Sobject (Bulk API) array from a List of Maps</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
           <th>objects</td>
-          <td></td>
+          <td>List of maps with Salesforce objects fields</td>
         </tr>
         <tr>
-          <th>results</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="enrichWithPayload(com.sforce.soap.partner.UpsertResult, com.sforce.soap.partner.sobject.SObject)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="../../../../../java/org/mule/modules/salesforce/bulk/EnrichedUpsertResult.html">EnrichedUpsertResult</a>
-      </span>
-      <span class="sympad">enrichWithPayload</span>
-      <span class="normal">(<a href="../../../../../java/com/sforce/soap/partner/UpsertResult.html">UpsertResult</a> upsertResult, <a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject</a> payload)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>upsertResult</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>payload</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="enrichWithPayload(com.sforce.soap.partner.sobject.SObject[], com.sforce.soap.partner.UpsertResult[])"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        List&lt;<a href="../../../../../java/com/sforce/soap/partner/UpsertResult.html">UpsertResult</a>&gt;
-      </span>
-      <span class="sympad">enrichWithPayload</span>
-      <span class="normal">(<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject[]</a> objects, <a href="../../../../../java/com/sforce/soap/partner/UpsertResult.html">UpsertResult[]</a> results)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>objects</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>results</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="enrichWithPayload(com.sforce.soap.partner.SaveResult, com.sforce.soap.partner.sobject.SObject)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="../../../../../java/org/mule/modules/salesforce/bulk/EnrichedSaveResult.html">EnrichedSaveResult</a>
-      </span>
-      <span class="sympad">enrichWithPayload</span>
-      <span class="normal">(<a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a> saveResult, <a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject</a> payload)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>saveResult</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>payload</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="saveResultToBulkOperationResult(java.util.Collection<com.sforce.soap.partner.SaveResult>)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        BulkOperationResult&lt;<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject</a>&gt;
-      </span>
-      <span class="sympad">saveResultToBulkOperationResult</span>
-      <span class="normal">(Collection&lt;<a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a>&gt; results)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>results</td>
-          <td></td>
+          <th>batchSobjectMaxDepth</td>
+          <td>Async SObject recursive MAX_DEPTH check</td>
         </tr>
       </table>
   </div>
@@ -1384,13 +1089,13 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Converts a Salesforce XML Object to Map</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
           <th>xmlObject</td>
-          <td></td>
+          <td>Salesforce XML Object</td>
         </tr>
       </table>
   </div>
@@ -1399,7 +1104,7 @@ From class
 </div>
 
 
-<A NAME="upsertResultToBulkOperationResult(java.util.Collection<com.sforce.soap.partner.UpsertResult>)"></A>
+<A NAME="toSObject(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1409,10 +1114,154 @@ From class
          
          
          
-        BulkOperationResult&lt;<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject</a>&gt;
+        <a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject</a>
       </span>
-      <span class="sympad">upsertResultToBulkOperationResult</span>
-      <span class="normal">(Collection&lt;<a href="../../../../../java/com/sforce/soap/partner/UpsertResult.html">UpsertResult</a>&gt; results)</span>
+      <span class="sympad">toSObject</span>
+      <span class="normal">(String type, Map&lt;String,&nbsp;Object&gt; map)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Converts a Salesforce object map to SObject using the given type</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>type</td>
+          <td>Salesforce Object Type</td>
+        </tr>
+        <tr>
+          <th>map</td>
+          <td>Object fields</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>SObject
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="toSObjectList(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        <a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject[]</a>
+      </span>
+      <span class="sympad">toSObjectList</span>
+      <span class="normal">(String type, List&lt;Map&lt;String,&nbsp;Object&gt;&gt; objects)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a Salesforce SObject array from a List of Maps</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>type</td>
+          <td>Salesforce Object type</td>
+        </tr>
+        <tr>
+          <th>objects</td>
+          <td>List of maps with Salesforce objects fields</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="toSObjectMap(java.util.Map)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        Map&lt;String,&nbsp;Object&gt;
+      </span>
+      <span class="sympad">toSObjectMap</span>
+      <span class="normal">(Map map)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Enforce map keys are converted to String to comply with generic signature in toSObject
+
+</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>map</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+
+
+
+<!-- ========= METHOD DETAIL ======== -->
+
+<h2>Protected Methods</h2>
+
+
+
+<A NAME="convertDateToString(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+        static 
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">convertDateToString</span>
+      <span class="normal">(Object object)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1429,7 +1278,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>results</td>
+          <th>object</td>
           <td></td>
         </tr>
       </table>
@@ -1439,10 +1288,46 @@ From class
 </div>
 
 
+<A NAME="isDateField(java.lang.Object)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+        static 
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">isDateField</span>
+      <span class="normal">(Object object)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>object</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
 
 
-
-<!-- ========= METHOD DETAIL ======== -->
 
 
 
