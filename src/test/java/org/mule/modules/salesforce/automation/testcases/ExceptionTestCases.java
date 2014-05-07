@@ -38,21 +38,6 @@ public class ExceptionTestCases extends SalesforceTestParent {
 
 	}
 
-    //TODO: add tests
-    @Category({SmokeTestSuite.class, RegressionTests.class})
-    @Test
-    public void testExceptionWrongSessionIdRestAPI() throws Exception {
-        try {
-            testObjects = (HashMap<String,Object>) context.getBean("queryTestData");
-            testObjects.put("query", "SELECT Id, Name FROM Account");
-            flow = lookupFlowConstruct("query-wrong-config");
-            flow.process(getTestEvent(testObjects));
-        } catch (Exception e) {
-            assertTrue(e.getCause() instanceof SalesforceSessionExpiredException);
-        }
-
-    }
-
     @Category({SmokeTestSuite.class, RegressionTests.class})
     @Test
     public void testExceptionBadObjectCreate() throws Exception {
