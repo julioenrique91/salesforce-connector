@@ -18,7 +18,7 @@
         <category>Community</category>
         <licensePath>LICENSE.md</licensePath>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
-        <wsc.version>29.0.0-hf1</wsc.version>
+        <wsc.version>31.0.0-hf1</wsc.version>
     </properties>
 
     <build>
