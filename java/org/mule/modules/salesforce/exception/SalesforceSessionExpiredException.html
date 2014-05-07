@@ -65,6 +65,49 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -159,7 +202,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../../../../../../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="search" >
+  <div id="searchContainer" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -211,6 +254,8 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/com/sforce/async/transformers/package-summary.html">com.sforce.async.transformers</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/com/sforce/lazystreams/impl/package-summary.html">com.sforce.lazystreams.impl</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/com/sforce/rest/package-summary.html">com.sforce.rest</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/com/sforce/rest/pojo/package-summary.html">com.sforce.rest.pojo</a></li>
@@ -231,13 +276,7 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/agents/package-summary.html">org.mule.modules.salesforce.agents</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/salesforce/api/package-summary.html">org.mule.modules.salesforce.api</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/salesforce/api/transformers/package-summary.html">org.mule.modules.salesforce.api.transformers</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/salesforce/basic/package-summary.html">org.mule.modules.salesforce.basic</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/salesforce/callback/package-summary.html">org.mule.modules.salesforce.callback</a></li>
+  <a href="../../../../../../java/org/mule/modules/salesforce/bulk/package-summary.html">org.mule.modules.salesforce.bulk</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/config/package-summary.html">org.mule.modules.salesforce.config</a></li>
     <li class="api apilevel-">
@@ -251,9 +290,9 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/lazystream/package-summary.html">org.mule.modules.salesforce.lazystream</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/salesforce/lazystream/impl/package-summary.html">org.mule.modules.salesforce.lazystream.impl</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/oauth/package-summary.html">org.mule.modules.salesforce.oauth</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/salesforce/pooling/package-summary.html">org.mule.modules.salesforce.pooling</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/process/package-summary.html">org.mule.modules.salesforce.process</a></li>
     <li class="api apilevel-">
@@ -274,6 +313,7 @@
               
     <li><h2>Exceptions</h2>
       <ul>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/exception/SalesforceBulkException.html">SalesforceBulkException</a></li>
           <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/exception/SalesforceSessionExpiredException.html">SalesforceSessionExpiredException</a></li>
       </ul>
     </li>
@@ -314,13 +354,6 @@
 <div id="api-info-block">
 
 
-
-  
-  
-   
-  
-  
-  
 
   
   
@@ -419,11 +452,7 @@ Summary:
   
 
   
-  
-  
-
-  
-    extends RuntimeException<br/>
+    extends Exception<br/>
   
   
   
@@ -443,7 +472,7 @@ Summary:
 
     <tr>
         
-        <td colspan="5" class="jd-inheritance-class-cell">java.lang.Object</td>
+        <td colspan="4" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
@@ -451,7 +480,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="4" class="jd-inheritance-class-cell">java.lang.Throwable</td>
+        <td colspan="3" class="jd-inheritance-class-cell">java.lang.Throwable</td>
     </tr>
     
 
@@ -461,25 +490,11 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="3" class="jd-inheritance-class-cell">java.lang.Exception</td>
+        <td colspan="2" class="jd-inheritance-class-cell">java.lang.Exception</td>
     </tr>
     
 
     <tr>
-        
-            <td class="jd-inheritance-space">&nbsp;</td>
-        
-            <td class="jd-inheritance-space">&nbsp;</td>
-        
-            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
-        
-        <td colspan="2" class="jd-inheritance-class-cell">java.lang.RuntimeException</td>
-    </tr>
-    
-
-    <tr>
-        
-            <td class="jd-inheritance-space">&nbsp;</td>
         
             <td class="jd-inheritance-space">&nbsp;</td>
         
@@ -568,37 +583,6 @@ Summary:
 <tr class="api apilevel-" >
 <td colspan="12">
 
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-java.lang.RuntimeException" class="jd-expando-trigger closed"
-          ><img id="inherited-constants-java.lang.RuntimeException-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>From class
-java.lang.RuntimeException
-<div id="inherited-constants-java.lang.RuntimeException">
-  <div id="inherited-constants-java.lang.RuntimeException-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-constants-java.lang.RuntimeException-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">long</td>
-        <td class="jd-linkcol">serialVersionUID</td>
-        <td class="jd-descrcol" width="100%"></td>
-    </tr>
-    
-    
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-
   <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-java.lang.Exception" class="jd-expando-trigger closed"
           ><img id="inherited-constants-java.lang.Exception-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
@@ -673,8 +657,6 @@ java.lang.Throwable
 <table id="inhfields" class="jd-sumtable"><tr><th>
   <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
   <div style="clear:left;">Inherited Fields</div></th></tr>
-
-
 
 
 
@@ -841,8 +823,6 @@ java.lang.Throwable
 <table id="inhmethods" class="jd-sumtable"><tr><th>
   <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
   <div style="clear:left;">Inherited Methods</div></th></tr>
-
-
 
 
 
