@@ -46,6 +46,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -176,7 +177,7 @@ public class SalesforceModuleTest {
         Mockito.verify(batchRequest).addSObjects(SalesforceUtils.toAsyncSObjectList(objects, connector.getBatchSobjectMaxDepth()));
     }
     
-    @Test(expected = ConnectionException.class)
+    @Test(expected = SalesforceSessionExpiredException.class)
     public void testCreateBatchWithConnectionException() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
@@ -229,7 +230,7 @@ public class SalesforceModuleTest {
         assertEquals(expectedJobInfo.getValue(), actualJobInfo);
     }
 
-    @Test(expected = ConnectionException.class)
+    @Test(expected = SalesforceSessionExpiredException.class)
     public void testCreateBatchForQueryWithConnectionException() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
@@ -769,7 +770,7 @@ public class SalesforceModuleTest {
         verify(partnerConnection, atLeastOnce()).getDeleted(eq("Account"), any(Calendar.class), any(Calendar.class));
     }
 
-    @Test(expected = ConnectionException.class)
+    @Test(expected = SalesforceSessionExpiredException.class)
     public void testCreateBulkWithTimeOutException() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
         SaveResult saveResult = Mockito.mock(SaveResult.class);
@@ -781,6 +782,7 @@ public class SalesforceModuleTest {
         JobInfo jobInfo = Mockito.mock(JobInfo.class);
         BatchRequest batchRequest = Mockito.mock(BatchRequest.class);
         AsyncApiException exception = Mockito.mock(AsyncApiException.class);
+        doReturn(exception).when(exception).getCause();
         doReturn(AsyncExceptionCode.InvalidSessionId).when(exception).getExceptionCode();
         doReturn(jobInfo).when(bulkConnection).createJob(any(JobInfo.class));
         doReturn(batchRequest).when(bulkConnection).createBatch(any(JobInfo.class));

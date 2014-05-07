@@ -59,13 +59,7 @@ public class SalesforceSoapAdapter {
                             logger.debug("Method " + method.getName() + " thew " + e.getClass());
                         }
 
-                        if (e.getCause() instanceof UnexpectedErrorFault
-                                && (!StringUtils.isEmpty(e.getCause().getMessage()) && e.getCause().getMessage().contains("INVALID_SESSION_ID"))
-                                || (e.getCause().toString() != null && e.getCause().toString().contains("INVALID_SESSION_ID"))) {
-                            throw new SalesforceSessionExpiredException(e.getCause());
-                        } else {
-                            throw new RuntimeException(e.getCause());
-                        }
+                        throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
                     }
 
                 }
