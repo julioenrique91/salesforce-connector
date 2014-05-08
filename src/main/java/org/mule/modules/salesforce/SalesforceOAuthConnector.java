@@ -143,9 +143,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
 
         this.processSubscriptions();
 
-        //REMOVE THIS: this hack needs to be removed once the connector returns the remote user id
-        // by itself in a right way after authorize
-        RequestContext.getEvent().setFlowVariable("remoteUserId", userId);
+        RequestContext.getEvent().setFlowVariable("OAuthAccessTokenId", userId);
     }
 
     public String getConsumerKey() {
