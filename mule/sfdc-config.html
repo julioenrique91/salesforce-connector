@@ -1174,6 +1174,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
                 
           
+                
+          
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
@@ -1301,6 +1303,16 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td>#[payload]</td>
                         <td><i>Optional.&nbsp;</i>The fields to retrieve for the updated objects</td>
                         <td>List&lt;String&gt;</td>
+                    </tr>
+                
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
                     </tr>
                 
                 
@@ -1777,6 +1789,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
           
+                
+          
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
@@ -1887,6 +1901,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
         </table>
   </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
   
   
     
@@ -2705,6 +2742,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
           
+                
+          
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
@@ -2816,6 +2855,41 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         </table>
   </div>
   
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
+  
   
       <div class="jd-tagdata">
          <h5 class="jd-tagtitle">Returns</h5>
@@ -2925,6 +2999,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         </tr>
                     
                 
+                
+          
                 
           
                 
@@ -3058,6 +3134,16 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
               
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
           </table>
       </div>
   
@@ -3157,6 +3243,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         </tr>
                     
                 
+                
+          
                 
           
                 
@@ -3290,6 +3378,16 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
               
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
           </table>
       </div>
   
@@ -3370,6 +3468,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           <td class="jd-descrcol"></td>
         </tr>
           
+          
+                
           
                 
           
@@ -3500,6 +3600,16 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
               
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
           </table>
       </div>
   
@@ -3584,6 +3694,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           <td class="jd-descrcol"></td>
         </tr>
           
+          
+                
           
                 
           
@@ -3715,6 +3827,16 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
               
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
           </table>
       </div>
   
@@ -3818,6 +3940,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         </tr>
                     
                 
+                
+          
                 
           
           
@@ -3930,6 +4054,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
         </table>
   </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
   
   
       <div class="jd-tagdata">
@@ -4053,6 +4200,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
           
+                
+          
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
@@ -4164,6 +4313,31 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         </table>
   </div>
   
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
+  
   
       <div class="jd-tagdata">
          <h5 class="jd-tagtitle">Returns</h5>
@@ -4220,7 +4394,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       
         Retrieves the current system timestamp (Coordinated Universal Time (UTC) time zone) from the API.
  <p/>
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:get-server-timestamp config-ref="mySalesforceConfig" /&gt;</pre></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:get-server-timestamp config-ref="mySalesforceConfig"/&gt;</pre></div>
       
   </p></div>
   <div class="jd-tagdata">
@@ -4452,6 +4626,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
           
+                
+          
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
@@ -4562,6 +4738,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
         </table>
   </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
   
   
       <div class="jd-tagdata">
@@ -4686,6 +4885,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
           
+                
+          
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
@@ -4796,6 +4997,31 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
         </table>
   </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
   
   
       <div class="jd-tagdata">
@@ -4887,6 +5113,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
           
+                
+          
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
@@ -4997,6 +5225,27 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
         </table>
   </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
   
   
       <div class="jd-tagdata">
@@ -5120,6 +5369,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
           
+                
+          
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
@@ -5230,6 +5481,31 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
         </table>
   </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
   
   
       <div class="jd-tagdata">
@@ -5337,6 +5613,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
           
+                
+          
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
@@ -5447,6 +5725,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
         </table>
   </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
   
   
       <div class="jd-tagdata">
@@ -5568,6 +5869,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
           
+                
+          
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
@@ -5678,6 +5981,29 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
           
         </table>
   </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
   
   
       <div class="jd-tagdata">
@@ -5785,6 +6111,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
           
+                
+          
           
               <tr><th colspan="12">Connection Parameters<br/><span style="font-weight: 200;">This are only required if you didn't specified them at the configuration element. They are also useful for overriding the values of the configurations or even if you need to extract them from the Mule message since they support expression evaluation.</span></th></tr>
                 
@@ -5896,6 +6224,27 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         </table>
   </div>
   
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
+  
   
       <div class="jd-tagdata">
          <h5 class="jd-tagtitle">Returns</h5>
@@ -5991,6 +6340,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         </tr>
                     
                 
+                
+          
                 
           
                 
@@ -6136,6 +6487,16 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
               
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
           </table>
       </div>
   
@@ -6222,6 +6583,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         </tr>
                     
                 
+                
+          
                 
           
           
@@ -6335,6 +6698,27 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
         </table>
   </div>
   
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
+  
   
       <div class="jd-tagdata">
          <h5 class="jd-tagtitle">Returns</h5>
@@ -6425,6 +6809,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         </tr>
                     
                 
+                
+          
                 
           
                 
@@ -6558,6 +6944,16 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
               
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
           </table>
       </div>
   
@@ -6649,6 +7045,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         </tr>
                     
                 
+                
+          
                 
           
                 
@@ -6782,6 +7180,16 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                 
                 
               
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
+                    </tr>
+                
+                
+              
           </table>
       </div>
   
@@ -6841,7 +7249,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       
         <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_upsert.htm">Upserts</a>
  an homogeneous list of objects: creates new records and updates existing records, using a custom field to determine the presence of existing records.
- In most cases, prefer <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#upsert(java.lang.String, java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">upsert(String, String, List)</a></code> over <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#create(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">create(String, List)</a></code>,
+ In most cases, prefer <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#upsert(java.lang.String, java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">upsert(String, String, List, Map)</a></code> over <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#create(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">create(String, List, Map)</a></code>,
  to avoid creating unwanted duplicate records.
  <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:upsert config-ref="mySalesforceConfig" type="Account" externalIdFieldName="InternalAccountCode"&gt;
@@ -6901,6 +7309,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         </tr>
                     
                 
+                
+          
                 
           
                 
@@ -7032,6 +7442,16 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                         <td>#[payload]</td>
                         <td><i>Optional.&nbsp;</i>The objects to upsert</td>
                         <td>List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</td>
+                    </tr>
+                
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;sfdc:headers&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a></td>
+                        <td>Map&lt;<a href="../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt;</td>
                     </tr>
                 
                 
@@ -7323,8 +7743,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>batchInfo</nobr></td>
-                            <td class="jd-descrcol">#[payload:]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The BatchInfo being monitored</td>
+                            <td class="jd-descrcol"></td>
+                            <td class="jd-descrcol">The BatchInfo being monitored</td>
                             <td class="jd-descrcol">BatchInfo</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol"></td>
@@ -7524,8 +7944,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>batchInfo</nobr></td>
-                            <td class="jd-descrcol">#[payload:]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The BatchInfo being monitored</td>
+                            <td class="jd-descrcol"></td>
+                            <td class="jd-descrcol">The BatchInfo being monitored</td>
                             <td class="jd-descrcol">BatchInfo</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol"></td>
@@ -7725,8 +8145,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>batchInfo</nobr></td>
-                            <td class="jd-descrcol">#[payload:]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The BatchInfo being monitored</td>
+                            <td class="jd-descrcol"></td>
+                            <td class="jd-descrcol">The BatchInfo being monitored</td>
                             <td class="jd-descrcol">BatchInfo</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol"></td>
@@ -9718,8 +10138,8 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
                     
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>batchInfo</nobr></td>
-                            <td class="jd-descrcol">#[payload:]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The BatchInfo being monitored</td>
+                            <td class="jd-descrcol"></td>
+                            <td class="jd-descrcol">The BatchInfo being monitored</td>
                             <td class="jd-descrcol">BatchInfo</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol"></td>
@@ -10123,7 +10543,7 @@ attempts to reconnect only during business hours. Such a setting can prove usefu
       
         <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_upsert.htm">Upserts</a>
  an homogeneous list of objects: creates new records and updates existing records, using a custom field to determine the presence of existing records.
- In most cases, prefer <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#upsert(java.lang.String, java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">upsert(String, String, List)</a></code> over <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#create(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">create(String, List)</a></code>,
+ In most cases, prefer <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#upsert(java.lang.String, java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">upsert(String, String, List, Map)</a></code> over <code><a href="../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#create(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">create(String, List, Map)</a></code>,
  to avoid creating unwanted duplicate records.
  <p/>
  This call uses the Bulk API. The creation will be done in asynchronous fashion.
