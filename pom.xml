@@ -18,8 +18,8 @@
         <category>Community</category>
         <licensePath>LICENSE.md</licensePath>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
-        <wsc.version>29.0.0-hf1</wsc.version>
         <jetty.client.version>8.1.13.v20130916</jetty.client.version>
+        <wsc.version>31.0.0-hf1</wsc.version>
     </properties>
 
     <build>
@@ -127,7 +127,6 @@
             <version>${mule.version}</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-http</artifactId>
@@ -147,7 +146,7 @@
             <version>1.2.14</version>
             <scope>provided</scope>
         </dependency>
-        
+
     </dependencies>
 
     <repositories>

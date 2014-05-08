@@ -10,13 +10,11 @@
 
 package org.mule.modules.salesforce;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import com.sforce.soap.partner.sobject.SObject;
+import com.sforce.ws.bind.XmlObject;
+import org.joda.time.DateTime;
 
 import org.mule.api.transformer.DataType;
 import org.mule.common.bulk.BulkItem;
@@ -30,17 +28,21 @@ import org.mule.transformer.types.DataTypeFactory;
 
 import com.sforce.soap.partner.SaveResult;
 import com.sforce.soap.partner.UpsertResult;
-import com.sforce.soap.partner.sobject.SObject;
-import com.sforce.ws.bind.XmlObject;
 
 /**
  * @author Mulesoft, Inc
  */
 public class SalesforceUtils {
 
-	@SuppressWarnings("rawtypes")
-	public static final DataType<BulkOperationResult> BULK_OPERATION_RESULT_DATA_TYPE = DataTypeFactory.create(BulkOperationResult.class);
-	
+    @SuppressWarnings("rawtypes")
+    public static final DataType<BulkOperationResult> BULK_OPERATION_RESULT_DATA_TYPE = DataTypeFactory.create(BulkOperationResult.class);
+    
+    /**
+     * Converts a Salesforce XML Object to Map
+     *
+     * @param xmlObject Salesforce XML Object
+     * @return
+     */
     public static Map<String, Object> toMap(XmlObject xmlObject) {
         Map<String, Object> map = new HashMap<String, Object>();
         Object value = xmlObject.getValue();
@@ -62,6 +64,105 @@ public class SalesforceUtils {
         }
 
         return map;
+    }
+
+    /**
+     * Converts a Salesforce object map to Bulk API SObject
+     *
+     * @param map Salesforce object fields
+     * @param batchSobjectMaxDepth Async SObject recursive MAX_DEPTH check
+     * @return Async SObject
+     */
+    public static com.sforce.async.SObject toAsyncSObject(Map<String, Object> map, Integer batchSobjectMaxDepth) {
+        com.sforce.async.SObject sObject = batchSobjectMaxDepth != null && batchSobjectMaxDepth != 0 ?
+                new com.sforce.async.SObject(batchSobjectMaxDepth) : new com.sforce.async.SObject();
+        for (String key : map.keySet()) {
+            Object object = map.get(key);
+
+            if (object != null) {
+                if (object instanceof Map) {
+                    sObject.setFieldReference(key, toAsyncSObject(toSObjectMap((Map) object), batchSobjectMaxDepth));
+                }
+                else if (isDateField(object)) {
+                    sObject.setField(key, convertDateToString(object));
+                }
+                else {
+                    sObject.setField(key, object.toString());
+                }
+            } else {
+                sObject.setField(key, null);
+            }
+        }
+        return sObject;
+    }
+
+    /**
+     * Converts a Salesforce object map to SObject using the given type
+     *
+     * @param type Salesforce Object Type
+     * @param map object fields
+     * @return SObject
+     */
+    public static SObject toSObject(String type, Map<String, Object> map) {
+        SObject sObject = new SObject();
+        sObject.setType(type);
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            String key = entry.getKey();
+            if (key.equals("fieldsToNull")) {
+                sObject.setFieldsToNull((String[]) entry.getValue());
+            } else if (entry.getValue() instanceof Map) {
+                sObject.setField(key, toSObject(key, toSObjectMap((Map) entry.getValue())));
+            } else {
+                sObject.setField(key, entry.getValue());
+            }
+        }
+        return sObject;
+    }
+
+    /**
+     * Enforce map keys are converted to String to comply with generic signature in toSObject
+     *
+     */
+    public static Map<String, Object> toSObjectMap(Map map) {
+        Map<String, Object> sObjectMap = new HashMap<String, Object>();
+        for(Object key : map.keySet()) {
+            sObjectMap.put(key.toString(), map.get(key));
+        }
+        return sObjectMap;
+    }
+
+    /**
+     * Creates a Salesforce Async Sobject (Bulk API) array from a List of Maps
+     *
+     * @param objects list of maps with Salesforce objects fields
+     * @param batchSobjectMaxDepth Async SObject recursive MAX_DEPTH check
+     * @return
+     */
+    public static com.sforce.async.SObject[] toAsyncSObjectList(List<Map<String, Object>> objects, Integer batchSobjectMaxDepth) {
+        com.sforce.async.SObject[] sobjects = new com.sforce.async.SObject[objects.size()];
+        int s = 0;
+        for (Map<String, Object> map : objects) {
+            sobjects[s] = toAsyncSObject(map, batchSobjectMaxDepth);
+            s++;
+        }
+        return sobjects;
+    }
+
+    /**
+     * Creates a Salesforce SObject array from a List of Maps
+     *
+     * @param type Salesforce Object type
+     * @param objects list of maps with Salesforce objects fields
+     * @return
+     */
+    public static SObject[] toSObjectList(String type, List<Map<String, Object>> objects) {
+        SObject[] sobjects = new SObject[objects.size()];
+        int s = 0;
+        for (Map<String, Object> map : objects) {
+            sobjects[s] = toSObject(type, map);
+            s++;
+        }
+        return sobjects;
     }
 
     /**
@@ -87,6 +188,15 @@ public class SalesforceUtils {
         else {
             map.put(key, newValue);
         }
+    }
+
+    protected static boolean isDateField(Object object) {
+        return object instanceof Date || object instanceof GregorianCalendar
+                || object instanceof Calendar;
+    }
+
+    protected static String convertDateToString(Object object) {
+        return new DateTime(object).toString();
     }
     
     public static BulkOperationResult<SObject> saveResultToBulkOperationResult(Collection<SaveResult> results) {

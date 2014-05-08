@@ -10,7 +10,7 @@
 
 package org.mule.modules.salesforce.exception;
 
-public class SalesforceSessionExpiredException extends Exception {
+public class SalesforceSessionExpiredException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
