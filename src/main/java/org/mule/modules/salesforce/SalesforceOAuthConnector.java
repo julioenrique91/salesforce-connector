@@ -143,7 +143,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
 
         this.processSubscriptions();
 
-        RequestContext.getEvent().setFlowVariable("OAuthAccessTokenId", userId);
+        RequestContext.getEvent().setFlowVariable("remoteUserId", userId);
     }
 
     public String getConsumerKey() {
