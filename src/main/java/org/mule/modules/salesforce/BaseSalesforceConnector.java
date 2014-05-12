@@ -608,7 +608,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public BatchInfo batchInfo(BatchInfo batchInfo) throws Exception {
+    public BatchInfo batchInfo( @Default("#[payload:]") BatchInfo batchInfo) throws Exception {
         return getSalesforceRestAdapter().getBatchInfo(batchInfo.getJobId(), batchInfo.getId());
     }
 
@@ -629,7 +629,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public BatchResult batchResult(BatchInfo batchInfo) throws Exception {
+    public BatchResult batchResult(@Default("#[payload:]") BatchInfo batchInfo) throws Exception {
         return getSalesforceRestAdapter().getBatchResult(batchInfo.getJobId(), batchInfo.getId());
     }
 
@@ -650,7 +650,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public InputStream batchResultStream(BatchInfo batchInfo) throws Exception {
+    public InputStream batchResultStream(@Default("#[payload:]") BatchInfo batchInfo) throws Exception {
         return getSalesforceRestAdapter().getBatchResultStream(batchInfo.getJobId(), batchInfo.getId());
     }
 
@@ -673,7 +673,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public InputStream queryResultStream(BatchInfo batchInfo) throws Exception {
+    public InputStream queryResultStream(@Default("#[payload:]") BatchInfo batchInfo) throws Exception {
     	
     	QueryResultList queryResultList = getSalesforceRestAdapter().getQueryResultList(batchInfo.getJobId(), batchInfo.getId());
         String[] jobResultIds = queryResultList.getResult();        
