@@ -65,6 +65,49 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -159,7 +202,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../../../../../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="search" >
+  <div id="searchContainer" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -235,9 +278,7 @@
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/salesforce/api/transformers/package-summary.html">org.mule.modules.salesforce.api.transformers</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../java/org/mule/modules/salesforce/basic/package-summary.html">org.mule.modules.salesforce.basic</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../java/org/mule/modules/salesforce/callback/package-summary.html">org.mule.modules.salesforce.callback</a></li>
+  <a href="../../../../../java/org/mule/modules/salesforce/bulk/package-summary.html">org.mule.modules.salesforce.bulk</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/salesforce/config/package-summary.html">org.mule.modules.salesforce.config</a></li>
     <li class="api apilevel-">
@@ -254,6 +295,8 @@
   <a href="../../../../../java/org/mule/modules/salesforce/lazystream/impl/package-summary.html">org.mule.modules.salesforce.lazystream.impl</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/salesforce/oauth/package-summary.html">org.mule.modules.salesforce.oauth</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/salesforce/pooling/package-summary.html">org.mule.modules.salesforce.pooling</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/salesforce/process/package-summary.html">org.mule.modules.salesforce.process</a></li>
     <li class="api apilevel-">
@@ -280,7 +323,10 @@
           <li class="selected api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SalesforceConnector.html">SalesforceConnector</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SalesforceLongPollingTransport.html">SalesforceLongPollingTransport</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SalesforceOAuthConnector.html">SalesforceOAuthConnector</a></li>
+          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SalesforcePagingDelegate.html">SalesforcePagingDelegate</a></li>
           <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SalesforceUtils.html">SalesforceUtils</a></li>
+          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SfdcOperatorVisitor.html">SfdcOperatorVisitor</a></li>
+          <li class="api apilevel-"><a href="../../../../../java/org/mule/modules/salesforce/SfdcQueryVisitor.html">SfdcQueryVisitor</a></li>
       </ul>
     </li>
               
@@ -793,7 +839,7 @@ Summary:
           private
           
           
-          Registry</nobr></td>
+          MuleRegistry</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#registry">registry</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
@@ -976,6 +1022,22 @@ Summary:
             
             
             
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceConnector.html#init()">init</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -985,7 +1047,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1271,6 +1333,22 @@ From class
             
             
             
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#convertDateToString(java.lang.Object)">convertDateToString</a></span>(Object object)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             <a href="../../../../../java/com/sforce/soap/partner/LeadConvertResult.html">LeadConvertResult</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1282,7 +1360,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1300,7 +1378,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1318,7 +1396,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1336,7 +1414,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1354,7 +1432,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1372,7 +1450,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1390,7 +1468,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1408,7 +1486,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1426,7 +1504,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1444,7 +1522,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1462,7 +1540,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1481,7 +1559,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1497,7 +1575,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1513,7 +1591,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1529,7 +1607,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1545,7 +1623,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1561,7 +1639,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1577,7 +1655,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1593,7 +1671,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1611,7 +1689,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1629,7 +1707,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1645,7 +1723,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1661,7 +1739,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1677,7 +1755,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1695,7 +1773,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
@@ -1711,7 +1789,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1727,7 +1805,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1745,7 +1823,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1763,7 +1841,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1781,7 +1859,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1797,7 +1875,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1815,7 +1893,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1829,6 +1907,22 @@ From class
         
         <div class="jd-descrdiv">Deletes one or more records from your organization's data.</div>
   
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#isDateField(java.lang.Object)">isDateField</a></span>(Object object)</nobr>
+        
   </td></tr>
 
 
@@ -1861,6 +1955,42 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#isReadyToSubscribe()">isReadyToSubscribe</a></span>()</nobr>
         
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            JobInfo</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#jobInfo(java.lang.String)">jobInfo</a></span>(String jobId)</nobr>
+        
+        <div class="jd-descrdiv">Access latest JobInfo of a submitted JobInfo.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#nonPaginatedQuery(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">nonPaginatedQuery</a></span>(String query, Map&lt;<a href="../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
+        
+        <div class="jd-descrdiv">Executes a query against the specified object and returns data that matches the specified criteria.</div>
+  
   </td></tr>
 
 
@@ -1925,10 +2055,10 @@ From class
             
             
             
-            List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</nobr>
+            ProviderAwarePagingDelegate&lt;Map&lt;String,&nbsp;Object&gt;,&nbsp;<a href="../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#query(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">query</a></span>(String query, Map&lt;<a href="../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#query(java.lang.String, org.mule.streaming.PagingConfiguration, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">query</a></span>(String query, PagingConfiguration pagingConfiguration, Map&lt;<a href="../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Executes a query against the specified object and returns data that matches the specified criteria.</div>
   
@@ -1943,10 +2073,10 @@ From class
             
             
             
-            List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</nobr>
+            ProviderAwarePagingDelegate&lt;Map&lt;String,&nbsp;Object&gt;,&nbsp;<a href="../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#queryAll(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">queryAll</a></span>(String query, Map&lt;<a href="../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#queryAll(java.lang.String, org.mule.streaming.PagingConfiguration, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">queryAll</a></span>(String query, PagingConfiguration pagingConfiguration, Map&lt;<a href="../../../../../java/org/mule/modules/salesforce/api/SalesforceHeader.html">SalesforceHeader</a>,&nbsp;Object&gt; headers)</nobr>
         
         <div class="jd-descrdiv">Retrieves data from specified objects, whether or not they have been deleted.</div>
   
@@ -2004,6 +2134,22 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#registerTransformers()">registerTransformers</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#resetUpdatedObjectsTimestamp(java.lang.String)">resetUpdatedObjectsTimestamp</a></span>(String type)</nobr>
         
         <div class="jd-descrdiv">Resets the timestamp of the last updated object.</div>
@@ -2012,7 +2158,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2030,7 +2176,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2050,7 +2196,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2066,7 +2212,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2082,7 +2228,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2098,7 +2244,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2114,7 +2260,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2130,7 +2276,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2146,7 +2292,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2162,7 +2308,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2178,7 +2324,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2194,7 +2340,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2212,7 +2358,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2222,13 +2368,13 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#setRegistry(org.mule.api.registry.Registry)">setRegistry</a></span>(Registry registry)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#setRegistry(org.mule.api.registry.MuleRegistry)">setRegistry</a></span>(MuleRegistry registry)</nobr>
         
   </td></tr>
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2244,7 +2390,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2260,7 +2406,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2273,6 +2419,56 @@ From class
         <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#subscribeTopic(java.lang.String, org.mule.api.callback.SourceCallback)">subscribeTopic</a></span>(String topic, SourceCallback callback)</nobr>
         
         <div class="jd-descrdiv">Subscribe to a topic.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#toNativeQuery(org.mule.common.query.DsqlQuery)">toNativeQuery</a></span>(DsqlQuery query)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#toSObject(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>)">toSObject</a></span>(String type, Map&lt;String,&nbsp;Object&gt; map)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Map&lt;String,&nbsp;Object&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#toSObjectMap(java.util.Map)">toSObjectMap</a></span>(Map map)</nobr>
+        
+        <div class="jd-descrdiv">Enforce map keys are converted to String to comply with generic signature in toSObject</div>
   
   </td></tr>
 
@@ -3082,6 +3278,37 @@ From interface
       <ul class="nolist"><li>the session id for the current connection
 </li></ul>
   </div>
+
+    </div>
+</div>
+
+
+<A NAME="init()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">init</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
