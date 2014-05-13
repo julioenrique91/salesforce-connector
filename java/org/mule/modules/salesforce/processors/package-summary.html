@@ -66,49 +66,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -203,7 +160,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../../../../../../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="searchContainer" >
+  <div id="search" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -279,7 +236,9 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/api/transformers/package-summary.html">org.mule.modules.salesforce.api.transformers</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/salesforce/bulk/package-summary.html">org.mule.modules.salesforce.bulk</a></li>
+  <a href="../../../../../../java/org/mule/modules/salesforce/basic/package-summary.html">org.mule.modules.salesforce.basic</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/salesforce/callback/package-summary.html">org.mule.modules.salesforce.callback</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/config/package-summary.html">org.mule.modules.salesforce.config</a></li>
     <li class="api apilevel-">
@@ -297,8 +256,6 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/oauth/package-summary.html">org.mule.modules.salesforce.oauth</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/salesforce/pooling/package-summary.html">org.mule.modules.salesforce.pooling</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/process/package-summary.html">org.mule.modules.salesforce.process</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/processors/package-summary.html">org.mule.modules.salesforce.processors</a></li>
@@ -312,17 +269,14 @@
           <div id="classes-nav">
             <ul>
               
-    <li><h2>Interfaces</h2>
-      <ul>
-        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/ConnectivityProcessor.html">ConnectivityProcessor</a></li>
-      </ul>
-    </li>
               
     <li><h2>Classes</h2>
       <ul>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbortJobMessageProcessor.html">AbortJobMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html">AbstractConnectedProcessor</a></li>
-        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html">AbstractExpressionEvaluator</a></li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractListeningMessageProcessor.html">AbstractListeningMessageProcessor</a>&lt;O&gt;</li>
+        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractMessageProcessor.html">AbstractMessageProcessor</a>&lt;O&gt;</li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AuthorizeMessageProcessor.html">AuthorizeMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/BatchInfoMessageProcessor.html">BatchInfoMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/BatchResultMessageProcessor.html">BatchResultMessageProcessor</a></li>
@@ -348,8 +302,6 @@
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/GetUpdatedRangeMessageProcessor.html">GetUpdatedRangeMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/GetUserInfoMessageProcessor.html">GetUserInfoMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/HardDeleteBulkMessageProcessor.html">HardDeleteBulkMessageProcessor</a></li>
-        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/JobInfoMessageProcessor.html">JobInfoMessageProcessor</a></li>
-        <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/NonPaginatedQueryMessageProcessor.html">NonPaginatedQueryMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/PaginatedQueryMessageProcessor.html">PaginatedQueryMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/PublishTopicMessageProcessor.html">PublishTopicMessageProcessor</a></li>
         <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/QueryAllMessageProcessor.html">QueryAllMessageProcessor</a></li>
@@ -431,19 +383,6 @@
 
 
   
-    <h2>Interfaces</h2>
-    <div class="jd-sumtable">
-    
-  <table class="jd-sumtable-expando">
-        <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/salesforce/processors/ConnectivityProcessor.html">ConnectivityProcessor</a></td>
-              <td class="jd-descrcol" width="100%">Interface used to unify all message processors (those which use (or not) pagination) from the ManagedConnectionProcessInterceptor
- 
-&nbsp;</td>
-          </tr>
-  </table>
-    </div>
-  
 
 
   
@@ -460,7 +399,15 @@
               <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a></td>
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html">AbstractExpressionEvaluator</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractListeningMessageProcessor.html">AbstractListeningMessageProcessor</a>&lt;O&gt;</td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractMessageProcessor.html">AbstractMessageProcessor</a>&lt;O&gt;</td>
               <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
@@ -564,14 +511,6 @@
               <td class="jd-descrcol" width="100%">HardDeleteBulkMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#hardDeleteBulk(java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">hardDeleteBulk(java.lang.String, java.util.List)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/salesforce/processors/JobInfoMessageProcessor.html">JobInfoMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">JobInfoMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#jobInfo(java.lang.String)">jobInfo(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
-          </tr>
-        <tr class=" api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/salesforce/processors/NonPaginatedQueryMessageProcessor.html">NonPaginatedQueryMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">NonPaginatedQueryMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#nonPaginatedQuery(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">nonPaginatedQuery(java.lang.String, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
-          </tr>
-        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/salesforce/processors/PaginatedQueryMessageProcessor.html">PaginatedQueryMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">PaginatedQueryMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#paginatedQuery(java.lang.String, org.mule.modules.salesforce.QueryResultObject, java.lang.Boolean, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">paginatedQuery(java.lang.String, org.mule.modules.salesforce.QueryResultObject, java.lang.Boolean, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
           </tr>
@@ -581,11 +520,11 @@
           </tr>
         <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/salesforce/processors/QueryAllMessageProcessor.html">QueryAllMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">QueryAllMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#queryAll(java.lang.String, org.mule.streaming.PagingConfiguration, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">queryAll(java.lang.String, org.mule.streaming.PagingConfiguration, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+              <td class="jd-descrcol" width="100%">QueryAllMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#queryAll(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">queryAll(java.lang.String, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/salesforce/processors/QueryMessageProcessor.html">QueryMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">QueryMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#query(java.lang.String, org.mule.streaming.PagingConfiguration, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">query(java.lang.String, org.mule.streaming.PagingConfiguration, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
+              <td class="jd-descrcol" width="100%">QueryMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#query(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">query(java.lang.String, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>.&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/salesforce/processors/QueryResultStreamMessageProcessor.html">QueryResultStreamMessageProcessor</a></td>
