@@ -743,53 +743,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     }
 
     /**
-     * Executes a paginated query against the specified object and returns data that matches the specified criteria.
-     * The returned class QueryResultObject provides the methods getData() to retrieve the results in a List<Maps> 
-     * and hasMore() to check if there are more pages to retrieve from the server.
-     * The query result object contains up to 500 rows of data by default and can be increased up to 2,000 rows.
-     * <p/>
-     * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:paginated-query}
-     *
-     * @param query Query string that specifies the object to query, the fields to return, and any conditions for
-     *              including a specific object in the query. For more information, see Salesforce Object Query
-     *              Language (SOQL).
-     * @param queryResultObject QueryResultObject returned by a previous call to this operation.
-     *                          If this is set the other parameter will be ignored.
-     * @param withDeletedRecords Flag that specifies whether or not to retrieve records that have been deleted.
-     * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
-     * @return {@link QueryResultObject} with the results of the query or null.
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
-     * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_query.htm">query()</a>
-     * @since 4.0
-     */
-    @Processor
-    @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
-    @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
-    public QueryResultObject paginatedQuery(@Placement(group = "Query") @Optional String query, 
-                                            @Optional QueryResultObject queryResultObject, 
-                                            @Optional @Default("false") Boolean withDeletedRecords,
-                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers)
-           throws Exception {
-        
-        if (queryResultObject == null) {
-            QueryResult queryResult;
-            if (withDeletedRecords) queryResult = getSalesforceSoapAdapter(headers).queryAll(query);
-            else queryResult = getSalesforceSoapAdapter(headers).query(query);
-            if (queryResult != null) return new QueryResultObject(queryResult);
-        }
-        else {
-            if (queryResultObject.hasMore()){
-                QueryResult queryResult = getSalesforceSoapAdapter(headers).queryMore(queryResultObject.getQueryLocator());
-                if (queryResult != null) return new QueryResultObject(queryResult);
-            }
-        }
-        
-        return null;
-    }
-
-    /**
      * Executes a query against the specified object and returns data that matches the specified criteria.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:query}

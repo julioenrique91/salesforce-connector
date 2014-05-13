@@ -184,22 +184,6 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 		</sfdc:upsert>
 	</flow>
 
-	<flow name="paginated-query" doc:name="paginated-query">
-		<sfdc:paginated-query config-ref="Salesforce"
-			query="#[payload.query]" doc:name="Paginated query" />
-	</flow>
-
-	<flow name="paginated-query-with-deleted-records" doc:name="paginated-query-with-deleted-records">
-		<sfdc:paginated-query config-ref="Salesforce"
-			query="#[payload.query]" doc:name="Paginated query"
-			withDeletedRecords="true" />
-	</flow>
-
-	<flow name="paginated-query-by-queryResultObject-ref" doc:name="paginated-query-by-queryResultObject-ref">
-		<sfdc:paginated-query config-ref="Salesforce"
-			queryResultObject-ref="#[payload.queryResultObjectRef]" doc:name="Paginated query" withDeletedRecords="true" />
-	</flow>
-
 	<!--  Bulk API -->
 	
 	<flow name="create-bulk" doc:name="create-bulk">
