@@ -408,24 +408,6 @@
 			value="SELECT Id, Name, BillingCity FROM Account WHERE BillingCity = 'querySingleBillingCity'" />
 	</util:map>
 
-	<!-- paginated-query -->
-
-	<util:map id="paginatedQuerySObjectFieldMappings" map-class="java.util.HashMap"
-		key-type="java.lang.String" value-type="java.lang.Object">
-		<entry key="Name" value="Acme" />
-		<entry key="BillingCity" value="San Francisco" />
-		<entry key="Phone" value="111111111" />
-		<entry key="Website" value="www.acme.com" />
-	</util:map>
-
-	<util:map id="paginatedQueryTestData" map-class="java.util.HashMap"
-		key-type="java.lang.String" value-type="java.lang.Object">
-		<entry key="type" value="Account" />
-		<entry key="sObjectFieldMappingsFromMessage" value-ref="paginatedQuerySObjectFieldMappings" />
-		<entry key="query"
-			value="SELECT Id, Name, BillingCity FROM Account WHERE BillingCity='San Francisco'" />
-	</util:map>
-
 	<!-- retrieve -->
 
 	<util:map id="retrieveFirstSObjectFieldMappingsMap" map-class="java.util.HashMap"
