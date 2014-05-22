@@ -17,6 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.Connect;
@@ -318,13 +319,13 @@ public class SalesforceConnector extends BaseSalesforceConnector {
      *
      * @param username      Username used to initialize the session
      * @param password      Password used to authenticate the user
-     * @param securityToken User's security token
+     * @param securityToken User's security token. It can be omitted if your IP has been whitelisted on Salesforce
      * @param url           Salesforce endpoint URL
      * @param proxyHost     Hostname of the proxy
      * @param proxyPort     Port of the proxy
      * @param proxyUsername Username used to authenticate against the proxy
      * @param proxyPassword Password used to authenticate against the proxy
-     * @param sessionId  This value could be used for specifing an active Salesforce session.
+     * @param sessionId  This value could be used for specifying an active Salesforce session.
      * Please take into account you must specify all the connection parameters anyway since they will be used
      * in case of needing a reconnection.
      * @param serviceEndpoint Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
@@ -334,7 +335,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     @Connect
     public synchronized void connect(@ConnectionKey String username,
                                      @Password String password,
-                                     String securityToken,
+                                     @Optional String securityToken,
                                      @Optional @Default("https://login.salesforce.com/services/Soap/u/28.0") String url,
                                      @Optional @Placement(group = "Proxy Settings") String proxyHost,
                                      @Optional @Placement(group = "Proxy Settings") @Default("80") int proxyPort,
@@ -343,7 +344,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
                                      @Optional @Placement(group = "Session") String sessionId,
                                      @Optional @Placement(group = "Session") String serviceEndpoint) throws org.mule.api.ConnectionException {
 
-        ConnectorConfig connectorConfig = createConnectorConfig(url, username, password + (securityToken != null ? securityToken : ""), proxyHost, proxyPort, proxyUsername, proxyPassword);
+        ConnectorConfig connectorConfig = createConnectorConfig(url, username, password + StringUtils.defaultString(securityToken, ""), proxyHost, proxyPort, proxyUsername, proxyPassword);
         if (LOGGER.isDebugEnabled()) {
             connectorConfig.addMessageHandler(new MessageHandler() {
                 @Override
