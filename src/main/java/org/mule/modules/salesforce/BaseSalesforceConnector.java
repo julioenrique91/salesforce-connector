@@ -25,6 +25,7 @@ import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.api.annotations.*;
 import org.mule.api.annotations.display.FriendlyName;
+import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.oauth.OAuthInvalidateAccessTokenOn;
 import org.mule.api.annotations.oauth.OAuthProtected;
@@ -1331,7 +1332,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Processor
     @Category(name = "Utility Calls", description = "API calls that your client applications can invoke to obtain the system timestamp, user information, and change user passwords.")
     public void setPassword(@Placement(group = "Information") @FriendlyName("User ID") String userId,
-                            @Placement(group = "Information") @FriendlyName("Password") String newPassword,
+                            @Placement(group = "Information") @FriendlyName("Password") @Password String newPassword,
                             @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         getSalesforceSoapAdapter(headers).setPassword(userId, newPassword);
     }
