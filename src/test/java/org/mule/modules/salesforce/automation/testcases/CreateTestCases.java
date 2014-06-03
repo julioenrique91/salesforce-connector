@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.salesforce.automation.RegressionTests;
@@ -31,41 +30,45 @@ import com.sforce.soap.partner.SaveResult;
 
 public class CreateTestCases extends SalesforceTestParent {
 	
-	@After
-	public void tearDown() throws Exception {
-		
-		runFlowAndGetPayload("delete-from-message");
-		
-	}
-	
     @Category({SmokeTests.class, RegressionTests.class})
 	@Test
 	public void testCreateChildElementsFromMessage() {
-    	
-    	List<String> sObjectsIds = new ArrayList<String>();
-    	
-		try {
-			
-			loadTestRunMessage("createRecord");
-	        
+    	List<String> sObjectsIds = new ArrayList<String>(); 	
+		try {	
+			initializeTestRunMessage("createRecord");
 	        List<SaveResult> saveResults =  runFlowAndGetPayload("create-from-message");
-	        
 	        Iterator<SaveResult> iter = saveResults.iterator();  
-
 			while (iter.hasNext()) {
-				
 				SaveResult saveResult = iter.next();
 				assertTrue(saveResult.getSuccess());
-				sObjectsIds.add(saveResult.getId());
-				
+				sObjectsIds.add(saveResult.getId());	
 			}
-
 			upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
-	        
+			runFlowAndGetPayload("delete-from-message");
 		} catch (Exception e) {
 			fail(ConnectorTestUtils.getStackTrace(e));
 		}
-     
 	}
+    
+    @Category({RegressionTests.class})
+	@Test
+	public void testCreatePassingHeaders() {
+    	initializeTestRunMessage("createPassingHeadersTestData");
+		try {
+			List<SaveResult> saveResults = runFlowAndGetPayload("create-passing-headers"); 
+			Iterator<SaveResult> iter = saveResults.iterator(); 
+			while (iter.hasNext()) {
+				SaveResult saveResult = iter.next();
+				assertTrue(!saveResult.getSuccess());
+				String errorStatusCode = saveResult.getErrors()[0].getStatusCode().name().toString();
+				assertTrue(errorStatusCode.equals("ALL_OR_NONE_OPERATION_ROLLED_BACK")|errorStatusCode.equals("REQUIRED_FIELD_MISSING"));
+			}
+		} catch (Exception e) {
+			fail(ConnectorTestUtils.getStackTrace(e));
+		}
+	}
+    
+    
+    
 
 }

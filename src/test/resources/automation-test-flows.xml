@@ -41,6 +41,13 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 			</sfdc:objects>
 		</sfdc:create>
 	</flow>
+	
+	<flow name="create-passing-headers" doc:name="create-passing-headers">
+        <sfdc:create config-ref="Salesforce" type="#[payload.type]" doc:name="Salesforce">
+            <sfdc:objects ref="#[payload.objectsRef]"/>
+            <sfdc:headers ref="#[payload.headersRef]"/>
+        </sfdc:create>
+    </flow>
 
 	<flow name="create-single-from-message" doc:name="create-single-from-message">
 		<sfdc:create-single config-ref="Salesforce"

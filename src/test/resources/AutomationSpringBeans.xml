@@ -51,6 +51,48 @@
 		<entry key="sObjectFieldMappingsFromMessage" value-ref="sObjectFieldMappingsList" />
 	</util:map>
 	
+	<!-- create-passing-headers -->
+
+	<util:map id="validSObjectFields" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object">
+		<entry key="Name" value="Acme" />
+		<entry key="BillingCity" value="San Francisco" />
+		<entry key="Phone" value="111111111" />
+		<entry key="Website" value="www.acme.com" />
+	</util:map>
+
+	<util:map id="invalidSObjectFields" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object">
+		<entry key="Description" value="Will trigger a transaction roll back" />
+		<entry key="BillingCity" value="San Francisco" />
+		<entry key="Phone" value="111111111" />
+		<entry key="Website" value="www.amarello.com" />
+	</util:map>
+
+	<util:list id="objectsRefList">
+		<ref bean="validSObjectFields" />
+		<ref bean="invalidSObjectFields" />
+	</util:list>
+	
+	<util:constant id="headersRefConstant" static-field="org.mule.modules.salesforce.api.SalesforceHeader.ALL_OR_NONE" />
+
+	<util:map id="headersRefMap" map-class="java.util.HashMap"
+		key-type="org.mule.modules.salesforce.api.SalesforceHeader" value-type="java.lang.Object">
+		<entry key="ALL_OR_NONE">
+			<util:map map-class="java.util.HashMap"
+				key-type="java.lang.String" value-type="java.lang.Object">
+				<entry key="allOrNone" value="true" />
+			</util:map>
+		</entry>
+	</util:map>
+
+	<util:map id="createPassingHeadersTestData" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object">
+		<entry key="type" value="Account" />
+		<entry key="objectsRef" value-ref="objectsRefList" />
+		<entry key="headersRef" value-ref="headersRefMap" />
+	</util:map>
+	
 	<!-- empty-recycle-bin -->
 
 	<util:map id="emptyRecycleBinFirstSObjectFieldMappingsMap" map-class="java.util.HashMap"
@@ -157,6 +199,10 @@
 	</util:map>
 
 	<!-- update -->
+	
+	<util:list id="updateFieldsToNull" >
+        <value>Website</value>
+    </util:list>
 
 	<util:map id="updateFirstSObjectFieldMappingsMap" map-class="java.util.HashMap"
 		key-type="java.lang.String" value-type="java.lang.Object">
@@ -186,7 +232,7 @@
 
 	<util:map id="updateSecondSalesforceSObjectMap" map-class="java.util.HashMap"
 		key-type="java.lang.String" value-type="java.lang.Object">
-		<entry key="Description" value="Description" />
+		<entry key="Description" value="updatedDescription" />
 	</util:map>
 
 	<util:list id="updateSalesforceSObjectsList">

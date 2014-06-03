@@ -10,14 +10,15 @@
 
 package org.mule.modules.salesforce.automation.testcases;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.junit.After;
 import org.junit.Before;
@@ -38,7 +39,7 @@ public class UpdateTestCases extends SalesforceTestParent {
     	
     	List<String> sObjectsIds = new ArrayList<String>();
    
-		loadTestRunMessage("updateCreateRecord");
+		initializeTestRunMessage("updateCreateRecord");
         
         List<SaveResult> saveResultsList =  runFlowAndGetPayload("create-from-message");
         Iterator<SaveResult> saveResultsIter = saveResultsList.iterator();  
@@ -61,32 +62,78 @@ public class UpdateTestCases extends SalesforceTestParent {
 	
 	@After
 	public void tearDown() throws Exception {
-    	
-		runFlowAndGetPayload("delete-from-message");
-     
+    	runFlowAndGetPayload("delete-from-message");
 	}
 	
 	@Category({RegressionTests.class})
 	@Test
 	public void testUpdateChildElementsFromMessage() {
-			
 		try {
-			
 			List<SaveResult> saveResults = runFlowAndGetPayload("update-from-message");
-	        
 	        Iterator<SaveResult> iter = saveResults.iterator();  
-
 			while (iter.hasNext()) {
-				
+				SaveResult saveResult = iter.next();
+				assertTrue(saveResult.getSuccess());				
+			}
+		} catch (Exception e) {
+			fail(ConnectorTestUtils.getStackTrace(e));
+		}	
+	}
+
+	@Category({RegressionTests.class})
+	@Test
+	public void testUpdatePassingFieldsToNull() {	
+		String query = "";
+		List<String> updatedFields = new ArrayList();
+		String anUpdatedField = "";
+		String anUpdatedFieldValue = "";
+		String aFieldToNull = "";
+		String aSObjectId = "";
+		Map<String,Object> aSObject;
+		Random random = new Random();
+		
+		String sObjectType = getTestRunMessageValue("type");
+		
+		List<Map<String,Object>> sObjectsUpdates = getTestRunMessageValue("salesforceSObjectsListFromMessage");		
+		aSObject = sObjectsUpdates.get(random.nextInt(sObjectsUpdates.size()));
+		
+		aSObjectId = aSObject.get("Id").toString();
+		for (String key:aSObject.keySet()) {
+			if (!key.equals("Id")) {
+				updatedFields.add(key);
+			}
+		}
+		anUpdatedField = updatedFields.get(random.nextInt(updatedFields.size())).toString();
+		anUpdatedFieldValue = aSObject.get(anUpdatedField).toString();
+		
+		List<String> fieldsToNullList = getBeanFromContext("updateFieldsToNull");
+		String[] fieldsToNullArray = fieldsToNullList.toArray(new String[fieldsToNullList.size()]);
+		aFieldToNull = fieldsToNullArray[random.nextInt(fieldsToNullList.size())];
+		
+		aSObject.put("fieldsToNull", fieldsToNullArray);
+		
+		query = String.format("SELECT Id,%s,%s FROM %s WHERE Id='%s'", anUpdatedField, aFieldToNull, sObjectType, aSObjectId);
+		
+		try {
+			List<SaveResult> saveResults = runFlowAndGetPayload("update-from-message");
+	        Iterator<SaveResult> iter = saveResults.iterator();  
+			while (iter.hasNext()) {	
 				SaveResult saveResult = iter.next();
 				assertTrue(saveResult.getSuccess());
-				
-			}
+		}	
+			
+		upsertOnTestRunMessage("query", query);
+		Map<String, Object> record =  runFlowAndGetPayload("query-single");
+		
+		assertEquals(record.get("Id"),aSObjectId);
+		assertEquals(record.get(anUpdatedField),anUpdatedFieldValue);
+		assertEquals(record.get(aFieldToNull),null);
 		
 		} catch (Exception e) {
 			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 		
+		
 	}
-
+	
 }
