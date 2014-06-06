@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<connector name="Salesforce">
+    <properties>
+    <connectivity-support>true</connectivity-support>
+    <OAuth-authentication>false</OAuth-authentication>
+    <metadata>dynamic</metadata>
+    <datasense-enabled>true</datasense-enabled>
+    <transformer>false</transformer>
+  </properties>
+    <simpleConfig>
+        <required caption="Name" group="Basic Settings" javaType="java.lang.String" name="name" type="name">Simpleconfig</required>
+        <required caption="Username" group="Connection" javaType="java.lang.String" name="username" prefix="salesforce" type="string">USERNAME</required>
+        <required caption="Password" group="Connection" javaType="java.lang.String" name="password" prefix="salesforce" type="password">PASSWORD</required>
+        <required caption="Security Token" group="Connection" javaType="java.lang.String" name="securityToken" prefix="salesforce" type="string">TOKEN</required>
+        <required caption="Url" group="Connection" javaType="java.lang.String" name="url" prefix="salesforce" type="string">URL</required>
+    </simpleConfig>
+    <oauthConfig>
+        <required caption="Name" group="Basic Settings" javaType="java.lang.String" name="name" type="name"> </required>
+        <required caption="Consumer Key" group="General" javaType="java.lang.String" name="consumerKey" prefix="salesforce" type="string">KEY</required>
+        <required caption="Consumer Secret" group="General" javaType="java.lang.String" name="consumerSecret" prefix="salesforce" type="string">SECRET</required>
+    </oauthConfig>
+    <message-processors>
+        <create name="Create">
+            <datamapper input="List&lt;SaveResult&gt;" output="List&lt;Account&gt;"/>
+            <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+             </attributes>
+             <childElements/>
+         </create>
+        <create-job name="Create job">
+            <datamapper input="JobInfo" output=""/>
+            <auto-paging>false</auto-paging>
+            <query-support>false</query-support>
+            <attributes>
+                <required caption="Operation" group="General" javaType="com.sforce.async.OperationEnum" name="operation" type="enum">update</required>
+                <required caption="Type" group="General" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+            </attributes>
+            <childElements/>
+        </create-job>
+         <close-job name="Close job">
+             <datamapper input="JobInfo" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="Job Id" group="General" javaType="java.lang.String" name="jobId" type="string">jobid</required>
+             </attributes>
+             <childElements/>
+         </close-job>
+         <abort-job name="Abort job">
+             <datamapper input="JobInfo" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="Job Id" group="General" javaType="java.lang.String" name="jobId" type="string">jobid</required>
+             </attributes>
+             <childElements/>
+         </abort-job>
+         <job-info name="Job info">
+             <datamapper input="JobInfo" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="Job Id" group="General" javaType="java.lang.String" name="jobId" type="string">jobid</required>
+             </attributes>
+             <childElements/>
+         </job-info>
+         <create-batch name="Create batch">
+             <datamapper input="BatchInfo" output="List&lt;Map&gt;"/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes/>
+             <childElements>
+                 <required group="General" name="job-info">
+                     <attributes caption="Define attributes" controlled="complex" controllerType="radioBoolean"/>
+                     <attributes caption="Reference or expression" controlled="useReference" controllerType="radioBoolean">
+                         <required caption="Job Info Reference" javaType="java.lang.String" name="ref" type="string">jobRef</required>
+                     </attributes>
+                     <childElements/>
+                 </required>
+             </childElements>
+         </create-batch>
+         <create-batch-stream name="Create batch stream">
+             <datamapper input="BatchInfo" output="InputStream"/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes/>
+             <childElements>
+                 <required group="General" name="job-info">
+                     <attributes caption="Define attributes" controlled="complex" controllerType="radioBoolean"/>
+                     <attributes caption="Reference or expression" controlled="useReference" controllerType="radioBoolean">
+                         <required caption="Job Info Reference" javaType="java.lang.String" name="ref" type="string">jobRef</required>
+                     </attributes>
+                     <childElements/>
+                 </required>
+             </childElements>
+         </create-batch-stream>
+         <create-batch-for-query name="Create batch for query">
+             <datamapper input="BatchInfo" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes/>
+             <childElements>
+                 <required group="General" name="job-info">
+                     <attributes caption="Define attributes" controlled="complex" controllerType="radioBoolean"/>
+                     <attributes caption="Reference or expression" controlled="useReference" controllerType="radioBoolean">
+                         <required caption="Job Info Reference" javaType="java.lang.String" name="ref" type="string">jobRef</required>
+                     </attributes>
+                     <childElements/>
+                 </required>
+             </childElements>
+         </create-batch-for-query>
+         <create-bulk name="Create bulk">
+             <datamapper input="BatchInfo" output="List&lt;Account&gt;"/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+             </attributes>
+             <childElements/>
+         </create-bulk>
+         <create-single name="Create single">
+             <datamapper input="SaveResult" output="Account"/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+             </attributes>
+             <childElements/>
+         </create-single>
+         <update name="Update">
+             <datamapper input="List&lt;SaveResult&gt;" output="List&lt;Account&gt;"/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+             </attributes>
+             <childElements/>
+         </update>
+         <update-single name="Update single">
+             <datamapper input="SaveResult" output="Account"/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+             </attributes>
+             <childElements/>
+         </update-single>
+         <update-bulk name="Update bulk">
+             <datamapper input="BatchInfo" output="List&lt;Account&gt;"/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+             </attributes>
+             <childElements/>
+         </update-bulk>
+         <upsert name="Upsert">
+             <datamapper input="List&lt;UpsertResult&gt;" output="List&lt;Account&gt;"/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="External Id Field Name" group="Information" javaType="java.lang.String" name="externalIdFieldName" type="string">externalId</required>
+                 <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+             </attributes>
+             <childElements/>
+         </upsert>
+         <upsert-bulk name="Upsert bulk">
+             <datamapper input="BatchInfo" output="List&lt;Account&gt;"/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+                 <required caption="External Id Field Name" group="Information" javaType="java.lang.String" name="externalIdFieldName" type="string">externalId</required>
+             </attributes>
+             <childElements/>
+         </upsert-bulk>
+        <batch-info name="Batch info">
+            <datamapper input="BatchInfo" output="BatchInfo"/>
+            <auto-paging>false</auto-paging>
+            <query-support>false</query-support>
+            <attributes/>
+            <childElements/>
+        </batch-info>
+        <batch-result name="Batch result">
+            <datamapper input="BatchResult" output="BatchInfo"/>
+            <auto-paging>false</auto-paging>
+            <query-support>false</query-support>
+            <attributes/>
+            <childElements/>
+        </batch-result>
+        <batch-result-stream name="Batch result stream">
+            <datamapper input="InputStream" output="BatchInfo"/>
+            <auto-paging>false</auto-paging>
+            <query-support>false</query-support>
+            <attributes/>
+            <childElements/>
+        </batch-result-stream>
+        <query-result-stream name="Query result stream">
+            <datamapper input="InputStream" output="BatchInfo"/>
+            <auto-paging>false</auto-paging>
+            <query-support>false</query-support>
+            <attributes/>
+            <childElements/>
+        </query-result-stream>
+        <describe-global name="Describe global">
+            <datamapper input="DescribeGlobalResult" output=""/>
+            <auto-paging>false</auto-paging>
+            <query-support>false</query-support>
+            <attributes/>
+            <childElements/>
+        </describe-global>
+         <retrieve name="Retrieve">
+             <datamapper input="List&lt;Account&gt;" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+             </attributes>
+             <childElements/>
+         </retrieve>
+         <paginated-query name="Paginated query">
+             <datamapper input="QueryResultObject" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes/>
+             <childElements/>
+         </paginated-query>
+        <query name="Query">
+            <datamapper input="List&lt;Account&gt;" output=""/>
+            <auto-paging>true</auto-paging>
+            <query-support>true</query-support>
+            <attributes>
+                <required caption="Query" group="Query" javaType="java.lang.String" name="query" type="element-query">SELECT AccountNumber FROM Account ORDER BY AccountNumber ASC</required>
+            </attributes>
+            <childElements/>
+        </query>
+        <non-paginated-query name="Non paginated query">
+            <datamapper input="List&lt;Account&gt;" output=""/>
+            <auto-paging>false</auto-paging>
+            <query-support>true</query-support>
+            <attributes>
+                <required caption="Query" group="Query" javaType="java.lang.String" name="query" type="element-query">SELECT AccountNumber FROM Account ORDER BY AccountNumber ASC</required>
+            </attributes>
+            <childElements/>
+        </non-paginated-query>
+         <query-all name="Query all">
+             <datamapper input="List&lt;Map&gt;" output=""/>
+             <auto-paging>true</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="Query" group="Query" javaType="java.lang.String" name="query" type="string">dsql:SELECT AccountNumber FROM Account ORDER BY AccountNumber ASC</required>
+             </attributes>
+             <childElements/>
+         </query-all>
+         <search name="Search">
+             <datamapper input="List&lt;Map&gt;" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="Query" group="Query" javaType="java.lang.String" name="query" type="string">dsql:SELECT AccountNumber FROM Account ORDER BY AccountNumber ASC</required>
+             </attributes>
+             <childElements/>
+         </search>
+        <query-single name="Query single">
+            <datamapper input="Map" output=""/>
+            <auto-paging>false</auto-paging>
+            <query-support>false</query-support>
+            <attributes>
+                <required caption="Query" group="Query" javaType="java.lang.String" name="query" type="string">dsql:SELECT AccountNumber FROM Account ORDER BY AccountNumber ASC</required>
+            </attributes>
+            <childElements/>
+        </query-single>
+         <convert-lead name="Convert lead">
+             <datamapper input="LeadConvertResult" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="Lead Id" group="General" javaType="java.lang.String" name="leadId" type="string">leadid</required>
+                 <required caption="Converted Status" group="General" javaType="java.lang.String" name="convertedStatus" type="string">false</required>
+             </attributes>
+             <childElements/>
+         </convert-lead>
+        <empty-recycle-bin name="Empty recycle bin">
+            <datamapper input="List&lt;EmptyRecycleBinResult&gt;" output=""/>
+            <auto-paging>false</auto-paging>
+            <query-support>false</query-support>
+            <attributes/>
+            <childElements/>
+        </empty-recycle-bin>
+         <get-server-timestamp name="Get server timestamp">
+             <datamapper input="Calendar" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes/>
+             <childElements/>
+         </get-server-timestamp>
+         <delete name="Delete">
+             <datamapper input="List&lt;DeleteResult&gt;" output="List&lt;String&gt;"/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes/>
+             <childElements/>
+         </delete>
+         <hard-delete-bulk name="Hard delete bulk">
+             <datamapper input="BatchInfo" output="List&lt;Account&gt;"/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+             </attributes>
+             <childElements/>
+         </hard-delete-bulk>
+         <get-updated-range name="Get updated range">
+             <datamapper input="GetUpdatedResult" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+                 <required caption="Start Time Reference" group="Information" javaType="java.util.Calendar" name="startTime" type="string">10000</required>
+             </attributes>
+             <childElements/>
+         </get-updated-range>
+        <get-deleted-range name="Get deleted range">
+            <datamapper input="GetDeletedResult" output=""/>
+            <auto-paging>false</auto-paging>
+            <query-support>false</query-support>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+                <required caption="Start Time Reference" group="Information" javaType="java.util.Calendar" name="startTime" type="string">10000</required>
+            </attributes>
+            <childElements/>
+        </get-deleted-range>
+        <describe-sobject name="Describe sObject">
+            <datamapper input="" output=""/>
+            <auto-paging>false</auto-paging>
+            <query-support>false</query-support>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+            </attributes>
+            <childElements/>
+        </describe-sobject>
+         <get-deleted name="Get deleted">
+             <datamapper input="GetDeletedResult" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+                 <required caption="Duration" group="Information" javaType="int" name="duration" type="integer">10000</required>
+             </attributes>
+             <childElements/>
+         </get-deleted>
+         <get-updated name="Get updated">
+             <datamapper input="GetUpdatedResult" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+                 <required caption="Duration" group="Information" javaType="int" name="duration" type="integer">10000</required>
+             </attributes>
+             <childElements/>
+         </get-updated>
+        <get-updated-objects name="Get updated objects">
+            <datamapper input="List&lt;Account&gt;" output="List&lt;String&gt;"/>
+            <auto-paging>false</auto-paging>
+            <query-support>false</query-support>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+                <required caption="Initial Time Window" group="Information" javaType="int" name="initialTimeWindow" type="integer">1000</required>
+            </attributes>
+            <childElements/>
+        </get-updated-objects>
+         <reset-updated-objects-timestamp name="Reset updated objects timestamp">
+             <datamapper input="" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser">Account (Account)</required>
+             </attributes>
+             <childElements/>
+         </reset-updated-objects-timestamp>
+         <set-password name="Set password">
+             <datamapper input="" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="User ID" group="Information" javaType="java.lang.String" name="userId" type="string">userid</required>
+                 <required caption="Password" group="Information" javaType="java.lang.String" name="newPassword" type="string">mypassword</required>
+             </attributes>
+             <childElements/>
+         </set-password>
+         <publish-topic name="Publish topic">
+             <datamapper input="" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="Topic Name" group="Information" javaType="java.lang.String" name="topicName" type="string">MY TOPIC</required>
+                 <required caption="Query" group="Information" javaType="java.lang.String" name="query" type="string">select * </required>
+             </attributes>
+             <childElements/>
+         </publish-topic>
+         <get-user-info name="Get user info">
+             <datamapper input="GetUserInfoResult" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes/>
+             <childElements/>
+         </get-user-info>
+         <authorize name="Authorize">
+             <datamapper input="" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes>
+                 <required caption="Display" group="Additional Authorization Parameters" javaType="org.mule.modules.salesforce.SalesforceOAuthDisplay" name="display" type="enum">POPUP</required>
+             </attributes>
+             <childElements/>
+         </authorize>
+         <unauthorize name="Unauthorize">
+             <datamapper input="" output=""/>
+             <auto-paging>false</auto-paging>
+             <query-support>false</query-support>
+             <attributes/>
+             <childElements/>
+         </unauthorize>
+    </message-processors>
+</connector>

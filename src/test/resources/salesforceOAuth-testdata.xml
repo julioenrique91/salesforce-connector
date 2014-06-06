@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<connector name="Salesforce">
+    <global-config>
+        <config>
+            <attributes>
+                <optional caption="Name" group="Basic Settings" javaType="java.lang.String" name="name" type="name"/>
+                <optional caption="Time Object Store Reference" group="General" javaType="org.mule.api.store.ObjectStore&lt;? extends java.io.Serializable&gt;" name="timeObjectStore-ref" type="string"/>
+                <optional caption="Client Id" group="General" javaType="java.lang.String" name="clientId" type="string"/>
+                <optional caption="Assignment Rule Id" group="General" javaType="java.lang.String" name="assignmentRuleId" type="string"/>
+                <optional caption="Use Default Rule" group="General" javaType="java.lang.Boolean" name="useDefaultRule" type="boolean"/>
+                <optional caption="Batch Sobject Max Depth" default="5" group="General" javaType="java.lang.Integer" name="batchSobjectMaxDepth" type="integer"/>
+                <optional caption="Allow Field Truncation Support" group="General" javaType="java.lang.Boolean" name="allowFieldTruncationSupport" type="boolean"/>
+                <optional caption="Username" group="Connection" javaType="java.lang.String" name="username" type="string"/>
+                <optional caption="Password" group="Connection" javaType="java.lang.String" name="password" type="password"/>
+                <optional caption="Security Token" group="Connection" javaType="java.lang.String" name="securityToken" type="string"/>
+                <optional caption="Url" default="https://login.salesforce.com/services/Soap/u/28.0" group="Connection" javaType="java.lang.String" name="url" type="string"/>
+                <optional caption="Proxy Host" group="Connection" javaType="java.lang.String" name="proxyHost" type="string"/>
+                <optional caption="Proxy Port" default="80" group="Connection" javaType="int" name="proxyPort" type="integer"/>
+                <optional caption="Proxy Username" group="Connection" javaType="java.lang.String" name="proxyUsername" type="string"/>
+                <optional caption="Proxy Password" group="Connection" javaType="java.lang.String" name="proxyPassword" type="password"/>
+                <optional caption="Session Id" group="Connection" javaType="java.lang.String" name="sessionId" type="string"/>
+                <optional caption="Service Endpoint" group="Connection" javaType="java.lang.String" name="serviceEndpoint" type="string"/>
+            </attributes>
+        </config>
+        <config-with-oauth>
+            <attributes>
+                <optional caption="Name" group="Basic Settings" javaType="java.lang.String" name="name" type="name"/>
+                <required caption="Consumer Key" group="General" javaType="java.lang.String" name="consumerKey" type="string"/>
+                <required caption="Consumer Secret" group="General" javaType="java.lang.String" name="consumerSecret" type="string"/>
+                <optional caption="Time Object Store Reference" group="General" javaType="org.mule.api.store.ObjectStore&lt;? extends java.io.Serializable&gt;" name="timeObjectStore-ref" type="string"/>
+                <optional caption="Client Id" group="General" javaType="java.lang.String" name="clientId" type="string"/>
+                <optional caption="Assignment Rule Id" group="General" javaType="java.lang.String" name="assignmentRuleId" type="string"/>
+                <optional caption="Use Default Rule" group="General" javaType="java.lang.Boolean" name="useDefaultRule" type="boolean"/>
+                <optional caption="Batch Sobject Max Depth" default="5" group="General" javaType="java.lang.Integer" name="batchSobjectMaxDepth" type="integer"/>
+                <optional caption="Allow Field Truncation Support" group="General" javaType="java.lang.Boolean" name="allowFieldTruncationSupport" type="boolean"/>
+                <optional caption="On No Token" default="EXCEPTION" group="General" javaType="java.lang.String" name="onNoToken" type="enum"/>
+            </attributes>
+            <childElements>
+                <optional name="oauth-store-config">
+                    <attributes controlled="complex">
+                        <required name="objectStore-ref"/>
+                    </attributes>
+                    <attributes controlled="useReference">
+                        <required name="ref"/>
+                    </attributes>
+                </optional>
+                <required name="oauth-callback-config">
+                    <attributes controlled="complex">
+                        <optional name="localPort"/>
+                        <optional name="remotePort"/>
+                        <optional name="domain"/>
+                        <optional default="false" name="async"/>
+                        <optional name="path"/>
+                        <optional name="connector-ref"/>
+                        <optional name="defaultAccessTokenId"/>
+                    </attributes>
+                    <attributes controlled="useReference">
+                        <required name="ref"/>
+                    </attributes>
+                </required>
+            </childElements>
+        </config-with-oauth>
+    </global-config>
+    <message-processors>
+        <create>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+            </attributes>
+            <childElements/>
+        </create>
+        <create-job>
+            <attributes>
+                <required caption="Operation" group="General" javaType="com.sforce.async.OperationEnum" name="operation" type="enum"/>
+                <required caption="Type" group="General" javaType="java.lang.String" name="type" type="type-chooser"/>
+                <optional caption="External Id Field Name" group="General" javaType="java.lang.String" name="externalIdFieldName" type="string"/>
+                <optional caption="Content Type" group="General" javaType="com.sforce.async.ContentType" name="contentType" type="enum"/>
+                <optional caption="Concurrency Mode" group="General" javaType="com.sforce.async.ConcurrencyMode" name="concurrencyMode" type="enum"/>
+            </attributes>
+        </create-job>
+        <close-job>
+            <attributes>
+                <required caption="Job Id" group="General" javaType="java.lang.String" name="jobId" type="string"/>
+            </attributes>
+        </close-job>
+        <abort-job>
+            <attributes>
+                <required caption="Job Id" group="General" javaType="java.lang.String" name="jobId" type="string"/>
+            </attributes>
+        </abort-job>
+        <job-info>
+            <attributes>
+                <required caption="Job Id" group="General" javaType="java.lang.String" name="jobId" type="string"/>
+            </attributes>
+        </job-info>
+        <create-batch>
+            <attributes/>
+            <childElements>
+                <required group="General" name="job-info">
+                    <attributes caption="Define attributes" controlled="complex" controllerType="radioBoolean">
+                        <optional base="job-info" caption="Id" javaType="java.lang.String" name="id" type="string"/>
+                        <optional base="job-info" caption="Operation" javaType="com.sforce.async.OperationEnum" name="operation" type="enum"/>
+                        <optional base="job-info" caption="Object" javaType="java.lang.String" name="object" type="string"/>
+                        <optional base="job-info" caption="Created By Id" javaType="java.lang.String" name="createdById" type="string"/>
+                        <optional base="job-info" caption="Created Date Reference" javaType="java.util.Calendar" name="createdDate" type="string"/>
+                        <optional base="job-info" caption="System Modstamp Reference" javaType="java.util.Calendar" name="systemModstamp" type="string"/>
+                        <optional base="job-info" caption="State" javaType="com.sforce.async.JobStateEnum" name="state" type="enum"/>
+                        <optional base="job-info" caption="External Id Field Name" javaType="java.lang.String" name="externalIdFieldName" type="string"/>
+                        <optional base="job-info" caption="Concurrency Mode" javaType="com.sforce.async.ConcurrencyMode" name="concurrencyMode" type="enum"/>
+                        <optional base="job-info" caption="Fast Path Enabled" javaType="boolean" name="fastPathEnabled" type="boolean"/>
+                        <optional base="job-info" caption="Number Batches Queued" javaType="int" name="numberBatchesQueued" type="integer"/>
+                        <optional base="job-info" caption="Number Batches In Progress" javaType="int" name="numberBatchesInProgress" type="integer"/>
+                        <optional base="job-info" caption="Number Batches Completed" javaType="int" name="numberBatchesCompleted" type="integer"/>
+                        <optional base="job-info" caption="Number Batches Failed" javaType="int" name="numberBatchesFailed" type="integer"/>
+                        <optional base="job-info" caption="Number Batches Total" javaType="int" name="numberBatchesTotal" type="integer"/>
+                        <optional base="job-info" caption="Number Records Processed" javaType="int" name="numberRecordsProcessed" type="integer"/>
+                        <optional base="job-info" caption="Number Retries" javaType="int" name="numberRetries" type="integer"/>
+                        <optional base="job-info" caption="Content Type" javaType="com.sforce.async.ContentType" name="contentType" type="enum"/>
+                        <optional base="job-info" caption="Api Version" javaType="double" name="apiVersion" type="string"/>
+                        <optional base="job-info" caption="Number Records Failed" javaType="int" name="numberRecordsFailed" type="integer"/>
+                        <optional base="job-info" caption="Total Processing Time" javaType="long" name="totalProcessingTime" type="integer"/>
+                        <optional base="job-info" caption="Api Active Processing Time" javaType="long" name="apiActiveProcessingTime" type="integer"/>
+                        <optional base="job-info" caption="Apex Processing Time" javaType="long" name="apexProcessingTime" type="integer"/>
+                    </attributes>
+                    <attributes caption="Reference or expression" controlled="useReference" controllerType="radioBoolean">
+                        <required caption="Job Info Reference" javaType="java.lang.String" name="ref" type="string"/>
+                    </attributes>
+                </required>
+            </childElements>
+        </create-batch>
+        <create-batch-stream>
+            <attributes>
+                <optional caption="Stream Reference" default="#[payload]" group="General" javaType="java.io.InputStream" name="stream-ref" type="string"/>
+            </attributes>
+            <childElements>
+                <required group="General" name="job-info">
+                    <attributes caption="Define attributes" controlled="complex" controllerType="radioBoolean">
+                        <optional base="job-info" caption="Id" javaType="java.lang.String" name="id" type="string"/>
+                        <optional base="job-info" caption="Operation" javaType="com.sforce.async.OperationEnum" name="operation" type="enum"/>
+                        <optional base="job-info" caption="Object" javaType="java.lang.String" name="object" type="string"/>
+                        <optional base="job-info" caption="Created By Id" javaType="java.lang.String" name="createdById" type="string"/>
+                        <optional base="job-info" caption="Created Date Reference" javaType="java.util.Calendar" name="createdDate" type="string"/>
+                        <optional base="job-info" caption="System Modstamp Reference" javaType="java.util.Calendar" name="systemModstamp" type="string"/>
+                        <optional base="job-info" caption="State" javaType="com.sforce.async.JobStateEnum" name="state" type="enum"/>
+                        <optional base="job-info" caption="External Id Field Name" javaType="java.lang.String" name="externalIdFieldName" type="string"/>
+                        <optional base="job-info" caption="Concurrency Mode" javaType="com.sforce.async.ConcurrencyMode" name="concurrencyMode" type="enum"/>
+                        <optional base="job-info" caption="Fast Path Enabled" javaType="boolean" name="fastPathEnabled" type="boolean"/>
+                        <optional base="job-info" caption="Number Batches Queued" javaType="int" name="numberBatchesQueued" type="integer"/>
+                        <optional base="job-info" caption="Number Batches In Progress" javaType="int" name="numberBatchesInProgress" type="integer"/>
+                        <optional base="job-info" caption="Number Batches Completed" javaType="int" name="numberBatchesCompleted" type="integer"/>
+                        <optional base="job-info" caption="Number Batches Failed" javaType="int" name="numberBatchesFailed" type="integer"/>
+                        <optional base="job-info" caption="Number Batches Total" javaType="int" name="numberBatchesTotal" type="integer"/>
+                        <optional base="job-info" caption="Number Records Processed" javaType="int" name="numberRecordsProcessed" type="integer"/>
+                        <optional base="job-info" caption="Number Retries" javaType="int" name="numberRetries" type="integer"/>
+                        <optional base="job-info" caption="Content Type" javaType="com.sforce.async.ContentType" name="contentType" type="enum"/>
+                        <optional base="job-info" caption="Api Version" javaType="double" name="apiVersion" type="string"/>
+                        <optional base="job-info" caption="Number Records Failed" javaType="int" name="numberRecordsFailed" type="integer"/>
+                        <optional base="job-info" caption="Total Processing Time" javaType="long" name="totalProcessingTime" type="integer"/>
+                        <optional base="job-info" caption="Api Active Processing Time" javaType="long" name="apiActiveProcessingTime" type="integer"/>
+                        <optional base="job-info" caption="Apex Processing Time" javaType="long" name="apexProcessingTime" type="integer"/>
+                    </attributes>
+                    <attributes caption="Reference or expression" controlled="useReference" controllerType="radioBoolean">
+                        <required caption="Job Info Reference" javaType="java.lang.String" name="ref" type="string"/>
+                    </attributes>
+                </required>
+            </childElements>
+        </create-batch-stream>
+        <create-batch-for-query>
+            <attributes>
+                <optional caption="Query" default="#[payload]" group="General" javaType="java.lang.String" name="query" type="string"/>
+            </attributes>
+            <childElements>
+                <required group="General" name="job-info">
+                    <attributes caption="Define attributes" controlled="complex" controllerType="radioBoolean">
+                        <optional base="job-info" caption="Id" javaType="java.lang.String" name="id" type="string"/>
+                        <optional base="job-info" caption="Operation" javaType="com.sforce.async.OperationEnum" name="operation" type="enum"/>
+                        <optional base="job-info" caption="Object" javaType="java.lang.String" name="object" type="string"/>
+                        <optional base="job-info" caption="Created By Id" javaType="java.lang.String" name="createdById" type="string"/>
+                        <optional base="job-info" caption="Created Date Reference" javaType="java.util.Calendar" name="createdDate" type="string"/>
+                        <optional base="job-info" caption="System Modstamp Reference" javaType="java.util.Calendar" name="systemModstamp" type="string"/>
+                        <optional base="job-info" caption="State" javaType="com.sforce.async.JobStateEnum" name="state" type="enum"/>
+                        <optional base="job-info" caption="External Id Field Name" javaType="java.lang.String" name="externalIdFieldName" type="string"/>
+                        <optional base="job-info" caption="Concurrency Mode" javaType="com.sforce.async.ConcurrencyMode" name="concurrencyMode" type="enum"/>
+                        <optional base="job-info" caption="Fast Path Enabled" javaType="boolean" name="fastPathEnabled" type="boolean"/>
+                        <optional base="job-info" caption="Number Batches Queued" javaType="int" name="numberBatchesQueued" type="integer"/>
+                        <optional base="job-info" caption="Number Batches In Progress" javaType="int" name="numberBatchesInProgress" type="integer"/>
+                        <optional base="job-info" caption="Number Batches Completed" javaType="int" name="numberBatchesCompleted" type="integer"/>
+                        <optional base="job-info" caption="Number Batches Failed" javaType="int" name="numberBatchesFailed" type="integer"/>
+                        <optional base="job-info" caption="Number Batches Total" javaType="int" name="numberBatchesTotal" type="integer"/>
+                        <optional base="job-info" caption="Number Records Processed" javaType="int" name="numberRecordsProcessed" type="integer"/>
+                        <optional base="job-info" caption="Number Retries" javaType="int" name="numberRetries" type="integer"/>
+                        <optional base="job-info" caption="Content Type" javaType="com.sforce.async.ContentType" name="contentType" type="enum"/>
+                        <optional base="job-info" caption="Api Version" javaType="double" name="apiVersion" type="string"/>
+                        <optional base="job-info" caption="Number Records Failed" javaType="int" name="numberRecordsFailed" type="integer"/>
+                        <optional base="job-info" caption="Total Processing Time" javaType="long" name="totalProcessingTime" type="integer"/>
+                        <optional base="job-info" caption="Api Active Processing Time" javaType="long" name="apiActiveProcessingTime" type="integer"/>
+                        <optional base="job-info" caption="Apex Processing Time" javaType="long" name="apexProcessingTime" type="integer"/>
+                    </attributes>
+                    <attributes caption="Reference or expression" controlled="useReference" controllerType="radioBoolean">
+                        <required caption="Job Info Reference" javaType="java.lang.String" name="ref" type="string"/>
+                    </attributes>
+                </required>
+            </childElements>
+        </create-batch-for-query>
+        <create-bulk>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+            </attributes>
+            <childElements/>
+        </create-bulk>
+        <create-single>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+            </attributes>
+            <childElements/>
+        </create-single>
+        <update>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+            </attributes>
+            <childElements/>
+        </update>
+        <update-single>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+            </attributes>
+            <childElements/>
+        </update-single>
+        <update-bulk>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+            </attributes>
+            <childElements/>
+        </update-bulk>
+        <upsert>
+            <attributes>
+                <required caption="External Id Field Name" group="Information" javaType="java.lang.String" name="externalIdFieldName" type="string"/>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+            </attributes>
+            <childElements/>
+        </upsert>
+        <upsert-bulk>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+                <required caption="External Id Field Name" group="Information" javaType="java.lang.String" name="externalIdFieldName" type="string"/>
+            </attributes>
+            <childElements/>
+        </upsert-bulk>
+        <batch-info>
+            <attributes/>
+            <childElements>
+                <optional group="General" name="batch-info">
+                    <attributes caption="Define attributes" controlled="complex" controllerType="radioBoolean">
+                        <optional base="batch-info" caption="Id" javaType="java.lang.String" name="id" type="string"/>
+                        <optional base="batch-info" caption="Job Id" javaType="java.lang.String" name="jobId" type="string"/>
+                        <optional base="batch-info" caption="State" javaType="com.sforce.async.BatchStateEnum" name="state" type="enum"/>
+                        <optional base="batch-info" caption="State Message" javaType="java.lang.String" name="stateMessage" type="string"/>
+                        <optional base="batch-info" caption="Created Date Reference" javaType="java.util.Calendar" name="createdDate" type="string"/>
+                        <optional base="batch-info" caption="System Modstamp Reference" javaType="java.util.Calendar" name="systemModstamp" type="string"/>
+                        <optional base="batch-info" caption="Number Records Processed" javaType="int" name="numberRecordsProcessed" type="integer"/>
+                        <optional base="batch-info" caption="Number Records Failed" javaType="int" name="numberRecordsFailed" type="integer"/>
+                        <optional base="batch-info" caption="Total Processing Time" javaType="long" name="totalProcessingTime" type="integer"/>
+                        <optional base="batch-info" caption="Api Active Processing Time" javaType="long" name="apiActiveProcessingTime" type="integer"/>
+                        <optional base="batch-info" caption="Apex Processing Time" javaType="long" name="apexProcessingTime" type="integer"/>
+                    </attributes>
+                    <attributes caption="Reference or expression" controlled="useReference" controllerType="radioBoolean">
+                        <required caption="Batch Info Reference" javaType="java.lang.String" name="ref" type="string"/>
+                    </attributes>
+                </optional>
+            </childElements>
+        </batch-info>
+        <batch-result>
+            <attributes/>
+            <childElements>
+                <optional group="General" name="batch-info">
+                    <attributes caption="Define attributes" controlled="complex" controllerType="radioBoolean">
+                        <optional base="batch-info" caption="Id" javaType="java.lang.String" name="id" type="string"/>
+                        <optional base="batch-info" caption="Job Id" javaType="java.lang.String" name="jobId" type="string"/>
+                        <optional base="batch-info" caption="State" javaType="com.sforce.async.BatchStateEnum" name="state" type="enum"/>
+                        <optional base="batch-info" caption="State Message" javaType="java.lang.String" name="stateMessage" type="string"/>
+                        <optional base="batch-info" caption="Created Date Reference" javaType="java.util.Calendar" name="createdDate" type="string"/>
+                        <optional base="batch-info" caption="System Modstamp Reference" javaType="java.util.Calendar" name="systemModstamp" type="string"/>
+                        <optional base="batch-info" caption="Number Records Processed" javaType="int" name="numberRecordsProcessed" type="integer"/>
+                        <optional base="batch-info" caption="Number Records Failed" javaType="int" name="numberRecordsFailed" type="integer"/>
+                        <optional base="batch-info" caption="Total Processing Time" javaType="long" name="totalProcessingTime" type="integer"/>
+                        <optional base="batch-info" caption="Api Active Processing Time" javaType="long" name="apiActiveProcessingTime" type="integer"/>
+                        <optional base="batch-info" caption="Apex Processing Time" javaType="long" name="apexProcessingTime" type="integer"/>
+                    </attributes>
+                    <attributes caption="Reference or expression" controlled="useReference" controllerType="radioBoolean">
+                        <required caption="Batch Info Reference" javaType="java.lang.String" name="ref" type="string"/>
+                    </attributes>
+                </optional>
+            </childElements>
+        </batch-result>
+        <batch-result-stream>
+            <attributes/>
+            <childElements>
+                <optional group="General" name="batch-info">
+                    <attributes caption="Define attributes" controlled="complex" controllerType="radioBoolean">
+                        <optional base="batch-info" caption="Id" javaType="java.lang.String" name="id" type="string"/>
+                        <optional base="batch-info" caption="Job Id" javaType="java.lang.String" name="jobId" type="string"/>
+                        <optional base="batch-info" caption="State" javaType="com.sforce.async.BatchStateEnum" name="state" type="enum"/>
+                        <optional base="batch-info" caption="State Message" javaType="java.lang.String" name="stateMessage" type="string"/>
+                        <optional base="batch-info" caption="Created Date Reference" javaType="java.util.Calendar" name="createdDate" type="string"/>
+                        <optional base="batch-info" caption="System Modstamp Reference" javaType="java.util.Calendar" name="systemModstamp" type="string"/>
+                        <optional base="batch-info" caption="Number Records Processed" javaType="int" name="numberRecordsProcessed" type="integer"/>
+                        <optional base="batch-info" caption="Number Records Failed" javaType="int" name="numberRecordsFailed" type="integer"/>
+                        <optional base="batch-info" caption="Total Processing Time" javaType="long" name="totalProcessingTime" type="integer"/>
+                        <optional base="batch-info" caption="Api Active Processing Time" javaType="long" name="apiActiveProcessingTime" type="integer"/>
+                        <optional base="batch-info" caption="Apex Processing Time" javaType="long" name="apexProcessingTime" type="integer"/>
+                    </attributes>
+                    <attributes caption="Reference or expression" controlled="useReference" controllerType="radioBoolean">
+                        <required caption="Batch Info Reference" javaType="java.lang.String" name="ref" type="string"/>
+                    </attributes>
+                </optional>
+            </childElements>
+        </batch-result-stream>
+        <query-result-stream>
+            <attributes/>
+            <childElements>
+                <optional group="General" name="batch-info">
+                    <attributes caption="Define attributes" controlled="complex" controllerType="radioBoolean">
+                        <optional base="batch-info" caption="Id" javaType="java.lang.String" name="id" type="string"/>
+                        <optional base="batch-info" caption="Job Id" javaType="java.lang.String" name="jobId" type="string"/>
+                        <optional base="batch-info" caption="State" javaType="com.sforce.async.BatchStateEnum" name="state" type="enum"/>
+                        <optional base="batch-info" caption="State Message" javaType="java.lang.String" name="stateMessage" type="string"/>
+                        <optional base="batch-info" caption="Created Date Reference" javaType="java.util.Calendar" name="createdDate" type="string"/>
+                        <optional base="batch-info" caption="System Modstamp Reference" javaType="java.util.Calendar" name="systemModstamp" type="string"/>
+                        <optional base="batch-info" caption="Number Records Processed" javaType="int" name="numberRecordsProcessed" type="integer"/>
+                        <optional base="batch-info" caption="Number Records Failed" javaType="int" name="numberRecordsFailed" type="integer"/>
+                        <optional base="batch-info" caption="Total Processing Time" javaType="long" name="totalProcessingTime" type="integer"/>
+                        <optional base="batch-info" caption="Api Active Processing Time" javaType="long" name="apiActiveProcessingTime" type="integer"/>
+                        <optional base="batch-info" caption="Apex Processing Time" javaType="long" name="apexProcessingTime" type="integer"/>
+                    </attributes>
+                    <attributes caption="Reference or expression" controlled="useReference" controllerType="radioBoolean">
+                        <required caption="Batch Info Reference" javaType="java.lang.String" name="ref" type="string"/>
+                    </attributes>
+                </optional>
+            </childElements>
+        </query-result-stream>
+        <describe-global>
+            <attributes/>
+        </describe-global>
+        <retrieve>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+            </attributes>
+            <childElements/>
+        </retrieve>
+        <paginated-query>
+            <attributes>
+                <optional caption="Query" group="Query" javaType="java.lang.String" name="query" type="string"/>
+                <optional caption="Query Result Object Reference" group="General" javaType="org.mule.modules.salesforce.QueryResultObject" name="queryResultObject-ref" type="string"/>
+                <optional caption="With Deleted Records" default="false" group="General" javaType="java.lang.Boolean" name="withDeletedRecords" type="boolean"/>
+            </attributes>
+        </paginated-query>
+        <query>
+            <attributes>
+                <required caption="Query" group="Query" javaType="java.lang.String" name="query" type="element-query"/>
+                <optional caption="Fetch Size" default="100" group="Paging" javaType="java.lang.String" name="fetchSize" type="string"/>
+            </attributes>
+        </query>
+        <non-paginated-query>
+            <attributes>
+                <required caption="Query" group="Query" javaType="java.lang.String" name="query" type="element-query"/>
+            </attributes>
+        </non-paginated-query>
+        <query-all>
+            <attributes>
+                <required caption="Query" group="Query" javaType="java.lang.String" name="query" type="string"/>
+                <optional caption="Fetch Size" default="100" group="Paging" javaType="java.lang.String" name="fetchSize" type="string"/>
+            </attributes>
+        </query-all>
+        <search>
+            <attributes>
+                <required caption="Query" group="Query" javaType="java.lang.String" name="query" type="string"/>
+            </attributes>
+        </search>
+        <query-single>
+            <attributes>
+                <required caption="Query" group="Query" javaType="java.lang.String" name="query" type="string"/>
+            </attributes>
+        </query-single>
+        <convert-lead>
+            <attributes>
+                <required caption="Lead Id" group="General" javaType="java.lang.String" name="leadId" type="string"/>
+                <optional caption="Contact Id" group="General" javaType="java.lang.String" name="contactId" type="string"/>
+                <optional caption="Account Id" group="General" javaType="java.lang.String" name="accountId" type="string"/>
+                <optional caption="Over Write Lead Source" default="false" group="General" javaType="java.lang.Boolean" name="overWriteLeadSource" type="boolean"/>
+                <optional caption="Do Not Create Opportunity" default="false" group="General" javaType="java.lang.Boolean" name="doNotCreateOpportunity" type="boolean"/>
+                <optional caption="Opportunity Name" group="General" javaType="java.lang.String" name="opportunityName" type="string"/>
+                <required caption="Converted Status" group="General" javaType="java.lang.String" name="convertedStatus" type="string"/>
+                <optional caption="Send Email To Owner" default="false" group="General" javaType="java.lang.Boolean" name="sendEmailToOwner" type="boolean"/>
+            </attributes>
+        </convert-lead>
+        <empty-recycle-bin>
+            <attributes/>
+            <childElements/>
+        </empty-recycle-bin>
+        <get-server-timestamp>
+            <attributes/>
+        </get-server-timestamp>
+        <delete>
+            <attributes/>
+            <childElements/>
+        </delete>
+        <hard-delete-bulk>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+            </attributes>
+            <childElements/>
+        </hard-delete-bulk>
+        <get-updated-range>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+                <required caption="Start Time Reference" group="Information" javaType="java.util.Calendar" name="startTime" type="string"/>
+                <optional caption="End Time Reference" group="Information" javaType="java.util.Calendar" name="endTime" type="string"/>
+            </attributes>
+        </get-updated-range>
+        <get-deleted-range>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+                <required caption="Start Time Reference" group="Information" javaType="java.util.Calendar" name="startTime" type="string"/>
+                <optional caption="End Time Reference" group="Information" javaType="java.util.Calendar" name="endTime" type="string"/>
+            </attributes>
+        </get-deleted-range>
+        <describe-sobject>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+            </attributes>
+        </describe-sobject>
+        <get-deleted>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+                <required caption="Duration" group="Information" javaType="int" name="duration" type="integer"/>
+            </attributes>
+        </get-deleted>
+        <get-updated>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+                <required caption="Duration" group="Information" javaType="int" name="duration" type="integer"/>
+            </attributes>
+        </get-updated>
+        <get-updated-objects>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+                <required caption="Initial Time Window" group="Information" javaType="int" name="initialTimeWindow" type="integer"/>
+            </attributes>
+            <childElements/>
+        </get-updated-objects>
+        <reset-updated-objects-timestamp>
+            <attributes>
+                <required caption="sObject Type" group="Information" javaType="java.lang.String" name="type" type="type-chooser"/>
+            </attributes>
+        </reset-updated-objects-timestamp>
+        <set-password>
+            <attributes>
+                <required caption="User ID" group="Information" javaType="java.lang.String" name="userId" type="string"/>
+                <required caption="Password" group="Information" javaType="java.lang.String" name="newPassword" type="string"/>
+            </attributes>
+        </set-password>
+        <publish-topic>
+            <attributes>
+                <required caption="Topic Name" group="Information" javaType="java.lang.String" name="topicName" type="string"/>
+                <required caption="Query" group="Information" javaType="java.lang.String" name="query" type="string"/>
+                <optional caption="Description" group="Information" javaType="java.lang.String" name="description" type="string"/>
+            </attributes>
+        </publish-topic>
+        <get-user-info>
+            <attributes/>
+        </get-user-info>
+        <authorize>
+            <attributes>
+                <optional caption="State" group="General" javaType="java.lang.String" name="state" type="string"/>
+                <required caption="Display" group="Additional Authorization Parameters" javaType="org.mule.modules.salesforce.SalesforceOAuthDisplay" name="display" type="enum"/>
+                <optional caption="Immediate" default="FALSE" group="Additional Authorization Parameters" javaType="org.mule.modules.salesforce.SalesforceOAuthImmediate" name="immediate" type="enum"/>
+                <optional caption="Prompt" group="Additional Authorization Parameters" javaType="org.mule.modules.salesforce.SalesforceOAuthPrompt" name="prompt" type="enum"/>
+                <optional caption="Access Token Id" group="General" javaType="java.lang.String" name="accessTokenId" type="string"/>
+            </attributes>
+        </authorize>
+        <unauthorize>
+            <attributes>
+                <optional caption="Access Token Id" group="General" javaType="java.lang.String" name="accessTokenId" type="string"/>
+            </attributes>
+        </unauthorize>
+    </message-processors>
+    <inbound-endpoint>
+        <subscribe-topic>
+            <attributes>
+                <required name="topic"/>
+            </attributes>
+        </subscribe-topic>
+    </inbound-endpoint>
+    <outbound-endpoints/>
+</connector>
