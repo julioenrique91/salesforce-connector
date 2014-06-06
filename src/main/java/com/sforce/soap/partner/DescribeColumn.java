@@ -91,6 +91,30 @@ public class DescribeColumn implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : sortable of type {http://www.w3.org/2001/XMLSchema}boolean
+     * java type: boolean
+     */
+    private static final com.sforce.ws.bind.TypeInfo sortable__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","sortable","http://www.w3.org/2001/XMLSchema","boolean",1,1,true);
+
+    private boolean sortable__is_set = false;
+
+    private boolean sortable;
+
+    public boolean getSortable() {
+      return sortable;
+    }
+
+    public boolean isSortable() {
+      return sortable;
+    }
+
+    public void setSortable(boolean sortable) {
+      this.sortable = sortable;
+      sortable__is_set = true;
+    }
+
+    /**
      */
     @Override
     public void write(javax.xml.namespace.QName __element,
@@ -108,6 +132,7 @@ public class DescribeColumn implements com.sforce.ws.bind.XMLizable {
        __typeMapper.writeString(__out, format__typeInfo, format, format__is_set);
        __typeMapper.writeString(__out, label__typeInfo, label, label__is_set);
        __typeMapper.writeString(__out, name__typeInfo, name, name__is_set);
+       __typeMapper.writeBoolean(__out, sortable__typeInfo, sortable, sortable__is_set);
     }
 
     @Override
@@ -136,20 +161,21 @@ public class DescribeColumn implements com.sforce.ws.bind.XMLizable {
         if (__typeMapper.verifyElement(__in, name__typeInfo)) {
             setName(__typeMapper.readString(__in, name__typeInfo, java.lang.String.class));
         }
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, sortable__typeInfo)) {
+            setSortable(__typeMapper.readBoolean(__in, sortable__typeInfo, boolean.class));
+        }
     }
 
     @Override
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeColumn ");
-      sb.append(" field=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(field)+"'\n");
-      sb.append(" format=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(format)+"'\n");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
+      sb.append(" field='").append(com.sforce.ws.util.Verbose.toString(field)).append("'\n");
+      sb.append(" format='").append(com.sforce.ws.util.Verbose.toString(format)).append("'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
+      sb.append(" sortable='").append(com.sforce.ws.util.Verbose.toString(sortable)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

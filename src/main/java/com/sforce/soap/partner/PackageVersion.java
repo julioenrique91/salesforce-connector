@@ -117,12 +117,9 @@ public class PackageVersion implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[PackageVersion ");
-      sb.append(" majorNumber=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(majorNumber)+"'\n");
-      sb.append(" minorNumber=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(minorNumber)+"'\n");
-      sb.append(" namespace=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(namespace)+"'\n");
+      sb.append(" majorNumber='").append(com.sforce.ws.util.Verbose.toString(majorNumber)).append("'\n");
+      sb.append(" minorNumber='").append(com.sforce.ws.util.Verbose.toString(minorNumber)).append("'\n");
+      sb.append(" namespace='").append(com.sforce.ws.util.Verbose.toString(namespace)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

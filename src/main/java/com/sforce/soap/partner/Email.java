@@ -217,20 +217,13 @@ public class Email implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[Email ");
-      sb.append(" bccSender=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(bccSender)+"'\n");
-      sb.append(" emailPriority=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(emailPriority)+"'\n");
-      sb.append(" replyTo=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(replyTo)+"'\n");
-      sb.append(" saveAsActivity=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(saveAsActivity)+"'\n");
-      sb.append(" senderDisplayName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(senderDisplayName)+"'\n");
-      sb.append(" subject=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(subject)+"'\n");
-      sb.append(" useSignature=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(useSignature)+"'\n");
+      sb.append(" bccSender='").append(com.sforce.ws.util.Verbose.toString(bccSender)).append("'\n");
+      sb.append(" emailPriority='").append(com.sforce.ws.util.Verbose.toString(emailPriority)).append("'\n");
+      sb.append(" replyTo='").append(com.sforce.ws.util.Verbose.toString(replyTo)).append("'\n");
+      sb.append(" saveAsActivity='").append(com.sforce.ws.util.Verbose.toString(saveAsActivity)).append("'\n");
+      sb.append(" senderDisplayName='").append(com.sforce.ws.util.Verbose.toString(senderDisplayName)).append("'\n");
+      sb.append(" subject='").append(com.sforce.ws.util.Verbose.toString(subject)).append("'\n");
+      sb.append(" useSignature='").append(com.sforce.ws.util.Verbose.toString(useSignature)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

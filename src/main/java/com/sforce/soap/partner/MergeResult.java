@@ -171,16 +171,11 @@ public class MergeResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[MergeResult ");
-      sb.append(" errors=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(errors)+"'\n");
-      sb.append(" id=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(id)+"'\n");
-      sb.append(" mergedRecordIds=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(mergedRecordIds)+"'\n");
-      sb.append(" success=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(success)+"'\n");
-      sb.append(" updatedRelatedIds=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(updatedRelatedIds)+"'\n");
+      sb.append(" errors='").append(com.sforce.ws.util.Verbose.toString(errors)).append("'\n");
+      sb.append(" id='").append(com.sforce.ws.util.Verbose.toString(id)).append("'\n");
+      sb.append(" mergedRecordIds='").append(com.sforce.ws.util.Verbose.toString(mergedRecordIds)).append("'\n");
+      sb.append(" success='").append(com.sforce.ws.util.Verbose.toString(success)).append("'\n");
+      sb.append(" updatedRelatedIds='").append(com.sforce.ws.util.Verbose.toString(updatedRelatedIds)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

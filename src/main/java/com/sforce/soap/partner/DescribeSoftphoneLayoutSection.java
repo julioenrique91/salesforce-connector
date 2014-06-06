@@ -92,10 +92,8 @@ public class DescribeSoftphoneLayoutSection implements com.sforce.ws.bind.XMLiza
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeSoftphoneLayoutSection ");
-      sb.append(" entityApiName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(entityApiName)+"'\n");
-      sb.append(" items=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(items)+"'\n");
+      sb.append(" entityApiName='").append(com.sforce.ws.util.Verbose.toString(entityApiName)).append("'\n");
+      sb.append(" items='").append(com.sforce.ws.util.Verbose.toString(items)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

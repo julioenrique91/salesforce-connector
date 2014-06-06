@@ -71,6 +71,26 @@ public class DescribeLayout implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : highlightsPanelLayoutSection of type {urn:partner.soap.sforce.com}DescribeLayoutSection
+     * java type: com.sforce.soap.partner.DescribeLayoutSection
+     */
+    private static final com.sforce.ws.bind.TypeInfo highlightsPanelLayoutSection__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","highlightsPanelLayoutSection","urn:partner.soap.sforce.com","DescribeLayoutSection",0,1,true);
+
+    private boolean highlightsPanelLayoutSection__is_set = false;
+
+    private com.sforce.soap.partner.DescribeLayoutSection highlightsPanelLayoutSection;
+
+    public com.sforce.soap.partner.DescribeLayoutSection getHighlightsPanelLayoutSection() {
+      return highlightsPanelLayoutSection;
+    }
+
+    public void setHighlightsPanelLayoutSection(com.sforce.soap.partner.DescribeLayoutSection highlightsPanelLayoutSection) {
+      this.highlightsPanelLayoutSection = highlightsPanelLayoutSection;
+      highlightsPanelLayoutSection__is_set = true;
+    }
+
+    /**
      * element : id of type {urn:partner.soap.sforce.com}ID
      * java type: java.lang.String
      */
@@ -111,6 +131,26 @@ public class DescribeLayout implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : relatedContent of type {urn:partner.soap.sforce.com}RelatedContent
+     * java type: com.sforce.soap.partner.RelatedContent
+     */
+    private static final com.sforce.ws.bind.TypeInfo relatedContent__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","relatedContent","urn:partner.soap.sforce.com","RelatedContent",0,1,true);
+
+    private boolean relatedContent__is_set = false;
+
+    private com.sforce.soap.partner.RelatedContent relatedContent;
+
+    public com.sforce.soap.partner.RelatedContent getRelatedContent() {
+      return relatedContent;
+    }
+
+    public void setRelatedContent(com.sforce.soap.partner.RelatedContent relatedContent) {
+      this.relatedContent = relatedContent;
+      relatedContent__is_set = true;
+    }
+
+    /**
      * element : relatedLists of type {urn:partner.soap.sforce.com}RelatedList
      * java type: com.sforce.soap.partner.RelatedList[]
      */
@@ -147,8 +187,10 @@ public class DescribeLayout implements com.sforce.ws.bind.XMLizable {
        __typeMapper.writeObject(__out, buttonLayoutSection__typeInfo, buttonLayoutSection, buttonLayoutSection__is_set);
        __typeMapper.writeObject(__out, detailLayoutSections__typeInfo, detailLayoutSections, detailLayoutSections__is_set);
        __typeMapper.writeObject(__out, editLayoutSections__typeInfo, editLayoutSections, editLayoutSections__is_set);
+       __typeMapper.writeObject(__out, highlightsPanelLayoutSection__typeInfo, highlightsPanelLayoutSection, highlightsPanelLayoutSection__is_set);
        __typeMapper.writeString(__out, id__typeInfo, id, id__is_set);
        __typeMapper.writeObject(__out, quickActionList__typeInfo, quickActionList, quickActionList__is_set);
+       __typeMapper.writeObject(__out, relatedContent__typeInfo, relatedContent, relatedContent__is_set);
        __typeMapper.writeObject(__out, relatedLists__typeInfo, relatedLists, relatedLists__is_set);
     }
 
@@ -175,12 +217,20 @@ public class DescribeLayout implements com.sforce.ws.bind.XMLizable {
             setEditLayoutSections((com.sforce.soap.partner.DescribeLayoutSection[])__typeMapper.readObject(__in, editLayoutSections__typeInfo, com.sforce.soap.partner.DescribeLayoutSection[].class));
         }
         __in.peekTag();
+        if (__typeMapper.isElement(__in, highlightsPanelLayoutSection__typeInfo)) {
+            setHighlightsPanelLayoutSection((com.sforce.soap.partner.DescribeLayoutSection)__typeMapper.readObject(__in, highlightsPanelLayoutSection__typeInfo, com.sforce.soap.partner.DescribeLayoutSection.class));
+        }
+        __in.peekTag();
         if (__typeMapper.verifyElement(__in, id__typeInfo)) {
             setId(__typeMapper.readString(__in, id__typeInfo, java.lang.String.class));
         }
         __in.peekTag();
         if (__typeMapper.isElement(__in, quickActionList__typeInfo)) {
             setQuickActionList((com.sforce.soap.partner.DescribeQuickActionListResult)__typeMapper.readObject(__in, quickActionList__typeInfo, com.sforce.soap.partner.DescribeQuickActionListResult.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, relatedContent__typeInfo)) {
+            setRelatedContent((com.sforce.soap.partner.RelatedContent)__typeMapper.readObject(__in, relatedContent__typeInfo, com.sforce.soap.partner.RelatedContent.class));
         }
         __in.peekTag();
         if (__typeMapper.isElement(__in, relatedLists__typeInfo)) {
@@ -192,18 +242,14 @@ public class DescribeLayout implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeLayout ");
-      sb.append(" buttonLayoutSection=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(buttonLayoutSection)+"'\n");
-      sb.append(" detailLayoutSections=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(detailLayoutSections)+"'\n");
-      sb.append(" editLayoutSections=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(editLayoutSections)+"'\n");
-      sb.append(" id=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(id)+"'\n");
-      sb.append(" quickActionList=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(quickActionList)+"'\n");
-      sb.append(" relatedLists=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(relatedLists)+"'\n");
+      sb.append(" buttonLayoutSection='").append(com.sforce.ws.util.Verbose.toString(buttonLayoutSection)).append("'\n");
+      sb.append(" detailLayoutSections='").append(com.sforce.ws.util.Verbose.toString(detailLayoutSections)).append("'\n");
+      sb.append(" editLayoutSections='").append(com.sforce.ws.util.Verbose.toString(editLayoutSections)).append("'\n");
+      sb.append(" highlightsPanelLayoutSection='").append(com.sforce.ws.util.Verbose.toString(highlightsPanelLayoutSection)).append("'\n");
+      sb.append(" id='").append(com.sforce.ws.util.Verbose.toString(id)).append("'\n");
+      sb.append(" quickActionList='").append(com.sforce.ws.util.Verbose.toString(quickActionList)).append("'\n");
+      sb.append(" relatedContent='").append(com.sforce.ws.util.Verbose.toString(relatedContent)).append("'\n");
+      sb.append(" relatedLists='").append(com.sforce.ws.util.Verbose.toString(relatedLists)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

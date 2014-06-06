@@ -92,10 +92,8 @@ public class SetPassword_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[SetPassword_element ");
-      sb.append(" userId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(userId)+"'\n");
-      sb.append(" password=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(password)+"'\n");
+      sb.append(" userId='").append(com.sforce.ws.util.Verbose.toString(userId)).append("'\n");
+      sb.append(" password='").append(com.sforce.ws.util.Verbose.toString(password)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

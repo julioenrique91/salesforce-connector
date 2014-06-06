@@ -67,8 +67,7 @@ public class EmptyRecycleBinResponse_element implements com.sforce.ws.bind.XMLiz
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[EmptyRecycleBinResponse_element ");
-      sb.append(" result=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(result)+"'\n");
+      sb.append(" result='").append(com.sforce.ws.util.Verbose.toString(result)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

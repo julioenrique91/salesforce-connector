@@ -146,14 +146,10 @@ public class EmailFileAttachment implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[EmailFileAttachment ");
-      sb.append(" body=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(body)+"'\n");
-      sb.append(" contentType=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(contentType)+"'\n");
-      sb.append(" fileName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(fileName)+"'\n");
-      sb.append(" inline=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(inline)+"'\n");
+      sb.append(" body='").append(com.sforce.ws.util.Verbose.toString(body)).append("'\n");
+      sb.append(" contentType='").append(com.sforce.ws.util.Verbose.toString(contentType)).append("'\n");
+      sb.append(" fileName='").append(com.sforce.ws.util.Verbose.toString(fileName)).append("'\n");
+      sb.append(" inline='").append(com.sforce.ws.util.Verbose.toString(inline)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

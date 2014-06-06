@@ -67,8 +67,7 @@ public class Merge_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[Merge_element ");
-      sb.append(" request=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(request)+"'\n");
+      sb.append(" request='").append(com.sforce.ws.util.Verbose.toString(request)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

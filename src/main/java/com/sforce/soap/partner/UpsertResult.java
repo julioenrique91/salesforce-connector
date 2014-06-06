@@ -150,14 +150,10 @@ public class UpsertResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[UpsertResult ");
-      sb.append(" created=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(created)+"'\n");
-      sb.append(" errors=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(errors)+"'\n");
-      sb.append(" id=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(id)+"'\n");
-      sb.append(" success=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(success)+"'\n");
+      sb.append(" created='").append(com.sforce.ws.util.Verbose.toString(created)).append("'\n");
+      sb.append(" errors='").append(com.sforce.ws.util.Verbose.toString(errors)).append("'\n");
+      sb.append(" id='").append(com.sforce.ws.util.Verbose.toString(id)).append("'\n");
+      sb.append(" success='").append(com.sforce.ws.util.Verbose.toString(success)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

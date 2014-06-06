@@ -94,10 +94,8 @@ public class CallOptions_element extends com.sforce.ws.bind.SoapHeaderObject imp
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[CallOptions_element ");
-      sb.append(super.toString());sb.append(" client=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(client)+"'\n");
-      sb.append(" defaultNamespace=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(defaultNamespace)+"'\n");
+      sb.append(super.toString());sb.append(" client='").append(com.sforce.ws.util.Verbose.toString(client)).append("'\n");
+      sb.append(" defaultNamespace='").append(com.sforce.ws.util.Verbose.toString(defaultNamespace)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

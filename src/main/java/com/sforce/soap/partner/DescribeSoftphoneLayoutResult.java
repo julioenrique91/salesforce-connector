@@ -117,12 +117,9 @@ public class DescribeSoftphoneLayoutResult implements com.sforce.ws.bind.XMLizab
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeSoftphoneLayoutResult ");
-      sb.append(" callTypes=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(callTypes)+"'\n");
-      sb.append(" id=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(id)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
+      sb.append(" callTypes='").append(com.sforce.ws.util.Verbose.toString(callTypes)).append("'\n");
+      sb.append(" id='").append(com.sforce.ws.util.Verbose.toString(id)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

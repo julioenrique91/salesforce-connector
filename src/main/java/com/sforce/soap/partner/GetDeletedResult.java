@@ -142,14 +142,10 @@ public class GetDeletedResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[GetDeletedResult ");
-      sb.append(" deletedRecords=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(deletedRecords)+"'\n");
-      sb.append(" earliestDateAvailable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(earliestDateAvailable)+"'\n");
-      sb.append(" latestDateCovered=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(latestDateCovered)+"'\n");
-      sb.append(" sforceReserved=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sforceReserved)+"'\n");
+      sb.append(" deletedRecords='").append(com.sforce.ws.util.Verbose.toString(deletedRecords)).append("'\n");
+      sb.append(" earliestDateAvailable='").append(com.sforce.ws.util.Verbose.toString(earliestDateAvailable)).append("'\n");
+      sb.append(" latestDateCovered='").append(com.sforce.ws.util.Verbose.toString(latestDateCovered)).append("'\n");
+      sb.append(" sforceReserved='").append(com.sforce.ws.util.Verbose.toString(sforceReserved)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

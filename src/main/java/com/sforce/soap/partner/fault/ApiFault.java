@@ -92,10 +92,8 @@ public class ApiFault extends com.sforce.ws.SoapFaultException implements com.sf
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[ApiFault ");
-      sb.append(" exceptionCode=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(exceptionCode)+"'\n");
-      sb.append(" exceptionMessage=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(exceptionMessage)+"'\n");
+      sb.append(" exceptionCode='").append(com.sforce.ws.util.Verbose.toString(exceptionCode)).append("'\n");
+      sb.append(" exceptionMessage='").append(com.sforce.ws.util.Verbose.toString(exceptionMessage)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

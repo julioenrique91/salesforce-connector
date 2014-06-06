@@ -67,8 +67,7 @@ public class PerformQuickActions_element implements com.sforce.ws.bind.XMLizable
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[PerformQuickActions_element ");
-      sb.append(" quickActions=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(quickActions)+"'\n");
+      sb.append(" quickActions='").append(com.sforce.ws.util.Verbose.toString(quickActions)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

@@ -92,10 +92,8 @@ public class Upsert_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[Upsert_element ");
-      sb.append(" externalIDFieldName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(externalIDFieldName)+"'\n");
-      sb.append(" sObjects=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sObjects)+"'\n");
+      sb.append(" externalIDFieldName='").append(com.sforce.ws.util.Verbose.toString(externalIDFieldName)).append("'\n");
+      sb.append(" sObjects='").append(com.sforce.ws.util.Verbose.toString(sObjects)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

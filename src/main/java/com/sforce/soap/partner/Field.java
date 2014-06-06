@@ -375,6 +375,26 @@ public class Field implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : extraTypeInfo of type {http://www.w3.org/2001/XMLSchema}string
+     * java type: java.lang.String
+     */
+    private static final com.sforce.ws.bind.TypeInfo extraTypeInfo__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","extraTypeInfo","http://www.w3.org/2001/XMLSchema","string",0,1,true);
+
+    private boolean extraTypeInfo__is_set = false;
+
+    private java.lang.String extraTypeInfo;
+
+    public java.lang.String getExtraTypeInfo() {
+      return extraTypeInfo;
+    }
+
+    public void setExtraTypeInfo(java.lang.String extraTypeInfo) {
+      this.extraTypeInfo = extraTypeInfo;
+      extraTypeInfo__is_set = true;
+    }
+
+    /**
      * element : filterable of type {http://www.w3.org/2001/XMLSchema}boolean
      * java type: boolean
      */
@@ -531,6 +551,46 @@ public class Field implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : mask of type {http://www.w3.org/2001/XMLSchema}string
+     * java type: java.lang.String
+     */
+    private static final com.sforce.ws.bind.TypeInfo mask__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","mask","http://www.w3.org/2001/XMLSchema","string",0,1,true);
+
+    private boolean mask__is_set = false;
+
+    private java.lang.String mask;
+
+    public java.lang.String getMask() {
+      return mask;
+    }
+
+    public void setMask(java.lang.String mask) {
+      this.mask = mask;
+      mask__is_set = true;
+    }
+
+    /**
+     * element : maskType of type {http://www.w3.org/2001/XMLSchema}string
+     * java type: java.lang.String
+     */
+    private static final com.sforce.ws.bind.TypeInfo maskType__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","maskType","http://www.w3.org/2001/XMLSchema","string",0,1,true);
+
+    private boolean maskType__is_set = false;
+
+    private java.lang.String maskType;
+
+    public java.lang.String getMaskType() {
+      return maskType;
+    }
+
+    public void setMaskType(java.lang.String maskType) {
+      this.maskType = maskType;
+      maskType__is_set = true;
+    }
+
+    /**
      * element : name of type {http://www.w3.org/2001/XMLSchema}string
      * java type: java.lang.String
      */
@@ -684,6 +744,30 @@ public class Field implements com.sforce.ws.bind.XMLizable {
     public void setPrecision(int precision) {
       this.precision = precision;
       precision__is_set = true;
+    }
+
+    /**
+     * element : queryByDistance of type {http://www.w3.org/2001/XMLSchema}boolean
+     * java type: boolean
+     */
+    private static final com.sforce.ws.bind.TypeInfo queryByDistance__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","queryByDistance","http://www.w3.org/2001/XMLSchema","boolean",1,1,true);
+
+    private boolean queryByDistance__is_set = false;
+
+    private boolean queryByDistance;
+
+    public boolean getQueryByDistance() {
+      return queryByDistance;
+    }
+
+    public boolean isQueryByDistance() {
+      return queryByDistance;
+    }
+
+    public void setQueryByDistance(boolean queryByDistance) {
+      this.queryByDistance = queryByDistance;
+      queryByDistance__is_set = true;
     }
 
     /**
@@ -980,6 +1064,7 @@ public class Field implements com.sforce.ws.bind.XMLizable {
        __typeMapper.writeInt(__out, digits__typeInfo, digits, digits__is_set);
        __typeMapper.writeBoolean(__out, displayLocationInDecimal__typeInfo, displayLocationInDecimal, displayLocationInDecimal__is_set);
        __typeMapper.writeBoolean(__out, externalId__typeInfo, externalId, externalId__is_set);
+       __typeMapper.writeString(__out, extraTypeInfo__typeInfo, extraTypeInfo, extraTypeInfo__is_set);
        __typeMapper.writeBoolean(__out, filterable__typeInfo, filterable, filterable__is_set);
        __typeMapper.writeBoolean(__out, groupable__typeInfo, groupable, groupable__is_set);
        __typeMapper.writeBoolean(__out, htmlFormatted__typeInfo, htmlFormatted, htmlFormatted__is_set);
@@ -987,6 +1072,8 @@ public class Field implements com.sforce.ws.bind.XMLizable {
        __typeMapper.writeString(__out, inlineHelpText__typeInfo, inlineHelpText, inlineHelpText__is_set);
        __typeMapper.writeString(__out, label__typeInfo, label, label__is_set);
        __typeMapper.writeInt(__out, length__typeInfo, length, length__is_set);
+       __typeMapper.writeString(__out, mask__typeInfo, mask, mask__is_set);
+       __typeMapper.writeString(__out, maskType__typeInfo, maskType, maskType__is_set);
        __typeMapper.writeString(__out, name__typeInfo, name, name__is_set);
        __typeMapper.writeBoolean(__out, nameField__typeInfo, nameField, nameField__is_set);
        __typeMapper.writeBoolean(__out, namePointing__typeInfo, namePointing, namePointing__is_set);
@@ -994,6 +1081,7 @@ public class Field implements com.sforce.ws.bind.XMLizable {
        __typeMapper.writeBoolean(__out, permissionable__typeInfo, permissionable, permissionable__is_set);
        __typeMapper.writeObject(__out, picklistValues__typeInfo, picklistValues, picklistValues__is_set);
        __typeMapper.writeInt(__out, precision__typeInfo, precision, precision__is_set);
+       __typeMapper.writeBoolean(__out, queryByDistance__typeInfo, queryByDistance, queryByDistance__is_set);
        __typeMapper.writeObject(__out, referenceTo__typeInfo, referenceTo, referenceTo__is_set);
        __typeMapper.writeString(__out, relationshipName__typeInfo, relationshipName, relationshipName__is_set);
        __typeMapper.writeInt(__out, relationshipOrder__typeInfo, relationshipOrder, relationshipOrder__is_set);
@@ -1083,6 +1171,10 @@ public class Field implements com.sforce.ws.bind.XMLizable {
             setExternalId(__typeMapper.readBoolean(__in, externalId__typeInfo, boolean.class));
         }
         __in.peekTag();
+        if (__typeMapper.isElement(__in, extraTypeInfo__typeInfo)) {
+            setExtraTypeInfo(__typeMapper.readString(__in, extraTypeInfo__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
         if (__typeMapper.verifyElement(__in, filterable__typeInfo)) {
             setFilterable(__typeMapper.readBoolean(__in, filterable__typeInfo, boolean.class));
         }
@@ -1111,6 +1203,14 @@ public class Field implements com.sforce.ws.bind.XMLizable {
             setLength((int)__typeMapper.readInt(__in, length__typeInfo, int.class));
         }
         __in.peekTag();
+        if (__typeMapper.isElement(__in, mask__typeInfo)) {
+            setMask(__typeMapper.readString(__in, mask__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, maskType__typeInfo)) {
+            setMaskType(__typeMapper.readString(__in, maskType__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
         if (__typeMapper.verifyElement(__in, name__typeInfo)) {
             setName(__typeMapper.readString(__in, name__typeInfo, java.lang.String.class));
         }
@@ -1137,6 +1237,10 @@ public class Field implements com.sforce.ws.bind.XMLizable {
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, precision__typeInfo)) {
             setPrecision((int)__typeMapper.readInt(__in, precision__typeInfo, int.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, queryByDistance__typeInfo)) {
+            setQueryByDistance(__typeMapper.readBoolean(__in, queryByDistance__typeInfo, boolean.class));
         }
         __in.peekTag();
         if (__typeMapper.isElement(__in, referenceTo__typeInfo)) {
@@ -1192,90 +1296,52 @@ public class Field implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[Field ");
-      sb.append(" autoNumber=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(autoNumber)+"'\n");
-      sb.append(" byteLength=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(byteLength)+"'\n");
-      sb.append(" calculated=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(calculated)+"'\n");
-      sb.append(" calculatedFormula=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(calculatedFormula)+"'\n");
-      sb.append(" cascadeDelete=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(cascadeDelete)+"'\n");
-      sb.append(" caseSensitive=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(caseSensitive)+"'\n");
-      sb.append(" controllerName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(controllerName)+"'\n");
-      sb.append(" createable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(createable)+"'\n");
-      sb.append(" custom=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(custom)+"'\n");
-      sb.append(" defaultValueFormula=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(defaultValueFormula)+"'\n");
-      sb.append(" defaultedOnCreate=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(defaultedOnCreate)+"'\n");
-      sb.append(" dependentPicklist=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(dependentPicklist)+"'\n");
-      sb.append(" deprecatedAndHidden=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(deprecatedAndHidden)+"'\n");
-      sb.append(" digits=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(digits)+"'\n");
-      sb.append(" displayLocationInDecimal=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(displayLocationInDecimal)+"'\n");
-      sb.append(" externalId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(externalId)+"'\n");
-      sb.append(" filterable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(filterable)+"'\n");
-      sb.append(" groupable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(groupable)+"'\n");
-      sb.append(" htmlFormatted=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(htmlFormatted)+"'\n");
-      sb.append(" idLookup=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(idLookup)+"'\n");
-      sb.append(" inlineHelpText=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(inlineHelpText)+"'\n");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" length=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(length)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
-      sb.append(" nameField=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(nameField)+"'\n");
-      sb.append(" namePointing=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(namePointing)+"'\n");
-      sb.append(" nillable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(nillable)+"'\n");
-      sb.append(" permissionable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(permissionable)+"'\n");
-      sb.append(" picklistValues=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(picklistValues)+"'\n");
-      sb.append(" precision=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(precision)+"'\n");
-      sb.append(" referenceTo=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(referenceTo)+"'\n");
-      sb.append(" relationshipName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(relationshipName)+"'\n");
-      sb.append(" relationshipOrder=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(relationshipOrder)+"'\n");
-      sb.append(" restrictedDelete=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(restrictedDelete)+"'\n");
-      sb.append(" restrictedPicklist=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(restrictedPicklist)+"'\n");
-      sb.append(" scale=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(scale)+"'\n");
-      sb.append(" soapType=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(soapType)+"'\n");
-      sb.append(" sortable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sortable)+"'\n");
-      sb.append(" type=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(type)+"'\n");
-      sb.append(" unique=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(unique)+"'\n");
-      sb.append(" updateable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(updateable)+"'\n");
-      sb.append(" writeRequiresMasterRead=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(writeRequiresMasterRead)+"'\n");
+      sb.append(" autoNumber='").append(com.sforce.ws.util.Verbose.toString(autoNumber)).append("'\n");
+      sb.append(" byteLength='").append(com.sforce.ws.util.Verbose.toString(byteLength)).append("'\n");
+      sb.append(" calculated='").append(com.sforce.ws.util.Verbose.toString(calculated)).append("'\n");
+      sb.append(" calculatedFormula='").append(com.sforce.ws.util.Verbose.toString(calculatedFormula)).append("'\n");
+      sb.append(" cascadeDelete='").append(com.sforce.ws.util.Verbose.toString(cascadeDelete)).append("'\n");
+      sb.append(" caseSensitive='").append(com.sforce.ws.util.Verbose.toString(caseSensitive)).append("'\n");
+      sb.append(" controllerName='").append(com.sforce.ws.util.Verbose.toString(controllerName)).append("'\n");
+      sb.append(" createable='").append(com.sforce.ws.util.Verbose.toString(createable)).append("'\n");
+      sb.append(" custom='").append(com.sforce.ws.util.Verbose.toString(custom)).append("'\n");
+      sb.append(" defaultValueFormula='").append(com.sforce.ws.util.Verbose.toString(defaultValueFormula)).append("'\n");
+      sb.append(" defaultedOnCreate='").append(com.sforce.ws.util.Verbose.toString(defaultedOnCreate)).append("'\n");
+      sb.append(" dependentPicklist='").append(com.sforce.ws.util.Verbose.toString(dependentPicklist)).append("'\n");
+      sb.append(" deprecatedAndHidden='").append(com.sforce.ws.util.Verbose.toString(deprecatedAndHidden)).append("'\n");
+      sb.append(" digits='").append(com.sforce.ws.util.Verbose.toString(digits)).append("'\n");
+      sb.append(" displayLocationInDecimal='").append(com.sforce.ws.util.Verbose.toString(displayLocationInDecimal)).append("'\n");
+      sb.append(" externalId='").append(com.sforce.ws.util.Verbose.toString(externalId)).append("'\n");
+      sb.append(" extraTypeInfo='").append(com.sforce.ws.util.Verbose.toString(extraTypeInfo)).append("'\n");
+      sb.append(" filterable='").append(com.sforce.ws.util.Verbose.toString(filterable)).append("'\n");
+      sb.append(" groupable='").append(com.sforce.ws.util.Verbose.toString(groupable)).append("'\n");
+      sb.append(" htmlFormatted='").append(com.sforce.ws.util.Verbose.toString(htmlFormatted)).append("'\n");
+      sb.append(" idLookup='").append(com.sforce.ws.util.Verbose.toString(idLookup)).append("'\n");
+      sb.append(" inlineHelpText='").append(com.sforce.ws.util.Verbose.toString(inlineHelpText)).append("'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" length='").append(com.sforce.ws.util.Verbose.toString(length)).append("'\n");
+      sb.append(" mask='").append(com.sforce.ws.util.Verbose.toString(mask)).append("'\n");
+      sb.append(" maskType='").append(com.sforce.ws.util.Verbose.toString(maskType)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
+      sb.append(" nameField='").append(com.sforce.ws.util.Verbose.toString(nameField)).append("'\n");
+      sb.append(" namePointing='").append(com.sforce.ws.util.Verbose.toString(namePointing)).append("'\n");
+      sb.append(" nillable='").append(com.sforce.ws.util.Verbose.toString(nillable)).append("'\n");
+      sb.append(" permissionable='").append(com.sforce.ws.util.Verbose.toString(permissionable)).append("'\n");
+      sb.append(" picklistValues='").append(com.sforce.ws.util.Verbose.toString(picklistValues)).append("'\n");
+      sb.append(" precision='").append(com.sforce.ws.util.Verbose.toString(precision)).append("'\n");
+      sb.append(" queryByDistance='").append(com.sforce.ws.util.Verbose.toString(queryByDistance)).append("'\n");
+      sb.append(" referenceTo='").append(com.sforce.ws.util.Verbose.toString(referenceTo)).append("'\n");
+      sb.append(" relationshipName='").append(com.sforce.ws.util.Verbose.toString(relationshipName)).append("'\n");
+      sb.append(" relationshipOrder='").append(com.sforce.ws.util.Verbose.toString(relationshipOrder)).append("'\n");
+      sb.append(" restrictedDelete='").append(com.sforce.ws.util.Verbose.toString(restrictedDelete)).append("'\n");
+      sb.append(" restrictedPicklist='").append(com.sforce.ws.util.Verbose.toString(restrictedPicklist)).append("'\n");
+      sb.append(" scale='").append(com.sforce.ws.util.Verbose.toString(scale)).append("'\n");
+      sb.append(" soapType='").append(com.sforce.ws.util.Verbose.toString(soapType)).append("'\n");
+      sb.append(" sortable='").append(com.sforce.ws.util.Verbose.toString(sortable)).append("'\n");
+      sb.append(" type='").append(com.sforce.ws.util.Verbose.toString(type)).append("'\n");
+      sb.append(" unique='").append(com.sforce.ws.util.Verbose.toString(unique)).append("'\n");
+      sb.append(" updateable='").append(com.sforce.ws.util.Verbose.toString(updateable)).append("'\n");
+      sb.append(" writeRequiresMasterRead='").append(com.sforce.ws.util.Verbose.toString(writeRequiresMasterRead)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

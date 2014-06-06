@@ -225,20 +225,13 @@ public class LoginResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[LoginResult ");
-      sb.append(" metadataServerUrl=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(metadataServerUrl)+"'\n");
-      sb.append(" passwordExpired=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(passwordExpired)+"'\n");
-      sb.append(" sandbox=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sandbox)+"'\n");
-      sb.append(" serverUrl=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(serverUrl)+"'\n");
-      sb.append(" sessionId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sessionId)+"'\n");
-      sb.append(" userId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(userId)+"'\n");
-      sb.append(" userInfo=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(userInfo)+"'\n");
+      sb.append(" metadataServerUrl='").append(com.sforce.ws.util.Verbose.toString(metadataServerUrl)).append("'\n");
+      sb.append(" passwordExpired='").append(com.sforce.ws.util.Verbose.toString(passwordExpired)).append("'\n");
+      sb.append(" sandbox='").append(com.sforce.ws.util.Verbose.toString(sandbox)).append("'\n");
+      sb.append(" serverUrl='").append(com.sforce.ws.util.Verbose.toString(serverUrl)).append("'\n");
+      sb.append(" sessionId='").append(com.sforce.ws.util.Verbose.toString(sessionId)).append("'\n");
+      sb.append(" userId='").append(com.sforce.ws.util.Verbose.toString(userId)).append("'\n");
+      sb.append(" userInfo='").append(com.sforce.ws.util.Verbose.toString(userInfo)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

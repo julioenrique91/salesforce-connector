@@ -11,6 +11,26 @@ public class RelatedList implements com.sforce.ws.bind.XMLizable {
     public RelatedList() {}
 
     /**
+     * element : accessLevelRequiredForCreate of type {urn:partner.soap.sforce.com}ShareAccessLevel
+     * java type: com.sforce.soap.partner.ShareAccessLevel
+     */
+    private static final com.sforce.ws.bind.TypeInfo accessLevelRequiredForCreate__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","accessLevelRequiredForCreate","urn:partner.soap.sforce.com","ShareAccessLevel",1,1,true);
+
+    private boolean accessLevelRequiredForCreate__is_set = false;
+
+    private com.sforce.soap.partner.ShareAccessLevel accessLevelRequiredForCreate;
+
+    public com.sforce.soap.partner.ShareAccessLevel getAccessLevelRequiredForCreate() {
+      return accessLevelRequiredForCreate;
+    }
+
+    public void setAccessLevelRequiredForCreate(com.sforce.soap.partner.ShareAccessLevel accessLevelRequiredForCreate) {
+      this.accessLevelRequiredForCreate = accessLevelRequiredForCreate;
+      accessLevelRequiredForCreate__is_set = true;
+    }
+
+    /**
      * element : columns of type {urn:partner.soap.sforce.com}RelatedListColumn
      * java type: com.sforce.soap.partner.RelatedListColumn[]
      */
@@ -188,6 +208,7 @@ public class RelatedList implements com.sforce.ws.bind.XMLizable {
     protected void writeFields(com.sforce.ws.parser.XmlOutputStream __out,
          com.sforce.ws.bind.TypeMapper __typeMapper)
          throws java.io.IOException {
+       __typeMapper.writeObject(__out, accessLevelRequiredForCreate__typeInfo, accessLevelRequiredForCreate, accessLevelRequiredForCreate__is_set);
        __typeMapper.writeObject(__out, columns__typeInfo, columns, columns__is_set);
        __typeMapper.writeBoolean(__out, custom__typeInfo, custom, custom__is_set);
        __typeMapper.writeString(__out, field__typeInfo, field, field__is_set);
@@ -208,6 +229,10 @@ public class RelatedList implements com.sforce.ws.bind.XMLizable {
 
     protected void loadFields(com.sforce.ws.parser.XmlInputStream __in,
         com.sforce.ws.bind.TypeMapper __typeMapper) throws java.io.IOException, com.sforce.ws.ConnectionException {
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, accessLevelRequiredForCreate__typeInfo)) {
+            setAccessLevelRequiredForCreate((com.sforce.soap.partner.ShareAccessLevel)__typeMapper.readObject(__in, accessLevelRequiredForCreate__typeInfo, com.sforce.soap.partner.ShareAccessLevel.class));
+        }
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, columns__typeInfo)) {
             setColumns((com.sforce.soap.partner.RelatedListColumn[])__typeMapper.readObject(__in, columns__typeInfo, com.sforce.soap.partner.RelatedListColumn[].class));
@@ -246,22 +271,15 @@ public class RelatedList implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[RelatedList ");
-      sb.append(" columns=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(columns)+"'\n");
-      sb.append(" custom=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(custom)+"'\n");
-      sb.append(" field=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(field)+"'\n");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" limitRows=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(limitRows)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
-      sb.append(" sobject=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sobject)+"'\n");
-      sb.append(" sort=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sort)+"'\n");
+      sb.append(" accessLevelRequiredForCreate='").append(com.sforce.ws.util.Verbose.toString(accessLevelRequiredForCreate)).append("'\n");
+      sb.append(" columns='").append(com.sforce.ws.util.Verbose.toString(columns)).append("'\n");
+      sb.append(" custom='").append(com.sforce.ws.util.Verbose.toString(custom)).append("'\n");
+      sb.append(" field='").append(com.sforce.ws.util.Verbose.toString(field)).append("'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" limitRows='").append(com.sforce.ws.util.Verbose.toString(limitRows)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
+      sb.append(" sobject='").append(com.sforce.ws.util.Verbose.toString(sobject)).append("'\n");
+      sb.append(" sort='").append(com.sforce.ws.util.Verbose.toString(sort)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

@@ -67,8 +67,7 @@ public class ResetPassword_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[ResetPassword_element ");
-      sb.append(" userId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(userId)+"'\n");
+      sb.append(" userId='").append(com.sforce.ws.util.Verbose.toString(userId)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

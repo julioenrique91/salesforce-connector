@@ -92,10 +92,8 @@ public class DescribeSearchScopeOrderResult implements com.sforce.ws.bind.XMLiza
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeSearchScopeOrderResult ");
-      sb.append(" keyPrefix=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(keyPrefix)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
+      sb.append(" keyPrefix='").append(com.sforce.ws.util.Verbose.toString(keyPrefix)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

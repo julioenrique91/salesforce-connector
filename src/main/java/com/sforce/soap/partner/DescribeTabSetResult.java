@@ -171,16 +171,11 @@ public class DescribeTabSetResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeTabSetResult ");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" logoUrl=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(logoUrl)+"'\n");
-      sb.append(" namespace=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(namespace)+"'\n");
-      sb.append(" selected=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(selected)+"'\n");
-      sb.append(" tabs=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(tabs)+"'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" logoUrl='").append(com.sforce.ws.util.Verbose.toString(logoUrl)).append("'\n");
+      sb.append(" namespace='").append(com.sforce.ws.util.Verbose.toString(namespace)).append("'\n");
+      sb.append(" selected='").append(com.sforce.ws.util.Verbose.toString(selected)).append("'\n");
+      sb.append(" tabs='").append(com.sforce.ws.util.Verbose.toString(tabs)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

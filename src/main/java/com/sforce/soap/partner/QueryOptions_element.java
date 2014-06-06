@@ -69,8 +69,7 @@ public class QueryOptions_element extends com.sforce.ws.bind.SoapHeaderObject im
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[QueryOptions_element ");
-      sb.append(super.toString());sb.append(" batchSize=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(batchSize)+"'\n");
+      sb.append(super.toString());sb.append(" batchSize='").append(com.sforce.ws.util.Verbose.toString(batchSize)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

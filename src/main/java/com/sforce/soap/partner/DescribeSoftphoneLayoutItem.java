@@ -67,8 +67,7 @@ public class DescribeSoftphoneLayoutItem implements com.sforce.ws.bind.XMLizable
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeSoftphoneLayoutItem ");
-      sb.append(" itemApiName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(itemApiName)+"'\n");
+      sb.append(" itemApiName='").append(com.sforce.ws.util.Verbose.toString(itemApiName)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

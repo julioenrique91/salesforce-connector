@@ -69,8 +69,7 @@ public class UserTerritoryDeleteHeader_element extends com.sforce.ws.bind.SoapHe
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[UserTerritoryDeleteHeader_element ");
-      sb.append(super.toString());sb.append(" transferToUserId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(transferToUserId)+"'\n");
+      sb.append(super.toString());sb.append(" transferToUserId='").append(com.sforce.ws.util.Verbose.toString(transferToUserId)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

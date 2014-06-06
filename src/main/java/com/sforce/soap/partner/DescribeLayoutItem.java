@@ -179,16 +179,11 @@ public class DescribeLayoutItem implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeLayoutItem ");
-      sb.append(" editable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(editable)+"'\n");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" layoutComponents=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(layoutComponents)+"'\n");
-      sb.append(" placeholder=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(placeholder)+"'\n");
-      sb.append(" required=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(required)+"'\n");
+      sb.append(" editable='").append(com.sforce.ws.util.Verbose.toString(editable)).append("'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" layoutComponents='").append(com.sforce.ws.util.Verbose.toString(layoutComponents)).append("'\n");
+      sb.append(" placeholder='").append(com.sforce.ws.util.Verbose.toString(placeholder)).append("'\n");
+      sb.append(" required='").append(com.sforce.ws.util.Verbose.toString(required)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

@@ -55,6 +55,30 @@ public class DescribeSObjectResult implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : compactLayoutable of type {http://www.w3.org/2001/XMLSchema}boolean
+     * java type: boolean
+     */
+    private static final com.sforce.ws.bind.TypeInfo compactLayoutable__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","compactLayoutable","http://www.w3.org/2001/XMLSchema","boolean",1,1,true);
+
+    private boolean compactLayoutable__is_set = false;
+
+    private boolean compactLayoutable;
+
+    public boolean getCompactLayoutable() {
+      return compactLayoutable;
+    }
+
+    public boolean isCompactLayoutable() {
+      return compactLayoutable;
+    }
+
+    public void setCompactLayoutable(boolean compactLayoutable) {
+      this.compactLayoutable = compactLayoutable;
+      compactLayoutable__is_set = true;
+    }
+
+    /**
      * element : createable of type {http://www.w3.org/2001/XMLSchema}boolean
      * java type: boolean
      */
@@ -634,6 +658,7 @@ public class DescribeSObjectResult implements com.sforce.ws.bind.XMLizable {
          throws java.io.IOException {
        __typeMapper.writeBoolean(__out, activateable__typeInfo, activateable, activateable__is_set);
        __typeMapper.writeObject(__out, childRelationships__typeInfo, childRelationships, childRelationships__is_set);
+       __typeMapper.writeBoolean(__out, compactLayoutable__typeInfo, compactLayoutable, compactLayoutable__is_set);
        __typeMapper.writeBoolean(__out, createable__typeInfo, createable, createable__is_set);
        __typeMapper.writeBoolean(__out, custom__typeInfo, custom, custom__is_set);
        __typeMapper.writeBoolean(__out, customSetting__typeInfo, customSetting, customSetting__is_set);
@@ -678,6 +703,10 @@ public class DescribeSObjectResult implements com.sforce.ws.bind.XMLizable {
         __in.peekTag();
         if (__typeMapper.isElement(__in, childRelationships__typeInfo)) {
             setChildRelationships((com.sforce.soap.partner.ChildRelationship[])__typeMapper.readObject(__in, childRelationships__typeInfo, com.sforce.soap.partner.ChildRelationship[].class));
+        }
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, compactLayoutable__typeInfo)) {
+            setCompactLayoutable(__typeMapper.readBoolean(__in, compactLayoutable__typeInfo, boolean.class));
         }
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, createable__typeInfo)) {
@@ -785,60 +814,34 @@ public class DescribeSObjectResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeSObjectResult ");
-      sb.append(" activateable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(activateable)+"'\n");
-      sb.append(" childRelationships=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(childRelationships)+"'\n");
-      sb.append(" createable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(createable)+"'\n");
-      sb.append(" custom=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(custom)+"'\n");
-      sb.append(" customSetting=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(customSetting)+"'\n");
-      sb.append(" deletable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(deletable)+"'\n");
-      sb.append(" deprecatedAndHidden=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(deprecatedAndHidden)+"'\n");
-      sb.append(" feedEnabled=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(feedEnabled)+"'\n");
-      sb.append(" fields=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(fields)+"'\n");
-      sb.append(" keyPrefix=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(keyPrefix)+"'\n");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" labelPlural=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(labelPlural)+"'\n");
-      sb.append(" layoutable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(layoutable)+"'\n");
-      sb.append(" mergeable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(mergeable)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
-      sb.append(" queryable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(queryable)+"'\n");
-      sb.append(" recordTypeInfos=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(recordTypeInfos)+"'\n");
-      sb.append(" replicateable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(replicateable)+"'\n");
-      sb.append(" retrieveable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(retrieveable)+"'\n");
-      sb.append(" searchLayoutable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(searchLayoutable)+"'\n");
-      sb.append(" searchable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(searchable)+"'\n");
-      sb.append(" triggerable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(triggerable)+"'\n");
-      sb.append(" undeletable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(undeletable)+"'\n");
-      sb.append(" updateable=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(updateable)+"'\n");
-      sb.append(" urlDetail=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(urlDetail)+"'\n");
-      sb.append(" urlEdit=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(urlEdit)+"'\n");
-      sb.append(" urlNew=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(urlNew)+"'\n");
+      sb.append(" activateable='").append(com.sforce.ws.util.Verbose.toString(activateable)).append("'\n");
+      sb.append(" childRelationships='").append(com.sforce.ws.util.Verbose.toString(childRelationships)).append("'\n");
+      sb.append(" compactLayoutable='").append(com.sforce.ws.util.Verbose.toString(compactLayoutable)).append("'\n");
+      sb.append(" createable='").append(com.sforce.ws.util.Verbose.toString(createable)).append("'\n");
+      sb.append(" custom='").append(com.sforce.ws.util.Verbose.toString(custom)).append("'\n");
+      sb.append(" customSetting='").append(com.sforce.ws.util.Verbose.toString(customSetting)).append("'\n");
+      sb.append(" deletable='").append(com.sforce.ws.util.Verbose.toString(deletable)).append("'\n");
+      sb.append(" deprecatedAndHidden='").append(com.sforce.ws.util.Verbose.toString(deprecatedAndHidden)).append("'\n");
+      sb.append(" feedEnabled='").append(com.sforce.ws.util.Verbose.toString(feedEnabled)).append("'\n");
+      sb.append(" fields='").append(com.sforce.ws.util.Verbose.toString(fields)).append("'\n");
+      sb.append(" keyPrefix='").append(com.sforce.ws.util.Verbose.toString(keyPrefix)).append("'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" labelPlural='").append(com.sforce.ws.util.Verbose.toString(labelPlural)).append("'\n");
+      sb.append(" layoutable='").append(com.sforce.ws.util.Verbose.toString(layoutable)).append("'\n");
+      sb.append(" mergeable='").append(com.sforce.ws.util.Verbose.toString(mergeable)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
+      sb.append(" queryable='").append(com.sforce.ws.util.Verbose.toString(queryable)).append("'\n");
+      sb.append(" recordTypeInfos='").append(com.sforce.ws.util.Verbose.toString(recordTypeInfos)).append("'\n");
+      sb.append(" replicateable='").append(com.sforce.ws.util.Verbose.toString(replicateable)).append("'\n");
+      sb.append(" retrieveable='").append(com.sforce.ws.util.Verbose.toString(retrieveable)).append("'\n");
+      sb.append(" searchLayoutable='").append(com.sforce.ws.util.Verbose.toString(searchLayoutable)).append("'\n");
+      sb.append(" searchable='").append(com.sforce.ws.util.Verbose.toString(searchable)).append("'\n");
+      sb.append(" triggerable='").append(com.sforce.ws.util.Verbose.toString(triggerable)).append("'\n");
+      sb.append(" undeletable='").append(com.sforce.ws.util.Verbose.toString(undeletable)).append("'\n");
+      sb.append(" updateable='").append(com.sforce.ws.util.Verbose.toString(updateable)).append("'\n");
+      sb.append(" urlDetail='").append(com.sforce.ws.util.Verbose.toString(urlDetail)).append("'\n");
+      sb.append(" urlEdit='").append(com.sforce.ws.util.Verbose.toString(urlEdit)).append("'\n");
+      sb.append(" urlNew='").append(com.sforce.ws.util.Verbose.toString(urlNew)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

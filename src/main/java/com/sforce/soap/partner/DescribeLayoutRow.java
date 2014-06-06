@@ -92,10 +92,8 @@ public class DescribeLayoutRow implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeLayoutRow ");
-      sb.append(" layoutItems=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(layoutItems)+"'\n");
-      sb.append(" numItems=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(numItems)+"'\n");
+      sb.append(" layoutItems='").append(com.sforce.ws.util.Verbose.toString(layoutItems)).append("'\n");
+      sb.append(" numItems='").append(com.sforce.ws.util.Verbose.toString(numItems)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

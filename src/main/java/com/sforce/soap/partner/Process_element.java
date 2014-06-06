@@ -67,8 +67,7 @@ public class Process_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[Process_element ");
-      sb.append(" actions=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(actions)+"'\n");
+      sb.append(" actions='").append(com.sforce.ws.util.Verbose.toString(actions)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }
