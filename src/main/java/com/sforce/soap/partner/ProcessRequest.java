@@ -92,10 +92,8 @@ public class ProcessRequest implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[ProcessRequest ");
-      sb.append(" comments=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(comments)+"'\n");
-      sb.append(" nextApproverIds=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(nextApproverIds)+"'\n");
+      sb.append(" comments='").append(com.sforce.ws.util.Verbose.toString(comments)).append("'\n");
+      sb.append(" nextApproverIds='").append(com.sforce.ws.util.Verbose.toString(nextApproverIds)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

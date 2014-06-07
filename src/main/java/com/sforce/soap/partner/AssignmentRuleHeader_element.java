@@ -94,10 +94,8 @@ public class AssignmentRuleHeader_element extends com.sforce.ws.bind.SoapHeaderO
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[AssignmentRuleHeader_element ");
-      sb.append(super.toString());sb.append(" assignmentRuleId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(assignmentRuleId)+"'\n");
-      sb.append(" useDefaultRule=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(useDefaultRule)+"'\n");
+      sb.append(super.toString());sb.append(" assignmentRuleId='").append(com.sforce.ws.util.Verbose.toString(assignmentRuleId)).append("'\n");
+      sb.append(" useDefaultRule='").append(com.sforce.ws.util.Verbose.toString(useDefaultRule)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

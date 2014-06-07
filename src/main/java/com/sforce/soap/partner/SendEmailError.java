@@ -142,14 +142,10 @@ public class SendEmailError implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[SendEmailError ");
-      sb.append(" fields=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(fields)+"'\n");
-      sb.append(" message=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(message)+"'\n");
-      sb.append(" statusCode=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(statusCode)+"'\n");
-      sb.append(" targetObjectId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(targetObjectId)+"'\n");
+      sb.append(" fields='").append(com.sforce.ws.util.Verbose.toString(fields)).append("'\n");
+      sb.append(" message='").append(com.sforce.ws.util.Verbose.toString(message)).append("'\n");
+      sb.append(" statusCode='").append(com.sforce.ws.util.Verbose.toString(statusCode)).append("'\n");
+      sb.append(" targetObjectId='").append(com.sforce.ws.util.Verbose.toString(targetObjectId)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

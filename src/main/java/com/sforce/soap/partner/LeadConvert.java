@@ -279,24 +279,15 @@ public class LeadConvert implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[LeadConvert ");
-      sb.append(" accountId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(accountId)+"'\n");
-      sb.append(" contactId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(contactId)+"'\n");
-      sb.append(" convertedStatus=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(convertedStatus)+"'\n");
-      sb.append(" doNotCreateOpportunity=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(doNotCreateOpportunity)+"'\n");
-      sb.append(" leadId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(leadId)+"'\n");
-      sb.append(" opportunityName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(opportunityName)+"'\n");
-      sb.append(" overwriteLeadSource=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(overwriteLeadSource)+"'\n");
-      sb.append(" ownerId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(ownerId)+"'\n");
-      sb.append(" sendNotificationEmail=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sendNotificationEmail)+"'\n");
+      sb.append(" accountId='").append(com.sforce.ws.util.Verbose.toString(accountId)).append("'\n");
+      sb.append(" contactId='").append(com.sforce.ws.util.Verbose.toString(contactId)).append("'\n");
+      sb.append(" convertedStatus='").append(com.sforce.ws.util.Verbose.toString(convertedStatus)).append("'\n");
+      sb.append(" doNotCreateOpportunity='").append(com.sforce.ws.util.Verbose.toString(doNotCreateOpportunity)).append("'\n");
+      sb.append(" leadId='").append(com.sforce.ws.util.Verbose.toString(leadId)).append("'\n");
+      sb.append(" opportunityName='").append(com.sforce.ws.util.Verbose.toString(opportunityName)).append("'\n");
+      sb.append(" overwriteLeadSource='").append(com.sforce.ws.util.Verbose.toString(overwriteLeadSource)).append("'\n");
+      sb.append(" ownerId='").append(com.sforce.ws.util.Verbose.toString(ownerId)).append("'\n");
+      sb.append(" sendNotificationEmail='").append(com.sforce.ws.util.Verbose.toString(sendNotificationEmail)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

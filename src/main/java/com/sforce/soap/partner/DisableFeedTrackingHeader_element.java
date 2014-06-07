@@ -73,8 +73,7 @@ public class DisableFeedTrackingHeader_element extends com.sforce.ws.bind.SoapHe
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DisableFeedTrackingHeader_element ");
-      sb.append(super.toString());sb.append(" disableFeedTracking=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(disableFeedTracking)+"'\n");
+      sb.append(super.toString());sb.append(" disableFeedTracking='").append(com.sforce.ws.util.Verbose.toString(disableFeedTracking)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

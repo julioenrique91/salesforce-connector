@@ -95,10 +95,8 @@ public class ProcessWorkitemRequest extends com.sforce.soap.partner.ProcessReque
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[ProcessWorkitemRequest ");
-      sb.append(super.toString());sb.append(" action=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(action)+"'\n");
-      sb.append(" workitemId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(workitemId)+"'\n");
+      sb.append(super.toString());sb.append(" action='").append(com.sforce.ws.util.Verbose.toString(action)).append("'\n");
+      sb.append(" workitemId='").append(com.sforce.ws.util.Verbose.toString(workitemId)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

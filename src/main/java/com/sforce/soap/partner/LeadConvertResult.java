@@ -196,18 +196,12 @@ public class LeadConvertResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[LeadConvertResult ");
-      sb.append(" accountId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(accountId)+"'\n");
-      sb.append(" contactId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(contactId)+"'\n");
-      sb.append(" errors=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(errors)+"'\n");
-      sb.append(" leadId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(leadId)+"'\n");
-      sb.append(" opportunityId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(opportunityId)+"'\n");
-      sb.append(" success=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(success)+"'\n");
+      sb.append(" accountId='").append(com.sforce.ws.util.Verbose.toString(accountId)).append("'\n");
+      sb.append(" contactId='").append(com.sforce.ws.util.Verbose.toString(contactId)).append("'\n");
+      sb.append(" errors='").append(com.sforce.ws.util.Verbose.toString(errors)).append("'\n");
+      sb.append(" leadId='").append(com.sforce.ws.util.Verbose.toString(leadId)).append("'\n");
+      sb.append(" opportunityId='").append(com.sforce.ws.util.Verbose.toString(opportunityId)).append("'\n");
+      sb.append(" success='").append(com.sforce.ws.util.Verbose.toString(success)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

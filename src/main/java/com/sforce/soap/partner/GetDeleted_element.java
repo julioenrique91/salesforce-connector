@@ -117,12 +117,9 @@ public class GetDeleted_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[GetDeleted_element ");
-      sb.append(" sObjectType=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sObjectType)+"'\n");
-      sb.append(" startDate=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(startDate)+"'\n");
-      sb.append(" endDate=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(endDate)+"'\n");
+      sb.append(" sObjectType='").append(com.sforce.ws.util.Verbose.toString(sObjectType)).append("'\n");
+      sb.append(" startDate='").append(com.sforce.ws.util.Verbose.toString(startDate)).append("'\n");
+      sb.append(" endDate='").append(com.sforce.ws.util.Verbose.toString(endDate)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

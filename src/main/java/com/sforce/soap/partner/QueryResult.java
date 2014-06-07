@@ -146,14 +146,10 @@ public class QueryResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[QueryResult ");
-      sb.append(" done=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(done)+"'\n");
-      sb.append(" queryLocator=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(queryLocator)+"'\n");
-      sb.append(" records=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(records)+"'\n");
-      sb.append(" size=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(size)+"'\n");
+      sb.append(" done='").append(com.sforce.ws.util.Verbose.toString(done)).append("'\n");
+      sb.append(" queryLocator='").append(com.sforce.ws.util.Verbose.toString(queryLocator)).append("'\n");
+      sb.append(" records='").append(com.sforce.ws.util.Verbose.toString(records)).append("'\n");
+      sb.append(" size='").append(com.sforce.ws.util.Verbose.toString(size)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

@@ -117,12 +117,9 @@ public class Retrieve_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[Retrieve_element ");
-      sb.append(" fieldList=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(fieldList)+"'\n");
-      sb.append(" sObjectType=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sObjectType)+"'\n");
-      sb.append(" ids=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(ids)+"'\n");
+      sb.append(" fieldList='").append(com.sforce.ws.util.Verbose.toString(fieldList)).append("'\n");
+      sb.append(" sObjectType='").append(com.sforce.ws.util.Verbose.toString(sObjectType)).append("'\n");
+      sb.append(" ids='").append(com.sforce.ws.util.Verbose.toString(ids)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

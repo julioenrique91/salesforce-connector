@@ -167,16 +167,11 @@ public class RelatedListColumn implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[RelatedListColumn ");
-      sb.append(" field=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(field)+"'\n");
-      sb.append(" format=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(format)+"'\n");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" lookupId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(lookupId)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
+      sb.append(" field='").append(com.sforce.ws.util.Verbose.toString(field)).append("'\n");
+      sb.append(" format='").append(com.sforce.ws.util.Verbose.toString(format)).append("'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" lookupId='").append(com.sforce.ws.util.Verbose.toString(lookupId)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

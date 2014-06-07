@@ -11,6 +11,106 @@ public class DescribeQuickActionResult implements com.sforce.ws.bind.XMLizable {
     public DescribeQuickActionResult() {}
 
     /**
+     * element : accessLevelRequired of type {urn:partner.soap.sforce.com}ShareAccessLevel
+     * java type: com.sforce.soap.partner.ShareAccessLevel
+     */
+    private static final com.sforce.ws.bind.TypeInfo accessLevelRequired__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","accessLevelRequired","urn:partner.soap.sforce.com","ShareAccessLevel",1,1,true);
+
+    private boolean accessLevelRequired__is_set = false;
+
+    private com.sforce.soap.partner.ShareAccessLevel accessLevelRequired;
+
+    public com.sforce.soap.partner.ShareAccessLevel getAccessLevelRequired() {
+      return accessLevelRequired;
+    }
+
+    public void setAccessLevelRequired(com.sforce.soap.partner.ShareAccessLevel accessLevelRequired) {
+      this.accessLevelRequired = accessLevelRequired;
+      accessLevelRequired__is_set = true;
+    }
+
+    /**
+     * element : canvasApplicationName of type {http://www.w3.org/2001/XMLSchema}string
+     * java type: java.lang.String
+     */
+    private static final com.sforce.ws.bind.TypeInfo canvasApplicationName__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","canvasApplicationName","http://www.w3.org/2001/XMLSchema","string",1,1,true);
+
+    private boolean canvasApplicationName__is_set = false;
+
+    private java.lang.String canvasApplicationName;
+
+    public java.lang.String getCanvasApplicationName() {
+      return canvasApplicationName;
+    }
+
+    public void setCanvasApplicationName(java.lang.String canvasApplicationName) {
+      this.canvasApplicationName = canvasApplicationName;
+      canvasApplicationName__is_set = true;
+    }
+
+    /**
+     * element : colors of type {urn:partner.soap.sforce.com}DescribeColor
+     * java type: com.sforce.soap.partner.DescribeColor[]
+     */
+    private static final com.sforce.ws.bind.TypeInfo colors__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","colors","urn:partner.soap.sforce.com","DescribeColor",0,-1,true);
+
+    private boolean colors__is_set = false;
+
+    private com.sforce.soap.partner.DescribeColor[] colors = new com.sforce.soap.partner.DescribeColor[0];
+
+    public com.sforce.soap.partner.DescribeColor[] getColors() {
+      return colors;
+    }
+
+    public void setColors(com.sforce.soap.partner.DescribeColor[] colors) {
+      this.colors = colors;
+      colors__is_set = true;
+    }
+
+    /**
+     * element : contextSobjectType of type {http://www.w3.org/2001/XMLSchema}string
+     * java type: java.lang.String
+     */
+    private static final com.sforce.ws.bind.TypeInfo contextSobjectType__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","contextSobjectType","http://www.w3.org/2001/XMLSchema","string",1,1,true);
+
+    private boolean contextSobjectType__is_set = false;
+
+    private java.lang.String contextSobjectType;
+
+    public java.lang.String getContextSobjectType() {
+      return contextSobjectType;
+    }
+
+    public void setContextSobjectType(java.lang.String contextSobjectType) {
+      this.contextSobjectType = contextSobjectType;
+      contextSobjectType__is_set = true;
+    }
+
+    /**
+     * element : defaultValues of type {urn:partner.soap.sforce.com}DescribeQuickActionDefaultValue
+     * java type: com.sforce.soap.partner.DescribeQuickActionDefaultValue[]
+     */
+    private static final com.sforce.ws.bind.TypeInfo defaultValues__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","defaultValues","urn:partner.soap.sforce.com","DescribeQuickActionDefaultValue",0,-1,true);
+
+    private boolean defaultValues__is_set = false;
+
+    private com.sforce.soap.partner.DescribeQuickActionDefaultValue[] defaultValues = new com.sforce.soap.partner.DescribeQuickActionDefaultValue[0];
+
+    public com.sforce.soap.partner.DescribeQuickActionDefaultValue[] getDefaultValues() {
+      return defaultValues;
+    }
+
+    public void setDefaultValues(com.sforce.soap.partner.DescribeQuickActionDefaultValue[] defaultValues) {
+      this.defaultValues = defaultValues;
+      defaultValues__is_set = true;
+    }
+
+    /**
      * element : height of type {http://www.w3.org/2001/XMLSchema}int
      * java type: java.lang.Integer
      */
@@ -68,6 +168,26 @@ public class DescribeQuickActionResult implements com.sforce.ws.bind.XMLizable {
     public void setIconUrl(java.lang.String iconUrl) {
       this.iconUrl = iconUrl;
       iconUrl__is_set = true;
+    }
+
+    /**
+     * element : icons of type {urn:partner.soap.sforce.com}DescribeIcon
+     * java type: com.sforce.soap.partner.DescribeIcon[]
+     */
+    private static final com.sforce.ws.bind.TypeInfo icons__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","icons","urn:partner.soap.sforce.com","DescribeIcon",0,-1,true);
+
+    private boolean icons__is_set = false;
+
+    private com.sforce.soap.partner.DescribeIcon[] icons = new com.sforce.soap.partner.DescribeIcon[0];
+
+    public com.sforce.soap.partner.DescribeIcon[] getIcons() {
+      return icons;
+    }
+
+    public void setIcons(com.sforce.soap.partner.DescribeIcon[] icons) {
+      this.icons = icons;
+      icons__is_set = true;
     }
 
     /**
@@ -148,26 +268,6 @@ public class DescribeQuickActionResult implements com.sforce.ws.bind.XMLizable {
     public void setName(java.lang.String name) {
       this.name = name;
       name__is_set = true;
-    }
-
-    /**
-     * element : sourceSobjectType of type {http://www.w3.org/2001/XMLSchema}string
-     * java type: java.lang.String
-     */
-    private static final com.sforce.ws.bind.TypeInfo sourceSobjectType__typeInfo =
-      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","sourceSobjectType","http://www.w3.org/2001/XMLSchema","string",1,1,true);
-
-    private boolean sourceSobjectType__is_set = false;
-
-    private java.lang.String sourceSobjectType;
-
-    public java.lang.String getSourceSobjectType() {
-      return sourceSobjectType;
-    }
-
-    public void setSourceSobjectType(java.lang.String sourceSobjectType) {
-      this.sourceSobjectType = sourceSobjectType;
-      sourceSobjectType__is_set = true;
     }
 
     /**
@@ -304,14 +404,19 @@ public class DescribeQuickActionResult implements com.sforce.ws.bind.XMLizable {
     protected void writeFields(com.sforce.ws.parser.XmlOutputStream __out,
          com.sforce.ws.bind.TypeMapper __typeMapper)
          throws java.io.IOException {
+       __typeMapper.writeObject(__out, accessLevelRequired__typeInfo, accessLevelRequired, accessLevelRequired__is_set);
+       __typeMapper.writeString(__out, canvasApplicationName__typeInfo, canvasApplicationName, canvasApplicationName__is_set);
+       __typeMapper.writeObject(__out, colors__typeInfo, colors, colors__is_set);
+       __typeMapper.writeString(__out, contextSobjectType__typeInfo, contextSobjectType, contextSobjectType__is_set);
+       __typeMapper.writeObject(__out, defaultValues__typeInfo, defaultValues, defaultValues__is_set);
        __typeMapper.writeObject(__out, height__typeInfo, height, height__is_set);
        __typeMapper.writeString(__out, iconName__typeInfo, iconName, iconName__is_set);
        __typeMapper.writeString(__out, iconUrl__typeInfo, iconUrl, iconUrl__is_set);
+       __typeMapper.writeObject(__out, icons__typeInfo, icons, icons__is_set);
        __typeMapper.writeString(__out, label__typeInfo, label, label__is_set);
        __typeMapper.writeObject(__out, layout__typeInfo, layout, layout__is_set);
        __typeMapper.writeString(__out, miniIconUrl__typeInfo, miniIconUrl, miniIconUrl__is_set);
        __typeMapper.writeString(__out, name__typeInfo, name, name__is_set);
-       __typeMapper.writeString(__out, sourceSobjectType__typeInfo, sourceSobjectType, sourceSobjectType__is_set);
        __typeMapper.writeString(__out, targetParentField__typeInfo, targetParentField, targetParentField__is_set);
        __typeMapper.writeString(__out, targetRecordTypeId__typeInfo, targetRecordTypeId, targetRecordTypeId__is_set);
        __typeMapper.writeString(__out, targetSobjectType__typeInfo, targetSobjectType, targetSobjectType__is_set);
@@ -331,6 +436,26 @@ public class DescribeQuickActionResult implements com.sforce.ws.bind.XMLizable {
     protected void loadFields(com.sforce.ws.parser.XmlInputStream __in,
         com.sforce.ws.bind.TypeMapper __typeMapper) throws java.io.IOException, com.sforce.ws.ConnectionException {
         __in.peekTag();
+        if (__typeMapper.verifyElement(__in, accessLevelRequired__typeInfo)) {
+            setAccessLevelRequired((com.sforce.soap.partner.ShareAccessLevel)__typeMapper.readObject(__in, accessLevelRequired__typeInfo, com.sforce.soap.partner.ShareAccessLevel.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, canvasApplicationName__typeInfo)) {
+            setCanvasApplicationName(__typeMapper.readString(__in, canvasApplicationName__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, colors__typeInfo)) {
+            setColors((com.sforce.soap.partner.DescribeColor[])__typeMapper.readObject(__in, colors__typeInfo, com.sforce.soap.partner.DescribeColor[].class));
+        }
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, contextSobjectType__typeInfo)) {
+            setContextSobjectType(__typeMapper.readString(__in, contextSobjectType__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, defaultValues__typeInfo)) {
+            setDefaultValues((com.sforce.soap.partner.DescribeQuickActionDefaultValue[])__typeMapper.readObject(__in, defaultValues__typeInfo, com.sforce.soap.partner.DescribeQuickActionDefaultValue[].class));
+        }
+        __in.peekTag();
         if (__typeMapper.verifyElement(__in, height__typeInfo)) {
             setHeight((java.lang.Integer)__typeMapper.readObject(__in, height__typeInfo, java.lang.Integer.class));
         }
@@ -341,6 +466,10 @@ public class DescribeQuickActionResult implements com.sforce.ws.bind.XMLizable {
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, iconUrl__typeInfo)) {
             setIconUrl(__typeMapper.readString(__in, iconUrl__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, icons__typeInfo)) {
+            setIcons((com.sforce.soap.partner.DescribeIcon[])__typeMapper.readObject(__in, icons__typeInfo, com.sforce.soap.partner.DescribeIcon[].class));
         }
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, label__typeInfo)) {
@@ -357,10 +486,6 @@ public class DescribeQuickActionResult implements com.sforce.ws.bind.XMLizable {
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, name__typeInfo)) {
             setName(__typeMapper.readString(__in, name__typeInfo, java.lang.String.class));
-        }
-        __in.peekTag();
-        if (__typeMapper.verifyElement(__in, sourceSobjectType__typeInfo)) {
-            setSourceSobjectType(__typeMapper.readString(__in, sourceSobjectType__typeInfo, java.lang.String.class));
         }
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, targetParentField__typeInfo)) {
@@ -392,34 +517,25 @@ public class DescribeQuickActionResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeQuickActionResult ");
-      sb.append(" height=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(height)+"'\n");
-      sb.append(" iconName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(iconName)+"'\n");
-      sb.append(" iconUrl=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(iconUrl)+"'\n");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" layout=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(layout)+"'\n");
-      sb.append(" miniIconUrl=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(miniIconUrl)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
-      sb.append(" sourceSobjectType=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sourceSobjectType)+"'\n");
-      sb.append(" targetParentField=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(targetParentField)+"'\n");
-      sb.append(" targetRecordTypeId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(targetRecordTypeId)+"'\n");
-      sb.append(" targetSobjectType=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(targetSobjectType)+"'\n");
-      sb.append(" type=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(type)+"'\n");
-      sb.append(" visualforcePageName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(visualforcePageName)+"'\n");
-      sb.append(" width=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(width)+"'\n");
+      sb.append(" accessLevelRequired='").append(com.sforce.ws.util.Verbose.toString(accessLevelRequired)).append("'\n");
+      sb.append(" canvasApplicationName='").append(com.sforce.ws.util.Verbose.toString(canvasApplicationName)).append("'\n");
+      sb.append(" colors='").append(com.sforce.ws.util.Verbose.toString(colors)).append("'\n");
+      sb.append(" contextSobjectType='").append(com.sforce.ws.util.Verbose.toString(contextSobjectType)).append("'\n");
+      sb.append(" defaultValues='").append(com.sforce.ws.util.Verbose.toString(defaultValues)).append("'\n");
+      sb.append(" height='").append(com.sforce.ws.util.Verbose.toString(height)).append("'\n");
+      sb.append(" iconName='").append(com.sforce.ws.util.Verbose.toString(iconName)).append("'\n");
+      sb.append(" iconUrl='").append(com.sforce.ws.util.Verbose.toString(iconUrl)).append("'\n");
+      sb.append(" icons='").append(com.sforce.ws.util.Verbose.toString(icons)).append("'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" layout='").append(com.sforce.ws.util.Verbose.toString(layout)).append("'\n");
+      sb.append(" miniIconUrl='").append(com.sforce.ws.util.Verbose.toString(miniIconUrl)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
+      sb.append(" targetParentField='").append(com.sforce.ws.util.Verbose.toString(targetParentField)).append("'\n");
+      sb.append(" targetRecordTypeId='").append(com.sforce.ws.util.Verbose.toString(targetRecordTypeId)).append("'\n");
+      sb.append(" targetSobjectType='").append(com.sforce.ws.util.Verbose.toString(targetSobjectType)).append("'\n");
+      sb.append(" type='").append(com.sforce.ws.util.Verbose.toString(type)).append("'\n");
+      sb.append(" visualforcePageName='").append(com.sforce.ws.util.Verbose.toString(visualforcePageName)).append("'\n");
+      sb.append(" width='").append(com.sforce.ws.util.Verbose.toString(width)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

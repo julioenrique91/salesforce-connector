@@ -142,14 +142,10 @@ public class DescribeLayoutComponent implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeLayoutComponent ");
-      sb.append(" displayLines=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(displayLines)+"'\n");
-      sb.append(" tabOrder=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(tabOrder)+"'\n");
-      sb.append(" type=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(type)+"'\n");
-      sb.append(" value=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(value)+"'\n");
+      sb.append(" displayLines='").append(com.sforce.ws.util.Verbose.toString(displayLines)).append("'\n");
+      sb.append(" tabOrder='").append(com.sforce.ws.util.Verbose.toString(tabOrder)).append("'\n");
+      sb.append(" type='").append(com.sforce.ws.util.Verbose.toString(type)).append("'\n");
+      sb.append(" value='").append(com.sforce.ws.util.Verbose.toString(value)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

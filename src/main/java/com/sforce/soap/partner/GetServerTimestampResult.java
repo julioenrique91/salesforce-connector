@@ -67,8 +67,7 @@ public class GetServerTimestampResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[GetServerTimestampResult ");
-      sb.append(" timestamp=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(timestamp)+"'\n");
+      sb.append(" timestamp='").append(com.sforce.ws.util.Verbose.toString(timestamp)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

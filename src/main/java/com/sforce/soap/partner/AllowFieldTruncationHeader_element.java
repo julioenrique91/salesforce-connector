@@ -73,8 +73,7 @@ public class AllowFieldTruncationHeader_element extends com.sforce.ws.bind.SoapH
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[AllowFieldTruncationHeader_element ");
-      sb.append(super.toString());sb.append(" allowFieldTruncation=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(allowFieldTruncation)+"'\n");
+      sb.append(super.toString());sb.append(" allowFieldTruncation='").append(com.sforce.ws.util.Verbose.toString(allowFieldTruncation)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

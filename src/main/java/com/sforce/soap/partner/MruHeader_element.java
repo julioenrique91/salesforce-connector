@@ -73,8 +73,7 @@ public class MruHeader_element extends com.sforce.ws.bind.SoapHeaderObject imple
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[MruHeader_element ");
-      sb.append(super.toString());sb.append(" updateMru=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(updateMru)+"'\n");
+      sb.append(super.toString());sb.append(" updateMru='").append(com.sforce.ws.util.Verbose.toString(updateMru)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

@@ -67,8 +67,7 @@ public class Delete_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[Delete_element ");
-      sb.append(" ids=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(ids)+"'\n");
+      sb.append(" ids='").append(com.sforce.ws.util.Verbose.toString(ids)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

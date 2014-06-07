@@ -92,10 +92,8 @@ public class PicklistForRecordType implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[PicklistForRecordType ");
-      sb.append(" picklistName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(picklistName)+"'\n");
-      sb.append(" picklistValues=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(picklistValues)+"'\n");
+      sb.append(" picklistName='").append(com.sforce.ws.util.Verbose.toString(picklistName)).append("'\n");
+      sb.append(" picklistValues='").append(com.sforce.ws.util.Verbose.toString(picklistValues)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

@@ -67,8 +67,7 @@ public class SearchRecord implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[SearchRecord ");
-      sb.append(" record=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(record)+"'\n");
+      sb.append(" record='").append(com.sforce.ws.util.Verbose.toString(record)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

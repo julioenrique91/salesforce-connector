@@ -67,8 +67,7 @@ public class QueryMore_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[QueryMore_element ");
-      sb.append(" queryLocator=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(queryLocator)+"'\n");
+      sb.append(" queryLocator='").append(com.sforce.ws.util.Verbose.toString(queryLocator)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

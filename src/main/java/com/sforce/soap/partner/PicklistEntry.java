@@ -175,16 +175,11 @@ public class PicklistEntry implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[PicklistEntry ");
-      sb.append(" active=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(active)+"'\n");
-      sb.append(" defaultValue=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(defaultValue)+"'\n");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" validFor=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(validFor)+"'\n");
-      sb.append(" value=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(value)+"'\n");
+      sb.append(" active='").append(com.sforce.ws.util.Verbose.toString(active)).append("'\n");
+      sb.append(" defaultValue='").append(com.sforce.ws.util.Verbose.toString(defaultValue)).append("'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" validFor='").append(com.sforce.ws.util.Verbose.toString(validFor)).append("'\n");
+      sb.append(" value='").append(com.sforce.ws.util.Verbose.toString(value)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

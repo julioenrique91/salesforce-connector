@@ -69,8 +69,7 @@ public class PackageVersionHeader_element extends com.sforce.ws.bind.SoapHeaderO
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[PackageVersionHeader_element ");
-      sb.append(super.toString());sb.append(" packageVersions=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(packageVersions)+"'\n");
+      sb.append(super.toString());sb.append(" packageVersions='").append(com.sforce.ws.util.Verbose.toString(packageVersions)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

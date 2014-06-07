@@ -67,8 +67,7 @@ public class Search_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[Search_element ");
-      sb.append(" searchString=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(searchString)+"'\n");
+      sb.append(" searchString='").append(com.sforce.ws.util.Verbose.toString(searchString)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

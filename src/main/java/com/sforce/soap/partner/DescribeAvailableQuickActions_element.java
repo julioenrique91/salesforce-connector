@@ -11,23 +11,23 @@ public class DescribeAvailableQuickActions_element implements com.sforce.ws.bind
     public DescribeAvailableQuickActions_element() {}
 
     /**
-     * element : parentType of type {http://www.w3.org/2001/XMLSchema}string
+     * element : contextType of type {http://www.w3.org/2001/XMLSchema}string
      * java type: java.lang.String
      */
-    private static final com.sforce.ws.bind.TypeInfo parentType__typeInfo =
-      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","parentType","http://www.w3.org/2001/XMLSchema","string",1,1,true);
+    private static final com.sforce.ws.bind.TypeInfo contextType__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","contextType","http://www.w3.org/2001/XMLSchema","string",1,1,true);
 
-    private boolean parentType__is_set = false;
+    private boolean contextType__is_set = false;
 
-    private java.lang.String parentType;
+    private java.lang.String contextType;
 
-    public java.lang.String getParentType() {
-      return parentType;
+    public java.lang.String getContextType() {
+      return contextType;
     }
 
-    public void setParentType(java.lang.String parentType) {
-      this.parentType = parentType;
-      parentType__is_set = true;
+    public void setContextType(java.lang.String contextType) {
+      this.contextType = contextType;
+      contextType__is_set = true;
     }
 
     /**
@@ -44,7 +44,7 @@ public class DescribeAvailableQuickActions_element implements com.sforce.ws.bind
     protected void writeFields(com.sforce.ws.parser.XmlOutputStream __out,
          com.sforce.ws.bind.TypeMapper __typeMapper)
          throws java.io.IOException {
-       __typeMapper.writeString(__out, parentType__typeInfo, parentType, parentType__is_set);
+       __typeMapper.writeString(__out, contextType__typeInfo, contextType, contextType__is_set);
     }
 
     @Override
@@ -58,8 +58,8 @@ public class DescribeAvailableQuickActions_element implements com.sforce.ws.bind
     protected void loadFields(com.sforce.ws.parser.XmlInputStream __in,
         com.sforce.ws.bind.TypeMapper __typeMapper) throws java.io.IOException, com.sforce.ws.ConnectionException {
         __in.peekTag();
-        if (__typeMapper.verifyElement(__in, parentType__typeInfo)) {
-            setParentType(__typeMapper.readString(__in, parentType__typeInfo, java.lang.String.class));
+        if (__typeMapper.verifyElement(__in, contextType__typeInfo)) {
+            setContextType(__typeMapper.readString(__in, contextType__typeInfo, java.lang.String.class));
         }
     }
 
@@ -67,8 +67,7 @@ public class DescribeAvailableQuickActions_element implements com.sforce.ws.bind
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeAvailableQuickActions_element ");
-      sb.append(" parentType=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(parentType)+"'\n");
+      sb.append(" contextType='").append(com.sforce.ws.util.Verbose.toString(contextType)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

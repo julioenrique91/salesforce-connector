@@ -95,10 +95,8 @@ public class ApiQueryFault extends com.sforce.soap.partner.fault.ApiFault {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[ApiQueryFault ");
-      sb.append(super.toString());sb.append(" row=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(row)+"'\n");
-      sb.append(" column=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(column)+"'\n");
+      sb.append(super.toString());sb.append(" row='").append(com.sforce.ws.util.Verbose.toString(row)).append("'\n");
+      sb.append(" column='").append(com.sforce.ws.util.Verbose.toString(column)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

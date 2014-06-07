@@ -92,10 +92,8 @@ public class Login_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[Login_element ");
-      sb.append(" username=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(username)+"'\n");
-      sb.append(" password=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(password)+"'\n");
+      sb.append(" username='").append(com.sforce.ws.util.Verbose.toString(username)).append("'\n");
+      sb.append(" password='").append(com.sforce.ws.util.Verbose.toString(password)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

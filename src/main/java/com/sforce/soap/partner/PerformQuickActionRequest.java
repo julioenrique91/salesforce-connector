@@ -11,23 +11,23 @@ public class PerformQuickActionRequest implements com.sforce.ws.bind.XMLizable {
     public PerformQuickActionRequest() {}
 
     /**
-     * element : parentId of type {urn:partner.soap.sforce.com}ID
+     * element : contextId of type {urn:partner.soap.sforce.com}ID
      * java type: java.lang.String
      */
-    private static final com.sforce.ws.bind.TypeInfo parentId__typeInfo =
-      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","parentId","urn:partner.soap.sforce.com","ID",1,1,true);
+    private static final com.sforce.ws.bind.TypeInfo contextId__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","contextId","urn:partner.soap.sforce.com","ID",1,1,true);
 
-    private boolean parentId__is_set = false;
+    private boolean contextId__is_set = false;
 
-    private java.lang.String parentId;
+    private java.lang.String contextId;
 
-    public java.lang.String getParentId() {
-      return parentId;
+    public java.lang.String getContextId() {
+      return contextId;
     }
 
-    public void setParentId(java.lang.String parentId) {
-      this.parentId = parentId;
-      parentId__is_set = true;
+    public void setContextId(java.lang.String contextId) {
+      this.contextId = contextId;
+      contextId__is_set = true;
     }
 
     /**
@@ -84,7 +84,7 @@ public class PerformQuickActionRequest implements com.sforce.ws.bind.XMLizable {
     protected void writeFields(com.sforce.ws.parser.XmlOutputStream __out,
          com.sforce.ws.bind.TypeMapper __typeMapper)
          throws java.io.IOException {
-       __typeMapper.writeString(__out, parentId__typeInfo, parentId, parentId__is_set);
+       __typeMapper.writeString(__out, contextId__typeInfo, contextId, contextId__is_set);
        __typeMapper.writeString(__out, quickActionName__typeInfo, quickActionName, quickActionName__is_set);
        __typeMapper.writeObject(__out, records__typeInfo, records, records__is_set);
     }
@@ -100,8 +100,8 @@ public class PerformQuickActionRequest implements com.sforce.ws.bind.XMLizable {
     protected void loadFields(com.sforce.ws.parser.XmlInputStream __in,
         com.sforce.ws.bind.TypeMapper __typeMapper) throws java.io.IOException, com.sforce.ws.ConnectionException {
         __in.peekTag();
-        if (__typeMapper.verifyElement(__in, parentId__typeInfo)) {
-            setParentId(__typeMapper.readString(__in, parentId__typeInfo, java.lang.String.class));
+        if (__typeMapper.verifyElement(__in, contextId__typeInfo)) {
+            setContextId(__typeMapper.readString(__in, contextId__typeInfo, java.lang.String.class));
         }
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, quickActionName__typeInfo)) {
@@ -117,12 +117,9 @@ public class PerformQuickActionRequest implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[PerformQuickActionRequest ");
-      sb.append(" parentId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(parentId)+"'\n");
-      sb.append(" quickActionName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(quickActionName)+"'\n");
-      sb.append(" records=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(records)+"'\n");
+      sb.append(" contextId='").append(com.sforce.ws.util.Verbose.toString(contextId)).append("'\n");
+      sb.append(" quickActionName='").append(com.sforce.ws.util.Verbose.toString(quickActionName)).append("'\n");
+      sb.append(" records='").append(com.sforce.ws.util.Verbose.toString(records)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }
