@@ -55,8 +55,8 @@ import com.sforce.ws.MessageHandler;
         friendlyName = "Salesforce (OAuth)",
         minMuleVersion = "3.4",
         configElementName = "config-with-oauth")
-@OAuth2(authorizationUrl = "https://test.salesforce.com/services/oauth2/authorize",
-        accessTokenUrl = "https://test.salesforce.com/services/oauth2/token",
+@OAuth2(authorizationUrl = "https://login.salesforce.com/services/oauth2/authorize",
+        accessTokenUrl = "https://login.salesforce.com/services/oauth2/token",
         authorizationParameters = {
                 @OAuthAuthorizationParameter(name = "display", type = SalesforceOAuthDisplay.class,
                         description = "Tailors the login page to the user's device type."),
@@ -136,13 +136,13 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
 
         config.setCompression(false);
 
-        String serviceEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/u/28.0";
+        String serviceEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/u/30.0";
         config.setServiceEndpoint(serviceEndpoint);
 
         this.partnerConnection = Connector.newConnection(config);
         setConnectionOptions(this.partnerConnection);
 
-        String restEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/async/28.0";
+        String restEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/async/30.0";
         config.setRestEndpoint(restEndpoint);
 
         this.bulkConnection = new BulkConnection(config);
