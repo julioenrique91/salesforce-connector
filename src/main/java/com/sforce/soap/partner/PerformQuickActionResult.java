@@ -175,16 +175,11 @@ public class PerformQuickActionResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[PerformQuickActionResult ");
-      sb.append(" created=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(created)+"'\n");
-      sb.append(" errors=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(errors)+"'\n");
-      sb.append(" feedItemIds=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(feedItemIds)+"'\n");
-      sb.append(" ids=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(ids)+"'\n");
-      sb.append(" success=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(success)+"'\n");
+      sb.append(" created='").append(com.sforce.ws.util.Verbose.toString(created)).append("'\n");
+      sb.append(" errors='").append(com.sforce.ws.util.Verbose.toString(errors)).append("'\n");
+      sb.append(" feedItemIds='").append(com.sforce.ws.util.Verbose.toString(feedItemIds)).append("'\n");
+      sb.append(" ids='").append(com.sforce.ws.util.Verbose.toString(ids)).append("'\n");
+      sb.append(" success='").append(com.sforce.ws.util.Verbose.toString(success)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

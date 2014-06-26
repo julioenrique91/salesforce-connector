@@ -92,10 +92,8 @@ public class DataCategoryGroupSobjectTypePair implements com.sforce.ws.bind.XMLi
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DataCategoryGroupSobjectTypePair ");
-      sb.append(" dataCategoryGroupName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(dataCategoryGroupName)+"'\n");
-      sb.append(" sobject=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sobject)+"'\n");
+      sb.append(" dataCategoryGroupName='").append(com.sforce.ws.util.Verbose.toString(dataCategoryGroupName)).append("'\n");
+      sb.append(" sobject='").append(com.sforce.ws.util.Verbose.toString(sobject)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

@@ -117,12 +117,9 @@ public class GetUpdatedResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[GetUpdatedResult ");
-      sb.append(" ids=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(ids)+"'\n");
-      sb.append(" latestDateCovered=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(latestDateCovered)+"'\n");
-      sb.append(" sforceReserved=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sforceReserved)+"'\n");
+      sb.append(" ids='").append(com.sforce.ws.util.Verbose.toString(ids)).append("'\n");
+      sb.append(" latestDateCovered='").append(com.sforce.ws.util.Verbose.toString(latestDateCovered)).append("'\n");
+      sb.append(" sforceReserved='").append(com.sforce.ws.util.Verbose.toString(sforceReserved)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

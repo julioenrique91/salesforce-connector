@@ -69,8 +69,7 @@ public class DebuggingInfo_element extends com.sforce.ws.bind.SoapHeaderObject i
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DebuggingInfo_element ");
-      sb.append(super.toString());sb.append(" debugLog=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(debugLog)+"'\n");
+      sb.append(super.toString());sb.append(" debugLog='").append(com.sforce.ws.util.Verbose.toString(debugLog)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

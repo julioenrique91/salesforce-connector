@@ -131,12 +131,9 @@ public class EmailHeader_element extends com.sforce.ws.bind.SoapHeaderObject imp
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[EmailHeader_element ");
-      sb.append(super.toString());sb.append(" triggerAutoResponseEmail=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(triggerAutoResponseEmail)+"'\n");
-      sb.append(" triggerOtherEmail=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(triggerOtherEmail)+"'\n");
-      sb.append(" triggerUserEmail=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(triggerUserEmail)+"'\n");
+      sb.append(super.toString());sb.append(" triggerAutoResponseEmail='").append(com.sforce.ws.util.Verbose.toString(triggerAutoResponseEmail)).append("'\n");
+      sb.append(" triggerOtherEmail='").append(com.sforce.ws.util.Verbose.toString(triggerOtherEmail)).append("'\n");
+      sb.append(" triggerUserEmail='").append(com.sforce.ws.util.Verbose.toString(triggerUserEmail)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

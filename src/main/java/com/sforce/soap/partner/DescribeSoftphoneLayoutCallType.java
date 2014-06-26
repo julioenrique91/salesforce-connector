@@ -167,16 +167,11 @@ public class DescribeSoftphoneLayoutCallType implements com.sforce.ws.bind.XMLiz
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeSoftphoneLayoutCallType ");
-      sb.append(" infoFields=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(infoFields)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
-      sb.append(" screenPopOptions=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(screenPopOptions)+"'\n");
-      sb.append(" screenPopsOpenWithin=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(screenPopsOpenWithin)+"'\n");
-      sb.append(" sections=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sections)+"'\n");
+      sb.append(" infoFields='").append(com.sforce.ws.util.Verbose.toString(infoFields)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
+      sb.append(" screenPopOptions='").append(com.sforce.ws.util.Verbose.toString(screenPopOptions)).append("'\n");
+      sb.append(" screenPopsOpenWithin='").append(com.sforce.ws.util.Verbose.toString(screenPopsOpenWithin)).append("'\n");
+      sb.append(" sections='").append(com.sforce.ws.util.Verbose.toString(sections)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

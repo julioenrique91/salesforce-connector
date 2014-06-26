@@ -94,10 +94,8 @@ public class LoginScopeHeader_element extends com.sforce.ws.bind.SoapHeaderObjec
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[LoginScopeHeader_element ");
-      sb.append(super.toString());sb.append(" organizationId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(organizationId)+"'\n");
-      sb.append(" portalId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(portalId)+"'\n");
+      sb.append(super.toString());sb.append(" organizationId='").append(com.sforce.ws.util.Verbose.toString(organizationId)).append("'\n");
+      sb.append(" portalId='").append(com.sforce.ws.util.Verbose.toString(portalId)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

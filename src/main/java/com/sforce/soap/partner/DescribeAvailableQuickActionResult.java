@@ -117,12 +117,9 @@ public class DescribeAvailableQuickActionResult implements com.sforce.ws.bind.XM
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeAvailableQuickActionResult ");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
-      sb.append(" type=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(type)+"'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
+      sb.append(" type='").append(com.sforce.ws.util.Verbose.toString(type)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

@@ -67,8 +67,7 @@ public class QueryAll_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[QueryAll_element ");
-      sb.append(" queryString=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(queryString)+"'\n");
+      sb.append(" queryString='").append(com.sforce.ws.util.Verbose.toString(queryString)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

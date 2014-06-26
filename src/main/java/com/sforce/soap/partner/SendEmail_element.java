@@ -67,8 +67,7 @@ public class SendEmail_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[SendEmail_element ");
-      sb.append(" messages=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(messages)+"'\n");
+      sb.append(" messages='").append(com.sforce.ws.util.Verbose.toString(messages)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

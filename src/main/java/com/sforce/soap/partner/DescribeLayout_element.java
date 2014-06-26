@@ -92,10 +92,8 @@ public class DescribeLayout_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeLayout_element ");
-      sb.append(" sObjectType=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sObjectType)+"'\n");
-      sb.append(" recordTypeIds=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(recordTypeIds)+"'\n");
+      sb.append(" sObjectType='").append(com.sforce.ws.util.Verbose.toString(sObjectType)).append("'\n");
+      sb.append(" recordTypeIds='").append(com.sforce.ws.util.Verbose.toString(recordTypeIds)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

@@ -69,8 +69,7 @@ public class SessionHeader_element extends com.sforce.ws.bind.SoapHeaderObject i
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[SessionHeader_element ");
-      sb.append(super.toString());sb.append(" sessionId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sessionId)+"'\n");
+      sb.append(super.toString());sb.append(" sessionId='").append(com.sforce.ws.util.Verbose.toString(sessionId)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

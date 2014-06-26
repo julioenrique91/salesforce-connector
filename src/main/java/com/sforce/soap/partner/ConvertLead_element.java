@@ -67,8 +67,7 @@ public class ConvertLead_element implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[ConvertLead_element ");
-      sb.append(" leadConverts=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(leadConverts)+"'\n");
+      sb.append(" leadConverts='").append(com.sforce.ws.util.Verbose.toString(leadConverts)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

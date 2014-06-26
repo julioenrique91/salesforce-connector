@@ -121,12 +121,9 @@ public class DescribeLayoutResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeLayoutResult ");
-      sb.append(" layouts=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(layouts)+"'\n");
-      sb.append(" recordTypeMappings=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(recordTypeMappings)+"'\n");
-      sb.append(" recordTypeSelectorRequired=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(recordTypeSelectorRequired)+"'\n");
+      sb.append(" layouts='").append(com.sforce.ws.util.Verbose.toString(layouts)).append("'\n");
+      sb.append(" recordTypeMappings='").append(com.sforce.ws.util.Verbose.toString(recordTypeMappings)).append("'\n");
+      sb.append(" recordTypeSelectorRequired='").append(com.sforce.ws.util.Verbose.toString(recordTypeSelectorRequired)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

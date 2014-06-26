@@ -92,10 +92,8 @@ public class MergeRequest implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[MergeRequest ");
-      sb.append(" masterRecord=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(masterRecord)+"'\n");
-      sb.append(" recordToMergeIds=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(recordToMergeIds)+"'\n");
+      sb.append(" masterRecord='").append(com.sforce.ws.util.Verbose.toString(masterRecord)).append("'\n");
+      sb.append(" recordToMergeIds='").append(com.sforce.ws.util.Verbose.toString(recordToMergeIds)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

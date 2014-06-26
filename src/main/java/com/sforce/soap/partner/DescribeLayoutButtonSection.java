@@ -67,8 +67,7 @@ public class DescribeLayoutButtonSection implements com.sforce.ws.bind.XMLizable
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeLayoutButtonSection ");
-      sb.append(" detailButtons=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(detailButtons)+"'\n");
+      sb.append(" detailButtons='").append(com.sforce.ws.util.Verbose.toString(detailButtons)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

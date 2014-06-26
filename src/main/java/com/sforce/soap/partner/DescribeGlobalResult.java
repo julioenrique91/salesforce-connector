@@ -117,12 +117,9 @@ public class DescribeGlobalResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeGlobalResult ");
-      sb.append(" encoding=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(encoding)+"'\n");
-      sb.append(" maxBatchSize=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(maxBatchSize)+"'\n");
-      sb.append(" sobjects=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sobjects)+"'\n");
+      sb.append(" encoding='").append(com.sforce.ws.util.Verbose.toString(encoding)).append("'\n");
+      sb.append(" maxBatchSize='").append(com.sforce.ws.util.Verbose.toString(maxBatchSize)).append("'\n");
+      sb.append(" sobjects='").append(com.sforce.ws.util.Verbose.toString(sobjects)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

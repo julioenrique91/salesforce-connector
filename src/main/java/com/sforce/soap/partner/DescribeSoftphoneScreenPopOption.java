@@ -117,12 +117,9 @@ public class DescribeSoftphoneScreenPopOption implements com.sforce.ws.bind.XMLi
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeSoftphoneScreenPopOption ");
-      sb.append(" matchType=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(matchType)+"'\n");
-      sb.append(" screenPopData=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(screenPopData)+"'\n");
-      sb.append(" screenPopType=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(screenPopType)+"'\n");
+      sb.append(" matchType='").append(com.sforce.ws.util.Verbose.toString(matchType)).append("'\n");
+      sb.append(" screenPopData='").append(com.sforce.ws.util.Verbose.toString(screenPopData)).append("'\n");
+      sb.append(" screenPopType='").append(com.sforce.ws.util.Verbose.toString(screenPopType)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

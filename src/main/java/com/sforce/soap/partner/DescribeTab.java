@@ -11,6 +11,26 @@ public class DescribeTab implements com.sforce.ws.bind.XMLizable {
     public DescribeTab() {}
 
     /**
+     * element : colors of type {urn:partner.soap.sforce.com}DescribeColor
+     * java type: com.sforce.soap.partner.DescribeColor[]
+     */
+    private static final com.sforce.ws.bind.TypeInfo colors__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","colors","urn:partner.soap.sforce.com","DescribeColor",0,-1,true);
+
+    private boolean colors__is_set = false;
+
+    private com.sforce.soap.partner.DescribeColor[] colors = new com.sforce.soap.partner.DescribeColor[0];
+
+    public com.sforce.soap.partner.DescribeColor[] getColors() {
+      return colors;
+    }
+
+    public void setColors(com.sforce.soap.partner.DescribeColor[] colors) {
+      this.colors = colors;
+      colors__is_set = true;
+    }
+
+    /**
      * element : custom of type {http://www.w3.org/2001/XMLSchema}boolean
      * java type: boolean
      */
@@ -52,6 +72,26 @@ public class DescribeTab implements com.sforce.ws.bind.XMLizable {
     public void setIconUrl(java.lang.String iconUrl) {
       this.iconUrl = iconUrl;
       iconUrl__is_set = true;
+    }
+
+    /**
+     * element : icons of type {urn:partner.soap.sforce.com}DescribeIcon
+     * java type: com.sforce.soap.partner.DescribeIcon[]
+     */
+    private static final com.sforce.ws.bind.TypeInfo icons__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","icons","urn:partner.soap.sforce.com","DescribeIcon",0,-1,true);
+
+    private boolean icons__is_set = false;
+
+    private com.sforce.soap.partner.DescribeIcon[] icons = new com.sforce.soap.partner.DescribeIcon[0];
+
+    public com.sforce.soap.partner.DescribeIcon[] getIcons() {
+      return icons;
+    }
+
+    public void setIcons(com.sforce.soap.partner.DescribeIcon[] icons) {
+      this.icons = icons;
+      icons__is_set = true;
     }
 
     /**
@@ -148,8 +188,10 @@ public class DescribeTab implements com.sforce.ws.bind.XMLizable {
     protected void writeFields(com.sforce.ws.parser.XmlOutputStream __out,
          com.sforce.ws.bind.TypeMapper __typeMapper)
          throws java.io.IOException {
+       __typeMapper.writeObject(__out, colors__typeInfo, colors, colors__is_set);
        __typeMapper.writeBoolean(__out, custom__typeInfo, custom, custom__is_set);
        __typeMapper.writeString(__out, iconUrl__typeInfo, iconUrl, iconUrl__is_set);
+       __typeMapper.writeObject(__out, icons__typeInfo, icons, icons__is_set);
        __typeMapper.writeString(__out, label__typeInfo, label, label__is_set);
        __typeMapper.writeString(__out, miniIconUrl__typeInfo, miniIconUrl, miniIconUrl__is_set);
        __typeMapper.writeString(__out, sobjectName__typeInfo, sobjectName, sobjectName__is_set);
@@ -167,12 +209,20 @@ public class DescribeTab implements com.sforce.ws.bind.XMLizable {
     protected void loadFields(com.sforce.ws.parser.XmlInputStream __in,
         com.sforce.ws.bind.TypeMapper __typeMapper) throws java.io.IOException, com.sforce.ws.ConnectionException {
         __in.peekTag();
+        if (__typeMapper.isElement(__in, colors__typeInfo)) {
+            setColors((com.sforce.soap.partner.DescribeColor[])__typeMapper.readObject(__in, colors__typeInfo, com.sforce.soap.partner.DescribeColor[].class));
+        }
+        __in.peekTag();
         if (__typeMapper.verifyElement(__in, custom__typeInfo)) {
             setCustom(__typeMapper.readBoolean(__in, custom__typeInfo, boolean.class));
         }
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, iconUrl__typeInfo)) {
             setIconUrl(__typeMapper.readString(__in, iconUrl__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, icons__typeInfo)) {
+            setIcons((com.sforce.soap.partner.DescribeIcon[])__typeMapper.readObject(__in, icons__typeInfo, com.sforce.soap.partner.DescribeIcon[].class));
         }
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, label__typeInfo)) {
@@ -196,18 +246,14 @@ public class DescribeTab implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeTab ");
-      sb.append(" custom=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(custom)+"'\n");
-      sb.append(" iconUrl=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(iconUrl)+"'\n");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" miniIconUrl=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(miniIconUrl)+"'\n");
-      sb.append(" sobjectName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sobjectName)+"'\n");
-      sb.append(" url=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(url)+"'\n");
+      sb.append(" colors='").append(com.sforce.ws.util.Verbose.toString(colors)).append("'\n");
+      sb.append(" custom='").append(com.sforce.ws.util.Verbose.toString(custom)).append("'\n");
+      sb.append(" iconUrl='").append(com.sforce.ws.util.Verbose.toString(iconUrl)).append("'\n");
+      sb.append(" icons='").append(com.sforce.ws.util.Verbose.toString(icons)).append("'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" miniIconUrl='").append(com.sforce.ws.util.Verbose.toString(miniIconUrl)).append("'\n");
+      sb.append(" sobjectName='").append(com.sforce.ws.util.Verbose.toString(sobjectName)).append("'\n");
+      sb.append(" url='").append(com.sforce.ws.util.Verbose.toString(url)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

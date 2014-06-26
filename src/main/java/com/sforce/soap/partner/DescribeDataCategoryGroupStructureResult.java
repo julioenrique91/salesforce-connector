@@ -167,16 +167,11 @@ public class DescribeDataCategoryGroupStructureResult implements com.sforce.ws.b
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeDataCategoryGroupStructureResult ");
-      sb.append(" description=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(description)+"'\n");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
-      sb.append(" sobject=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sobject)+"'\n");
-      sb.append(" topCategories=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(topCategories)+"'\n");
+      sb.append(" description='").append(com.sforce.ws.util.Verbose.toString(description)).append("'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
+      sb.append(" sobject='").append(com.sforce.ws.util.Verbose.toString(sobject)).append("'\n");
+      sb.append(" topCategories='").append(com.sforce.ws.util.Verbose.toString(topCategories)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

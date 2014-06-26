@@ -69,8 +69,7 @@ public class DebuggingHeader_element extends com.sforce.ws.bind.SoapHeaderObject
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DebuggingHeader_element ");
-      sb.append(super.toString());sb.append(" debugLevel=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(debugLevel)+"'\n");
+      sb.append(super.toString());sb.append(" debugLevel='").append(com.sforce.ws.util.Verbose.toString(debugLevel)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

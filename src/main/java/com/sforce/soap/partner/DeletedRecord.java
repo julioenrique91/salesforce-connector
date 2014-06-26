@@ -92,10 +92,8 @@ public class DeletedRecord implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DeletedRecord ");
-      sb.append(" deletedDate=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(deletedDate)+"'\n");
-      sb.append(" id=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(id)+"'\n");
+      sb.append(" deletedDate='").append(com.sforce.ws.util.Verbose.toString(deletedDate)).append("'\n");
+      sb.append(" id='").append(com.sforce.ws.util.Verbose.toString(id)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

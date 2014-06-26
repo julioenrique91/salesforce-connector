@@ -11,6 +11,46 @@ public class DescribeQuickActionListItemResult implements com.sforce.ws.bind.XML
     public DescribeQuickActionListItemResult() {}
 
     /**
+     * element : accessLevelRequired of type {urn:partner.soap.sforce.com}ShareAccessLevel
+     * java type: com.sforce.soap.partner.ShareAccessLevel
+     */
+    private static final com.sforce.ws.bind.TypeInfo accessLevelRequired__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","accessLevelRequired","urn:partner.soap.sforce.com","ShareAccessLevel",1,1,true);
+
+    private boolean accessLevelRequired__is_set = false;
+
+    private com.sforce.soap.partner.ShareAccessLevel accessLevelRequired;
+
+    public com.sforce.soap.partner.ShareAccessLevel getAccessLevelRequired() {
+      return accessLevelRequired;
+    }
+
+    public void setAccessLevelRequired(com.sforce.soap.partner.ShareAccessLevel accessLevelRequired) {
+      this.accessLevelRequired = accessLevelRequired;
+      accessLevelRequired__is_set = true;
+    }
+
+    /**
+     * element : colors of type {urn:partner.soap.sforce.com}DescribeColor
+     * java type: com.sforce.soap.partner.DescribeColor[]
+     */
+    private static final com.sforce.ws.bind.TypeInfo colors__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","colors","urn:partner.soap.sforce.com","DescribeColor",0,-1,true);
+
+    private boolean colors__is_set = false;
+
+    private com.sforce.soap.partner.DescribeColor[] colors = new com.sforce.soap.partner.DescribeColor[0];
+
+    public com.sforce.soap.partner.DescribeColor[] getColors() {
+      return colors;
+    }
+
+    public void setColors(com.sforce.soap.partner.DescribeColor[] colors) {
+      this.colors = colors;
+      colors__is_set = true;
+    }
+
+    /**
      * element : iconUrl of type {http://www.w3.org/2001/XMLSchema}string
      * java type: java.lang.String
      */
@@ -28,6 +68,26 @@ public class DescribeQuickActionListItemResult implements com.sforce.ws.bind.XML
     public void setIconUrl(java.lang.String iconUrl) {
       this.iconUrl = iconUrl;
       iconUrl__is_set = true;
+    }
+
+    /**
+     * element : icons of type {urn:partner.soap.sforce.com}DescribeIcon
+     * java type: com.sforce.soap.partner.DescribeIcon[]
+     */
+    private static final com.sforce.ws.bind.TypeInfo icons__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","icons","urn:partner.soap.sforce.com","DescribeIcon",0,-1,true);
+
+    private boolean icons__is_set = false;
+
+    private com.sforce.soap.partner.DescribeIcon[] icons = new com.sforce.soap.partner.DescribeIcon[0];
+
+    public com.sforce.soap.partner.DescribeIcon[] getIcons() {
+      return icons;
+    }
+
+    public void setIcons(com.sforce.soap.partner.DescribeIcon[] icons) {
+      this.icons = icons;
+      icons__is_set = true;
     }
 
     /**
@@ -144,7 +204,10 @@ public class DescribeQuickActionListItemResult implements com.sforce.ws.bind.XML
     protected void writeFields(com.sforce.ws.parser.XmlOutputStream __out,
          com.sforce.ws.bind.TypeMapper __typeMapper)
          throws java.io.IOException {
+       __typeMapper.writeObject(__out, accessLevelRequired__typeInfo, accessLevelRequired, accessLevelRequired__is_set);
+       __typeMapper.writeObject(__out, colors__typeInfo, colors, colors__is_set);
        __typeMapper.writeString(__out, iconUrl__typeInfo, iconUrl, iconUrl__is_set);
+       __typeMapper.writeObject(__out, icons__typeInfo, icons, icons__is_set);
        __typeMapper.writeString(__out, label__typeInfo, label, label__is_set);
        __typeMapper.writeString(__out, miniIconUrl__typeInfo, miniIconUrl, miniIconUrl__is_set);
        __typeMapper.writeString(__out, quickActionName__typeInfo, quickActionName, quickActionName__is_set);
@@ -163,8 +226,20 @@ public class DescribeQuickActionListItemResult implements com.sforce.ws.bind.XML
     protected void loadFields(com.sforce.ws.parser.XmlInputStream __in,
         com.sforce.ws.bind.TypeMapper __typeMapper) throws java.io.IOException, com.sforce.ws.ConnectionException {
         __in.peekTag();
+        if (__typeMapper.verifyElement(__in, accessLevelRequired__typeInfo)) {
+            setAccessLevelRequired((com.sforce.soap.partner.ShareAccessLevel)__typeMapper.readObject(__in, accessLevelRequired__typeInfo, com.sforce.soap.partner.ShareAccessLevel.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, colors__typeInfo)) {
+            setColors((com.sforce.soap.partner.DescribeColor[])__typeMapper.readObject(__in, colors__typeInfo, com.sforce.soap.partner.DescribeColor[].class));
+        }
+        __in.peekTag();
         if (__typeMapper.verifyElement(__in, iconUrl__typeInfo)) {
             setIconUrl(__typeMapper.readString(__in, iconUrl__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, icons__typeInfo)) {
+            setIcons((com.sforce.soap.partner.DescribeIcon[])__typeMapper.readObject(__in, icons__typeInfo, com.sforce.soap.partner.DescribeIcon[].class));
         }
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, label__typeInfo)) {
@@ -192,18 +267,15 @@ public class DescribeQuickActionListItemResult implements com.sforce.ws.bind.XML
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeQuickActionListItemResult ");
-      sb.append(" iconUrl=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(iconUrl)+"'\n");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" miniIconUrl=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(miniIconUrl)+"'\n");
-      sb.append(" quickActionName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(quickActionName)+"'\n");
-      sb.append(" targetSobjectType=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(targetSobjectType)+"'\n");
-      sb.append(" type=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(type)+"'\n");
+      sb.append(" accessLevelRequired='").append(com.sforce.ws.util.Verbose.toString(accessLevelRequired)).append("'\n");
+      sb.append(" colors='").append(com.sforce.ws.util.Verbose.toString(colors)).append("'\n");
+      sb.append(" iconUrl='").append(com.sforce.ws.util.Verbose.toString(iconUrl)).append("'\n");
+      sb.append(" icons='").append(com.sforce.ws.util.Verbose.toString(icons)).append("'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" miniIconUrl='").append(com.sforce.ws.util.Verbose.toString(miniIconUrl)).append("'\n");
+      sb.append(" quickActionName='").append(com.sforce.ws.util.Verbose.toString(quickActionName)).append("'\n");
+      sb.append(" targetSobjectType='").append(com.sforce.ws.util.Verbose.toString(targetSobjectType)).append("'\n");
+      sb.append(" type='").append(com.sforce.ws.util.Verbose.toString(type)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

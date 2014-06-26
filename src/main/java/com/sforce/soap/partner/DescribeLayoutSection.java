@@ -200,18 +200,12 @@ public class DescribeLayoutSection implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeLayoutSection ");
-      sb.append(" columns=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(columns)+"'\n");
-      sb.append(" heading=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(heading)+"'\n");
-      sb.append(" layoutRows=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(layoutRows)+"'\n");
-      sb.append(" rows=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(rows)+"'\n");
-      sb.append(" useCollapsibleSection=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(useCollapsibleSection)+"'\n");
-      sb.append(" useHeading=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(useHeading)+"'\n");
+      sb.append(" columns='").append(com.sforce.ws.util.Verbose.toString(columns)).append("'\n");
+      sb.append(" heading='").append(com.sforce.ws.util.Verbose.toString(heading)).append("'\n");
+      sb.append(" layoutRows='").append(com.sforce.ws.util.Verbose.toString(layoutRows)).append("'\n");
+      sb.append(" rows='").append(com.sforce.ws.util.Verbose.toString(rows)).append("'\n");
+      sb.append(" useCollapsibleSection='").append(com.sforce.ws.util.Verbose.toString(useCollapsibleSection)).append("'\n");
+      sb.append(" useHeading='").append(com.sforce.ws.util.Verbose.toString(useHeading)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

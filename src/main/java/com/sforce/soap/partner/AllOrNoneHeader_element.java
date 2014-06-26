@@ -73,8 +73,7 @@ public class AllOrNoneHeader_element extends com.sforce.ws.bind.SoapHeaderObject
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[AllOrNoneHeader_element ");
-      sb.append(super.toString());sb.append(" allOrNone=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(allOrNone)+"'\n");
+      sb.append(super.toString());sb.append(" allOrNone='").append(com.sforce.ws.util.Verbose.toString(allOrNone)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

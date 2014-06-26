@@ -70,8 +70,7 @@ public class ProcessSubmitRequest extends com.sforce.soap.partner.ProcessRequest
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[ProcessSubmitRequest ");
-      sb.append(super.toString());sb.append(" objectId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(objectId)+"'\n");
+      sb.append(super.toString());sb.append(" objectId='").append(com.sforce.ws.util.Verbose.toString(objectId)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

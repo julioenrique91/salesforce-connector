@@ -35,6 +35,26 @@ public class DescribeLayoutButton implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : icons of type {urn:partner.soap.sforce.com}DescribeIcon
+     * java type: com.sforce.soap.partner.DescribeIcon[]
+     */
+    private static final com.sforce.ws.bind.TypeInfo icons__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","icons","urn:partner.soap.sforce.com","DescribeIcon",0,-1,true);
+
+    private boolean icons__is_set = false;
+
+    private com.sforce.soap.partner.DescribeIcon[] icons = new com.sforce.soap.partner.DescribeIcon[0];
+
+    public com.sforce.soap.partner.DescribeIcon[] getIcons() {
+      return icons;
+    }
+
+    public void setIcons(com.sforce.soap.partner.DescribeIcon[] icons) {
+      this.icons = icons;
+      icons__is_set = true;
+    }
+
+    /**
      * element : label of type {http://www.w3.org/2001/XMLSchema}string
      * java type: java.lang.String
      */
@@ -89,6 +109,7 @@ public class DescribeLayoutButton implements com.sforce.ws.bind.XMLizable {
          com.sforce.ws.bind.TypeMapper __typeMapper)
          throws java.io.IOException {
        __typeMapper.writeBoolean(__out, custom__typeInfo, custom, custom__is_set);
+       __typeMapper.writeObject(__out, icons__typeInfo, icons, icons__is_set);
        __typeMapper.writeString(__out, label__typeInfo, label, label__is_set);
        __typeMapper.writeString(__out, name__typeInfo, name, name__is_set);
     }
@@ -108,6 +129,10 @@ public class DescribeLayoutButton implements com.sforce.ws.bind.XMLizable {
             setCustom(__typeMapper.readBoolean(__in, custom__typeInfo, boolean.class));
         }
         __in.peekTag();
+        if (__typeMapper.isElement(__in, icons__typeInfo)) {
+            setIcons((com.sforce.soap.partner.DescribeIcon[])__typeMapper.readObject(__in, icons__typeInfo, com.sforce.soap.partner.DescribeIcon[].class));
+        }
+        __in.peekTag();
         if (__typeMapper.verifyElement(__in, label__typeInfo)) {
             setLabel(__typeMapper.readString(__in, label__typeInfo, java.lang.String.class));
         }
@@ -121,12 +146,10 @@ public class DescribeLayoutButton implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeLayoutButton ");
-      sb.append(" custom=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(custom)+"'\n");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
+      sb.append(" custom='").append(com.sforce.ws.util.Verbose.toString(custom)).append("'\n");
+      sb.append(" icons='").append(com.sforce.ws.util.Verbose.toString(icons)).append("'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

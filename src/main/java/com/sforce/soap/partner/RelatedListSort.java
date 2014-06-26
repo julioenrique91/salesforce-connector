@@ -96,10 +96,8 @@ public class RelatedListSort implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[RelatedListSort ");
-      sb.append(" ascending=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(ascending)+"'\n");
-      sb.append(" column=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(column)+"'\n");
+      sb.append(" ascending='").append(com.sforce.ws.util.Verbose.toString(ascending)).append("'\n");
+      sb.append(" column='").append(com.sforce.ws.util.Verbose.toString(column)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

@@ -145,14 +145,10 @@ public class MassEmailMessage extends com.sforce.soap.partner.Email {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[MassEmailMessage ");
-      sb.append(super.toString());sb.append(" description=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(description)+"'\n");
-      sb.append(" targetObjectIds=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(targetObjectIds)+"'\n");
-      sb.append(" templateId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(templateId)+"'\n");
-      sb.append(" whatIds=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(whatIds)+"'\n");
+      sb.append(super.toString());sb.append(" description='").append(com.sforce.ws.util.Verbose.toString(description)).append("'\n");
+      sb.append(" targetObjectIds='").append(com.sforce.ws.util.Verbose.toString(targetObjectIds)).append("'\n");
+      sb.append(" templateId='").append(com.sforce.ws.util.Verbose.toString(templateId)).append("'\n");
+      sb.append(" whatIds='").append(com.sforce.ws.util.Verbose.toString(whatIds)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

@@ -221,20 +221,13 @@ public class ProcessResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[ProcessResult ");
-      sb.append(" actorIds=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(actorIds)+"'\n");
-      sb.append(" entityId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(entityId)+"'\n");
-      sb.append(" errors=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(errors)+"'\n");
-      sb.append(" instanceId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(instanceId)+"'\n");
-      sb.append(" instanceStatus=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(instanceStatus)+"'\n");
-      sb.append(" newWorkitemIds=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(newWorkitemIds)+"'\n");
-      sb.append(" success=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(success)+"'\n");
+      sb.append(" actorIds='").append(com.sforce.ws.util.Verbose.toString(actorIds)).append("'\n");
+      sb.append(" entityId='").append(com.sforce.ws.util.Verbose.toString(entityId)).append("'\n");
+      sb.append(" errors='").append(com.sforce.ws.util.Verbose.toString(errors)).append("'\n");
+      sb.append(" instanceId='").append(com.sforce.ws.util.Verbose.toString(instanceId)).append("'\n");
+      sb.append(" instanceStatus='").append(com.sforce.ws.util.Verbose.toString(instanceStatus)).append("'\n");
+      sb.append(" newWorkitemIds='").append(com.sforce.ws.util.Verbose.toString(newWorkitemIds)).append("'\n");
+      sb.append(" success='").append(com.sforce.ws.util.Verbose.toString(success)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

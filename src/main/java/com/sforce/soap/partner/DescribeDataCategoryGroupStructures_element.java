@@ -96,10 +96,8 @@ public class DescribeDataCategoryGroupStructures_element implements com.sforce.w
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeDataCategoryGroupStructures_element ");
-      sb.append(" pairs=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(pairs)+"'\n");
-      sb.append(" topCategoriesOnly=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(topCategoriesOnly)+"'\n");
+      sb.append(" pairs='").append(com.sforce.ws.util.Verbose.toString(pairs)).append("'\n");
+      sb.append(" topCategoriesOnly='").append(com.sforce.ws.util.Verbose.toString(topCategoriesOnly)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

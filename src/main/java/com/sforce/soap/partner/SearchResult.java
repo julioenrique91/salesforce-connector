@@ -92,10 +92,8 @@ public class SearchResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[SearchResult ");
-      sb.append(" searchRecords=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(searchRecords)+"'\n");
-      sb.append(" sforceReserved=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sforceReserved)+"'\n");
+      sb.append(" searchRecords='").append(com.sforce.ws.util.Verbose.toString(searchRecords)).append("'\n");
+      sb.append(" sforceReserved='").append(com.sforce.ws.util.Verbose.toString(sforceReserved)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

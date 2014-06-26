@@ -150,14 +150,10 @@ public class RecordTypeInfo implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[RecordTypeInfo ");
-      sb.append(" available=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(available)+"'\n");
-      sb.append(" defaultRecordTypeMapping=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(defaultRecordTypeMapping)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
-      sb.append(" recordTypeId=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(recordTypeId)+"'\n");
+      sb.append(" available='").append(com.sforce.ws.util.Verbose.toString(available)).append("'\n");
+      sb.append(" defaultRecordTypeMapping='").append(com.sforce.ws.util.Verbose.toString(defaultRecordTypeMapping)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
+      sb.append(" recordTypeId='").append(com.sforce.ws.util.Verbose.toString(recordTypeId)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

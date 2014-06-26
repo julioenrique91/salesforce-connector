@@ -102,10 +102,8 @@ public class OwnerChangeOptions_element extends com.sforce.ws.bind.SoapHeaderObj
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[OwnerChangeOptions_element ");
-      sb.append(super.toString());sb.append(" transferAttachments=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(transferAttachments)+"'\n");
-      sb.append(" transferOpenActivities=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(transferOpenActivities)+"'\n");
+      sb.append(super.toString());sb.append(" transferAttachments='").append(com.sforce.ws.util.Verbose.toString(transferAttachments)).append("'\n");
+      sb.append(" transferOpenActivities='").append(com.sforce.ws.util.Verbose.toString(transferOpenActivities)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

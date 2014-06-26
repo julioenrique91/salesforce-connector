@@ -67,8 +67,7 @@ public class DescribeSearchLayouts_element implements com.sforce.ws.bind.XMLizab
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeSearchLayouts_element ");
-      sb.append(" sObjectType=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sObjectType)+"'\n");
+      sb.append(" sObjectType='").append(com.sforce.ws.util.Verbose.toString(sObjectType)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

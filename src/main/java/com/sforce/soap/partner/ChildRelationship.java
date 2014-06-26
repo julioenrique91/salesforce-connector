@@ -204,18 +204,12 @@ public class ChildRelationship implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[ChildRelationship ");
-      sb.append(" cascadeDelete=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(cascadeDelete)+"'\n");
-      sb.append(" childSObject=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(childSObject)+"'\n");
-      sb.append(" deprecatedAndHidden=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(deprecatedAndHidden)+"'\n");
-      sb.append(" field=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(field)+"'\n");
-      sb.append(" relationshipName=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(relationshipName)+"'\n");
-      sb.append(" restrictedDelete=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(restrictedDelete)+"'\n");
+      sb.append(" cascadeDelete='").append(com.sforce.ws.util.Verbose.toString(cascadeDelete)).append("'\n");
+      sb.append(" childSObject='").append(com.sforce.ws.util.Verbose.toString(childSObject)).append("'\n");
+      sb.append(" deprecatedAndHidden='").append(com.sforce.ws.util.Verbose.toString(deprecatedAndHidden)).append("'\n");
+      sb.append(" field='").append(com.sforce.ws.util.Verbose.toString(field)).append("'\n");
+      sb.append(" relationshipName='").append(com.sforce.ws.util.Verbose.toString(relationshipName)).append("'\n");
+      sb.append(" restrictedDelete='").append(com.sforce.ws.util.Verbose.toString(restrictedDelete)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

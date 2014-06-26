@@ -67,8 +67,7 @@ public class InvalidateSessions_element implements com.sforce.ws.bind.XMLizable 
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[InvalidateSessions_element ");
-      sb.append(" sessionIds=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(sessionIds)+"'\n");
+      sb.append(" sessionIds='").append(com.sforce.ws.util.Verbose.toString(sessionIds)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

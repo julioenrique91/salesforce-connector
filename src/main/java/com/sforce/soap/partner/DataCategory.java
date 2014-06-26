@@ -117,12 +117,9 @@ public class DataCategory implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DataCategory ");
-      sb.append(" childCategories=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(childCategories)+"'\n");
-      sb.append(" label=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(label)+"'\n");
-      sb.append(" name=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(name)+"'\n");
+      sb.append(" childCategories='").append(com.sforce.ws.util.Verbose.toString(childCategories)).append("'\n");
+      sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

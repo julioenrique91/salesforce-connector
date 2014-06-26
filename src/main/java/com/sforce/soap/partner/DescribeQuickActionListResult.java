@@ -67,8 +67,7 @@ public class DescribeQuickActionListResult implements com.sforce.ws.bind.XMLizab
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeQuickActionListResult ");
-      sb.append(" quickActionListItems=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(quickActionListItems)+"'\n");
+      sb.append(" quickActionListItems='").append(com.sforce.ws.util.Verbose.toString(quickActionListItems)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

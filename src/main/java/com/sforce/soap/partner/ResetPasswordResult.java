@@ -67,8 +67,7 @@ public class ResetPasswordResult implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[ResetPasswordResult ");
-      sb.append(" password=");
-      sb.append("'"+com.sforce.ws.util.Verbose.toString(password)+"'\n");
+      sb.append(" password='").append(com.sforce.ws.util.Verbose.toString(password)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }
