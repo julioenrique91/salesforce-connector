@@ -1365,7 +1365,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         if (result.getSize() == 0) {
             SObject pushTopic = new SObject();
             pushTopic.setType("PushTopic");
-            pushTopic.setField("ApiVersion", "28.0");  //TODO the version in master was 26.0, which one should it go?
+            pushTopic.setField("ApiVersion", "30.0");  //TODO the version in master was 26.0, which one should it go?
             if (description != null) {
                 pushTopic.setField("Description", description);
             }
