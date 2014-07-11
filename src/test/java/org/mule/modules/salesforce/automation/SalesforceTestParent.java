@@ -24,7 +24,7 @@ import com.sforce.async.Result;
 
 public class SalesforceTestParent extends ConnectorTestCase {
 	
-	public static final long AFTER_UPDATE_DELAY = 90000;
+	public static final long AFTER_UPDATE_DELAY = 120000;
 	public static final long BATCH_PROCESSING_DELAY = 10000;
 	public static final long BEFORE_SEARCH_DELAY = 90000;
 	public static final long AFTER_DELETE_DELAY = 90000;
