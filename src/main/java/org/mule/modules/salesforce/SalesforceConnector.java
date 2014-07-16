@@ -302,8 +302,8 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     @Connect
     public synchronized void connect(@ConnectionKey String username,
                                      @Password String password,
-                                     String securityToken,
-                                     @Optional @Default("https://login.salesforce.com/services/Soap/u/30.0") String url,
+                                     @Optional String securityToken,
+                                     @Optional @Default("https://login.salesforce.com/services/Soap/u/31.0") String url,
                                      @Optional @Placement(group = "Proxy Settings") String proxyHost,
                                      @Optional @Placement(group = "Proxy Settings") @Default("80") int proxyPort,
                                      @Optional @Placement(group = "Proxy Settings") String proxyUsername,
@@ -345,7 +345,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         }
 
         try {
-            String restEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/async/30.0";
+            String restEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/async/31.0";
             connectorConfig.setRestEndpoint(restEndpoint);
             bulkConnection = new BulkConnection(connectorConfig);
         } catch (AsyncApiException e) {
