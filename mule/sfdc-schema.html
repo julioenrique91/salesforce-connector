@@ -66,49 +66,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -201,7 +158,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="searchContainer" >
+  <div id="search" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -275,7 +232,7 @@
           <th>Schema Version</th><td>5.0</td>
         </tr>
 <tr>
-          <th>Minimum Mule Version</th><td>3.5</td>
+          <th>Minimum Mule Version</th><td>3.4</td>
         </tr>
     </tbody></table>
   </div>
@@ -321,11 +278,6 @@ username/password/securityToken combination.
                     &lt;xs:attribute name=&quot;async&quot; default=&quot;false&quot; use=&quot;optional&quot; type=&quot;xs:boolean&quot;&gt;&lt;/xs:attribute&gt;
                     &lt;xs:attribute name=&quot;path&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;&lt;/xs:attribute&gt;
                     &lt;xs:attribute name=&quot;connector-ref&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;&lt;/xs:attribute&gt;
-                    &lt;xs:attribute name=&quot;defaultAccessTokenId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-                      &lt;xs:annotation&gt;
-                        &lt;xs:documentation&gt;A Mule Expression to use as access token id&lt;/xs:documentation&gt;
-                      &lt;/xs:annotation&gt;
-                    &lt;/xs:attribute&gt;
                   &lt;/xs:extension&gt;
                 &lt;/xs:complexContent&gt;
               &lt;/xs:complexType&gt;
@@ -379,23 +331,18 @@ If the value is not in correct ID format (15-character or 18-character Salesforc
               &lt;xs:documentation&gt;If true for a Case or Lead, uses the default (active) assignment rule for a Case or Lead. If specified, do not specify an assignmentRuleId. If true for an Account, all territory assignment rules are applied, and if false, no territory assignment rules are applied.&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:attribute&gt;
-          &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;batchSobjectMaxDepth&quot; default=&quot;5&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;Creating a batch will create SObjects using this value for the MAX_DEPTH check.&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:attribute&gt;
           &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;allowFieldTruncationSupport&quot; use=&quot;optional&quot; type=&quot;booleanType&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;If true, truncate field values that are too long, which is the behavior in API versions 14.0 and earlier.
 Default is false: no change in behavior. If a string or textarea value is too large, the operation fails and the fault code STRING_TOO_LONG is returned.&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:attribute&gt;
-          &lt;xs:attribute name=&quot;accessTokenUrl&quot; default=&quot;https://login.salesforce.com/services/oauth2/token&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;batchSobjectMaxDepth&quot; default=&quot;0&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
             &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;The URL defined by the Service Provider to obtain an access token&lt;/xs:documentation&gt;
+              &lt;xs:documentation&gt;Creating a batch will create SObjects using this value for the MAX_DEPTH check.&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:attribute&gt;
-          &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;onNoToken&quot; default=&quot;EXCEPTION&quot; use=&quot;optional&quot; type=&quot;OnNoTokenPolicyEnumType&quot;&gt;
+          &lt;xs:attribute name=&quot;accessTokenUrl&quot; default=&quot;https://login.salesforce.com/services/oauth2/token&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;The URL defined by the Service Provider to obtain an access token&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
@@ -450,11 +397,6 @@ Default is false: no change in behavior. If a string or textarea value is too la
         &lt;xs:attribute name=&quot;accessTokenUrl&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;The URL defined by the Service Provider to obtain an access token&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;accessTokenId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The Id with which the obtained access token will be stored. If not provided, then it will be the config name&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;authorizationUrl&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -595,7 +537,7 @@ evaluator as &amp;lt;i&amp;gt;#[groovy:Date.parse(&quot;yyyy-MM-dd&quot;, &quot;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -625,7 +567,7 @@ evaluator as &amp;lt;i&amp;gt;#[groovy:Date.parse(&quot;yyyy-MM-dd&quot;, &quot;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -691,7 +633,7 @@ evaluator as &amp;lt;i&amp;gt;#[groovy:Date.parse(&quot;yyyy-MM-dd&quot;, &quot;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -721,7 +663,7 @@ evaluator as &amp;lt;i&amp;gt;#[groovy:Date.parse(&quot;yyyy-MM-dd&quot;, &quot;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -767,7 +709,7 @@ evaluator as &amp;lt;i&amp;gt;#[groovy:Date.parse(&quot;yyyy-MM-dd&quot;, &quot;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -797,7 +739,7 @@ evaluator as &amp;lt;i&amp;gt;#[groovy:Date.parse(&quot;yyyy-MM-dd&quot;, &quot;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -843,7 +785,7 @@ evaluator as &amp;lt;i&amp;gt;#[groovy:Date.parse(&quot;yyyy-MM-dd&quot;, &quot;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -873,84 +815,7 @@ evaluator as &amp;lt;i&amp;gt;#[groovy:Date.parse(&quot;yyyy-MM-dd&quot;, &quot;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Specifies the service endpoint. This value will only be used in case of using sessionId configuration property. Otherwise the service endpoint will be retrieved from the login results.&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;accessTokenId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The id of the access token that will be used to authenticate the call&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-      &lt;/xs:extension&gt;
-    &lt;/xs:complexContent&gt;
-  &lt;/xs:complexType&gt;
-  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;job-info&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;JobInfoType&quot;&gt;
-    &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Access latest  of a submitted . Allows to track execution status.
-&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
-    &lt;/xs:annotation&gt;
-  &lt;/xs:element&gt;
-  &lt;xs:complexType name=&quot;JobInfoType&quot;&gt;
-    &lt;xs:complexContent&gt;
-      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
-        &lt;xs:attribute name=&quot;config-ref&quot; use=&quot;required&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;jobId&quot; use=&quot;required&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;the  being monitored&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;username&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Username used to initialize the session&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;password&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Password used to authenticate the user&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Salesforce endpoint URL&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;proxyHost&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Hostname of the proxy&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;proxyPort&quot; default=&quot;80&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Port of the proxy&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;proxyUsername&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Username used to authenticate against the proxy&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;proxyPassword&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Password used to authenticate against the proxy&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1174,7 +1039,7 @@ This call uses the Bulk API. The operation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1204,7 +1069,7 @@ This call uses the Bulk API. The operation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1265,7 +1130,7 @@ This call uses the Bulk API. The operation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1295,7 +1160,7 @@ This call uses the Bulk API. The operation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1356,7 +1221,7 @@ This call uses the Bulk API. The operation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1386,7 +1251,7 @@ This call uses the Bulk API. The operation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1477,7 +1342,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1507,7 +1372,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1614,7 +1479,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1644,7 +1509,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1762,7 +1627,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1792,7 +1657,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1899,7 +1764,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -1929,7 +1794,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2020,7 +1885,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2050,7 +1915,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2176,7 +2041,7 @@ to avoid creating unwanted duplicate records.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2206,7 +2071,7 @@ to avoid creating unwanted duplicate records.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2305,7 +2170,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2335,7 +2200,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2424,7 +2289,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
     &lt;xs:complexContent&gt;
       &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
         &lt;xs:sequence&gt;
-          &lt;xs:element name=&quot;batch-info&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot;&gt;
+          &lt;xs:element name=&quot;batch-info&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;1&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;the  being monitored&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
@@ -2452,7 +2317,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2482,7 +2347,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2508,7 +2373,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
     &lt;xs:complexContent&gt;
       &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
         &lt;xs:sequence&gt;
-          &lt;xs:element name=&quot;batch-info&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot;&gt;
+          &lt;xs:element name=&quot;batch-info&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;1&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;the  being monitored&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
@@ -2536,7 +2401,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2566,7 +2431,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2592,7 +2457,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
     &lt;xs:complexContent&gt;
       &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
         &lt;xs:sequence&gt;
-          &lt;xs:element name=&quot;batch-info&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot;&gt;
+          &lt;xs:element name=&quot;batch-info&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;1&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;the  being monitored&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
@@ -2620,7 +2485,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2650,7 +2515,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2678,7 +2543,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
     &lt;xs:complexContent&gt;
       &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
         &lt;xs:sequence&gt;
-          &lt;xs:element name=&quot;batch-info&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot;&gt;
+          &lt;xs:element name=&quot;batch-info&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;1&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;the  being monitored&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
@@ -2706,7 +2571,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2736,7 +2601,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2778,7 +2643,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2808,7 +2673,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2932,7 +2797,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -2962,7 +2827,128 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specifies the service endpoint. This value will only be used in case of using sessionId configuration property. Otherwise the service endpoint will be retrieved from the login results.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;accessTokenId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The id of the access token that will be used to authenticate the call&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;paginated-query&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;PaginatedQueryType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Executes a paginated query against the specified object and returns data that matches the specified criteria.
+The returned class QueryResultObject provides the methods getData() to retrieve the results in a List&amp;lt;Maps&amp;gt;
+and hasMore() to check if there are more pages to retrieve from the server.
+The query result object contains up to 500 rows of data by default and can be increased up to 2,000 rows.
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;PaginatedQueryType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element name=&quot;headers&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;Salesforce Headers &amp;lt;a href=&quot;http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm&quot;&amp;gt;More Info&amp;lt;/a&amp;gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:choice&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:element name=&quot;header&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&gt;
+                    &lt;xs:complexType&gt;
+                      &lt;xs:simpleContent&gt;
+                        &lt;xs:extension base=&quot;xs:string&quot;&gt;
+                          &lt;xs:attribute name=&quot;value-ref&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;&lt;/xs:attribute&gt;
+                          &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;key&quot; type=&quot;SalesforceHeaderEnumType&quot;&gt;&lt;/xs:attribute&gt;
+                        &lt;/xs:extension&gt;
+                      &lt;/xs:simpleContent&gt;
+                    &lt;/xs:complexType&gt;
+                  &lt;/xs:element&gt;
+                &lt;/xs:sequence&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:any maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot; processContents=&quot;lax&quot;&gt;&lt;/xs:any&gt;
+                &lt;/xs:sequence&gt;
+              &lt;/xs:choice&gt;
+              &lt;xs:attribute name=&quot;ref&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:attribute&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute name=&quot;config-ref&quot; use=&quot;required&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;query&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Query string that specifies the object to query, the fields to return, and any conditions for including a specific object in the query. For more information, see Salesforce Object Query Language (SOQL).&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;queryResultObject-ref&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;QueryResultObject returned by a previous call to this operation. If this is set the other parameter will be ignored.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;withDeletedRecords&quot; default=&quot;false&quot; use=&quot;optional&quot; type=&quot;booleanType&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Flag that specifies whether or not to retrieve records that have been deleted.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;username&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Username used to initialize the session&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;password&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Password used to authenticate the user&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Salesforce endpoint URL&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;proxyHost&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Hostname of the proxy&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;proxyPort&quot; default=&quot;80&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Port of the proxy&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;proxyUsername&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Username used to authenticate against the proxy&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;proxyPassword&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Password used to authenticate against the proxy&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3040,7 +3026,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3070,120 +3056,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Specifies the service endpoint. This value will only be used in case of using sessionId configuration property. Otherwise the service endpoint will be retrieved from the login results.&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;accessTokenId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The id of the access token that will be used to authenticate the call&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;fetchSize&quot; default=&quot;100&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The amount of items to fetch on each invocation to the data source&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-      &lt;/xs:extension&gt;
-    &lt;/xs:complexContent&gt;
-  &lt;/xs:complexType&gt;
-  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;non-paginated-query&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;NonPaginatedQueryType&quot;&gt;
-    &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Executes a query against the specified object and returns data that matches the specified criteria.
-&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
-    &lt;/xs:annotation&gt;
-  &lt;/xs:element&gt;
-  &lt;xs:complexType name=&quot;NonPaginatedQueryType&quot;&gt;
-    &lt;xs:complexContent&gt;
-      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
-        &lt;xs:sequence&gt;
-          &lt;xs:element name=&quot;headers&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;Salesforce Headers &amp;lt;a href=&quot;http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm&quot;&amp;gt;More Info&amp;lt;/a&amp;gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-            &lt;xs:complexType&gt;
-              &lt;xs:choice&gt;
-                &lt;xs:sequence&gt;
-                  &lt;xs:element name=&quot;header&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&gt;
-                    &lt;xs:complexType&gt;
-                      &lt;xs:simpleContent&gt;
-                        &lt;xs:extension base=&quot;xs:string&quot;&gt;
-                          &lt;xs:attribute name=&quot;value-ref&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;&lt;/xs:attribute&gt;
-                          &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;key&quot; type=&quot;SalesforceHeaderEnumType&quot;&gt;&lt;/xs:attribute&gt;
-                        &lt;/xs:extension&gt;
-                      &lt;/xs:simpleContent&gt;
-                    &lt;/xs:complexType&gt;
-                  &lt;/xs:element&gt;
-                &lt;/xs:sequence&gt;
-                &lt;xs:sequence&gt;
-                  &lt;xs:any maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot; processContents=&quot;lax&quot;&gt;&lt;/xs:any&gt;
-                &lt;/xs:sequence&gt;
-              &lt;/xs:choice&gt;
-              &lt;xs:attribute name=&quot;ref&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-                &lt;xs:annotation&gt;
-                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
-                &lt;/xs:annotation&gt;
-              &lt;/xs:attribute&gt;
-            &lt;/xs:complexType&gt;
-          &lt;/xs:element&gt;
-        &lt;/xs:sequence&gt;
-        &lt;xs:attribute name=&quot;config-ref&quot; use=&quot;required&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;query&quot; use=&quot;required&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Query string that specifies the object to query, the fields to return, and any conditions for including a specific object in the query. For more information, see Salesforce Object Query Language (SOQL).&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;username&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Username used to initialize the session&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;password&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Password used to authenticate the user&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Salesforce endpoint URL&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;proxyHost&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Hostname of the proxy&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;proxyPort&quot; default=&quot;80&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Port of the proxy&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;proxyUsername&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Username used to authenticate against the proxy&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;proxyPassword&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;Password used to authenticate against the proxy&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3261,7 +3134,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3291,7 +3164,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3302,11 +3175,6 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;xs:attribute name=&quot;accessTokenId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;The id of the access token that will be used to authenticate the call&lt;/xs:documentation&gt;
-          &lt;/xs:annotation&gt;
-        &lt;/xs:attribute&gt;
-        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;fetchSize&quot; default=&quot;100&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
-          &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;The amount of items to fetch on each invocation to the data source&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
@@ -3374,7 +3242,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3404,7 +3272,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3482,7 +3350,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3512,7 +3380,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3625,7 +3493,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3655,7 +3523,7 @@ Internally the InputStreams contained in the sequence will be requested on-deman
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3755,7 +3623,7 @@ the oldest records, as long as they have been in the recycle bin for at least tw
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3785,7 +3653,7 @@ the oldest records, as long as they have been in the recycle bin for at least tw
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3827,7 +3695,7 @@ the oldest records, as long as they have been in the recycle bin for at least tw
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3857,7 +3725,7 @@ the oldest records, as long as they have been in the recycle bin for at least tw
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3953,7 +3821,7 @@ the oldest records, as long as they have been in the recycle bin for at least tw
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -3983,7 +3851,7 @@ the oldest records, as long as they have been in the recycle bin for at least tw
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4076,7 +3944,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4106,7 +3974,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4194,7 +4062,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4224,7 +4092,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4312,7 +4180,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4342,7 +4210,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4389,7 +4257,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4419,7 +4287,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4502,7 +4370,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4532,7 +4400,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4616,7 +4484,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4646,7 +4514,7 @@ This call uses the Bulk API. The creation will be done in asynchronous fashion.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4756,7 +4624,7 @@ use
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4786,7 +4654,7 @@ use
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4835,7 +4703,7 @@ has not been called then calling this method has no effect.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4865,7 +4733,7 @@ has not been called then calling this method has no effect.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4948,7 +4816,7 @@ has not been called then calling this method has no effect.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -4978,7 +4846,7 @@ has not been called then calling this method has no effect.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -5036,7 +4904,7 @@ listeners of changes to records in an organization.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -5066,7 +4934,7 @@ listeners of changes to records in an organization.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -5108,7 +4976,7 @@ listeners of changes to records in an organization.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -5138,7 +5006,7 @@ listeners of changes to records in an organization.
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -5230,15 +5098,15 @@ If the value is not in correct ID format (15-character or 18-character Salesforc
               &lt;xs:documentation&gt;If true for a Case or Lead, uses the default (active) assignment rule for a Case or Lead. If specified, do not specify an assignmentRuleId. If true for an Account, all territory assignment rules are applied, and if false, no territory assignment rules are applied.&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:attribute&gt;
-          &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;batchSobjectMaxDepth&quot; default=&quot;5&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;Creating a batch will create SObjects using this value for the MAX_DEPTH check.&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:attribute&gt;
           &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;allowFieldTruncationSupport&quot; use=&quot;optional&quot; type=&quot;booleanType&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;If true, truncate field values that are too long, which is the behavior in API versions 14.0 and earlier.
 Default is false: no change in behavior. If a string or textarea value is too large, the operation fails and the fault code STRING_TOO_LONG is returned.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+          &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/sfdc&quot; name=&quot;batchSobjectMaxDepth&quot; default=&quot;0&quot; use=&quot;optional&quot; type=&quot;integerType&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;Creating a batch will create SObjects using this value for the MAX_DEPTH check.&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:attribute&gt;
           &lt;xs:attribute name=&quot;username&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -5253,7 +5121,7 @@ Default is false: no change in behavior. If a string or textarea value is too la
           &lt;/xs:attribute&gt;
           &lt;xs:attribute name=&quot;securityToken&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
             &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;User's security token. It can be omitted if your IP has been whitelisted on Salesforce&lt;/xs:documentation&gt;
+              &lt;xs:documentation&gt;User's security token&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:attribute&gt;
           &lt;xs:attribute name=&quot;url&quot; default=&quot;https://login.salesforce.com/services/Soap/u/31.0&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -5283,7 +5151,7 @@ Default is false: no change in behavior. If a string or textarea value is too la
           &lt;/xs:attribute&gt;
           &lt;xs:attribute name=&quot;sessionId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
             &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;This value could be used for specifying an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
+              &lt;xs:documentation&gt;This value could be used for specifing an active Salesforce session. Please take into account you must specify all the connection parameters anyway since they will be used in case of needing a reconnection.&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:attribute&gt;
           &lt;xs:attribute name=&quot;serviceEndpoint&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -5295,22 +5163,165 @@ Default is false: no change in behavior. If a string or textarea value is too la
       &lt;/xs:complexContent&gt;
     &lt;/xs:complexType&gt;
   &lt;/xs:element&gt;
-  &lt;xs:simpleType name=&quot;SalesforceOAuthPromptEnumType&quot;&gt;
+  &lt;xs:simpleType name=&quot;SalesforceOAuthImmediateEnumType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Specifies how the authorization server prompts the user for reauthentication and reapproval&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Avoid interacting with the user.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
     &lt;xs:union&gt;
       &lt;xs:simpleType&gt;
         &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;LOGIN&quot;&gt;
+          &lt;xs:enumeration value=&quot;TRUE&quot;&gt;
             &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;The authorization server must prompt the user for reauthentication, forcing the user to log in again.&lt;/xs:documentation&gt;
+              &lt;xs:documentation&gt;Prompt the user for login and approval&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;CONSENT&quot;&gt;
+          &lt;xs:enumeration value=&quot;FALSE&quot;&gt;
             &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;The authorization server must prompt the user for reapproval before returning information to the client.
-It is valid to pass both values, separated by a space, to require the user to both log in and reauthorize.&lt;/xs:documentation&gt;
+              &lt;xs:documentation&gt;If the user is currently logged in and has previously approved the client_id, the approval step is skipped,
+and the browser is immediately redirected to the callback with an authorization code. If the user is not
+logged in or has not previously approved the client, the flow immediately terminates with
+the immediate_unsuccessful error code.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;ContentTypeEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;XML&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;CSV&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;ZIP_XML&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;ZIP_CSV&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;BatchStateEnumEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;Queued&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;InProgress&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;Completed&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;Failed&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;NotProcessed&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;OperationEnumEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;insert&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;upsert&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;update&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;delete&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;hardDelete&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;query&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;ConcurrencyModeEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;Parallel&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;Serial&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
         &lt;/xs:restriction&gt;
@@ -5423,94 +5434,22 @@ It is valid to pass both values, separated by a space, to require the user to bo
       &lt;/xs:simpleType&gt;
     &lt;/xs:union&gt;
   &lt;/xs:simpleType&gt;
-  &lt;xs:simpleType name=&quot;ConcurrencyModeEnumType&quot;&gt;
+  &lt;xs:simpleType name=&quot;SalesforceOAuthPromptEnumType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Specifies how the authorization server prompts the user for reauthentication and reapproval&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
     &lt;xs:union&gt;
       &lt;xs:simpleType&gt;
         &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;Parallel&quot;&gt;
+          &lt;xs:enumeration value=&quot;LOGIN&quot;&gt;
             &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+              &lt;xs:documentation&gt;The authorization server must prompt the user for reauthentication, forcing the user to log in again.&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;Serial&quot;&gt;
+          &lt;xs:enumeration value=&quot;CONSENT&quot;&gt;
             &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-        &lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-    &lt;/xs:union&gt;
-  &lt;/xs:simpleType&gt;
-  &lt;xs:simpleType name=&quot;BatchStateEnumEnumType&quot;&gt;
-    &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-    &lt;/xs:annotation&gt;
-    &lt;xs:union&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;Queued&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;InProgress&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;Completed&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;Failed&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;NotProcessed&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-        &lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-    &lt;/xs:union&gt;
-  &lt;/xs:simpleType&gt;
-  &lt;xs:simpleType name=&quot;ContentTypeEnumType&quot;&gt;
-    &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-    &lt;/xs:annotation&gt;
-    &lt;xs:union&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;XML&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;CSV&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;ZIP_XML&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;ZIP_CSV&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+              &lt;xs:documentation&gt;The authorization server must prompt the user for reapproval before returning information to the client.
+It is valid to pass both values, separated by a space, to require the user to both log in and reauthorize.&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
         &lt;/xs:restriction&gt;
@@ -5542,90 +5481,6 @@ It is valid to pass both values, separated by a space, to require the user to bo
               &lt;xs:documentation&gt;Mobile-optimized dialog designed for modern smartphones, such as Android and iPhone.&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
-        &lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-    &lt;/xs:union&gt;
-  &lt;/xs:simpleType&gt;
-  &lt;xs:simpleType name=&quot;OperationEnumEnumType&quot;&gt;
-    &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-    &lt;/xs:annotation&gt;
-    &lt;xs:union&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;insert&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;upsert&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;update&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;delete&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;hardDelete&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;query&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-        &lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-    &lt;/xs:union&gt;
-  &lt;/xs:simpleType&gt;
-  &lt;xs:simpleType name=&quot;SalesforceOAuthImmediateEnumType&quot;&gt;
-    &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Avoid interacting with the user.&lt;/xs:documentation&gt;
-    &lt;/xs:annotation&gt;
-    &lt;xs:union&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;TRUE&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;Prompt the user for login and approval&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;FALSE&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;If the user is currently logged in and has previously approved the client_id, the approval step is skipped,
-and the browser is immediately redirected to the callback with an authorization code. If the user is not
-logged in or has not previously approved the client, the flow immediately terminates with
-the immediate_unsuccessful error code.&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-        &lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-    &lt;/xs:union&gt;
-  &lt;/xs:simpleType&gt;
-  &lt;xs:simpleType name=&quot;OnNoTokenPolicyEnumType&quot;&gt;
-    &lt;xs:union&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;EXCEPTION&quot;&gt;&lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;STOP_FLOW&quot;&gt;&lt;/xs:enumeration&gt;
         &lt;/xs:restriction&gt;
       &lt;/xs:simpleType&gt;
       &lt;xs:simpleType&gt;

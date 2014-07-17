@@ -65,49 +65,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -202,7 +159,7 @@
       <a href="http://www.mulesoft.com" tabindex="-1">
       <img src="../../../../../../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
       
-  <div id="searchContainer" >
+  <div id="search" >
       <div id="searchForm">
           <form accept-charset="utf-8" class="gsc-search-box" 
                 onsubmit="return submit_search()">
@@ -278,7 +235,9 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/api/transformers/package-summary.html">org.mule.modules.salesforce.api.transformers</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/salesforce/bulk/package-summary.html">org.mule.modules.salesforce.bulk</a></li>
+  <a href="../../../../../../java/org/mule/modules/salesforce/basic/package-summary.html">org.mule.modules.salesforce.basic</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/salesforce/callback/package-summary.html">org.mule.modules.salesforce.callback</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/config/package-summary.html">org.mule.modules.salesforce.config</a></li>
     <li class="api apilevel-">
@@ -296,8 +255,6 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/oauth/package-summary.html">org.mule.modules.salesforce.oauth</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/salesforce/pooling/package-summary.html">org.mule.modules.salesforce.pooling</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/process/package-summary.html">org.mule.modules.salesforce.process</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/processors/package-summary.html">org.mule.modules.salesforce.processors</a></li>
@@ -311,17 +268,14 @@
           <div id="classes-nav">
             <ul>
               
-    <li><h2>Interfaces</h2>
-      <ul>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/ConnectivityProcessor.html">ConnectivityProcessor</a></li>
-      </ul>
-    </li>
               
     <li><h2>Classes</h2>
       <ul>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbortJobMessageProcessor.html">AbortJobMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html">AbstractConnectedProcessor</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html">AbstractExpressionEvaluator</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractListeningMessageProcessor.html">AbstractListeningMessageProcessor</a>&lt;O&gt;</li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractMessageProcessor.html">AbstractMessageProcessor</a>&lt;O&gt;</li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AuthorizeMessageProcessor.html">AuthorizeMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/BatchInfoMessageProcessor.html">BatchInfoMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/BatchResultMessageProcessor.html">BatchResultMessageProcessor</a></li>
@@ -347,8 +301,6 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/GetUpdatedRangeMessageProcessor.html">GetUpdatedRangeMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/GetUserInfoMessageProcessor.html">GetUserInfoMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/HardDeleteBulkMessageProcessor.html">HardDeleteBulkMessageProcessor</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/JobInfoMessageProcessor.html">JobInfoMessageProcessor</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/NonPaginatedQueryMessageProcessor.html">NonPaginatedQueryMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/PaginatedQueryMessageProcessor.html">PaginatedQueryMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/PublishTopicMessageProcessor.html">PublishTopicMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/salesforce/processors/QueryAllMessageProcessor.html">QueryAllMessageProcessor</a></li>
@@ -431,15 +383,6 @@
   
   
   
-   
-  
-  
-
-  
-   
-  
-  
-  
   
 
   
@@ -518,13 +461,6 @@
   
   
 
-  
-  
-  
-  
-
-  
-   
   
   
   
@@ -604,11 +540,7 @@ Summary:
   
 
   
-  
-  
-
-  
-    extends <a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a><br/>
+    extends <a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractMessageProcessor.html">AbstractMessageProcessor</a>&lt;O&gt;<br/>
   
   
   
@@ -616,6 +548,14 @@ Summary:
   
   
       implements 
+      
+        Disposable 
+      
+        Initialisable 
+      
+        Startable 
+      
+        Stoppable 
       
         MessageProcessor 
       
@@ -635,7 +575,7 @@ Summary:
 
     <tr>
         
-        <td colspan="6" class="jd-inheritance-class-cell">java.lang.Object</td>
+        <td colspan="5" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
@@ -643,7 +583,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="5" class="jd-inheritance-class-cell">org.mule.devkit.processor.ExpressionEvaluatorSupport</td>
+        <td colspan="4" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html">org.mule.modules.salesforce.processors.AbstractExpressionEvaluator</a></td>
     </tr>
     
 
@@ -653,7 +593,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="4" class="jd-inheritance-class-cell">org.mule.devkit.processor.DevkitBasedMessageProcessor</td>
+        <td colspan="3" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html">org.mule.modules.salesforce.processors.AbstractConnectedProcessor</a></td>
     </tr>
     
 
@@ -665,27 +605,11 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="3" class="jd-inheritance-class-cell">org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor</td>
+        <td colspan="2" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractMessageProcessor.html">org.mule.modules.salesforce.processors.AbstractMessageProcessor</a>&lt;O&gt;</td>
     </tr>
     
 
     <tr>
-        
-            <td class="jd-inheritance-space">&nbsp;</td>
-        
-            <td class="jd-inheritance-space">&nbsp;</td>
-        
-            <td class="jd-inheritance-space">&nbsp;</td>
-        
-            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
-        
-        <td colspan="2" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html">org.mule.modules.salesforce.processors.AbstractPagedConnectedProcessor</a></td>
-    </tr>
-    
-
-    <tr>
-        
-            <td class="jd-inheritance-space">&nbsp;</td>
         
             <td class="jd-inheritance-space">&nbsp;</td>
         
@@ -711,7 +635,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>QueryMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#query(java.lang.String, org.mule.streaming.PagingConfiguration, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">query(java.lang.String, org.mule.streaming.PagingConfiguration, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+<p>QueryMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html#query(java.lang.String, java.util.Map<org.mule.modules.salesforce.api.SalesforceHeader, java.lang.Object>)">query(java.lang.String, java.util.Map)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/salesforce/BaseSalesforceConnector.html">BaseSalesforceConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  
 </p>
 
@@ -760,8 +684,6 @@ Summary:
 <table id="inhconstants" class="jd-sumtable"><tr><th>
   <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
   <div style="clear:left;">Inherited Constants</div></th></tr>
-
-
 
 
 
@@ -907,8 +829,6 @@ org.mule.api.lifecycle.Stoppable
 
 
 
-
-
 </table>
 
 
@@ -979,317 +899,211 @@ org.mule.api.lifecycle.Stoppable
 <tr class="api apilevel-" >
 <td colspan="12">
 
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.mule.modules.salesforce.processors.AbstractPagedConnectedProcessor" class="jd-expando-trigger closed"
-          ><img id="inherited-fields-org.mule.modules.salesforce.processors.AbstractPagedConnectedProcessor-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.mule.modules.salesforce.processors.AbstractMessageProcessor" class="jd-expando-trigger closed"
+          ><img id="inherited-fields-org.mule.modules.salesforce.processors.AbstractMessageProcessor-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>From class
-<a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html">org.mule.modules.salesforce.processors.AbstractPagedConnectedProcessor</a>
-<div id="inherited-fields-org.mule.modules.salesforce.processors.AbstractPagedConnectedProcessor">
-  <div id="inherited-fields-org.mule.modules.salesforce.processors.AbstractPagedConnectedProcessor-list"
+<a href="../../../../../../org/mule/modules/salesforce/processors/AbstractMessageProcessor.html">org.mule.modules.salesforce.processors.AbstractMessageProcessor</a>
+<div id="inherited-fields-org.mule.modules.salesforce.processors.AbstractMessageProcessor">
+  <div id="inherited-fields-org.mule.modules.salesforce.processors.AbstractMessageProcessor-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-fields-org.mule.modules.salesforce.processors.AbstractPagedConnectedProcessor-summary" style="display: none;">
+  <div id="inherited-fields-org.mule.modules.salesforce.processors.AbstractMessageProcessor-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
     
       <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#_passwordType">_passwordType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#_proxyHostType">_proxyHostType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#_proxyPasswordType">_proxyPasswordType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          int</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#_proxyPortType">_proxyPortType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#_proxyUsernameType">_proxyUsernameType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#_securityTokenType">_securityTokenType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#_serviceEndpointType">_serviceEndpointType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#_sessionIdType">_sessionIdType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#_urlType">_urlType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#_usernameType">_usernameType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#password">password</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#proxyHost">proxyHost</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#proxyPassword">proxyPassword</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#proxyPort">proxyPort</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#proxyUsername">proxyUsername</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#securityToken">securityToken</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#serviceEndpoint">serviceEndpoint</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#sessionId">sessionId</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#url">url</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#username">username</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor" class="jd-expando-trigger closed"
-          ><img id="inherited-fields-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>From class
-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor
-<div id="inherited-fields-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor">
-  <div id="inherited-fields-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-fields-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol">fetchSize</td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.mule.devkit.processor.DevkitBasedMessageProcessor" class="jd-expando-trigger closed"
-          ><img id="inherited-fields-org.mule.devkit.processor.DevkitBasedMessageProcessor-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>From class
-org.mule.devkit.processor.DevkitBasedMessageProcessor
-<div id="inherited-fields-org.mule.devkit.processor.DevkitBasedMessageProcessor">
-  <div id="inherited-fields-org.mule.devkit.processor.DevkitBasedMessageProcessor-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-fields-org.mule.devkit.processor.DevkitBasedMessageProcessor-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol">accessTokenId</td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
           
           FlowConstruct</nobr></td>
-          <td class="jd-linkcol">flowConstruct</td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractMessageProcessor.html#flowConstruct">flowConstruct</a></td>
+          <td class="jd-descrcol" width="100%">Flow Construct
+ 
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          O</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractMessageProcessor.html#moduleObject">moduleObject</a></td>
+          <td class="jd-descrcol" width="100%">Module object
+ 
+</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          MuleContext</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractMessageProcessor.html#muleContext">muleContext</a></td>
+          <td class="jd-descrcol" width="100%">Mule Context
+ 
+</td>
+      </tr>
+      
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.mule.modules.salesforce.processors.AbstractConnectedProcessor" class="jd-expando-trigger closed"
+          ><img id="inherited-fields-org.mule.modules.salesforce.processors.AbstractConnectedProcessor-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From class
+<a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html">org.mule.modules.salesforce.processors.AbstractConnectedProcessor</a>
+<div id="inherited-fields-org.mule.modules.salesforce.processors.AbstractConnectedProcessor">
+  <div id="inherited-fields-org.mule.modules.salesforce.processors.AbstractConnectedProcessor-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-fields-org.mule.modules.salesforce.processors.AbstractConnectedProcessor-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#_accessTokenIdType">_accessTokenIdType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#_passwordType">_passwordType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#_proxyHostType">_proxyHostType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#_proxyPasswordType">_proxyPasswordType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          int</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#_proxyPortType">_proxyPortType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#_proxyUsernameType">_proxyUsernameType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#_securityTokenType">_securityTokenType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#_serviceEndpointType">_serviceEndpointType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#_sessionIdType">_sessionIdType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#_urlType">_urlType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#_usernameType">_usernameType</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#accessTokenId">accessTokenId</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -1300,7 +1114,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
           
           
           Object</nobr></td>
-          <td class="jd-linkcol">moduleObject</td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#password">password</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -1310,19 +1124,96 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
           protected
           
           
-          MuleContext</nobr></td>
-          <td class="jd-linkcol">muleContext</td>
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#proxyHost">proxyHost</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
       <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
-          private
+          protected
           
           
-          String</nobr></td>
-          <td class="jd-linkcol">operationName</td>
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#proxyPassword">proxyPassword</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#proxyPort">proxyPort</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#proxyUsername">proxyUsername</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#securityToken">securityToken</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#serviceEndpoint">serviceEndpoint</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#sessionId">sessionId</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#url">url</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#username">username</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -1331,8 +1222,6 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
   </div>
 </div>
 </td></tr>
-
-
 
 
 
@@ -1380,7 +1269,7 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/QueryMessageProcessor.html#QueryMessageProcessor(java.lang.String)">QueryMessageProcessor</a></span>(String operationName)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/QueryMessageProcessor.html#QueryMessageProcessor()">QueryMessageProcessor</a></span>()</nobr>
         
   </td></tr>
 
@@ -1406,42 +1295,10 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             
             
             
-            Result&lt;MetaData&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/QueryMessageProcessor.html#auxOutputMetaData(org.mule.common.metadata.MetaData, java.lang.String)">auxOutputMetaData</a></span>(MetaData inputMetadata, String key)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/QueryMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Result&lt;MetaData&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/QueryMessageProcessor.html#getGenericMetaData(org.mule.common.metadata.MetaDataKey)">getGenericMetaData</a></span>(MetaDataKey metaDataKey)</nobr>
         
   </td></tr>
 
@@ -1486,12 +1343,12 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             
             
             
-            PagingDelegate</nobr>
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/QueryMessageProcessor.html#getPagingDelegate(org.mule.api.MuleEvent, org.mule.streaming.PagingConfiguration)">getPagingDelegate</a></span>(MuleEvent event, PagingConfiguration pagingConfiguration)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/QueryMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Invokes the MessageProcessor.</div>
+        <div class="jd-descrdiv">Obtains the expression manager from the Mule context and initialises the connector.</div>
   
   </td></tr>
 
@@ -1504,12 +1361,12 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             
             
             
-            void</nobr>
+            MuleEvent</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/QueryMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/QueryMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
         
-        <div class="jd-descrdiv">Obtains the expression manager from the Mule context and initialises the connector.</div>
+        <div class="jd-descrdiv">Invokes the MessageProcessor.</div>
   
   </td></tr>
 
@@ -1525,9 +1382,45 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/QueryMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
+        
+        <div class="jd-descrdiv">Sets flow construct</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/QueryMessageProcessor.html#setHeaders(java.lang.Object)">setHeaders</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets headers</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/QueryMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
+        
+        <div class="jd-descrdiv">Set the Mule context</div>
   
   </td></tr>
 
@@ -1599,19 +1492,19 @@ org.mule.devkit.processor.DevkitBasedMessageProcessor
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.salesforce.processors.AbstractPagedConnectedProcessor" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.modules.salesforce.processors.AbstractPagedConnectedProcessor-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.salesforce.processors.AbstractMessageProcessor" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.modules.salesforce.processors.AbstractMessageProcessor-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From class
 
-  <a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html">org.mule.modules.salesforce.processors.AbstractPagedConnectedProcessor</a>
+  <a href="../../../../../../org/mule/modules/salesforce/processors/AbstractMessageProcessor.html">org.mule.modules.salesforce.processors.AbstractMessageProcessor</a>
 
-<div id="inherited-methods-org.mule.modules.salesforce.processors.AbstractPagedConnectedProcessor">
-  <div id="inherited-methods-org.mule.modules.salesforce.processors.AbstractPagedConnectedProcessor-list"
+<div id="inherited-methods-org.mule.modules.salesforce.processors.AbstractMessageProcessor">
+  <div id="inherited-methods-org.mule.modules.salesforce.processors.AbstractMessageProcessor-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.mule.modules.salesforce.processors.AbstractPagedConnectedProcessor-summary" style="display: none;">
+  <div id="inherited-methods-org.mule.modules.salesforce.processors.AbstractMessageProcessor-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -1624,14 +1517,12 @@ From class
             
             
             
-            Object</nobr>
+            O</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#getPassword()">getPassword</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractMessageProcessor.html#findOrCreate(java.lang.Class, boolean, org.mule.api.MuleEvent)">findOrCreate</a></span>(Class moduleClass, boolean shouldAutoCreate, MuleEvent muleEvent)</nobr>
         
-        <div class="jd-descrdiv">Retrieves password
- 
-</div>
+        <div class="jd-descrdiv">Obtains the expression manager from the Mule context and initialises the connector.</div>
   
   </td></tr>
 
@@ -1644,12 +1535,12 @@ From class
             
             
             
-            Object</nobr>
+            FlowConstruct</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#getProxyHost()">getProxyHost</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractMessageProcessor.html#getFlowConstruct()">getFlowConstruct</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Retrieves proxyHost
+        <div class="jd-descrdiv">Retrieves flowConstruct
  
 </div>
   
@@ -1664,12 +1555,12 @@ From class
             
             
             
-            Object</nobr>
+            MuleContext</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#getProxyPassword()">getProxyPassword</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractMessageProcessor.html#getMuleContext()">getMuleContext</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Retrieves proxyPassword
+        <div class="jd-descrdiv">Retrieves muleContext
  
 </div>
   
@@ -1684,132 +1575,12 @@ From class
             
             
             
-            Object</nobr>
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#getProxyPort()">getProxyPort</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractMessageProcessor.html#overwritePayload(org.mule.api.MuleEvent, java.lang.Object)">overwritePayload</a></span>(MuleEvent event, Object resultPayload)</nobr>
         
-        <div class="jd-descrdiv">Retrieves proxyPort
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#getProxyUsername()">getProxyUsername</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves proxyUsername
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#getSecurityToken()">getSecurityToken</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves securityToken
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#getServiceEndpoint()">getServiceEndpoint</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves serviceEndpoint
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#getSessionId()">getSessionId</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves sessionId
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#getUrl()">getUrl</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves url
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#getUsername()">getUsername</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves username
+        <div class="jd-descrdiv">Overwrites the event payload with the specified one
  
 </div>
   
@@ -1827,7 +1598,325 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#setPassword(java.lang.Object)">setPassword</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct value)</nobr>
+        
+        <div class="jd-descrdiv">Sets flowConstruct</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractMessageProcessor.html#setModuleObject(O)">setModuleObject</a></span>(O value)</nobr>
+        
+        <div class="jd-descrdiv">Sets moduleObject</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext value)</nobr>
+        
+        <div class="jd-descrdiv">Sets muleContext</div>
+  
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.salesforce.processors.AbstractConnectedProcessor" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.modules.salesforce.processors.AbstractConnectedProcessor-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  <a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html">org.mule.modules.salesforce.processors.AbstractConnectedProcessor</a>
+
+<div id="inherited-methods-org.mule.modules.salesforce.processors.AbstractConnectedProcessor">
+  <div id="inherited-methods-org.mule.modules.salesforce.processors.AbstractConnectedProcessor-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.modules.salesforce.processors.AbstractConnectedProcessor-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#getAccessTokenId()">getAccessTokenId</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves accessTokenId
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#getPassword()">getPassword</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves password
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#getProxyHost()">getProxyHost</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves proxyHost
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#getProxyPassword()">getProxyPassword</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves proxyPassword
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#getProxyPort()">getProxyPort</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves proxyPort
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#getProxyUsername()">getProxyUsername</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves proxyUsername
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#getSecurityToken()">getSecurityToken</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves securityToken
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#getServiceEndpoint()">getServiceEndpoint</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves serviceEndpoint
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#getSessionId()">getSessionId</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves sessionId
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#getUrl()">getUrl</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves url
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#getUsername()">getUsername</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Retrieves username
+ 
+</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#setAccessTokenId(java.lang.Object)">setAccessTokenId</a></span>(Object value)</nobr>
+        
+        <div class="jd-descrdiv">Sets accessTokenId</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#setPassword(java.lang.Object)">setPassword</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets password</div>
   
@@ -1845,7 +1934,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#setProxyHost(java.lang.Object)">setProxyHost</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#setProxyHost(java.lang.Object)">setProxyHost</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets proxyHost</div>
   
@@ -1863,7 +1952,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#setProxyPassword(java.lang.Object)">setProxyPassword</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#setProxyPassword(java.lang.Object)">setProxyPassword</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets proxyPassword</div>
   
@@ -1881,7 +1970,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#setProxyPort(java.lang.Object)">setProxyPort</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#setProxyPort(java.lang.Object)">setProxyPort</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets proxyPort</div>
   
@@ -1899,7 +1988,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#setProxyUsername(java.lang.Object)">setProxyUsername</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#setProxyUsername(java.lang.Object)">setProxyUsername</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets proxyUsername</div>
   
@@ -1917,7 +2006,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#setSecurityToken(java.lang.Object)">setSecurityToken</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#setSecurityToken(java.lang.Object)">setSecurityToken</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets securityToken</div>
   
@@ -1935,7 +2024,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#setServiceEndpoint(java.lang.Object)">setServiceEndpoint</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#setServiceEndpoint(java.lang.Object)">setServiceEndpoint</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets serviceEndpoint</div>
   
@@ -1953,7 +2042,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#setSessionId(java.lang.Object)">setSessionId</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#setSessionId(java.lang.Object)">setSessionId</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets sessionId</div>
   
@@ -1971,7 +2060,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#setUrl(java.lang.Object)">setUrl</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#setUrl(java.lang.Object)">setUrl</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets url</div>
   
@@ -1989,13 +2078,39 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#setUsername(java.lang.Object)">setUsername</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractConnectedProcessor.html#setUsername(java.lang.Object)">setUsername</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets username</div>
   
   </td></tr>
 
 
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.salesforce.processors.AbstractExpressionEvaluator" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.modules.salesforce.processors.AbstractExpressionEvaluator-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  <a href="../../../../../../org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html">org.mule.modules.salesforce.processors.AbstractExpressionEvaluator</a>
+
+<div id="inherited-methods-org.mule.modules.salesforce.processors.AbstractExpressionEvaluator">
+  <div id="inherited-methods-org.mule.modules.salesforce.processors.AbstractExpressionEvaluator-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.modules.salesforce.processors.AbstractExpressionEvaluator-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
 	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
@@ -2004,400 +2119,16 @@ From class
             
             
             
-            Type</nobr>
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractPagedConnectedProcessor.html#typeFor(java.lang.String)">typeFor</a></span>(String fieldName)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html#computeClassHierarchy(java.lang.Class, java.util.List)">computeClassHierarchy</a></span>(Class clazz, List classes)</nobr>
         
-        <div class="jd-descrdiv">Retrieves the concrete java.lang.reflect.Type of a connectivity argument, needed for the @Connect
- 
-</div>
+        <div class="jd-descrdiv">Get all superclasses and interfaces recursively.</div>
   
   </td></tr>
 
 
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From class
-
-  org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor
-
-<div id="inherited-methods-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor">
-  <div id="inherited-methods-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.streaming.processor.AbstractDevkitBasedPageableMessageProcessor-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            final
-            
-            
-            MuleEvent</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">doProcess</span>(MuleEvent arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            PagingDelegate&lt;?&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getPagingDelegate</span>(MuleEvent arg0, PagingConfiguration arg1)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setFetchSize</span>(String arg0)</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.devkit.processor.DevkitBasedMessageProcessor" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.devkit.processor.DevkitBasedMessageProcessor-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From class
-
-  org.mule.devkit.processor.DevkitBasedMessageProcessor
-
-<div id="inherited-methods-org.mule.devkit.processor.DevkitBasedMessageProcessor">
-  <div id="inherited-methods-org.mule.devkit.processor.DevkitBasedMessageProcessor-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.devkit.processor.DevkitBasedMessageProcessor-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">dispose</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            MuleEvent</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">doProcess</span>(MuleEvent arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            final
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">findOrCreate</span>(Class&lt;?&gt; arg0, boolean arg1, MuleEvent arg2)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getAccessTokenId</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            final
-            
-            
-            FlowConstruct</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getFlowConstruct</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            final
-            
-            
-            MuleContext</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getMuleContext</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">initialise</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            final
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">overwritePayload</span>(MuleEvent arg0, Object arg1)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            MuleEvent</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">process</span>(MuleEvent arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setAccessTokenId</span>(String arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            final
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setFlowConstruct</span>(FlowConstruct arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            final
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setModuleObject</span>(Object arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            final
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setMuleContext</span>(MuleContext arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">start</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">stop</span>()</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From class
-
-  org.mule.devkit.processor.ExpressionEvaluatorSupport
-
-<div id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport">
-  <div id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">computeClassHierarchy</span>(Class arg0, List arg1)</nobr>
-        
-  </td></tr>
-
-
 	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
@@ -2409,7 +2140,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">evaluate</span>(TemplateParser.PatternInfo arg0, ExpressionManager arg1, MuleMessage arg2, Object arg3)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html#evaluate(org.mule.util.TemplateParser.PatternInfo, org.mule.api.expression.ExpressionManager, org.mule.api.MuleMessage, java.lang.Object)">evaluate</a></span>(TemplateParser.PatternInfo patternInfo, ExpressionManager expressionManager, MuleMessage muleMessage, Object source)</nobr>
         
   </td></tr>
 
@@ -2425,7 +2156,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">evaluateAndTransform</span>(MuleContext arg0, MuleEvent arg1, Type arg2, String arg3, Object arg4)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html#evaluateAndTransform(org.mule.api.MuleContext, org.mule.api.MuleMessage, java.lang.reflect.Type, java.lang.String, java.lang.Object)">evaluateAndTransform</a></span>(MuleContext muleContext, MuleMessage muleMessage, Type expectedType, String expectedMimeType, Object source)</nobr>
         
   </td></tr>
 
@@ -2441,39 +2172,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">evaluateAndTransform</span>(MuleContext arg0, MuleMessage arg1, Type arg2, String arg3, Object arg4)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getAccessTokenId</span>(MuleEvent arg0, MessageProcessor arg1, OAuth2Manager&lt;?&gt; arg2)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            boolean</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">isAssignableFrom</span>(Type arg0, Class arg1)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html#evaluateAndTransform(org.mule.api.MuleContext, org.mule.api.MuleEvent, java.lang.reflect.Type, java.lang.String, java.lang.Object)">evaluateAndTransform</a></span>(MuleContext muleContext, MuleEvent event, Type expectedType, String expectedMimeType, Object source)</nobr>
         
   </td></tr>
 
@@ -2489,7 +2188,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">isList</span>(Type arg0)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html#isAssignableFrom(java.lang.reflect.Type, java.lang.Class)">isAssignableFrom</a></span>(Type expectedType, Class clazz)</nobr>
         
   </td></tr>
 
@@ -2505,7 +2204,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">isListClass</span>(Class arg0)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html#isList(java.lang.reflect.Type)">isList</a></span>(Type type)</nobr>
         
   </td></tr>
 
@@ -2521,8 +2220,10 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">isMap</span>(Type arg0)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html#isListClass(java.lang.Class)">isListClass</a></span>(Class clazz)</nobr>
         
+        <div class="jd-descrdiv">Checks whether the specified class parameter is an instance of List</div>
+  
   </td></tr>
 
 
@@ -2537,7 +2238,41 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">isMapClass</span>(Class arg0)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html#isMap(java.lang.reflect.Type)">isMap</a></span>(Type type)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html#isMapClass(java.lang.Class)">isMapClass</a></span>(Class clazz)</nobr>
+        
+        <div class="jd-descrdiv">Checks whether the specified class parameter is an instance of Map</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html#transform(org.mule.api.MuleContext, org.mule.api.MuleMessage, java.lang.reflect.Type, java.lang.String, java.lang.Object)">transform</a></span>(MuleContext muleContext, MuleMessage message, Type expectedType, String expectedMimeType, Object source)</nobr>
         
   </td></tr>
 
@@ -2553,7 +2288,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">transform</span>(MuleMessage arg0, Type arg1, Object arg2)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html#transform(org.mule.api.MuleContext, org.mule.api.MuleEvent, java.lang.reflect.Type, java.lang.String, java.lang.Object)">transform</a></span>(MuleContext muleContext, MuleEvent event, Type expectedType, String expectedMimeType, Object source)</nobr>
         
   </td></tr>
 
@@ -2569,23 +2304,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">transform</span>(MuleContext arg0, MuleEvent arg1, Type arg2, String arg3, Object arg4)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">transform</span>(MuleContext arg0, MuleMessage arg1, Type arg2, String arg3, Object arg4)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/AbstractExpressionEvaluator.html#transform(org.mule.api.MuleMessage, java.lang.reflect.Type, java.lang.Object)">transform</a></span>(MuleMessage muleMessage, Type expectedType, Object source)</nobr>
         
   </td></tr>
 
@@ -3154,210 +2873,6 @@ From interface
 
 
 
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.salesforce.processors.ConnectivityProcessor" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.modules.salesforce.processors.ConnectivityProcessor-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  <a href="../../../../../../org/mule/modules/salesforce/processors/ConnectivityProcessor.html">org.mule.modules.salesforce.processors.ConnectivityProcessor</a>
-
-<div id="inherited-methods-org.mule.modules.salesforce.processors.ConnectivityProcessor">
-  <div id="inherited-methods-org.mule.modules.salesforce.processors.ConnectivityProcessor-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.modules.salesforce.processors.ConnectivityProcessor-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/ConnectivityProcessor.html#getPassword()">getPassword</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/ConnectivityProcessor.html#getProxyHost()">getProxyHost</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/ConnectivityProcessor.html#getProxyPassword()">getProxyPassword</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/ConnectivityProcessor.html#getProxyPort()">getProxyPort</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/ConnectivityProcessor.html#getProxyUsername()">getProxyUsername</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/ConnectivityProcessor.html#getSecurityToken()">getSecurityToken</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/ConnectivityProcessor.html#getServiceEndpoint()">getServiceEndpoint</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/ConnectivityProcessor.html#getSessionId()">getSessionId</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/ConnectivityProcessor.html#getUrl()">getUrl</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/ConnectivityProcessor.html#getUsername()">getUsername</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Type</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/processors/ConnectivityProcessor.html#typeFor(java.lang.String)">typeFor</a></span>(String fieldName)</nobr>
-        
-        <div class="jd-descrdiv">Retrieves the concrete java.lang.reflect.Type of a connectivity argument, needed for the @Connect</div>
-  
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
 </table>
 
 
@@ -3519,7 +3034,7 @@ From interface
 
 
 
-<A NAME="QueryMessageProcessor(java.lang.String)"></A>
+<A NAME="QueryMessageProcessor()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3532,7 +3047,7 @@ From interface
         
       </span>
       <span class="sympad">QueryMessageProcessor</span>
-      <span class="normal">(String operationName)</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3545,15 +3060,6 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>operationName</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
 
     </div>
 </div>
@@ -3572,50 +3078,6 @@ From interface
 
 <h2>Public Methods</h2>
 
-
-
-<A NAME="auxOutputMetaData(org.mule.common.metadata.MetaData, java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        Result&lt;MetaData&gt;
-      </span>
-      <span class="sympad">auxOutputMetaData</span>
-      <span class="normal">(MetaData inputMetadata, String key)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>inputMetadata</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>key</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
 
 
 <A NAME="dispose()"></A>
@@ -3644,46 +3106,6 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getGenericMetaData(org.mule.common.metadata.MetaDataKey)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        Result&lt;MetaData&gt;
-      </span>
-      <span class="sympad">getGenericMetaData</span>
-      <span class="normal">(MetaDataKey metaDataKey)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>metaDataKey</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
 
     </div>
 </div>
@@ -3760,59 +3182,6 @@ From interface
 </div>
 
 
-<A NAME="getPagingDelegate(org.mule.api.MuleEvent, org.mule.streaming.PagingConfiguration)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        PagingDelegate
-      </span>
-      <span class="sympad">getPagingDelegate</span>
-      <span class="normal">(MuleEvent event, PagingConfiguration pagingConfiguration)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Invokes the MessageProcessor.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>event</td>
-          <td>MuleEvent to be processed</td>
-        </tr>
-        <tr>
-          <th>pagingConfiguration</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>Exception</td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="initialise()"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3853,6 +3222,96 @@ From interface
 </div>
 
 
+<A NAME="process(org.mule.api.MuleEvent)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        MuleEvent
+      </span>
+      <span class="sympad">process</span>
+      <span class="normal">(MuleEvent event)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Invokes the MessageProcessor.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>event</td>
+          <td>MuleEvent to be processed</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>MuleException</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setFlowConstruct(org.mule.api.construct.FlowConstruct)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setFlowConstruct</span>
+      <span class="normal">(FlowConstruct flowConstruct)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets flow construct</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>flowConstruct</td>
+          <td>Flow construct to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="setHeaders(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -3885,6 +3344,47 @@ From interface
         <tr>
           <th>value</td>
           <td>Value to set
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="setMuleContext(org.mule.api.MuleContext)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setMuleContext</span>
+      <span class="normal">(MuleContext context)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Set the Mule context</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>context</td>
+          <td>Mule context to set
 </td>
         </tr>
       </table>
