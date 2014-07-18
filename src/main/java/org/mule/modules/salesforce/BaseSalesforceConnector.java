@@ -376,7 +376,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public BatchInfo createBatchStream(JobInfo jobInfo, @Optional @Default("#[payload]") InputStream stream) throws Exception {
+    public BatchInfo createBatchStream(@Optional @Default("#[payload]") JobInfo jobInfo, InputStream stream) throws Exception {
         return getSalesforceRestAdapter().createBatchFromStream(jobInfo, stream);
     }
 
@@ -399,7 +399,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public BatchInfo createBatchForQuery(JobInfo jobInfo, @Optional @Default("#[payload]") String query) throws Exception {
+    public BatchInfo createBatchForQuery(@Optional @Default("#[payload]") JobInfo jobInfo, String query) throws Exception {
         InputStream queryStream = new ByteArrayInputStream(query.getBytes());
         return createBatchForQuery(jobInfo, queryStream);
     }
