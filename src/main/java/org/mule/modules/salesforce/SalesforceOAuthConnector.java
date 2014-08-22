@@ -99,14 +99,14 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
 
     @Override
     protected boolean isReadyToSubscribe() {
-    	return this.accessToken != null;
+        return this.accessToken != null;
     }
 
     @Start
     public void init() {
-    	this.registerTransformers();
+        this.registerTransformers();
     }
-    
+
     @OAuthPostAuthorization
     public void postAuthorize() throws ConnectionException, MalformedURLException, AsyncApiException {
         ConnectorConfig config = new ConnectorConfig();

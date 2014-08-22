@@ -29,6 +29,7 @@ public class SalesforceExceptionHandlerAdapter {
 
     /**
      * Returns a concrete exception to be thrown by analyzing the parametrized one
+     *
      * @param e Exception to be analyzed
      * @return {@link org.mule.modules.salesforce.exception.SalesforceSessionExpiredException} if the parametrized
      * exception {@code e} indicates that the session has been invalidated, otherwise will return the same exception it
@@ -48,6 +49,7 @@ public class SalesforceExceptionHandlerAdapter {
 
     /**
      * Returns a concrete exception to be thrown by analyzing the parametrized one
+     *
      * @param e Exception to be analyzed
      * @return {@link org.mule.modules.salesforce.exception.SalesforceSessionExpiredException} if the parametrized
      * exception {@code e} indicates that the session has been invalidated, otherwise will return a

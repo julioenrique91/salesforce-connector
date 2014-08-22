@@ -11,13 +11,10 @@
 package org.mule.modules.salesforce.api;
 
 import com.sforce.soap.partner.PartnerConnection;
-import com.sforce.soap.partner.fault.UnexpectedErrorFault;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.InvocationHandler;
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -35,36 +32,37 @@ public class SalesforceSoapAdapter {
             final PartnerConnection facade, final Map<SalesforceHeader, Object> headers) {
 
         return (PartnerConnection) Enhancer.create(
-            PartnerConnection.class,
-            new InvocationHandler() {
-                public Object invoke(Object proxy, Method method,
-                                     Object[] args) throws Throwable {
-                    if (logger.isDebugEnabled()) {
-                        logger.debug(String.format(
-                                "Invoked method %s with arguments %s",
-                                method.getName(), Arrays.toString(args)));
-                    }
-                    try {
-                        PartnerConnection connection = addHeaders(facade, headers);
-                        Object ret = method.invoke(connection, args);
+                PartnerConnection.class,
+                new InvocationHandler() {
+                    public Object invoke(Object proxy, Method method,
+                                         Object[] args) throws Throwable {
                         if (logger.isDebugEnabled()) {
                             logger.debug(String.format(
-                                    "Returned method %s with value %s",
-                                    ret, Arrays.toString(args)));
+                                    "Invoked method %s with arguments %s",
+                                    method.getName(), Arrays.toString(args)));
+                        }
+                        try {
+                            PartnerConnection connection = addHeaders(facade, headers);
+                            Object ret = method.invoke(connection, args);
+                            if (logger.isDebugEnabled()) {
+                                logger.debug(String.format(
+                                        "Returned method %s with value %s",
+                                        ret, Arrays.toString(args)));
+                            }
+
+                            return ret;
+                        } catch (Exception e) {
+                            if (logger.isDebugEnabled()) {
+                                logger.debug("Method " + method.getName() + " thew " + e.getClass());
+                            }
+
+                            throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
                         }
 
-                        return ret;
-                    } catch (Exception e) {
-                        if (logger.isDebugEnabled()) {
-                            logger.debug("Method " + method.getName() + " thew " + e.getClass());
-                        }
-
-                        throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
                     }
 
                 }
-
-            });
+        );
     }
 
     private static PartnerConnection addHeaders(PartnerConnection partnerConnection, Map<SalesforceHeader, Object> headers) {
@@ -72,7 +70,7 @@ public class SalesforceSoapAdapter {
         clearHeaders(partnerConnection);
 
         if (headers != null) {
-            for(Map.Entry<SalesforceHeader, Object> entry : headers.entrySet()) {
+            for (Map.Entry<SalesforceHeader, Object> entry : headers.entrySet()) {
                 try {
 
                     if (!Map.class.isAssignableFrom(entry.getValue().getClass())) {

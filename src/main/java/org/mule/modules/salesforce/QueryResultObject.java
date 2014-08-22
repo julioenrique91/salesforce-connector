@@ -10,36 +10,35 @@
 
 package org.mule.modules.salesforce;
 
+import com.sforce.soap.partner.QueryResult;
+import com.sforce.soap.partner.sobject.SObject;
+import org.apache.commons.lang.Validate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
-import com.sforce.soap.partner.QueryResult;
-import com.sforce.soap.partner.sobject.SObject;
-
 public class QueryResultObject {
-    
+
     private QueryResult queryResult;
-    
+
     public QueryResultObject(QueryResult queryResult) {
         Validate.notNull(queryResult);
         this.queryResult = queryResult;
     }
-    
-    public List<Map<String, Object>> getData(){
+
+    public List<Map<String, Object>> getData() {
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         for (SObject object : queryResult.getRecords()) result.add(SalesforceUtils.toMap(object));
         return result;
     }
 
-    public boolean hasMore(){
+    public boolean hasMore() {
         return !queryResult.isDone();
     }
 
     public String getQueryLocator() {
         return queryResult.getQueryLocator();
     }
-    
+
 }

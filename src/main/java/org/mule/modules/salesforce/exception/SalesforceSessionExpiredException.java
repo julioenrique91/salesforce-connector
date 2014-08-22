@@ -12,21 +12,21 @@ package org.mule.modules.salesforce.exception;
 
 public class SalesforceSessionExpiredException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public SalesforceSessionExpiredException() {
-		super();
-	}
+    public SalesforceSessionExpiredException() {
+        super();
+    }
 
-	public SalesforceSessionExpiredException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public SalesforceSessionExpiredException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public SalesforceSessionExpiredException(String message) {
-		super(message);
-	}
+    public SalesforceSessionExpiredException(String message) {
+        super(message);
+    }
 
-	public SalesforceSessionExpiredException(Throwable cause) {
-		super(cause);
-	}
+    public SalesforceSessionExpiredException(Throwable cause) {
+        super(cause);
+    }
 }

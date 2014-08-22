@@ -62,7 +62,7 @@ public class SalesforceBayeuxClient extends BayeuxClient {
         this.currentSubscriptions = Collections.synchronizedMap(new HashMap<String, ClientSessionChannel.MessageListener>());
         setCookies();
 
-	    getChannel(Channel.META_CONNECT).addListener(new ClientSessionChannel.MessageListener() {
+        getChannel(Channel.META_CONNECT).addListener(new ClientSessionChannel.MessageListener() {
             public void onMessage(ClientSessionChannel channel, Message message) {
                 //adding extra logging
                 LOGGER.debug("### new message:: " + message.getId());
@@ -90,8 +90,7 @@ public class SalesforceBayeuxClient extends BayeuxClient {
     }
 
     private void resubscribe() {
-        for (String subscriptionChannel : currentSubscriptions.keySet())
-        {
+        for (String subscriptionChannel : currentSubscriptions.keySet()) {
             LOGGER.info("Re-Subscribing to channel: " + subscriptionChannel);
             getChannel(subscriptionChannel).subscribe(currentSubscriptions.get(subscriptionChannel));
         }
@@ -118,8 +117,8 @@ public class SalesforceBayeuxClient extends BayeuxClient {
                 // EL: not sure this is the best way of doing this.
                 // Ideally it should be the same for OAuth and non-OAuth
                 // ways of reconnecting.
-                if( salesforceConnector instanceof SalesforceConnector ) {
-                    ((SalesforceConnector)salesforceConnector).reconnect();
+                if (salesforceConnector instanceof SalesforceConnector) {
+                    ((SalesforceConnector) salesforceConnector).reconnect();
                 }
                 setCookies();
                 handshake();
