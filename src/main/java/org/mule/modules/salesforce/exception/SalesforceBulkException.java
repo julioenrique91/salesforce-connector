@@ -19,7 +19,7 @@ public class SalesforceBulkException extends Exception {
 
     private static final long serialVersionUID = -7180832542515849354L;
 
-    private List<Error> errors;
+    private final List<Error> errors;
 
     public SalesforceBulkException(Error error) {
         this.errors = Arrays.asList(error);

@@ -16,19 +16,16 @@ import com.sforce.soap.partner.StatusCode;
  * A runtime exception that wraps a {@link StatusCode}
  */
 public class SalesforceException extends Exception {
-    private StatusCode statusCode;
 
-    public SalesforceException(Throwable e) {
-        super(e);
-    }
+    private final StatusCode statusCode;
 
-    public SalesforceException(String message, Throwable e) {
+    public SalesforceException(StatusCode statusCode, String message, Throwable e) {
         super(message, e);
+        this.statusCode = statusCode;
     }
 
     public SalesforceException(StatusCode statusCode, String message) {
         super(message);
-
         this.statusCode = statusCode;
     }
 
@@ -36,7 +33,4 @@ public class SalesforceException extends Exception {
         return statusCode;
     }
 
-    public void setStatusCode(StatusCode statusCode) {
-        this.statusCode = statusCode;
-    }
 }
