@@ -60,7 +60,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     private static final Logger LOGGER = Logger.getLogger(SalesforceConnector.class);
 
     @MetaDataKeyRetriever
-    public List<MetaDataKey> getMetaDataKeys() throws Exception {
+    public List<MetaDataKey> getMetaDataKeys() throws ConnectionException {
         List<MetaDataKey> keys = new ArrayList<MetaDataKey>();
         DescribeGlobalResult describeGlobal = describeGlobal();
 
@@ -75,7 +75,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     }
 
     @MetaDataRetriever
-    public MetaData getMetaData(MetaDataKey key) throws Exception {
+    public MetaData getMetaData(MetaDataKey key) throws ConnectionException {
         DescribeSObjectResult describeSObject = describeSObject(key.getId());
 
         MetaData metaData = null;

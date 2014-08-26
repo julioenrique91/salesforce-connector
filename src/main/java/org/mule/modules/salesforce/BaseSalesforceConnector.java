@@ -648,7 +648,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public InputStream queryResultStream(@Default("#[payload:]") BatchInfo batchInfo) throws Exception {
+    public InputStream queryResultStream(@Default("#[payload:]") BatchInfo batchInfo) throws AsyncApiException {
 
         QueryResultList queryResultList = getSalesforceRestAdapter().getQueryResultList(batchInfo.getJobId(), batchInfo.getId());
         String[] jobResultIds = queryResultList.getResult();
@@ -681,7 +681,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Describe Calls", description = "A set of calls to describe record structure in Salesforce.")
-    public DescribeGlobalResult describeGlobal() throws Exception {
+    public DescribeGlobalResult describeGlobal() throws ConnectionException {
         return getSalesforceSoapAdapter().describeGlobal();
     }
 
@@ -705,7 +705,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public List<Map<String, Object>> retrieve(@MetaDataKeyParam @Placement(group = "Information", order = 1) @FriendlyName("sObject Type") String type,
                                               @Placement(group = "Ids to Retrieve") List<String> ids,
                                               @Placement(group = "Fields to Retrieve") List<String> fields,
-                                              @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                              @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         String fiedsCommaDelimited = StringUtils.collectionToCommaDelimitedString(fields);
         SObject[] sObjects = getSalesforceSoapAdapter(headers).retrieve(fiedsCommaDelimited, type, ids.toArray(new String[ids.size()]));
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
@@ -739,7 +739,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     @Paged
     public ProviderAwarePagingDelegate<Map<String, Object>, BaseSalesforceConnector> query(@Query @Placement(group = "Query") final String query, final PagingConfiguration pagingConfiguration,
-                                                                                           @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional final Map<SalesforceHeader, Object> headers) throws Exception {
+                                                                                           @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional final Map<SalesforceHeader, Object> headers) {
         return new SalesforcePagingDelegate(query, headers) {
 
             @Override
@@ -777,7 +777,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<Map<String, Object>> nonPaginatedQuery(@org.mule.api.annotations.Query @Placement(group = "Query") String query,
-                                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         QueryResult queryResult = getSalesforceSoapAdapter(headers).query(query);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         while (queryResult != null) {
@@ -812,7 +812,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     @Paged
     public ProviderAwarePagingDelegate<Map<String, Object>, BaseSalesforceConnector> queryAll(@Placement(group = "Query") String query, PagingConfiguration pagingConfiguration,
-                                                                                              @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                                                                              @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) {
         return new SalesforcePagingDelegate(query, headers) {
 
             @Override
@@ -839,7 +839,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<Map<String, Object>> search(@Placement(group = "Query") String query,
-                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         SearchResult searchResult = getSalesforceSoapAdapter(headers).search(query);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 
@@ -870,7 +870,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public Map<String, Object> querySingle(@Placement(group = "Query") String query,
-                                           @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                           @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         SObject[] result = getSalesforceSoapAdapter(headers).query(query).getRecords();
         if (result.length > 0) {
             return SalesforceUtils.toMap(result[0]);
@@ -940,8 +940,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
                                          @Optional String opportunityName,
                                          String convertedStatus,
                                          @Optional @Default("false") Boolean sendEmailToOwner,
-                                         @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers)
-            throws Exception {
+                                         @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
 
         LeadConvert leadConvert = new LeadConvert();
         leadConvert.setLeadId(leadId);
@@ -983,7 +982,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<EmptyRecycleBinResult> emptyRecycleBin(@Placement(group = "Ids to Delete") List<String> ids,
-                                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         return Arrays.asList(getSalesforceSoapAdapter(headers).emptyRecycleBin(ids.toArray(new String[ids.size()])));
     }
 
@@ -1001,7 +1000,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
-    public Calendar getServerTimestamp() throws Exception {
+    public Calendar getServerTimestamp() throws ConnectionException {
         return getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
     }
 
@@ -1023,7 +1022,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<DeleteResult> delete(@Optional @Default("#[payload]") @Placement(group = "Ids to Delete") List<String> ids,
-                                     @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                     @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         return Arrays.asList(getSalesforceSoapAdapter(headers).delete(ids.toArray(new String[ids.size()])));
     }
 
@@ -1079,7 +1078,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public GetUpdatedResult getUpdatedRange(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                             @Placement(group = "Information") @FriendlyName("Start Time Reference") Calendar startTime,
                                             @Placement(group = "Information") @FriendlyName("End Time Reference") @Optional Calendar endTime,
-                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         if (endTime == null) {
             Calendar serverTime = getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
             endTime = (Calendar) serverTime.clone();
@@ -1121,7 +1120,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public GetDeletedResult getDeletedRange(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                             @Placement(group = "Information") @FriendlyName("Start Time Reference") Calendar startTime,
                                             @Placement(group = "Information") @FriendlyName("End Time Reference") @Optional Calendar endTime,
-                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         if (endTime == null) {
             Calendar serverTime = getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
             endTime = (Calendar) serverTime.clone();
@@ -1152,7 +1151,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Describe Calls", description = "A set of calls to describe record structure in Salesforce.")
-    public DescribeSObjectResult describeSObject(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type) throws Exception {
+    public DescribeSObjectResult describeSObject(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type) throws ConnectionException {
         return getSalesforceSoapAdapter().describeSObject(type);
     }
 
@@ -1176,7 +1175,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public GetDeletedResult getDeleted(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                        @Placement(group = "Information") int duration,
-                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         Calendar serverTime = getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
         Calendar startTime = (Calendar) serverTime.clone();
         Calendar endTime = (Calendar) serverTime.clone();
@@ -1207,7 +1206,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public GetUpdatedResult getUpdated(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                        @Placement(group = "Information") int duration,
-                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         Calendar serverTime = getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
         Calendar startTime = (Calendar) serverTime.clone();
         Calendar endTime = (Calendar) serverTime.clone();
@@ -1245,7 +1244,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public List<Map<String, Object>> getUpdatedObjects(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                                        @Placement(group = "Information") int initialTimeWindow,
                                                        @Optional @Default("#[payload]") @Placement(group = "Fields") List<String> fields,
-                                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException, ObjectStoreException {
 
         Calendar now = (Calendar) getSalesforceSoapAdapter().getServerTimestamp().getTimestamp().clone();
         boolean initialTimeWindowUsed = false;
@@ -1380,7 +1379,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Utility Calls", description = "API calls that your client applications can invoke to obtain the system timestamp, user information, and change user passwords.")
-    public GetUserInfoResult getUserInfo() throws Exception {
+    public GetUserInfoResult getUserInfo() throws ConnectionException {
         return getSalesforceSoapAdapter().getUserInfo();
     }
 
@@ -1452,7 +1451,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         try {
             batchRequest.addSObjects(SalesforceUtils.toAsyncSObjectList(objects, getBatchSobjectMaxDepth()));
             return batchRequest.completeRequest();
-        } catch (Exception e) {
+        } catch (AsyncApiException e) {
             /**
              * Added custom handler if {@link com.sforce.async.BatchRequest#completeRequest()} fails while processing.
              * If so, throws the correct exception to reconnect.
