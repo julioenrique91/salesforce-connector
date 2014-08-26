@@ -24,7 +24,11 @@ import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
  */
 public class SalesforceExceptionHandlerAdapter {
 
-    private static Logger logger = Logger.getLogger(SalesforceExceptionHandlerAdapter.class);
+    private static final Logger LOGGER = Logger.getLogger(SalesforceExceptionHandlerAdapter.class);
+
+    private SalesforceExceptionHandlerAdapter() {
+
+    }
 
 
     /**
@@ -36,8 +40,8 @@ public class SalesforceExceptionHandlerAdapter {
      * received without any change.
      */
     public static Exception analyzeRestException(Exception e) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("Analyzing exception " + e.getClass());
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Analyzing exception " + e.getClass());
         }
         if (e.getCause() instanceof AsyncApiException &&
                 (((AsyncApiException) e.getCause()).getExceptionCode() == AsyncExceptionCode.InvalidSessionId)) {

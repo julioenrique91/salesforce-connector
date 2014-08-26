@@ -227,17 +227,10 @@ public class SalesforceConnector extends BaseSalesforceConnector {
 
     @ValidateConnection
     public boolean isConnected() {
-        if (bulkConnection != null) {
-            if (connection != null) {
-                if (loginResult != null) {
-                    if (loginResult.getSessionId() != null) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
+        return bulkConnection != null
+                && connection != null
+                && loginResult != null
+                && loginResult.getSessionId() != null;
     }
 
     /**
@@ -247,13 +240,11 @@ public class SalesforceConnector extends BaseSalesforceConnector {
      */
     @ConnectionIdentifier
     public String getSessionId() {
-        if (connection != null) {
-            if (loginResult != null) {
-                return loginResult.getSessionId();
-            }
+        if (connection != null && loginResult != null) {
+            return loginResult.getSessionId();
+        } else {
+            return null;
         }
-
-        return null;
     }
 
 
@@ -264,10 +255,8 @@ public class SalesforceConnector extends BaseSalesforceConnector {
      */
     @Disconnect
     public synchronized void destroySession() {
-        if (isInitializedBayeuxClient()) {
-            if (getBayeuxClient().isConnected()) {
-                getBayeuxClient().disconnect();
-            }
+        if (isInitializedBayeuxClient() && getBayeuxClient().isConnected()) {
+            getBayeuxClient().disconnect();
         }
 
         if (connection != null && loginResult != null) {
@@ -388,14 +377,12 @@ public class SalesforceConnector extends BaseSalesforceConnector {
             connection.getSessionHeader().setSessionId(loginResult.getSessionId());
             connection.getConfig().setServiceEndpoint(loginResult.getServerUrl());
             connection.getConfig().setSessionId(loginResult.getSessionId());
-        } catch (ConnectionException e) {
-            if (e instanceof ApiFault) {
-                throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, ((ApiFault) e).getExceptionCode().name(), ((ApiFault) e).getExceptionMessage(), e);
-            } else {
-                throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
-            }
+        } catch (ApiFault e) {
+            throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, ((ApiFault) e).getExceptionCode().name(), ((ApiFault) e).getExceptionMessage(), e);
+        } catch (Exception e) {
+            throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
+          }
         }
-    }
 
     /**
      * Create connector config

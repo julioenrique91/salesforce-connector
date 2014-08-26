@@ -1258,11 +1258,10 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
         GetUpdatedResult getUpdatedResult = getUpdatedRange(type, startTime, now, headers);
 
-        if (getUpdatedResult.getLatestDateCovered().equals(startTime)) {
-            if (!initialTimeWindowUsed && getUpdatedResult.getIds().length > 0) {
+        if (getUpdatedResult.getLatestDateCovered().equals(startTime)
+            && !initialTimeWindowUsed && getUpdatedResult.getIds().length > 0) {
                 LOGGER.debug("Ignoring duplicated results from getUpdated() call");
                 return Collections.emptyList();
-            }
         }
 
         List<Map<String, Object>> updatedObjects = retrieve(type, Arrays.asList(getUpdatedResult.getIds()), fields, headers);
@@ -1515,7 +1514,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         sObject.setType(type);
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             String key = entry.getKey();
-            if (key.equals("fieldsToNull")) {
+            if ("fieldsToNull".equals(key)) {
                 sObject.setFieldsToNull((String[]) entry.getValue());
             } else if (entry.getValue() instanceof Map) {
                 sObject.setField(key, toSObject(key, toSObjectMap((Map) entry.getValue())));
@@ -1631,7 +1630,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     @Override
     public void setMuleContext(MuleContext context) {
-        setObjectStoreManager(((ObjectStoreManager) context.getRegistry().get(MuleProperties.OBJECT_STORE_MANAGER)));
+        setObjectStoreManager((ObjectStoreManager) context.getRegistry().get(MuleProperties.OBJECT_STORE_MANAGER));
         setRegistry((MuleRegistry) context.getRegistry());
     }
 

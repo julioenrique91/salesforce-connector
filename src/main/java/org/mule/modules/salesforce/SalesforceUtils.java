@@ -35,6 +35,10 @@ public class SalesforceUtils {
     @SuppressWarnings("rawtypes")
     public static final DataType<BulkOperationResult> BULK_OPERATION_RESULT_DATA_TYPE = DataTypeFactory.create(BulkOperationResult.class);
 
+    private SalesforceUtils() {
+
+    }
+
     /**
      * Converts a Salesforce XML Object to Map
      *

@@ -18,7 +18,7 @@ import java.io.InputStream;
 /**
  * This class encapsulates an InputStream and the
  */
-abstract public class LazyInputStream extends InputStream {
+public abstract class LazyInputStream extends InputStream {
 
     private InputStream inputStream;
     private LazyInputStreamStates inputStreamState;
@@ -81,7 +81,8 @@ abstract public class LazyInputStream extends InputStream {
         // Sync the access to the state of the inputStream to prevent from openLazyStream() if close was called first
         synchronized (inputStreamStateLock) {
             inputStreamState = LazyInputStreamStates.CLOSED;
-            connection = null; // If the stream is closed, no more call are allowed. Any other call with end in an IOException
+            // If the stream is closed, no more call are allowed. Any other call with end in an IOException
+            connection = null;
         }
         // The inputStram might hadn't been opened
         if (inputStream != null) {
@@ -144,5 +145,5 @@ abstract public class LazyInputStream extends InputStream {
      *
      * @return Returns the lazy {@link InputStream}.
      */
-    abstract protected InputStream openLazyInputStream() throws IOException;
+    protected abstract InputStream openLazyInputStream() throws IOException;
 }

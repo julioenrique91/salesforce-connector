@@ -142,27 +142,27 @@ public class EnrichedUpsertResult extends UpsertResult {
     }
 
     /**
-     * @param __element
-     * @param __out
-     * @param __typeMapper
+     * @param element
+     * @param out
+     * @param typeMapper
      * @throws IOException
      * @see com.sforce.soap.partner.UpsertResult#write(javax.xml.namespace.QName, com.sforce.ws.parser.XmlOutputStream, com.sforce.ws.bind.TypeMapper)
      */
-    public void write(QName __element, XmlOutputStream __out,
-                      TypeMapper __typeMapper) throws IOException {
-        wrapped.write(__element, __out, __typeMapper);
+    public void write(QName element, XmlOutputStream out,
+                      TypeMapper typeMapper) throws IOException {
+        wrapped.write(element, out, typeMapper);
     }
 
     /**
-     * @param __in
-     * @param __typeMapper
+     * @param in
+     * @param typeMapper
      * @throws IOException
      * @throws ConnectionException
      * @see com.sforce.soap.partner.UpsertResult#load(com.sforce.ws.parser.XmlInputStream, com.sforce.ws.bind.TypeMapper)
      */
-    public void load(XmlInputStream __in, TypeMapper __typeMapper)
+    public void load(XmlInputStream in, TypeMapper typeMapper)
             throws IOException, ConnectionException {
-        wrapped.load(__in, __typeMapper);
+        wrapped.load(in, typeMapper);
     }
 
     /**
