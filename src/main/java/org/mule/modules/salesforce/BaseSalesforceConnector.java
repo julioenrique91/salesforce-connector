@@ -179,7 +179,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         this.bc = bc;
     }
 
-    protected void setObjectStoreHelper(ObjectStoreHelper objectStoreHelper) {
+    protected synchronized void setObjectStoreHelper(ObjectStoreHelper objectStoreHelper) {
         this.objectStoreHelper = objectStoreHelper;
     }
 
