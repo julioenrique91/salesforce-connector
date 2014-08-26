@@ -1491,9 +1491,9 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     private com.sforce.async.SObject toAsyncSObject(Map<String, Object> map) {
         com.sforce.async.SObject sObject = batchSobjectMaxDepth != null ? new com.sforce.async.SObject(batchSobjectMaxDepth) : new com.sforce.async.SObject();
-        for (String key : map.keySet()) {
-
-            Object object = map.get(key);
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Object object = entry.getValue();
 
             if (object != null) {
                 if (object instanceof Map) {
@@ -1531,10 +1531,10 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *
      * @see #toSObject(String, java.util.Map)
      */
-    protected Map<String, Object> toSObjectMap(Map map) {
+    protected Map<String, Object> toSObjectMap(Map<Object, Object> map) {
         Map<String, Object> sObjectMap = new HashMap<String, Object>();
-        for (Object key : map.keySet()) {
-            sObjectMap.put(key.toString(), map.get(key));
+        for (Map.Entry<Object, Object> entry : map.entrySet()) {
+            sObjectMap.put(entry.getKey().toString(), entry.getValue());
         }
         return sObjectMap;
     }

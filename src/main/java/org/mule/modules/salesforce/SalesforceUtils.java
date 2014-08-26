@@ -74,16 +74,17 @@ public class SalesforceUtils {
     public static com.sforce.async.SObject toAsyncSObject(Map<String, Object> map, Integer batchSobjectMaxDepth) {
         com.sforce.async.SObject sObject = batchSobjectMaxDepth != null && batchSobjectMaxDepth != 0 ?
                 new com.sforce.async.SObject(batchSobjectMaxDepth) : new com.sforce.async.SObject();
-        for (String key : map.keySet()) {
-            Object object = map.get(key);
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            Object value = entry.getValue();
+            String key = entry.getKey();
 
-            if (object != null) {
-                if (object instanceof Map) {
-                    sObject.setFieldReference(key, toAsyncSObject(toSObjectMap((Map) object), batchSobjectMaxDepth));
-                } else if (isDateField(object)) {
-                    sObject.setField(key, convertDateToString(object));
+            if (value != null) {
+                if (value instanceof Map) {
+                    sObject.setFieldReference(key, toAsyncSObject(toSObjectMap((Map) value), batchSobjectMaxDepth));
+                } else if (isDateField(value)) {
+                    sObject.setField(key, convertDateToString(value));
                 } else {
-                    sObject.setField(key, object.toString());
+                    sObject.setField(key, value.toString());
                 }
             } else {
                 sObject.setField(key, null);
@@ -118,10 +119,10 @@ public class SalesforceUtils {
     /**
      * Enforce map keys are converted to String to comply with generic signature in toSObject
      */
-    public static Map<String, Object> toSObjectMap(Map map) {
+    public static Map<String, Object> toSObjectMap(Map<String, Object> map) {
         Map<String, Object> sObjectMap = new HashMap<String, Object>();
-        for (Object key : map.keySet()) {
-            sObjectMap.put(key.toString(), map.get(key));
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            sObjectMap.put(entry.getKey(), entry.getValue());
         }
         return sObjectMap;
     }
