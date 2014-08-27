@@ -122,11 +122,13 @@ public class SalesforceUtils {
 
     /**
      * Enforce map keys are converted to String to comply with generic signature in toSObject
+     *
+     * @see #toSObject(String, java.util.Map)
      */
-    public static Map<String, Object> toSObjectMap(Map<String, Object> map) {
+    public static Map<String, Object> toSObjectMap(Map<Object, Object> map) {
         Map<String, Object> sObjectMap = new HashMap<String, Object>();
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            sObjectMap.put(entry.getKey(), entry.getValue());
+        for (Map.Entry<Object, Object> entry : map.entrySet()) {
+            sObjectMap.put(entry.getKey().toString(), entry.getValue());
         }
         return sObjectMap;
     }

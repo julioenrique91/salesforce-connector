@@ -107,7 +107,7 @@ public class SalesforceConnectorTest {
         map.put(123, "number key");
         map.put("abc", "string key");
         map.put(new URL("http://localhost"), "url key");
-        Map<String, Object> sObjectMap = connector.toSObjectMap(map);
+        Map<String, Object> sObjectMap = SalesforceUtils.toSObjectMap(map);
         assertEquals("number key", sObjectMap.get("123"));
         assertEquals("string key", sObjectMap.get("abc"));
         assertEquals("url key", sObjectMap.get("http://localhost"));
@@ -133,7 +133,7 @@ public class SalesforceConnectorTest {
         opportunity.put("Name", "Example Opportunity");
         opportunity.put("Owner", owner);
 
-        SObject record = connector.toSObject("Opportunity", opportunity);
+        SObject record = SalesforceUtils.toSObject("Opportunity", opportunity);
         SObject convertedOwnerObject = (SObject) record.getField("Owner");
         assertEquals("User", convertedOwnerObject.getType());
     }

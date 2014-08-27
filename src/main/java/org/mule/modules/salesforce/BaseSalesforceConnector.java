@@ -1488,27 +1488,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         return getSalesforceRestAdapter().createJob(jobInfo);
     }
 
-    private com.sforce.async.SObject toAsyncSObject(Map<String, Object> map) {
-        com.sforce.async.SObject sObject = batchSobjectMaxDepth != null ? new com.sforce.async.SObject(batchSobjectMaxDepth) : new com.sforce.async.SObject();
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            String key = entry.getKey();
-            Object object = entry.getValue();
-
-            if (object != null) {
-                if (object instanceof Map) {
-                    sObject.setFieldReference(key, toAsyncSObject(toSObjectMap((Map) object)));
-                } else if (isDateField(object)) {
-                    sObject.setField(key, convertDateToString(object));
-                } else {
-                    sObject.setField(key, object.toString());
-                }
-            } else {
-                sObject.setField(key, null);
-            }
-        }
-        return sObject;
-    }
-
     protected SObject toSObject(String type, Map<String, Object> map) {
         SObject sObject = new SObject();
         sObject.setType(type);
@@ -1517,25 +1496,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
             if ("fieldsToNull".equals(key)) {
                 sObject.setFieldsToNull((String[]) entry.getValue());
             } else if (entry.getValue() instanceof Map) {
-                sObject.setField(key, toSObject(key, toSObjectMap((Map) entry.getValue())));
+                sObject.setField(key, toSObject(key, SalesforceUtils.toSObjectMap((Map) entry.getValue())));
             } else {
                 sObject.setField(key, entry.getValue());
             }
         }
         return sObject;
-    }
-
-    /**
-     * Enforce map keys are converted to String to comply with generic signature in toSObject
-     *
-     * @see #toSObject(String, java.util.Map)
-     */
-    protected Map<String, Object> toSObjectMap(Map<Object, Object> map) {
-        Map<String, Object> sObjectMap = new HashMap<String, Object>();
-        for (Map.Entry<Object, Object> entry : map.entrySet()) {
-            sObjectMap.put(entry.getKey().toString(), entry.getValue());
-        }
-        return sObjectMap;
     }
 
     private synchronized ObjectStoreHelper getObjectStoreHelper(String username) {
