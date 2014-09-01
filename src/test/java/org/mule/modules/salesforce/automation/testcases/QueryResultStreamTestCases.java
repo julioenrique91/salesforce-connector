@@ -14,13 +14,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.salesforce.automation.RegressionTests;
@@ -40,7 +37,7 @@ public class QueryResultStreamTestCases extends SalesforceTestParent {
 	public void setUp() throws Exception {
 		
     	
-		loadTestRunMessage("createBatchTestData");
+		loadTestRunMessage("createBatchForQueryTestData");
 		
 		try {
 
@@ -48,7 +45,7 @@ public class QueryResultStreamTestCases extends SalesforceTestParent {
 			
 			upsertOnTestRunMessage("jobId", jobInfo.getId());
 			upsertOnTestRunMessage("jobInfoRef", jobInfo);
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -59,28 +56,21 @@ public class QueryResultStreamTestCases extends SalesforceTestParent {
 	@After
 	public void tearDown() throws Exception {
 
-		runFlowAndGetPayload("delete-from-message");
 		runFlowAndGetPayload("close-job");
 		
 	}
 	
     @Category({RegressionTests.class})
-    @Ignore("https://www.mulesoft.org/jira/browse/CLDCONNECT-691")
 	@Test
 	public void testQueryResultStream() {
     	
     	BatchInfo batchInfo;
     	
-		String[] results;
-		String id;
-		String success;
 		boolean isSuccess = true;
 
-		List<String> sObjectsIds = new ArrayList<String>();
-		
 		try {
   
-			batchInfo = runFlowAndGetPayload("create-batch");
+			batchInfo = runFlowAndGetPayload("create-batch-for-query");
 			
 			do {
 				
@@ -94,21 +84,7 @@ public class QueryResultStreamTestCases extends SalesforceTestParent {
 			
 			String operationResponse = IOUtils.toString((InputStream) runFlowAndGetPayload("query-result-stream"));
 			
-			results = StringUtils.substringsBetween(operationResponse,"<result>","</result>");
-			for (int index=0; index<results.length; index++) {
-				
-				id = StringUtils.substringBetween(results[index],"<id>","</id>");
-				success = StringUtils.substringBetween(results[index],"<success>","</success>");
-				
-				if (success.equals("true")) {
-					sObjectsIds.add(id);
-				} else {
-					isSuccess = false;	
-				}
-				
-			}
-			
-			upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
+			isSuccess = StringUtils.contains(operationResponse, "<queryResult");
 			
 			assertTrue(isSuccess);
 			
