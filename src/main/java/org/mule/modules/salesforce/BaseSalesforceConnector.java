@@ -659,6 +659,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * Returns an {@link InputStream} with the query results of a submitted {@link BatchInfo}
      * <p/> 
      * Internally the InputStreams contained in the sequence will be requested on-demand (lazy-loading)
+     * Shoud be used only with query jobs!
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:query-result-stream}
      *
