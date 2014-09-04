@@ -1433,11 +1433,11 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         this.getBayeuxClient().subscribe(topicName, new SalesforceBayeuxMessageListener(callback));
     }
 
-    public void setObjectStoreManager(ObjectStoreManager objectStoreManager) {
+    public synchronized void setObjectStoreManager(ObjectStoreManager objectStoreManager) {
         this.objectStoreManager = objectStoreManager;
     }
 
-    public void setTimeObjectStore(ObjectStore<? extends Serializable> timeObjectStore) {
+    public synchronized void setTimeObjectStore(ObjectStore<? extends Serializable> timeObjectStore) {
         this.timeObjectStore = timeObjectStore;
     }
 

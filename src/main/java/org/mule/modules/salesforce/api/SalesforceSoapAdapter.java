@@ -82,8 +82,8 @@ public class SalesforceSoapAdapter {
                     BeanUtils.populate(headerObject, (Map) entry.getValue());
                     partnerConnection.getClass().getMethod("__set" + entry.getKey().getHeaderName(), entry.getKey().getHeaderClass()).
                             invoke(partnerConnection, headerObject);
-                } catch (Exception e) {
-                    LOGGER.error(String.format("Header %s is incorrect, couldn't be added to the request", entry.getKey().toString()));
+                } catch (Exception e) { //NOSONAR ReflectiveOperationException is not present in JDK 6
+                    LOGGER.error(String.format("Header %s is incorrect, couldn't be added to the request", entry.getKey().toString()), e);
                 }
             }
         }

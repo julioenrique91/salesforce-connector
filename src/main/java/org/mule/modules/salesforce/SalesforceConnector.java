@@ -358,31 +358,25 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     }
 
     public void reconnect() throws org.mule.api.ConnectionException {
+        LOGGER.debug("Creating a Salesforce session using " + connection.getConfig().getUsername());
         try {
-            LOGGER.debug("Creating a Salesforce session using " + connection.getConfig().getUsername());
             loginResult = connection.login(connection.getConfig().getUsername(), connection.getConfig().getPassword());
-
             if (loginResult.isPasswordExpired()) {
-                try {
-                    connection.logout();
-                } catch (ConnectionException e) {
-                    LOGGER.error(e.getMessage(), e);
-                }
+                connection.logout();
                 String username = connection.getConfig().getUsername();
                 connection = null;
                 throw new org.mule.api.ConnectionException(ConnectionExceptionCode.CREDENTIALS_EXPIRED, null, "The password for the user " + username + " has expired");
             }
-
             LOGGER.debug("Session established successfully with ID " + loginResult.getSessionId() + " at instance " + loginResult.getServerUrl());
             connection.getSessionHeader().setSessionId(loginResult.getSessionId());
             connection.getConfig().setServiceEndpoint(loginResult.getServerUrl());
             connection.getConfig().setSessionId(loginResult.getSessionId());
         } catch (ApiFault e) {
             throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, ((ApiFault) e).getExceptionCode().name(), ((ApiFault) e).getExceptionMessage(), e);
-        } catch (Exception e) {
+        } catch (ConnectionException e) {
             throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
-          }
         }
+    }
 
     /**
      * Create connector config
