@@ -644,7 +644,7 @@ Summary:
             T</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/process/SalesforceConnectorManagedConnectionProcessInterceptor.html#execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter>, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter, org.mule.api.processor.MessageProcessor, org.mule.api.MuleEvent)">execute</a></span>(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/salesforce/adapters/SalesforceConnectorConnectionIdentifierAdapter.html">SalesforceConnectorConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/modules/salesforce/adapters/SalesforceConnectorConnectionIdentifierAdapter.html">SalesforceConnectorConnectionIdentifierAdapter</a> object, MessageProcessor messageProcessor, MuleEvent event)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/process/SalesforceConnectorManagedConnectionProcessInterceptor.html#execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter>, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter, org.mule.api.routing.filter.Filter, org.mule.api.MuleMessage)">execute</a></span>(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/salesforce/adapters/SalesforceConnectorConnectionIdentifierAdapter.html">SalesforceConnectorConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/modules/salesforce/adapters/SalesforceConnectorConnectionIdentifierAdapter.html">SalesforceConnectorConnectionIdentifierAdapter</a> object, Filter filter, MuleMessage message)</nobr>
         
   </td></tr>
 
@@ -660,7 +660,7 @@ Summary:
             T</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/process/SalesforceConnectorManagedConnectionProcessInterceptor.html#execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter>, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter, org.mule.api.routing.filter.Filter, org.mule.api.MuleMessage)">execute</a></span>(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/salesforce/adapters/SalesforceConnectorConnectionIdentifierAdapter.html">SalesforceConnectorConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/modules/salesforce/adapters/SalesforceConnectorConnectionIdentifierAdapter.html">SalesforceConnectorConnectionIdentifierAdapter</a> object, Filter filter, MuleMessage message)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/process/SalesforceConnectorManagedConnectionProcessInterceptor.html#execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter>, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter, org.mule.api.processor.MessageProcessor, org.mule.api.MuleEvent)">execute</a></span>(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/salesforce/adapters/SalesforceConnectorConnectionIdentifierAdapter.html">SalesforceConnectorConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/modules/salesforce/adapters/SalesforceConnectorConnectionIdentifierAdapter.html">SalesforceConnectorConnectionIdentifierAdapter</a> object, MessageProcessor messageProcessor, MuleEvent event)</nobr>
         
   </td></tr>
 
@@ -870,7 +870,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">transform</span>(MuleContext arg0, MuleMessage arg1, Type arg2, String arg3, Object arg4)</nobr>
+        <span class="sympad">transform</span>(MuleMessage arg0, Type arg1, Object arg2)</nobr>
         
   </td></tr>
 
@@ -886,7 +886,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">transform</span>(MuleMessage arg0, Type arg1, Object arg2)</nobr>
+        <span class="sympad">transform</span>(MuleContext arg0, MuleEvent arg1, Type arg2, String arg3, Object arg4)</nobr>
         
   </td></tr>
 
@@ -902,7 +902,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">transform</span>(MuleContext arg0, MuleEvent arg1, Type arg2, String arg3, Object arg4)</nobr>
+        <span class="sympad">transform</span>(MuleContext arg0, MuleMessage arg1, Type arg2, String arg3, Object arg4)</nobr>
         
   </td></tr>
 
@@ -1072,7 +1072,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">wait</span>(long arg0, int arg1)</nobr>
+        <span class="sympad">wait</span>()</nobr>
         
   </td></tr>
 
@@ -1088,7 +1088,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">wait</span>(long arg0)</nobr>
+        <span class="sympad">wait</span>(long arg0, int arg1)</nobr>
         
   </td></tr>
 
@@ -1104,7 +1104,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">wait</span>()</nobr>
+        <span class="sympad">wait</span>(long arg0)</nobr>
         
   </td></tr>
 
@@ -1397,67 +1397,6 @@ From interface
 
 
 
-<A NAME="execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter>, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter, org.mule.api.processor.MessageProcessor, org.mule.api.MuleEvent)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        T
-      </span>
-      <span class="sympad">execute</span>
-      <span class="normal">(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/salesforce/adapters/SalesforceConnectorConnectionIdentifierAdapter.html">SalesforceConnectorConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/modules/salesforce/adapters/SalesforceConnectorConnectionIdentifierAdapter.html">SalesforceConnectorConnectionIdentifierAdapter</a> object, MessageProcessor messageProcessor, MuleEvent event)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>processCallback</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>object</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>messageProcessor</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>event</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th>Exception</td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter>, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter, org.mule.api.routing.filter.Filter, org.mule.api.MuleMessage)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1501,6 +1440,67 @@ From interface
         </tr>
         <tr>
           <th>message</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="execute(org.mule.security.oauth.callback.ProcessCallback<T, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter>, org.mule.modules.salesforce.adapters.SalesforceConnectorConnectionIdentifierAdapter, org.mule.api.processor.MessageProcessor, org.mule.api.MuleEvent)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        T
+      </span>
+      <span class="sympad">execute</span>
+      <span class="normal">(ProcessCallback&lt;T,&nbsp;<a href="../../../../../../java/org/mule/modules/salesforce/adapters/SalesforceConnectorConnectionIdentifierAdapter.html">SalesforceConnectorConnectionIdentifierAdapter</a>&gt; processCallback, <a href="../../../../../../java/org/mule/modules/salesforce/adapters/SalesforceConnectorConnectionIdentifierAdapter.html">SalesforceConnectorConnectionIdentifierAdapter</a> object, MessageProcessor messageProcessor, MuleEvent event)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>processCallback</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>object</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>messageProcessor</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>event</td>
           <td></td>
         </tr>
       </table>

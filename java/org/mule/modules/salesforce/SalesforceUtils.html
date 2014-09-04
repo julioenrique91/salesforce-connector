@@ -633,6 +633,22 @@ Summary:
             
             static
             
+            List&lt;<a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#enrichWithPayload(com.sforce.soap.partner.sobject.SObject[], com.sforce.soap.partner.SaveResult[])">enrichWithPayload</a></span>(<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject[]</a> objects, <a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult[]</a> results)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
             <a href="../../../../../java/org/mule/modules/salesforce/bulk/EnrichedUpsertResult.html">EnrichedUpsertResult</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -642,7 +658,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -658,7 +674,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -669,22 +685,6 @@ Summary:
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#enrichWithPayload(com.sforce.soap.partner.sobject.SObject[], com.sforce.soap.partner.UpsertResult[])">enrichWithPayload</a></span>(<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject[]</a> objects, <a href="../../../../../java/com/sforce/soap/partner/UpsertResult.html">UpsertResult[]</a> results)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            List&lt;<a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a>&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceUtils.html#enrichWithPayload(com.sforce.soap.partner.sobject.SObject[], com.sforce.soap.partner.SaveResult[])">enrichWithPayload</a></span>(<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject[]</a> objects, <a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult[]</a> results)</nobr>
         
   </td></tr>
 
@@ -1045,7 +1045,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">wait</span>(long arg0, int arg1)</nobr>
+        <span class="sympad">wait</span>()</nobr>
         
   </td></tr>
 
@@ -1061,7 +1061,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">wait</span>(long arg0)</nobr>
+        <span class="sympad">wait</span>(long arg0, int arg1)</nobr>
         
   </td></tr>
 
@@ -1077,7 +1077,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">wait</span>()</nobr>
+        <span class="sympad">wait</span>(long arg0)</nobr>
         
   </td></tr>
 
@@ -1285,6 +1285,50 @@ From class
 </div>
 
 
+<A NAME="enrichWithPayload(com.sforce.soap.partner.sobject.SObject[], com.sforce.soap.partner.SaveResult[])"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        List&lt;<a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a>&gt;
+      </span>
+      <span class="sympad">enrichWithPayload</span>
+      <span class="normal">(<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject[]</a> objects, <a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult[]</a> results)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>objects</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>results</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="enrichWithPayload(com.sforce.soap.partner.UpsertResult, com.sforce.soap.partner.sobject.SObject)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1387,50 +1431,6 @@ From class
       </span>
       <span class="sympad">enrichWithPayload</span>
       <span class="normal">(<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject[]</a> objects, <a href="../../../../../java/com/sforce/soap/partner/UpsertResult.html">UpsertResult[]</a> results)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>objects</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>results</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="enrichWithPayload(com.sforce.soap.partner.sobject.SObject[], com.sforce.soap.partner.SaveResult[])"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        List&lt;<a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a>&gt;
-      </span>
-      <span class="sympad">enrichWithPayload</span>
-      <span class="normal">(<a href="../../../../../java/com/sforce/soap/partner/sobject/SObject.html">SObject[]</a> objects, <a href="../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult[]</a> results)</span>
     </h4>
       <div class="api-level">
         <div>
