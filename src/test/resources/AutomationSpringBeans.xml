@@ -913,4 +913,26 @@
 		<entry key="query" value="SELECT Id, Name, BillingCity FROM Account WHERE BillingCity = 'San Francisco'" />
 	</util:map>
 	
+	
+	<!-- publish-topic -->
+		
+		<util:map id="publishTopic" map-class="java.util.HashMap"
+			key-type="java.lang.String" value-type="java.lang.Object">
+			<entry key="query"
+				value="SELECT Id, Name, BillingCity FROM Account WHERE BillingCity = 'San Francisco'" />
+			<entry key="description" value="DefaultDescription" />
+			<entry key="topicName" value="DefaultTopic6" />
+		</util:map>
+	
+	<!-- create-stream-batch -->
+	
+		<util:map id="createStreamBatchTestData" map-class="java.util.HashMap"
+			key-type="java.lang.String" value-type="java.lang.Object">
+			<entry key="type" value="Contact" />
+			<entry key="concurrencyMode" value="Parallel" />
+			<entry key="contentType" value="CSV" />
+			<entry key="externalIdFieldName" value="Id" />
+			<entry key="operation" value="insert" />
+		</util:map>
+	
 </beans>

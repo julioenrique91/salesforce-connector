@@ -7,11 +7,12 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-
 package org.mule.modules.salesforce.automation.testcases;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+
+import java.util.Calendar;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -19,28 +20,19 @@ import org.mule.modules.salesforce.automation.RegressionTests;
 import org.mule.modules.salesforce.automation.SalesforceTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import com.sforce.soap.partner.DescribeSObjectResult;
+public class GetServerTimestampTestCases extends SalesforceTestParent {
 
-
-public class DescribeSObjectTestCases extends SalesforceTestParent {
-	
-    @Category({RegressionTests.class})
+	@Category({ RegressionTests.class })
 	@Test
-	public void testDescribeSObject() {
-    	
+	public void testGetServerTimeStamp() {
+
 		try {
-			
-			loadTestRunMessage("describeSObjectTestData");
-			
-			DescribeSObjectResult describeSObjectResult = runFlowAndGetPayload("describe-sobject");
-			String sObjectName = describeSObjectResult.getName();
-
-	        assertTrue(sObjectName.equals(getTestRunMessageValue("type")));
-
+			Calendar serverTimestampResult = runFlowAndGetPayload("get-server-timestamp");
+			assertNotNull(serverTimestampResult);		
 		} catch (Exception e) {
 			fail(ConnectorTestUtils.getStackTrace(e));
 		}
-     
+
 	}
 
 }

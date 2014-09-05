@@ -116,13 +116,6 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 		</sfdc:get-user-info>
 	</flow>
 
-	<flow name="publish-topic" doc:name="publish-topic">
-		<sfdc:publish-topic config-ref="Salesforce"
-			doc:name="Publish topic" description="#[payload.description]" query="#[payload.query]"
-			topicName="#[payload.topicName]">
-		</sfdc:publish-topic>
-	</flow>
-
 	<flow name="query" doc:name="query">
 		<sfdc:query config-ref="Salesforce" doc:name="Query"
 			query="#[payload.query]">
@@ -279,17 +272,36 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 		</sfdc:create-batch-for-query>
 	</flow>
 
-	<flow name="create-batch-stream" doc:name="create-batch-stream">
-		<sfdc:create-batch-stream config-ref="Salesforce"
-			doc:name="Create batch stream" stream-ref="#[payload.streamRef]">
-			<sfdc:job-info ref="#[payload.jobInfoRef]" />
-		</sfdc:create-batch-stream>
-	</flow>
-
 	<flow name="query-result-stream" doc:name="query-result-stream">
 		<sfdc:query-result-stream config-ref="Salesforce"
 			doc:name="Query result stream">
 			<sfdc:batch-info ref="#[payload.batchInfoRef]" />
 		</sfdc:query-result-stream>
 	</flow>
+	
+	<flow name="publish-topic" doc:name="publish-topic">
+		<sfdc:publish-topic config-ref="Salesforce"
+			doc:name="Publish topic" description="#[payload.description]" query="#[payload.query]"
+			topicName="#[payload.topicName]">
+		</sfdc:publish-topic>
+	</flow>
+
+	<flow name="get-server-timestamp" doc:name="get-server-timestamp">
+			<sfdc:get-server-timestamp config-ref="SalesforceReconnectForever"
+				doc:name="Get server timestamp">
+			</sfdc:get-server-timestamp>
+	</flow>
+	
+	<flow name="non-paginated-query" doc:name="non paginated query">
+			<sfdc:query config-ref="Salesforce" doc:name="Non Paginated Query"
+				query="#[payload.query]">
+			</sfdc:query>
+	</flow>
+	
+	<flow name="create-batch-stream" doc:name="create-batch-stream">
+	        <sfdc:create-batch-stream config-ref="Salesforce"  doc:name="Create Batch Stream" stream-ref="#[payload.stream]">
+	            <sfdc:job-info ref="#[payload.jobInfoRef]"/>
+	        </sfdc:create-batch-stream>
+	</flow>
+	
 </mule>
