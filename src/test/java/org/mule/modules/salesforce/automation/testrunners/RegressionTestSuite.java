@@ -51,7 +51,14 @@ import org.mule.modules.salesforce.automation.testcases.*;
 	UpsertBulkTestCases.class,
 	CreateSingleTestCases.class,
 	GetUpdatedRangeTestCases.class,
-	UpsertTestCases.class
+	UpsertTestCases.class,
+	PublishTopicTestCases.class,
+	DescribeSObjectTestCases.class,
+	GetServerTimestampTestCases.class,
+	NonPaginatedQueryTestCases.class,
+	CreateBatchStreamTestCases.class,
+	JobInfoTestCases.class,
+	CreateBatchForQueryTestCases.class
 	
 		})
 
