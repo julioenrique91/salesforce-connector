@@ -10,19 +10,18 @@
 
 package org.mule.modules.salesforce;
 
+import com.sforce.soap.partner.PartnerConnection;
+import com.sforce.soap.partner.QueryResult;
+import com.sforce.soap.partner.sobject.SObject;
+import com.sforce.ws.ConnectionException;
+import org.mule.api.MuleException;
+import org.mule.modules.salesforce.api.SalesforceHeader;
+import org.mule.streaming.ProviderAwarePagingDelegate;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import com.sforce.soap.partner.PartnerConnection;
-import com.sforce.ws.ConnectionException;
-import org.mule.api.MuleException;
-
-import com.sforce.soap.partner.QueryResult;
-import com.sforce.soap.partner.sobject.SObject;
-import org.mule.modules.salesforce.api.SalesforceHeader;
-import org.mule.streaming.ProviderAwarePagingDelegate;
 
 public abstract class SalesforcePagingDelegate extends ProviderAwarePagingDelegate<Map<String, Object>, BaseSalesforceConnector> {
     private String query;
@@ -31,7 +30,7 @@ public abstract class SalesforcePagingDelegate extends ProviderAwarePagingDelega
     private QueryResult cachedQueryResult = null;
     private boolean lastPageFound = false;
 
-    public SalesforcePagingDelegate(String query,  Map<SalesforceHeader, Object> headers) {
+    public SalesforcePagingDelegate(String query, Map<SalesforceHeader, Object> headers) {
         this.query = query;
         this.headers = headers;
     }

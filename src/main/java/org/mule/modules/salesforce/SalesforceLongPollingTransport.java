@@ -19,8 +19,7 @@ import java.util.Map;
 public class SalesforceLongPollingTransport extends LongPollingTransport {
     private BaseSalesforceConnector salesforceConnector;
 
-    public static SalesforceLongPollingTransport create(BaseSalesforceConnector salesforceConnector, Map<String, Object> options)
-    {
+    public static SalesforceLongPollingTransport create(BaseSalesforceConnector salesforceConnector, Map<String, Object> options) {
         HttpClient httpClient = new HttpClient();
         httpClient.setIdleTimeout(5000);
         httpClient.setConnectorType(HttpClient.CONNECTOR_SELECT_CHANNEL);
@@ -28,17 +27,12 @@ public class SalesforceLongPollingTransport extends LongPollingTransport {
         return create(salesforceConnector, options, httpClient);
     }
 
-    public static SalesforceLongPollingTransport create(BaseSalesforceConnector salesforceConnector, Map<String, Object> options, HttpClient httpClient)
-    {
+    public static SalesforceLongPollingTransport create(BaseSalesforceConnector salesforceConnector, Map<String, Object> options, HttpClient httpClient) {
         SalesforceLongPollingTransport transport = new SalesforceLongPollingTransport(salesforceConnector, options, httpClient);
-        if (!httpClient.isStarted())
-        {
-            try
-            {
+        if (!httpClient.isStarted()) {
+            try {
                 httpClient.start();
-            }
-            catch (Exception x)
-            {
+            } catch (Exception x) {
                 throw new RuntimeException(x);
             }
         }

@@ -9,55 +9,34 @@
  */
 package org.mule.modules.salesforce;
 
-import java.net.Authenticator;
-import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
-import java.net.Proxy;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.sforce.async.AsyncApiException;
+import com.sforce.async.BulkConnection;
+import com.sforce.soap.partner.Connector;
+import com.sforce.soap.partner.*;
+import com.sforce.soap.partner.fault.ApiFault;
+import com.sforce.ws.ConnectionException;
+import com.sforce.ws.ConnectorConfig;
+import com.sforce.ws.MessageHandler;
+import com.sforce.ws.SessionRenewer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.mule.api.ConnectionExceptionCode;
-import org.mule.api.annotations.Connect;
-import org.mule.api.annotations.ConnectionIdentifier;
-import org.mule.api.annotations.Disconnect;
-import org.mule.api.annotations.MetaDataKeyRetriever;
-import org.mule.api.annotations.MetaDataRetriever;
-import org.mule.api.annotations.ValidateConnection;
+import org.mule.api.annotations.*;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.common.metadata.DefaultMetaData;
-import org.mule.common.metadata.DefaultMetaDataKey;
-import org.mule.common.metadata.MetaData;
-import org.mule.common.metadata.MetaDataKey;
-import org.mule.common.metadata.MetaDataModel;
+import org.mule.common.metadata.*;
 import org.mule.common.metadata.builder.DefaultMetaDataBuilder;
 import org.mule.common.metadata.builder.DynamicObjectBuilder;
 import org.mule.common.metadata.builder.EnumMetaDataBuilder;
 import org.mule.common.metadata.datatype.DataType;
 
-import com.sforce.async.AsyncApiException;
-import com.sforce.async.BulkConnection;
-import com.sforce.soap.partner.Connector;
-import com.sforce.soap.partner.DescribeGlobalResult;
-import com.sforce.soap.partner.DescribeGlobalSObjectResult;
-import com.sforce.soap.partner.DescribeSObjectResult;
-import com.sforce.soap.partner.Field;
-import com.sforce.soap.partner.FieldType;
-import com.sforce.soap.partner.LoginResult;
-import com.sforce.soap.partner.PartnerConnection;
-import com.sforce.soap.partner.PicklistEntry;
-import com.sforce.soap.partner.fault.ApiFault;
-import com.sforce.ws.ConnectionException;
-import com.sforce.ws.ConnectorConfig;
-import com.sforce.ws.MessageHandler;
-import com.sforce.ws.SessionRenewer;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -81,7 +60,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     private static final Logger LOGGER = Logger.getLogger(SalesforceConnector.class);
 
     @MetaDataKeyRetriever
-    public List<MetaDataKey> getMetaDataKeys() throws Exception {
+    public List<MetaDataKey> getMetaDataKeys() throws ConnectionException {
         List<MetaDataKey> keys = new ArrayList<MetaDataKey>();
         DescribeGlobalResult describeGlobal = describeGlobal();
 
@@ -96,7 +75,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     }
 
     @MetaDataRetriever
-    public MetaData getMetaData(MetaDataKey key) throws Exception {
+    public MetaData getMetaData(MetaDataKey key) throws ConnectionException {
         DescribeSObjectResult describeSObject = describeSObject(key.getId());
 
         MetaData metaData = null;
@@ -104,7 +83,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
             Field[] fields = describeSObject.getFields();
             DynamicObjectBuilder dynamicObject = new DefaultMetaDataBuilder().createDynamicObject(key.getId());
             for (Field f : fields) {
-               addField(f, dynamicObject);
+                addField(f, dynamicObject);
             }
             MetaDataModel model = dynamicObject.build();
             metaData = new DefaultMetaData(model);
@@ -114,16 +93,16 @@ public class SalesforceConnector extends BaseSalesforceConnector {
 
     private void addField(Field f, DynamicObjectBuilder dynamicObject) {
         DataType dataType = getDataType(f.getType());
-        switch (dataType){
+        switch (dataType) {
             case POJO:
                 dynamicObject.addPojoField(f.getName(), Object.class);
                 break;
             case ENUM:
                 EnumMetaDataBuilder enumMetaDataBuilder = dynamicObject.addEnumField(f.getName());
-                if (f.getPicklistValues().length != 0){
+                if (f.getPicklistValues().length != 0) {
                     String[] values = new String[f.getPicklistValues().length];
-                    int i =0;
-                    for (PicklistEntry picklistEntry : f.getPicklistValues()){
+                    int i = 0;
+                    for (PicklistEntry picklistEntry : f.getPicklistValues()) {
                         values[i] = (picklistEntry.getValue());
                         i++;
                     }
@@ -248,17 +227,10 @@ public class SalesforceConnector extends BaseSalesforceConnector {
 
     @ValidateConnection
     public boolean isConnected() {
-        if (bulkConnection != null) {
-            if (connection != null) {
-                if (loginResult != null) {
-                    if (loginResult.getSessionId() != null) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
+        return bulkConnection != null
+                && connection != null
+                && loginResult != null
+                && loginResult.getSessionId() != null;
     }
 
     /**
@@ -268,13 +240,11 @@ public class SalesforceConnector extends BaseSalesforceConnector {
      */
     @ConnectionIdentifier
     public String getSessionId() {
-        if (connection != null) {
-            if (loginResult != null) {
-                return loginResult.getSessionId();
-            }
+        if (connection != null && loginResult != null) {
+            return loginResult.getSessionId();
+        } else {
+            return null;
         }
-
-        return null;
     }
 
 
@@ -285,10 +255,8 @@ public class SalesforceConnector extends BaseSalesforceConnector {
      */
     @Disconnect
     public synchronized void destroySession() {
-        if (isInitializedBayeuxClient()) {
-            if (getBayeuxClient().isConnected()) {
-                getBayeuxClient().disconnect();
-            }
+        if (isInitializedBayeuxClient() && getBayeuxClient().isConnected()) {
+            getBayeuxClient().disconnect();
         }
 
         if (connection != null && loginResult != null) {
@@ -303,33 +271,33 @@ public class SalesforceConnector extends BaseSalesforceConnector {
             }
         }
     }
-    
+
     @Override
     protected boolean isReadyToSubscribe() {
-    	return this.isConnected();
+        return this.isConnected();
     }
-    
+
     @Start
     public void init() {
-    	this.registerTransformers();
+        this.registerTransformers();
     }
-    
+
     /**
      * Creates a new Salesforce session
      *
-     * @param username      Username used to initialize the session
-     * @param password      Password used to authenticate the user
-     * @param securityToken User's security token. It can be omitted if your IP has been whitelisted on Salesforce
-     * @param url           Salesforce endpoint URL
-     * @param proxyHost     Hostname of the proxy
-     * @param proxyPort     Port of the proxy
-     * @param proxyUsername Username used to authenticate against the proxy
-     * @param proxyPassword Password used to authenticate against the proxy
-     * @param sessionId  This value could be used for specifying an active Salesforce session.
-     * Please take into account you must specify all the connection parameters anyway since they will be used
-     * in case of needing a reconnection.
+     * @param username        Username used to initialize the session
+     * @param password        Password used to authenticate the user
+     * @param securityToken   User's security token. It can be omitted if your IP has been whitelisted on Salesforce
+     * @param url             Salesforce endpoint URL
+     * @param proxyHost       Hostname of the proxy
+     * @param proxyPort       Port of the proxy
+     * @param proxyUsername   Username used to authenticate against the proxy
+     * @param proxyPassword   Password used to authenticate against the proxy
+     * @param sessionId       This value could be used for specifying an active Salesforce session.
+     *                        Please take into account you must specify all the connection parameters anyway since they will be used
+     *                        in case of needing a reconnection.
      * @param serviceEndpoint Specifies the service endpoint. This value will only be used in case of using sessionId configuration property.
-     * Otherwise the service endpoint will be retrieved from the login results.
+     *                        Otherwise the service endpoint will be retrieved from the login results.
      * @throws ConnectionException if a problem occurred while trying to create the session
      */
     @Connect
@@ -372,8 +340,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
             connection.getSessionHeader().setSessionId(sessionId);
             connection.getConfig().setSessionId(sessionId);
             connection.getConfig().setServiceEndpoint(serviceEndpoint);
-        }
-        else {
+        } else {
             reconnect();
         }
 
@@ -386,36 +353,28 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         } catch (MalformedURLException e) {
             throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN_HOST, null, e.getMessage(), e);
         }
-        
+
         this.processSubscriptions();
     }
 
     public void reconnect() throws org.mule.api.ConnectionException {
+        LOGGER.debug("Creating a Salesforce session using " + connection.getConfig().getUsername());
         try {
-            LOGGER.debug("Creating a Salesforce session using " + connection.getConfig().getUsername());
             loginResult = connection.login(connection.getConfig().getUsername(), connection.getConfig().getPassword());
-
             if (loginResult.isPasswordExpired()) {
-                try {
-                    connection.logout();
-                } catch (ConnectionException e) {
-                    LOGGER.error(e.getMessage(), e);
-                }
+                connection.logout();
                 String username = connection.getConfig().getUsername();
                 connection = null;
                 throw new org.mule.api.ConnectionException(ConnectionExceptionCode.CREDENTIALS_EXPIRED, null, "The password for the user " + username + " has expired");
             }
-
             LOGGER.debug("Session established successfully with ID " + loginResult.getSessionId() + " at instance " + loginResult.getServerUrl());
             connection.getSessionHeader().setSessionId(loginResult.getSessionId());
             connection.getConfig().setServiceEndpoint(loginResult.getServerUrl());
             connection.getConfig().setSessionId(loginResult.getSessionId());
+        } catch (ApiFault e) {
+            throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, ((ApiFault) e).getExceptionCode().name(), ((ApiFault) e).getExceptionMessage(), e);
         } catch (ConnectionException e) {
-            if (e instanceof ApiFault) {
-                throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, ((ApiFault) e).getExceptionCode().name(), ((ApiFault) e).getExceptionMessage(), e);
-            } else {
-                throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
-            }
+            throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
         }
     }
 
@@ -447,9 +406,9 @@ public class SalesforceConnector extends BaseSalesforceConnector {
 
             //Updated to use Proxy instead of proxyUserName since it does not work on ceratain ms proxies.
             Authenticator.setDefault(new ProxyAuthenticator(proxyUsername, proxyPassword));
-            Proxy  proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost,proxyPort));
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
 
-             config.setProxy(proxy);
+            config.setProxy(proxy);
         }
 
         SessionRenewer sessionRenewer = new SessionRenewer() {

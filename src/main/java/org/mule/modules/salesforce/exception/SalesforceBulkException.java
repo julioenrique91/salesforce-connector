@@ -10,27 +10,27 @@
 
 package org.mule.modules.salesforce.exception;
 
+import com.sforce.soap.partner.Error;
+
 import java.util.Arrays;
 import java.util.List;
 
-import com.sforce.soap.partner.Error;
-
 public class SalesforceBulkException extends Exception {
 
-	private static final long serialVersionUID = -7180832542515849354L;
-	
-	private List<Error> errors;
-	
-	public SalesforceBulkException(Error error) {
-		this.errors = Arrays.asList(error);
-	}
-	
-	public SalesforceBulkException(Error[] error) {
-		this.errors = Arrays.asList(error);
-	}
-	
-	public List<Error> getErrors() {
-		return errors;
-	}
-	
+    private static final long serialVersionUID = -7180832542515849354L;
+
+    private final List<Error> errors;
+
+    public SalesforceBulkException(Error error) {
+        this.errors = Arrays.asList(error);
+    }
+
+    public SalesforceBulkException(Error[] error) {
+        this.errors = Arrays.asList(error);
+    }
+
+    public List<Error> getErrors() {
+        return errors;
+    }
+
 }

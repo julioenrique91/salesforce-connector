@@ -32,7 +32,7 @@ public class SalesforceBayeuxClient extends BayeuxClient {
     protected static final int HANDSHAKE_TIMEOUT = 30 * 1000;
     protected static final int LONG_POLLING_TIMEOUT = 120000;
     protected static final Map<String, Object> LONG_POLLING_OPTIONS = createLongPollingOptions();
-    protected static final Logger LOGGER = Logger.getLogger(SalesforceBayeuxClient.class);
+    private static final Logger LOGGER = Logger.getLogger(SalesforceBayeuxClient.class);
     protected static final String LOGIN_COOKIE = "login";
     protected static final String LOCALEINFO_COOKIE = "com.salesforce.LocaleInfo";
     protected static final String SESSIONID_COOKIE = "sid";
@@ -62,7 +62,7 @@ public class SalesforceBayeuxClient extends BayeuxClient {
         this.currentSubscriptions = Collections.synchronizedMap(new HashMap<String, ClientSessionChannel.MessageListener>());
         setCookies();
 
-	    getChannel(Channel.META_CONNECT).addListener(new ClientSessionChannel.MessageListener() {
+        getChannel(Channel.META_CONNECT).addListener(new ClientSessionChannel.MessageListener() {
             public void onMessage(ClientSessionChannel channel, Message message) {
                 //adding extra logging
                 LOGGER.debug("### new message:: " + message.getId());
@@ -71,7 +71,7 @@ public class SalesforceBayeuxClient extends BayeuxClient {
                 LOGGER.debug("isConnected: " + isConnected());
                 LOGGER.debug("needToResubscribe: " + needToResubscribe);
 
-                if (message.isSuccessful() && subscriptions.size() > 0) {
+                if (message.isSuccessful() && !subscriptions.isEmpty()) {
                     for (String subscriptionChannel : subscriptions.keySet()) {
                         LOGGER.info("subscribing " + subscriptionChannel + " for the first time");
                         getChannel(subscriptionChannel).subscribe(subscriptions.get(subscriptionChannel));
@@ -79,7 +79,7 @@ public class SalesforceBayeuxClient extends BayeuxClient {
                     // Removing the subscriptions already made so it doesn't re-subscribe on reconnect
                     subscriptions.clear();
 
-                } else if (message.isSuccessful() == false && getState() == State.REHANDSHAKING) {
+                } else if (!message.isSuccessful() && getState() == State.REHANDSHAKING) {
                     needToResubscribe = true;
                 } else if (needToResubscribe && isConnected()) {
                     resubscribe();
@@ -90,8 +90,7 @@ public class SalesforceBayeuxClient extends BayeuxClient {
     }
 
     private void resubscribe() {
-        for (String subscriptionChannel : currentSubscriptions.keySet())
-        {
+        for (String subscriptionChannel : currentSubscriptions.keySet()) {
             LOGGER.info("Re-Subscribing to channel: " + subscriptionChannel);
             getChannel(subscriptionChannel).subscribe(currentSubscriptions.get(subscriptionChannel));
         }
@@ -118,13 +117,13 @@ public class SalesforceBayeuxClient extends BayeuxClient {
                 // EL: not sure this is the best way of doing this.
                 // Ideally it should be the same for OAuth and non-OAuth
                 // ways of reconnecting.
-                if( salesforceConnector instanceof SalesforceConnector ) {
-                    ((SalesforceConnector)salesforceConnector).reconnect();
+                if (salesforceConnector instanceof SalesforceConnector) {
+                    ((SalesforceConnector) salesforceConnector).reconnect();
                 }
                 setCookies();
                 handshake();
             } catch (org.mule.api.ConnectionException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.error(e);
             }
         } else {
             LOGGER.error(x.getMessage());

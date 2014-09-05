@@ -1,5 +1,5 @@
 /**
-2 * Mule Salesforce Connector
+ 2 * Mule Salesforce Connector
  *
  * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
  *
@@ -10,15 +10,10 @@
 
 package org.mule.modules.salesforce;
 
+import com.sforce.async.*;
+import com.sforce.soap.partner.*;
 import com.sforce.soap.partner.sobject.SObject;
 import com.sforce.ws.ConnectionException;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.SequenceInputStream;
-import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.util.*;
-
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.mule.api.MuleContext;
@@ -41,49 +36,28 @@ import org.mule.api.store.ObjectStore;
 import org.mule.api.store.ObjectStoreException;
 import org.mule.api.store.ObjectStoreManager;
 import org.mule.common.query.DsqlQuery;
+import org.mule.modules.salesforce.api.SalesforceExceptionHandlerAdapter;
+import org.mule.modules.salesforce.api.SalesforceHeader;
+import org.mule.modules.salesforce.api.SalesforceRestAdapter;
+import org.mule.modules.salesforce.api.SalesforceSoapAdapter;
 import org.mule.modules.salesforce.bulk.SaveResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.bulk.UpsertResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
+import org.mule.modules.salesforce.lazystream.impl.LazyQueryResultInputStream;
 import org.mule.streaming.PagingConfiguration;
 import org.mule.streaming.ProviderAwarePagingDelegate;
-import org.mule.modules.salesforce.api.SalesforceExceptionHandlerAdapter;
-import org.mule.modules.salesforce.api.SalesforceRestAdapter;
-import org.mule.modules.salesforce.api.SalesforceSoapAdapter;
-import org.mule.modules.salesforce.api.SalesforceHeader;
 import org.springframework.util.StringUtils;
 
-import com.sforce.async.AsyncApiException;
-import com.sforce.async.BatchInfo;
-import com.sforce.async.BatchRequest;
-import com.sforce.async.BatchResult;
-import com.sforce.async.BulkConnection;
-import com.sforce.async.ConcurrencyMode;
-import com.sforce.async.ContentType;
-import com.sforce.async.JobInfo;
-import com.sforce.async.OperationEnum;
-import com.sforce.async.QueryResultList;
-import org.mule.modules.salesforce.lazystream.impl.LazyQueryResultInputStream;
-import com.sforce.soap.partner.AssignmentRuleHeader_element;
-import com.sforce.soap.partner.CallOptions_element;
-import com.sforce.soap.partner.DeleteResult;
-import com.sforce.soap.partner.DescribeGlobalResult;
-import com.sforce.soap.partner.DescribeSObjectResult;
-import com.sforce.soap.partner.EmptyRecycleBinResult;
-import com.sforce.soap.partner.GetDeletedResult;
-import com.sforce.soap.partner.GetUpdatedResult;
-import com.sforce.soap.partner.GetUserInfoResult;
-import com.sforce.soap.partner.LeadConvert;
-import com.sforce.soap.partner.LeadConvertResult;
-import com.sforce.soap.partner.PartnerConnection;
-import com.sforce.soap.partner.QueryResult;
-import com.sforce.soap.partner.SaveResult;
-import com.sforce.soap.partner.SearchRecord;
-import com.sforce.soap.partner.SearchResult;
-import com.sforce.soap.partner.UpsertResult;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.SequenceInputStream;
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.util.*;
 
 public abstract class BaseSalesforceConnector implements MuleContextAware {
-    
-	private static final Logger LOGGER = Logger.getLogger(BaseSalesforceConnector.class);
+
+    private static final Logger LOGGER = Logger.getLogger(BaseSalesforceConnector.class);
 
     /**
      * Object store manager to obtain a store to support {@link this#getUpdatedObjects}
@@ -106,7 +80,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     /**
      * The ID of a specific assignment rule to run for the Case or Lead. The assignment rule can be active or inactive. The ID can be retrieved by querying the AssignmentRule object. If specified, do not specify useDefaultRule. This element is ignored for accounts, because all territory assignment rules are applied.
-     *
+     * <p/>
      * If the value is not in correct ID format (15-character or 18-character Salesforce ID), the call fails and a MALFORMED_ID exception is returned.
      */
     @Configurable
@@ -119,9 +93,9 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Configurable
     @Optional
     private Boolean useDefaultRule;
-    
+
     /**
-     * Creating a batch will create SObjects using this value for the MAX_DEPTH check. 
+     * Creating a batch will create SObjects using this value for the MAX_DEPTH check.
      */
     @Configurable
     @Optional
@@ -130,7 +104,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     /**
      * If true, truncate field values that are too long, which is the behavior in API versions 14.0 and earlier.
-     *
+     * <p/>
      * Default is false: no change in behavior. If a string or textarea value is too large, the operation fails and the fault code STRING_TOO_LONG is returned.
      */
     @Configurable
@@ -140,27 +114,27 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     private ObjectStoreHelper objectStoreHelper;
 
     private MuleRegistry registry;
-    
+
     private static final List<Subscription> subscriptions = new ArrayList<Subscription>();
-    
+
     private static class Subscription {
-    	private String topic;
-    	private SourceCallback callback;
+        private String topic;
+        private SourceCallback callback;
         private boolean subscribed;
-    	
-    	private Subscription(String topic, SourceCallback callback, boolean subscribed) {
-    		this.topic = topic;
-    		this.callback = callback;
+
+        private Subscription(String topic, SourceCallback callback, boolean subscribed) {
+            this.topic = topic;
+            this.callback = callback;
             this.subscribed = subscribed;
-    	}
-    	
-    	public SourceCallback getCallback() {
-			return callback;
-		}
-    	
-    	public String getTopic() {
-			return topic;
-		}
+        }
+
+        public SourceCallback getCallback() {
+            return callback;
+        }
+
+        public String getTopic() {
+            return topic;
+        }
 
         public boolean isSubscribed() {
             return subscribed;
@@ -177,13 +151,13 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     protected abstract BulkConnection getBulkConnection();
 
     protected abstract String getSessionId();
-    
+
     protected abstract boolean isReadyToSubscribe();
 
     protected SalesforceBayeuxClient getBayeuxClient() {
         try {
             if (bc == null && getConnection() != null &&
-                getConnection().getConfig() != null) {
+                    getConnection().getConfig() != null) {
                 bc = new SalesforceBayeuxClient(this);
 
                 if (!bc.isHandshook()) {
@@ -200,12 +174,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     protected boolean isInitializedBayeuxClient() {
         return this.bc != null;
     }
-    
+
     protected void setBayeuxClient(SalesforceBayeuxClient bc) {
         this.bc = bc;
     }
 
-    protected void setObjectStoreHelper(ObjectStoreHelper objectStoreHelper) {
+    protected synchronized void setObjectStoreHelper(ObjectStoreHelper objectStoreHelper) {
         this.objectStoreHelper = objectStoreHelper;
     }
 
@@ -241,14 +215,14 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<SaveResult> create(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
-                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
         return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).create(sObjects));
     }
 
     /**
      * Creates a Job in order to perform one or more batches through Bulk API Operations.
-     *
+     * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:create-job:example-1}
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:create-job:example-2}
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:create-job:example-3}
@@ -365,7 +339,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:create-batch-stream}
      *
      * @param jobInfo The {@link JobInfo} in which the batch will be created.
-     * @param stream A stream containing the data. This parameter defaults to payload content.
+     * @param stream  A stream containing the data. This parameter defaults to payload content.
      * @return A {@link com.sforce.async.BatchInfo} that identifies the batch job. {@see http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_reference_batchinfo.htm}
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_create.htm">createBatch()</a>
@@ -435,8 +409,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:create-single}
      * {@sample.java ../../../doc/mule-module-sfdc.java.sample sfdc:create-single}
      *
-     * @param object SObject to create
-     * @param type   Type of object to create
+     * @param object  SObject to create
+     * @param type    Type of object to create
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SaveResult}
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
@@ -450,7 +424,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public SaveResult createSingle(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "sObject Field Mappings") @FriendlyName("sObject") @Optional @Default("#[payload]") Map<String, Object> object,
-                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         SaveResult[] saveResults = getSalesforceSoapAdapter(headers).create(new SObject[]{SalesforceUtils.toSObject(type, object)});
         if (saveResults.length > 0) {
             return saveResults[0];
@@ -479,7 +453,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<SaveResult> update(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
-                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
         return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).update(sObjects));
     }
@@ -489,8 +463,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:update-single}
      *
-     * @param object The object to be updated.
-     * @param type   Type of object to update
+     * @param object  The object to be updated.
+     * @param type    Type of object to update
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return A {@link SaveResult}
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
@@ -504,7 +478,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public SaveResult updateSingle(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "Salesforce Object") @FriendlyName("sObject") @Optional @Default("#[payload]") Map<String, Object> object,
-                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         return getSalesforceSoapAdapter(headers).update(new SObject[]{SalesforceUtils.toSObject(type, object)})[0];
     }
 
@@ -544,7 +518,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *                            for custom objects or the idLookup field property for standard objects.
      * @param type                the type of the given objects. The list of objects to upsert must be homogeneous
      * @param objects             the objects to upsert
-     * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
+     * @param headers             Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return a list of {@link com.sforce.soap.partner.UpsertResult}, one for each passed object
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error if a connection error occurs
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_upsert.htm">upsert()</a>
@@ -558,7 +532,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public List<UpsertResult> upsert(@Placement(group = "Information") String externalIdFieldName,
                                      @MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                      @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
-                                     @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                     @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
         return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).upsert(externalIdFieldName, sObjects));
     }
@@ -609,7 +583,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public BatchInfo batchInfo( @Default("#[payload:]") BatchInfo batchInfo) throws Exception {
+    public BatchInfo batchInfo(@Default("#[payload:]") BatchInfo batchInfo) throws Exception {
         return getSalesforceRestAdapter().getBatchInfo(batchInfo.getJobId(), batchInfo.getId());
     }
 
@@ -657,7 +631,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     /**
      * Returns an {@link InputStream} with the query results of a submitted {@link BatchInfo}
-     * <p/> 
+     * <p/>
      * Internally the InputStreams contained in the sequence will be requested on-demand (lazy-loading)
      * Shoud be used only with query jobs!
      * <p/>
@@ -675,21 +649,21 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public InputStream queryResultStream(@Default("#[payload:]") BatchInfo batchInfo) throws Exception {
-    	
-    	QueryResultList queryResultList = getSalesforceRestAdapter().getQueryResultList(batchInfo.getJobId(), batchInfo.getId());
-        String[] jobResultIds = queryResultList.getResult();        
+    public InputStream queryResultStream(@Default("#[payload:]") BatchInfo batchInfo) throws AsyncApiException {
+
+        QueryResultList queryResultList = getSalesforceRestAdapter().getQueryResultList(batchInfo.getJobId(), batchInfo.getId());
+        String[] jobResultIds = queryResultList.getResult();
         LOGGER.debug(String.format("SF queryResultStream for JobId[%s] BatchId[%s] - Pages[%s]", batchInfo.getJobId(), batchInfo.getId(), jobResultIds.length));
         if (jobResultIds.length > 0) {
-        	List<InputStream> inputStreams = new LinkedList<InputStream>();
+            List<InputStream> inputStreams = new LinkedList<InputStream>();
             for (String jobResultId : jobResultIds) {
                 inputStreams.add(new LazyQueryResultInputStream(getSalesforceRestAdapter(), batchInfo.getJobId(), batchInfo.getId(), jobResultId));
             }
-        	
-        	return new SequenceInputStream(Collections.enumeration(inputStreams));
+
+            return new SequenceInputStream(Collections.enumeration(inputStreams));
         }
-        
-        
+
+
         return null;
     }
 
@@ -708,7 +682,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Describe Calls", description = "A set of calls to describe record structure in Salesforce.")
-    public DescribeGlobalResult describeGlobal() throws Exception {
+    public DescribeGlobalResult describeGlobal() throws ConnectionException {
         return getSalesforceSoapAdapter().describeGlobal();
     }
 
@@ -717,9 +691,9 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:retrieve}
      *
-     * @param type   Object type. The sp ecified value must be a valid object for your organization.
-     * @param ids    The ids of the objects to retrieve
-     * @param fields The fields to return for the matching objects
+     * @param type    Object type. The sp ecified value must be a valid object for your organization.
+     * @param ids     The ids of the objects to retrieve
+     * @param fields  The fields to return for the matching objects
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SObject}s
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
@@ -732,7 +706,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public List<Map<String, Object>> retrieve(@MetaDataKeyParam @Placement(group = "Information", order = 1) @FriendlyName("sObject Type") String type,
                                               @Placement(group = "Ids to Retrieve") List<String> ids,
                                               @Placement(group = "Fields to Retrieve") List<String> fields,
-                                              @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                              @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         String fiedsCommaDelimited = StringUtils.collectionToCommaDelimitedString(fields);
         SObject[] sObjects = getSalesforceSoapAdapter(headers).retrieve(fiedsCommaDelimited, type, ids.toArray(new String[ids.size()]));
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
@@ -749,11 +723,11 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:query}
      *
-     * @param query Query string that specifies the object to query, the fields to return, and any conditions for
-     *              including a specific object in the query. For more information, see Salesforce Object Query
-     *              Language (SOQL).
+     * @param query               Query string that specifies the object to query, the fields to return, and any conditions for
+     *                            including a specific object in the query. For more information, see Salesforce Object Query
+     *                            Language (SOQL).
      * @param pagingConfiguration the paging configuration
-     * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
+     * @param headers             Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SObject}s
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_query.htm">query()</a>
@@ -765,8 +739,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     @Paged
-    public ProviderAwarePagingDelegate<Map<String, Object>,BaseSalesforceConnector> query(@Query @Placement(group = "Query") final String query, final PagingConfiguration pagingConfiguration,
-                                                                                          @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional final Map<SalesforceHeader, Object> headers) throws Exception {
+    public ProviderAwarePagingDelegate<Map<String, Object>, BaseSalesforceConnector> query(@Query @Placement(group = "Query") final String query, final PagingConfiguration pagingConfiguration,
+                                                                                           @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional final Map<SalesforceHeader, Object> headers) {
         return new SalesforcePagingDelegate(query, headers) {
 
             @Override
@@ -777,7 +751,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     }
 
     @QueryTranslator
-    public String toNativeQuery(DsqlQuery query){
+    public String toNativeQuery(DsqlQuery query) {
         SfdcQueryVisitor visitor = new SfdcQueryVisitor();
         query.accept(visitor);
         return visitor.dsqlQuery();
@@ -788,9 +762,9 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:non-paginated-query}
      *
-     * @param query Query string that specifies the object to query, the fields to return, and any conditions for
-     *              including a specific object in the query. For more information, see Salesforce Object Query
-     *              Language (SOQL).
+     * @param query   Query string that specifies the object to query, the fields to return, and any conditions for
+     *                including a specific object in the query. For more information, see Salesforce Object Query
+     *                Language (SOQL).
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SObject}s
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
@@ -803,8 +777,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
-    public List<Map<String, Object>> nonPaginatedQuery( @org.mule.api.annotations.Query @Placement(group = "Query") String query,
-                                                        @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+    public List<Map<String, Object>> nonPaginatedQuery(@org.mule.api.annotations.Query @Placement(group = "Query") String query,
+                                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         QueryResult queryResult = getSalesforceSoapAdapter(headers).query(query);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         while (queryResult != null) {
@@ -825,9 +799,9 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:query}
      *
-     * @param query Query string that specifies the object to query, the fields to return, and any conditions for including a specific object in the query. For more information, see Salesforce Object Query Language (SOQL).
+     * @param query               Query string that specifies the object to query, the fields to return, and any conditions for including a specific object in the query. For more information, see Salesforce Object Query Language (SOQL).
      * @param pagingConfiguration the paging configuration
-     * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
+     * @param headers             Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SObject}s
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_query.htm">query()</a>
@@ -838,8 +812,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     @Paged
-    public ProviderAwarePagingDelegate<Map<String, Object>,BaseSalesforceConnector> queryAll(@Placement(group = "Query") String query, PagingConfiguration pagingConfiguration, 
-                                                                                             @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+    public ProviderAwarePagingDelegate<Map<String, Object>, BaseSalesforceConnector> queryAll(@Placement(group = "Query") String query, PagingConfiguration pagingConfiguration,
+                                                                                              @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) {
         return new SalesforcePagingDelegate(query, headers) {
 
             @Override
@@ -854,7 +828,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:search}
      *
-     * @param query Query string that specifies the object to query, the fields to return, and any conditions for including a specific object in the query. For more information, see Salesforce Object Search Language (SOSL).
+     * @param query   Query string that specifies the object to query, the fields to return, and any conditions for including a specific object in the query. For more information, see Salesforce Object Search Language (SOSL).
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SObject}s
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
@@ -866,25 +840,25 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<Map<String, Object>> search(@Placement(group = "Query") String query,
-                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         SearchResult searchResult = getSalesforceSoapAdapter(headers).search(query);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-        
+
         for (SearchRecord object : searchResult.getSearchRecords()) {
             result.add(SalesforceUtils.toMap(object.getRecord()));
         }
 
         return result;
-    }    
-    
+    }
+
     /**
      * Executes a query against the specified object and returns the first record that matches the specified criteria.
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:query-single}
      *
-     * @param query Query string that specifies the object to query, the fields to return, and any conditions for
-     *              including a specific object in the query. For more information, see Salesforce Object Query
-     *              Language (SOQL).
+     * @param query   Query string that specifies the object to query, the fields to return, and any conditions for
+     *                including a specific object in the query. For more information, see Salesforce Object Query
+     *                Language (SOQL).
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return A single {@link SObject}
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
@@ -897,7 +871,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public Map<String, Object> querySingle(@Placement(group = "Query") String query,
-                                           @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                           @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         SObject[] result = getSalesforceSoapAdapter(headers).query(query).getRecords();
         if (result.length > 0) {
             return SalesforceUtils.toMap(result[0]);
@@ -949,7 +923,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *                               Select Id, MasterLabel from LeadStatus where IsConverted=true
      * @param sendEmailToOwner       Specifies whether to send a notification email to the owner specified in the
      *                               ownerId (true) or not (false, the default).
-     * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
+     * @param headers                Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return A {@link com.sforce.soap.partner.LeadConvertResult} object
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_convertlead.htm">convertLead()</a>
@@ -967,8 +941,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
                                          @Optional String opportunityName,
                                          String convertedStatus,
                                          @Optional @Default("false") Boolean sendEmailToOwner,
-                                         @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers)
-            throws Exception {
+                                         @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
 
         LeadConvert leadConvert = new LeadConvert();
         leadConvert.setLeadId(leadId);
@@ -996,8 +969,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:empty-recycle-bin}
      *
-     * @param ids Array of one or more IDs associated with the records to delete from the recycle bin.
-     *            Maximum number of records is 200.
+     * @param ids     Array of one or more IDs associated with the records to delete from the recycle bin.
+     *                Maximum number of records is 200.
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return A list of {@link com.sforce.soap.partner.EmptyRecycleBinResult}
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
@@ -1010,7 +983,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<EmptyRecycleBinResult> emptyRecycleBin(@Placement(group = "Ids to Delete") List<String> ids,
-                                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         return Arrays.asList(getSalesforceSoapAdapter(headers).emptyRecycleBin(ids.toArray(new String[ids.size()])));
     }
 
@@ -1028,7 +1001,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
-    public Calendar getServerTimestamp() throws Exception {
+    public Calendar getServerTimestamp() throws ConnectionException {
         return getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
     }
 
@@ -1037,7 +1010,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:delete}
      *
-     * @param ids Array of one or more IDs associated with the objects to delete.
+     * @param ids     Array of one or more IDs associated with the objects to delete.
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link com.sforce.soap.partner.DeleteResult}
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
@@ -1050,7 +1023,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<DeleteResult> delete(@Optional @Default("#[payload]") @Placement(group = "Ids to Delete") List<String> ids,
-                                     @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                     @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         return Arrays.asList(getSalesforceSoapAdapter(headers).delete(ids.toArray(new String[ids.size()])));
     }
 
@@ -1093,7 +1066,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *                  which to retrieve the data. The API ignores the seconds portion of the specified dateTime value
      *                  (for example, 12:35:15 is interpreted as 12:35:00 UTC). If it is not provided, the current
      *                  server time will be used.
-     * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
+     * @param headers   Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return {@link com.sforce.soap.partner.GetUpdatedResult}
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getupdatedrange.htm">getUpdatedRange()</a>
@@ -1106,7 +1079,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public GetUpdatedResult getUpdatedRange(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                             @Placement(group = "Information") @FriendlyName("Start Time Reference") Calendar startTime,
                                             @Placement(group = "Information") @FriendlyName("End Time Reference") @Optional Calendar endTime,
-                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         if (endTime == null) {
             Calendar serverTime = getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
             endTime = (Calendar) serverTime.clone();
@@ -1134,7 +1107,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *                  which to retrieve the data. The API ignores the seconds portion of the specified dateTime value
      *                  (for example, 12:35:15 is interpreted as 12:35:00 UTC). If not specific, the current server
      *                  time will be used.
-     * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
+     * @param headers   Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return {@link com.sforce.soap.partner.GetDeletedResult}
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getdeletedrange.htm">getDeletedRange()</a>
@@ -1148,7 +1121,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public GetDeletedResult getDeletedRange(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                             @Placement(group = "Information") @FriendlyName("Start Time Reference") Calendar startTime,
                                             @Placement(group = "Information") @FriendlyName("End Time Reference") @Optional Calendar endTime,
-                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         if (endTime == null) {
             Calendar serverTime = getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
             endTime = (Calendar) serverTime.clone();
@@ -1179,7 +1152,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Describe Calls", description = "A set of calls to describe record structure in Salesforce.")
-    public DescribeSObjectResult describeSObject(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type) throws Exception {
+    public DescribeSObjectResult describeSObject(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type) throws ConnectionException {
         return getSalesforceSoapAdapter().describeSObject(type);
     }
 
@@ -1190,7 +1163,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *
      * @param type     Object type. The specified value must be a valid object for your organization.
      * @param duration The amount of time in minutes before now for which to return records from.
-     * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
+     * @param headers  Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return {@link GetDeletedResult}
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getdeleted.htm">getDeleted()</a>
@@ -1203,7 +1176,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public GetDeletedResult getDeleted(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                        @Placement(group = "Information") int duration,
-                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         Calendar serverTime = getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
         Calendar startTime = (Calendar) serverTime.clone();
         Calendar endTime = (Calendar) serverTime.clone();
@@ -1220,7 +1193,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *
      * @param type     Object type. The specified value must be a valid object for your organization.
      * @param duration The amount of time in minutes before now for which to return records from.
-     * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
+     * @param headers  Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return {@link GetUpdatedResult} object containing an array of GetUpdatedResult objects containing the ID of each
      * created or updated object and the date/time (Coordinated Universal Time (UTC) time zone) on which it was created
      * or updated, respectively
@@ -1234,7 +1207,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public GetUpdatedResult getUpdated(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                        @Placement(group = "Information") int duration,
-                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         Calendar serverTime = getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
         Calendar startTime = (Calendar) serverTime.clone();
         Calendar endTime = (Calendar) serverTime.clone();
@@ -1259,7 +1232,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *                          be (now - 2 minutes; now). After first call the start time will be calculated from the
      *                          object store getting the last time this operation was exec
      * @param fields            The fields to retrieve for the updated objects
-     * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
+     * @param headers           Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return List with the updated objects in the calculated time range
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc This operation extends <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getupdated.htm">getUpdated()</a>
@@ -1272,7 +1245,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public List<Map<String, Object>> getUpdatedObjects(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                                        @Placement(group = "Information") int initialTimeWindow,
                                                        @Optional @Default("#[payload]") @Placement(group = "Fields") List<String> fields,
-                                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                                       @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException, ObjectStoreException {
 
         Calendar now = (Calendar) getSalesforceSoapAdapter().getServerTimestamp().getTimestamp().clone();
         boolean initialTimeWindowUsed = false;
@@ -1286,11 +1259,10 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
         GetUpdatedResult getUpdatedResult = getUpdatedRange(type, startTime, now, headers);
 
-        if (getUpdatedResult.getLatestDateCovered().equals(startTime)) {
-            if (!initialTimeWindowUsed && getUpdatedResult.getIds().length > 0) {
+        if (getUpdatedResult.getLatestDateCovered().equals(startTime)
+            && !initialTimeWindowUsed && getUpdatedResult.getIds().length > 0) {
                 LOGGER.debug("Ignoring duplicated results from getUpdated() call");
                 return Collections.emptyList();
-            }
         }
 
         List<Map<String, Object>> updatedObjects = retrieve(type, Arrays.asList(getUpdatedResult.getIds()), fields, headers);
@@ -1324,21 +1296,20 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * <p/>
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:set-password}
      *
-     * @param userId The user to set the password for.
+     * @param userId      The user to set the password for.
      * @param newPassword The new password for the user.
-     * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
+     * @param headers     Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
-     *
      */
     @Processor
     @Category(name = "Utility Calls", description = "API calls that your client applications can invoke to obtain the system timestamp, user information, and change user passwords.")
     public void setPassword(@Placement(group = "Information") @FriendlyName("User ID") String userId,
                             @Placement(group = "Information") @FriendlyName("Password") @Password String newPassword,
-                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers")  @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         getSalesforceSoapAdapter(headers).setPassword(userId, newPassword);
     }
 
-    
+
     /**
      * Creates a topic which represents a query that is the basis for notifying
      * listeners of changes to records in an organization.
@@ -1408,7 +1379,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
     @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Utility Calls", description = "API calls that your client applications can invoke to obtain the system timestamp, user information, and change user passwords.")
-    public GetUserInfoResult getUserInfo() throws Exception {
+    public GetUserInfoResult getUserInfo() throws ConnectionException {
         return getSalesforceSoapAdapter().getUserInfo();
     }
 
@@ -1427,26 +1398,26 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthProtected
     @Category(name = "Streaming API", description = "Create topics, to which applications can subscribe, receiving asynchronous notifications of changes to data in Salesforce, via the Bayeux protocol.")
     public StopSourceCallback subscribeTopic(final String topic, final SourceCallback callback) {
-       final String topicName = "/topic" + topic;
-       boolean subscribed = false;
+        final String topicName = "/topic" + topic;
+        boolean subscribed = false;
 
-       if (this.isReadyToSubscribe()) {
-    	   this.subscribe(topicName, callback);
-           subscribed = true;
-       }
+        if (this.isReadyToSubscribe()) {
+            this.subscribe(topicName, callback);
+            subscribed = true;
+        }
 
-       subscriptions.add(new Subscription(topicName, callback, subscribed));
+        subscriptions.add(new Subscription(topicName, callback, subscribed));
 
-       return new StopSourceCallback() {
+        return new StopSourceCallback() {
             @Override
             public void stop() throws Exception {
                 getBayeuxClient().unsubscribe(topicName);
             }
         };
     }
-    
+
     protected void processSubscriptions() {
-    	boolean resubscribe = false;
+        boolean resubscribe = false;
 
         if (this.bc == null) {
             resubscribe = true;
@@ -1454,20 +1425,20 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
         for (Subscription p : subscriptions) {
             if (resubscribe || !p.isSubscribed()) {
-    		    this.subscribe(p.getTopic(), p.getCallback());
+                this.subscribe(p.getTopic(), p.getCallback());
             }
-    	}
-    }
-    
-    private void subscribe(String topicName, SourceCallback callback) {
-    	this.getBayeuxClient().subscribe(topicName, new SalesforceBayeuxMessageListener(callback));
+        }
     }
 
-    public void setObjectStoreManager(ObjectStoreManager objectStoreManager) {
+    private void subscribe(String topicName, SourceCallback callback) {
+        this.getBayeuxClient().subscribe(topicName, new SalesforceBayeuxMessageListener(callback));
+    }
+
+    public synchronized void setObjectStoreManager(ObjectStoreManager objectStoreManager) {
         this.objectStoreManager = objectStoreManager;
     }
 
-    public void setTimeObjectStore(ObjectStore<? extends Serializable> timeObjectStore) {
+    public synchronized void setTimeObjectStore(ObjectStore<? extends Serializable> timeObjectStore) {
         this.timeObjectStore = timeObjectStore;
     }
 
@@ -1480,7 +1451,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         try {
             batchRequest.addSObjects(SalesforceUtils.toAsyncSObjectList(objects, getBatchSobjectMaxDepth()));
             return batchRequest.completeRequest();
-        } catch (Exception e) {
+        } catch (AsyncApiException e) {
             /**
              * Added custom handler if {@link com.sforce.async.BatchRequest#completeRequest()} fails while processing.
              * If so, throws the correct exception to reconnect.
@@ -1518,56 +1489,20 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         return getSalesforceRestAdapter().createJob(jobInfo);
     }
 
-    private com.sforce.async.SObject toAsyncSObject(Map<String, Object> map) {
-        com.sforce.async.SObject sObject = batchSobjectMaxDepth != null ? new com.sforce.async.SObject(batchSobjectMaxDepth) : new com.sforce.async.SObject();
-        for (String key : map.keySet()) {
-
-            Object object = map.get(key);
-
-            if (object != null) {
-                if (object instanceof Map) {
-                    sObject.setFieldReference(key, toAsyncSObject(toSObjectMap((Map) object)));
-                }
-                else if (isDateField(object)) {
-                    sObject.setField(key, convertDateToString(object));
-                }
-                else {
-                    sObject.setField(key, object.toString());
-                }
-            } else {
-                sObject.setField(key, null);
-            }
-        }
-        return sObject;
-    }
-
     protected SObject toSObject(String type, Map<String, Object> map) {
         SObject sObject = new SObject();
         sObject.setType(type);
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             String key = entry.getKey();
-            if (key.equals("fieldsToNull")) {
-            	sObject.setFieldsToNull((String[]) entry.getValue());
+            if ("fieldsToNull".equals(key)) {
+                sObject.setFieldsToNull((String[]) entry.getValue());
             } else if (entry.getValue() instanceof Map) {
-                sObject.setField(key, toSObject(key, toSObjectMap((Map) entry.getValue())));
+                sObject.setField(key, toSObject(key, SalesforceUtils.toSObjectMap((Map) entry.getValue())));
             } else {
                 sObject.setField(key, entry.getValue());
             }
         }
         return sObject;
-    }
-
-    /**
-     * Enforce map keys are converted to String to comply with generic signature in toSObject
-     *
-     * @see #toSObject(String, java.util.Map)
-     */
-    protected Map<String, Object> toSObjectMap(Map map) {
-        Map<String, Object> sObjectMap = new HashMap<String, Object>();
-        for(Object key : map.keySet()) {
-            sObjectMap.put(key.toString(), map.get(key));
-        }
-        return sObjectMap;
     }
 
     private synchronized ObjectStoreHelper getObjectStoreHelper(String username) {
@@ -1651,18 +1586,18 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public void setAllowFieldTruncationSupport(Boolean allowFieldTruncationSupport) {
         this.allowFieldTruncationSupport = allowFieldTruncationSupport;
     }
-    
+
     public Integer getBatchSobjectMaxDepth() {
-		return batchSobjectMaxDepth;
-	}
+        return batchSobjectMaxDepth;
+    }
 
-	public void setBatchSobjectMaxDepth(Integer batchSobjectMaxDepth) {
-		this.batchSobjectMaxDepth = batchSobjectMaxDepth;
-	}
+    public void setBatchSobjectMaxDepth(Integer batchSobjectMaxDepth) {
+        this.batchSobjectMaxDepth = batchSobjectMaxDepth;
+    }
 
-	@Override
+    @Override
     public void setMuleContext(MuleContext context) {
-        setObjectStoreManager(((ObjectStoreManager) context.getRegistry().get(MuleProperties.OBJECT_STORE_MANAGER)));
+        setObjectStoreManager((ObjectStoreManager) context.getRegistry().get(MuleProperties.OBJECT_STORE_MANAGER));
         setRegistry((MuleRegistry) context.getRegistry());
     }
 
@@ -1674,21 +1609,21 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     protected String convertDateToString(Object object) {
         return new DateTime(object).toString();
     }
-    
+
     protected void registerTransformers() {
-    	synchronized (this.registry) {
-    		try {
-    			if (registry.lookupObject(SaveResultToBulkOperationTransformer.class) == null) {
-    				this.registry.registerTransformer(new SaveResultToBulkOperationTransformer());
-    			}
-    			
-    			if (registry.lookupObject(UpsertResultToBulkOperationTransformer.class) == null) { 
-    				this.registry.registerTransformer(new UpsertResultToBulkOperationTransformer());
-    			}
-    		} catch (MuleException e) {
-    			throw new RuntimeException("Exception found trying to register bulk transformers", e);
-    		}
-		}
+        synchronized (this.registry) {
+            try {
+                if (registry.lookupObject(SaveResultToBulkOperationTransformer.class) == null) {
+                    this.registry.registerTransformer(new SaveResultToBulkOperationTransformer());
+                }
+
+                if (registry.lookupObject(UpsertResultToBulkOperationTransformer.class) == null) {
+                    this.registry.registerTransformer(new UpsertResultToBulkOperationTransformer());
+                }
+            } catch (MuleException e) {
+                throw new RuntimeException("Exception found trying to register bulk transformers", e);
+            }
+        }
     }
 
     public PartnerConnection getSalesforceSoapAdapter() {

@@ -24,19 +24,24 @@ import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
  */
 public class SalesforceExceptionHandlerAdapter {
 
-    private static Logger logger = Logger.getLogger(SalesforceExceptionHandlerAdapter.class);
+    private static final Logger LOGGER = Logger.getLogger(SalesforceExceptionHandlerAdapter.class);
+
+    private SalesforceExceptionHandlerAdapter() {
+
+    }
 
 
     /**
      * Returns a concrete exception to be thrown by analyzing the parametrized one
+     *
      * @param e Exception to be analyzed
      * @return {@link org.mule.modules.salesforce.exception.SalesforceSessionExpiredException} if the parametrized
      * exception {@code e} indicates that the session has been invalidated, otherwise will return the same exception it
      * received without any change.
      */
     public static Exception analyzeRestException(Exception e) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("Analyzing exception " + e.getClass());
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Analyzing exception " + e.getClass());
         }
         if (e.getCause() instanceof AsyncApiException &&
                 (((AsyncApiException) e.getCause()).getExceptionCode() == AsyncExceptionCode.InvalidSessionId)) {
@@ -48,6 +53,7 @@ public class SalesforceExceptionHandlerAdapter {
 
     /**
      * Returns a concrete exception to be thrown by analyzing the parametrized one
+     *
      * @param e Exception to be analyzed
      * @return {@link org.mule.modules.salesforce.exception.SalesforceSessionExpiredException} if the parametrized
      * exception {@code e} indicates that the session has been invalidated, otherwise will return a
