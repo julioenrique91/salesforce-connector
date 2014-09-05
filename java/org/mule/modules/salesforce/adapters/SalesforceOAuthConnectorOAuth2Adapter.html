@@ -3535,7 +3535,7 @@ From class
         <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#queryResultStream(com.sforce.async.BatchInfo)">queryResultStream</a></span>(BatchInfo batchInfo)</nobr>
         
         <div class="jd-descrdiv">Returns an InputStream with the query results of a submitted BatchInfo
- <p/> 
+ <p/>
  Internally the InputStreams contained in the sequence will be requested on-demand (lazy-loading)
  Shoud be used only with query jobs!
  <p/>
@@ -3750,7 +3750,7 @@ From class
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
-            
+            synchronized
             
             
             
@@ -3766,7 +3766,7 @@ From class
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
-            
+            synchronized
             
             
             
@@ -3816,7 +3816,7 @@ From class
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
-            
+            synchronized
             
             
             
@@ -3902,24 +3902,6 @@ From class
             
             
             
-            Map&lt;String,&nbsp;Object&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#toSObjectMap(java.util.Map)">toSObjectMap</a></span>(Map map)</nobr>
-        
-        <div class="jd-descrdiv">Enforce map keys are converted to String to comply with generic signature in toSObject</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             List&lt;<a href="../../../../../../java/com/sforce/soap/partner/SaveResult.html">SaveResult</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -3931,7 +3913,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3949,7 +3931,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3967,7 +3949,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -3986,7 +3968,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             

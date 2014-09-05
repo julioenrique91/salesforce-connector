@@ -677,7 +677,7 @@ java.lang.Throwable
           <td class="jd-typecol"><nobr>
           private
           
-          
+          final
           <a href="../../../../../java/com/sforce/soap/partner/StatusCode.html">StatusCode</a></nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/modules/salesforce/SalesforceException.html#statusCode">statusCode</a></td>
           <td class="jd-descrcol" width="100%"></td>
@@ -791,29 +791,13 @@ java.lang.Throwable
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceException.html#SalesforceException(java.lang.Throwable)">SalesforceException</a></span>(Throwable e)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceException.html#SalesforceException(com.sforce.soap.partner.StatusCode, java.lang.String, java.lang.Throwable)">SalesforceException</a></span>(<a href="../../../../../java/com/sforce/soap/partner/StatusCode.html">StatusCode</a> statusCode, String message, Throwable e)</nobr>
         
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            </nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceException.html#SalesforceException(java.lang.String, java.lang.Throwable)">SalesforceException</a></span>(String message, Throwable e)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -853,22 +837,6 @@ java.lang.Throwable
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceException.html#getStatusCode()">getStatusCode</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/SalesforceException.html#setStatusCode(com.sforce.soap.partner.StatusCode)">setStatusCode</a></span>(<a href="../../../../../java/com/sforce/soap/partner/StatusCode.html">StatusCode</a> statusCode)</nobr>
         
   </td></tr>
 
@@ -1334,7 +1302,7 @@ From class
       <span class="normal">
         private 
          
-         
+        final 
         <a href="../../../../../java/com/sforce/soap/partner/StatusCode.html">StatusCode</a>
       </span>
         statusCode
@@ -1366,7 +1334,7 @@ From class
 
 
 
-<A NAME="SalesforceException(java.lang.Throwable)"></A>
+<A NAME="SalesforceException(com.sforce.soap.partner.StatusCode, java.lang.String, java.lang.Throwable)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1379,7 +1347,7 @@ From class
         
       </span>
       <span class="sympad">SalesforceException</span>
-      <span class="normal">(Throwable e)</span>
+      <span class="normal">(<a href="../../../../../java/com/sforce/soap/partner/StatusCode.html">StatusCode</a> statusCode, String message, Throwable e)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1396,45 +1364,9 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>e</td>
+          <th>statusCode</td>
           <td></td>
         </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="SalesforceException(java.lang.String, java.lang.Throwable)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        
-      </span>
-      <span class="sympad">SalesforceException</span>
-      <span class="normal">(String message, Throwable e)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
         <tr>
           <th>message</td>
           <td></td>
@@ -1535,46 +1467,6 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="setStatusCode(com.sforce.soap.partner.StatusCode)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setStatusCode</span>
-      <span class="normal">(<a href="../../../../../java/com/sforce/soap/partner/StatusCode.html">StatusCode</a> statusCode)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>statusCode</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
 
     </div>
 </div>

@@ -1554,7 +1554,7 @@ Summary:
         <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#queryResultStream(com.sforce.async.BatchInfo)">queryResultStream</a></span>(BatchInfo batchInfo)</nobr>
         
         <div class="jd-descrdiv">Returns an InputStream with the query results of a submitted BatchInfo
- <p/> 
+ <p/>
  Internally the InputStreams contained in the sequence will be requested on-demand (lazy-loading)
  Shoud be used only with query jobs!
  <p/>
@@ -1721,7 +1721,7 @@ Summary:
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
-            
+            synchronized
             
             
             
@@ -1771,7 +1771,7 @@ Summary:
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
-            
+            synchronized
             
             
             
@@ -2132,7 +2132,7 @@ Summary:
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
-            
+            synchronized
             
             
             
@@ -2157,24 +2157,6 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#toSObject(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>)">toSObject</a></span>(String type, Map&lt;String,&nbsp;Object&gt; map)</nobr>
         
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Map&lt;String,&nbsp;Object&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#toSObjectMap(java.util.Map)">toSObjectMap</a></span>(Map map)</nobr>
-        
-        <div class="jd-descrdiv">Enforce map keys are converted to String to comply with generic signature in toSObject</div>
-  
   </td></tr>
 
 
@@ -2519,7 +2501,7 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>If true, truncate field values that are too long, which is the behavior in API versions 14.0 and earlier.
-
+ <p/>
  Default is false: no change in behavior. If a string or textarea value is too large, the operation fails and the fault code STRING_TOO_LONG is returned.
 </p></div>
 
@@ -2552,7 +2534,7 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>The ID of a specific assignment rule to run for the Case or Lead. The assignment rule can be active or inactive. The ID can be retrieved by querying the AssignmentRule object. If specified, do not specify useDefaultRule. This element is ignored for accounts, because all territory assignment rules are applied.
-
+ <p/>
  If the value is not in correct ID format (15-character or 18-character Salesforce ID), the call fails and a MALFORMED_ID exception is returned.
 </p></div>
 
@@ -2584,7 +2566,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creating a batch will create SObjects using this value for the MAX_DEPTH check. 
+  <div class="jd-tagdata jd-tagdescr"><p>Creating a batch will create SObjects using this value for the MAX_DEPTH check.
 </p></div>
 
     
@@ -3275,6 +3257,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -3628,7 +3614,7 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Creates a Job in order to perform one or more batches through Bulk API Operations.
-
+ <p/>
  
  
  </p></div>
@@ -3794,6 +3780,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -3840,6 +3830,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -3896,6 +3890,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -3942,7 +3940,7 @@ From interface
         <tr>
           <th>ids</td>
           <td>Array of one or more IDs associated with the records to delete from the recycle bin.
-            Maximum number of records is 200.</td>
+                Maximum number of records is 200.</td>
         </tr>
         <tr>
           <th>headers</td>
@@ -3960,6 +3958,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -4147,6 +4149,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -4220,6 +4226,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -4368,6 +4378,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -4465,6 +4479,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -4540,6 +4558,14 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
+        </tr>  
+        <tr>
+            <th>ObjectStoreException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -4612,6 +4638,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -4689,6 +4719,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -4849,8 +4883,8 @@ From interface
         <tr>
           <th>query</td>
           <td>Query string that specifies the object to query, the fields to return, and any conditions for
-              including a specific object in the query. For more information, see Salesforce Object Query
-              Language (SOQL).</td>
+                including a specific object in the query. For more information, see Salesforce Object Query
+                Language (SOQL).</td>
         </tr>
         <tr>
           <th>headers</td>
@@ -4868,6 +4902,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -4972,8 +5010,8 @@ From interface
         <tr>
           <th>query</td>
           <td>Query string that specifies the object to query, the fields to return, and any conditions for
-              including a specific object in the query. For more information, see Salesforce Object Query
-              Language (SOQL).</td>
+                            including a specific object in the query. For more information, see Salesforce Object Query
+                            Language (SOQL).</td>
         </tr>
         <tr>
           <th>pagingConfiguration</td>
@@ -5092,7 +5130,7 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns an InputStream with the query results of a submitted BatchInfo
- <p/> 
+ <p/>
  Internally the InputStreams contained in the sequence will be requested on-demand (lazy-loading)
  Shoud be used only with query jobs!
  <p/>
@@ -5116,6 +5154,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>AsyncApiException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -5158,8 +5200,8 @@ From interface
         <tr>
           <th>query</td>
           <td>Query string that specifies the object to query, the fields to return, and any conditions for
-              including a specific object in the query. For more information, see Salesforce Object Query
-              Language (SOQL).</td>
+                including a specific object in the query. For more information, see Salesforce Object Query
+                Language (SOQL).</td>
         </tr>
         <tr>
           <th>headers</td>
@@ -5177,6 +5219,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -5299,6 +5345,10 @@ From interface
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error
 </td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -5358,6 +5408,10 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>  
+        <tr>
+            <th>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -5575,7 +5629,7 @@ From interface
          
          
          
-         
+        synchronized 
         void
       </span>
       <span class="sympad">setObjectStoreManager</span>
@@ -5657,7 +5711,6 @@ From interface
         <tr>
             <th>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error
-
 </td>
         </tr>
       </table>
@@ -5716,7 +5769,7 @@ From interface
          
          
          
-         
+        synchronized 
         void
       </span>
       <span class="sympad">setTimeObjectStore</span>
@@ -6630,7 +6683,7 @@ From interface
          
          
          
-         
+        synchronized 
         void
       </span>
       <span class="sympad">setObjectStoreHelper</span>
@@ -6699,51 +6752,6 @@ From interface
           <td></td>
         </tr>
       </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="toSObjectMap(java.util.Map)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-         
-         
-        Map&lt;String,&nbsp;Object&gt;
-      </span>
-      <span class="sympad">toSObjectMap</span>
-      <span class="normal">(Map map)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Enforce map keys are converted to String to comply with generic signature in toSObject</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>map</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li><code><a href="../../../../../org/mule/modules/salesforce/BaseSalesforceConnector.html#toSObject(java.lang.String, java.util.Map<java.lang.String, java.lang.Object>)">toSObject(String, java.util.Map)</a></code></li>
-      </ul>
   </div>
 
     </div>

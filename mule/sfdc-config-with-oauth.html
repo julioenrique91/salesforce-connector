@@ -815,7 +815,7 @@ Summary:
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#query-result-stream">&lt;sfdc:query-result-stream&gt;</a></nobr>
         
         <div class="jd-descrdiv">Returns an InputStream with the query results of a submitted BatchInfo
- <p/> 
+ <p/>
  Internally the InputStreams contained in the sequence will be requested on-demand (lazy-loading)
  Shoud be used only with query jobs!
  <p/>
@@ -1340,6 +1340,14 @@ protected operation that uses that token.
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ObjectStoreException</td>
+            <td></td>
+        </tr>
       </table>
   </div>
 
@@ -1418,6 +1426,10 @@ protected operation that uses that token.
         <tr>
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -1606,7 +1618,6 @@ protected operation that uses that token.
         <tr>
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error
-
 </td>
         </tr>
       </table>
@@ -1808,6 +1819,10 @@ protected operation that uses that token.
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
+        </tr>
       </table>
   </div>
 
@@ -1901,6 +1916,10 @@ protected operation that uses that token.
         <tr>
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -2167,6 +2186,10 @@ protected operation that uses that token.
         <tr>
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -2573,6 +2596,10 @@ protected operation that uses that token.
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
+        </tr>
       </table>
   </div>
 
@@ -2643,7 +2670,7 @@ protected operation that uses that token.
                         <td><nobr>&lt;sfdc:ids&gt;</nobr></td>
                         <td></td>
                         <td>Array of one or more IDs associated with the records to delete from the recycle bin.
-            Maximum number of records is 200.</td>
+                Maximum number of records is 200.</td>
                         <td>List&lt;String&gt;</td>
                     </tr>
                 
@@ -2693,6 +2720,10 @@ protected operation that uses that token.
         <tr>
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -2825,6 +2856,10 @@ protected operation that uses that token.
         <tr>
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -2980,6 +3015,10 @@ protected operation that uses that token.
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
+        </tr>
       </table>
   </div>
 
@@ -3058,6 +3097,10 @@ protected operation that uses that token.
         <tr>
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -3193,6 +3236,10 @@ protected operation that uses that token.
         <tr>
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -3347,6 +3394,10 @@ protected operation that uses that token.
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
+        </tr>
       </table>
   </div>
 
@@ -3395,8 +3446,8 @@ protected operation that uses that token.
                             <td class="jd-linkcol"><nobr>query</nobr></td>
                             <td class="jd-descrcol"></td>
                             <td class="jd-descrcol">Query string that specifies the object to query, the fields to return, and any conditions for
-              including a specific object in the query. For more information, see Salesforce Object Query
-              Language (SOQL).</td>
+                including a specific object in the query. For more information, see Salesforce Object Query
+                Language (SOQL).</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -3465,6 +3516,10 @@ protected operation that uses that token.
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
         </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
+        </tr>
       </table>
   </div>
 
@@ -3515,8 +3570,8 @@ protected operation that uses that token.
                             <td class="jd-linkcol"><nobr>query</nobr></td>
                             <td class="jd-descrcol"></td>
                             <td class="jd-descrcol">Query string that specifies the object to query, the fields to return, and any conditions for
-              including a specific object in the query. For more information, see Salesforce Object Query
-              Language (SOQL).</td>
+                            including a specific object in the query. For more information, see Salesforce Object Query
+                            Language (SOQL).</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -3815,8 +3870,8 @@ protected operation that uses that token.
                             <td class="jd-linkcol"><nobr>query</nobr></td>
                             <td class="jd-descrcol"></td>
                             <td class="jd-descrcol">Query string that specifies the object to query, the fields to return, and any conditions for
-              including a specific object in the query. For more information, see Salesforce Object Query
-              Language (SOQL).</td>
+                including a specific object in the query. For more information, see Salesforce Object Query
+                Language (SOQL).</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -3884,6 +3939,10 @@ protected operation that uses that token.
         <tr>
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -4031,6 +4090,10 @@ protected operation that uses that token.
             <td>com.sforce.ws.ConnectionException when there is an error
 </td>
         </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
+        </tr>
       </table>
   </div>
 
@@ -4146,6 +4209,10 @@ protected operation that uses that token.
         <tr>
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>
+        <tr>
+            <td>ConnectionException</td>
+            <td></td>
         </tr>
       </table>
   </div>
@@ -5541,7 +5608,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Creates a Job in order to perform one or more batches through Bulk API Operations.
-
+ <p/>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;!-- Creating a job for Inserting Accounts --&gt;
 &lt;sfdc:create-job config-ref="mySalesforceConfig" operation="insert" type="Account" /&gt;</pre></div>
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;!-- Creating a job for Deleting Accounts --&gt;
@@ -5917,7 +5984,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Returns an InputStream with the query results of a submitted BatchInfo
- <p/> 
+ <p/>
  Internally the InputStreams contained in the sequence will be requested on-demand (lazy-loading)
  Shoud be used only with query jobs!
  <p/>
@@ -5991,6 +6058,10 @@ protected operation that uses that token.
         <tr>
             <td>Exception</td>
             <td>com.sforce.ws.ConnectionException when there is an error</td>
+        </tr>
+        <tr>
+            <td>AsyncApiException</td>
+            <td></td>
         </tr>
       </table>
   </div>
