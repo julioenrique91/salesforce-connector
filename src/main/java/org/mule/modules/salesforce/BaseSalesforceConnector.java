@@ -639,7 +639,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *
      * @param batchInfo the {@link BatchInfo} being monitored
      * @return {@link InputStream} with the results of the Batch.
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws AsyncApiException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_get_results.htm">getBatchResult()</a>
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_interpret_status.htm">BatchInfo status</a>
      * @since 4.5
@@ -673,7 +673,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:describe-global}
      *
      * @return A {@link com.sforce.soap.partner.DescribeGlobalResult}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_describeglobal.htm">describeGlobal()</a>
      * @since 4.0
      */
@@ -696,7 +696,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * @param fields  The fields to return for the matching objects
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SObject}s
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      */
     @Processor
     @OAuthProtected
@@ -729,7 +729,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * @param pagingConfiguration the paging configuration
      * @param headers             Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SObject}s
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_query.htm">query()</a>
      * @since 4.0
      */
@@ -767,7 +767,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *                Language (SOQL).
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SObject}s
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_query.htm">query()</a>
      * @since 4.0
      * This method should be deprecated at some point since we only want paginated queries
@@ -803,7 +803,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * @param pagingConfiguration the paging configuration
      * @param headers             Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SObject}s
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_query.htm">query()</a>
      */
     @Processor
@@ -831,7 +831,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * @param query   Query string that specifies the object to query, the fields to return, and any conditions for including a specific object in the query. For more information, see Salesforce Object Search Language (SOSL).
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SObject}s
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_search.htm">search()</a>
      */
     @Processor
@@ -861,7 +861,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *                Language (SOQL).
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return A single {@link SObject}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_query.htm">query()</a>
      * @since 4.1
      */
@@ -925,7 +925,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *                               ownerId (true) or not (false, the default).
      * @param headers                Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return A {@link com.sforce.soap.partner.LeadConvertResult} object
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_convertlead.htm">convertLead()</a>
      * @since 4.0
      */
@@ -973,7 +973,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *                Maximum number of records is 200.
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return A list of {@link com.sforce.soap.partner.EmptyRecycleBinResult}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_emptyrecyclebin.htm">emptyRecycleBin()</a>
      * @since 4.0
      */
@@ -993,7 +993,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:get-server-timestamp}
      *
      * @return Calendar with the current timestamp
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getservertimestamp.htm">getServerTimestamp()</a>
      */
     @Processor
@@ -1013,7 +1013,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * @param ids     Array of one or more IDs associated with the objects to delete.
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link com.sforce.soap.partner.DeleteResult}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_delete.htm">delete()</a>
      * @since 4.0
      */
@@ -1068,7 +1068,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *                  server time will be used.
      * @param headers   Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return {@link com.sforce.soap.partner.GetUpdatedResult}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getupdatedrange.htm">getUpdatedRange()</a>
      */
     @Processor
@@ -1109,7 +1109,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      *                  time will be used.
      * @param headers   Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return {@link com.sforce.soap.partner.GetDeletedResult}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getdeletedrange.htm">getDeletedRange()</a>
      * @since 4.0
      */
@@ -1143,7 +1143,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * @param type Object. The specified value must be a valid object for your organization. For a complete list
      *             of objects, see Standard Objects
      * @return {@link com.sforce.soap.partner.DescribeSObjectResult}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_describesobject.htm">describeSObject()</a>
      * @since 4.0
      */
@@ -1165,7 +1165,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * @param duration The amount of time in minutes before now for which to return records from.
      * @param headers  Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return {@link GetDeletedResult}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getdeleted.htm">getDeleted()</a>
      * @since 4.2
      */
@@ -1197,7 +1197,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * @return {@link GetUpdatedResult} object containing an array of GetUpdatedResult objects containing the ID of each
      * created or updated object and the date/time (Coordinated Universal Time (UTC) time zone) on which it was created
      * or updated, respectively
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getupdated.htm">getUpdated()</a>
      */
     @Processor
@@ -1234,7 +1234,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * @param fields            The fields to retrieve for the updated objects
      * @param headers           Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return List with the updated objects in the calculated time range
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ObjectStoreException {@link org.mule.api.store.ObjectStoreException} when there is an error
      * @api.doc This operation extends <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getupdated.htm">getUpdated()</a>
      */
     @Processor
@@ -1370,7 +1371,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:get-user-info}
      *
      * @return {@link com.sforce.soap.partner.GetUserInfoResult}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_getuserinfo.htm">getUserInfo()</a>
      * @since 4.0
      */
