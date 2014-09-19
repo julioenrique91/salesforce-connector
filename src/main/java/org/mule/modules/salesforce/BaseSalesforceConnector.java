@@ -10,15 +10,36 @@
 
 package org.mule.modules.salesforce;
 
-import com.sforce.async.*;
-import com.sforce.soap.partner.*;
-import com.sforce.soap.partner.sobject.SObject;
-import com.sforce.ws.ConnectionException;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.SequenceInputStream;
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
-import org.mule.api.annotations.*;
+import org.mule.api.annotations.Category;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.InvalidateConnectionOn;
+import org.mule.api.annotations.MetaDataScope;
+import org.mule.api.annotations.Paged;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.Query;
+import org.mule.api.annotations.QueryTranslator;
+import org.mule.api.annotations.Source;
+import org.mule.api.annotations.SourceThreadingModel;
 import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
@@ -38,22 +59,56 @@ import org.mule.api.store.ObjectStoreManager;
 import org.mule.common.query.DsqlQuery;
 import org.mule.modules.salesforce.api.SalesforceExceptionHandlerAdapter;
 import org.mule.modules.salesforce.api.SalesforceHeader;
+import org.mule.modules.salesforce.api.SalesforceMetadataAdapter;
 import org.mule.modules.salesforce.api.SalesforceRestAdapter;
 import org.mule.modules.salesforce.api.SalesforceSoapAdapter;
 import org.mule.modules.salesforce.bulk.SaveResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.bulk.UpsertResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.modules.salesforce.lazystream.impl.LazyQueryResultInputStream;
+import org.mule.modules.salesforce.metadata.MetadataService;
+import org.mule.modules.salesforce.metadata.category.CreateMetadataCategory;
+import org.mule.modules.salesforce.metadata.category.DeleteMetadataCategory;
+import org.mule.modules.salesforce.metadata.type.MetadataOperationType;
+import org.mule.modules.salesforce.metadata.type.MetadataType;
 import org.mule.streaming.PagingConfiguration;
 import org.mule.streaming.ProviderAwarePagingDelegate;
 import org.springframework.util.StringUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.SequenceInputStream;
-import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.util.*;
+import com.sforce.async.AsyncApiException;
+import com.sforce.async.BatchInfo;
+import com.sforce.async.BatchRequest;
+import com.sforce.async.BatchResult;
+import com.sforce.async.BulkConnection;
+import com.sforce.async.ConcurrencyMode;
+import com.sforce.async.ContentType;
+import com.sforce.async.JobInfo;
+import com.sforce.async.OperationEnum;
+import com.sforce.async.QueryResultList;
+import com.sforce.soap.metadata.AuthenticationProtocol;
+import com.sforce.soap.metadata.ExternalDataSource;
+import com.sforce.soap.metadata.ExternalDataSourceType;
+import com.sforce.soap.metadata.ExternalPrincipalType;
+import com.sforce.soap.metadata.MetadataConnection;
+import com.sforce.soap.partner.AssignmentRuleHeader_element;
+import com.sforce.soap.partner.CallOptions_element;
+import com.sforce.soap.partner.DeleteResult;
+import com.sforce.soap.partner.DescribeGlobalResult;
+import com.sforce.soap.partner.DescribeSObjectResult;
+import com.sforce.soap.partner.EmptyRecycleBinResult;
+import com.sforce.soap.partner.GetDeletedResult;
+import com.sforce.soap.partner.GetUpdatedResult;
+import com.sforce.soap.partner.GetUserInfoResult;
+import com.sforce.soap.partner.LeadConvert;
+import com.sforce.soap.partner.LeadConvertResult;
+import com.sforce.soap.partner.PartnerConnection;
+import com.sforce.soap.partner.QueryResult;
+import com.sforce.soap.partner.SaveResult;
+import com.sforce.soap.partner.SearchRecord;
+import com.sforce.soap.partner.SearchResult;
+import com.sforce.soap.partner.UpsertResult;
+import com.sforce.soap.partner.sobject.SObject;
+import com.sforce.ws.ConnectionException;
 
 public abstract class BaseSalesforceConnector implements MuleContextAware {
 
@@ -149,6 +204,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     protected abstract PartnerConnection getConnection();
 
     protected abstract BulkConnection getBulkConnection();
+    
+    protected abstract MetadataConnection getMetadataConnection();
 
     protected abstract String getSessionId();
 
@@ -219,6 +276,43 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
         return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).create(sObjects));
     }
+    
+    @Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(CreateMetadataCategory.class)
+	public Object createMetadata(@MetaDataKeyParam String type,
+								 @Default("#[payload]") Map<String, Object> insertRequest)
+			throws Exception {
+    	if (type.equals(MetadataType.EXTERNAL_DATA_SOURCE.toString())) {
+    		insertRequest.put("principalType", ExternalPrincipalType.Anonymous);
+    		insertRequest.put("protocol", AuthenticationProtocol.NoAuthentication);
+    		if (insertRequest.containsKey("type")){
+    			if (insertRequest.get("type").toString().equalsIgnoreCase("OData")) {
+    				insertRequest.put("type", ExternalDataSourceType.OData);
+    			}
+    		}
+    	}
+		/*ExternalDataSource x = new ExternalDataSource();
+		x.setProtocol(protocol);*/
+		return callMetadataService(type, insertRequest, MetadataOperationType.CREATE);
+	}
+	
+	@Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(DeleteMetadataCategory.class)
+	public Object deleteMetadata(@MetaDataKeyParam String type,
+								List<String> fullNames)
+			throws Exception {
+
+		String[] names = fullNames.toArray(new String [fullNames.size()]);
+		return new Object();
+	}
 
     /**
      * Creates a Job in order to perform one or more batches through Bulk API Operations.
@@ -1638,4 +1732,17 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public BulkConnection getSalesforceRestAdapter() {
         return SalesforceRestAdapter.adapt(getBulkConnection());
     }
+    
+    public MetadataConnection getSalesforceMetadaAdapter() {
+    	return SalesforceMetadataAdapter.adapt(getMetadataConnection());
+    }
+    
+	private Object callMetadataService(String type, Map<String, Object> request, MetadataOperationType metadataOperation) throws Exception {
+		try {
+			MetadataType metadataType = MetadataType.valueOf(type);
+			return MetadataService.callService(getMetadataConnection(), metadataType, request, metadataOperation);
+		} catch (Exception e) {
+			throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
+		}
+	}
 }

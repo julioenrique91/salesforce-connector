@@ -9,34 +9,38 @@
  */
 package org.mule.modules.salesforce;
 
-import com.sforce.async.AsyncApiException;
-import com.sforce.async.BulkConnection;
-import com.sforce.soap.partner.Connector;
-import com.sforce.soap.partner.*;
-import com.sforce.soap.partner.fault.ApiFault;
-import com.sforce.ws.ConnectionException;
-import com.sforce.ws.ConnectorConfig;
-import com.sforce.ws.MessageHandler;
-import com.sforce.ws.SessionRenewer;
+import java.net.Authenticator;
+import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.Proxy;
+import java.net.URL;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.mule.api.ConnectionExceptionCode;
-import org.mule.api.annotations.*;
+import org.mule.api.annotations.Connect;
+import org.mule.api.annotations.ConnectionIdentifier;
+import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.MetaDataScope;
+import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.common.metadata.*;
-import org.mule.common.metadata.builder.DefaultMetaDataBuilder;
-import org.mule.common.metadata.builder.DynamicObjectBuilder;
-import org.mule.common.metadata.builder.EnumMetaDataBuilder;
-import org.mule.common.metadata.datatype.DataType;
 
-import java.net.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.sforce.async.AsyncApiException;
+import com.sforce.async.BulkConnection;
+import com.sforce.soap.metadata.MetadataConnection;
+import com.sforce.soap.partner.Connector;
+import com.sforce.soap.partner.LoginResult;
+import com.sforce.soap.partner.PartnerConnection;
+import com.sforce.soap.partner.fault.ApiFault;
+import com.sforce.ws.ConnectionException;
+import com.sforce.ws.ConnectorConfig;
+import com.sforce.ws.MessageHandler;
+import com.sforce.ws.SessionRenewer;
 
 
 /**
@@ -56,143 +60,9 @@ import java.util.List;
  */
 
 @org.mule.api.annotations.Connector(name = "sfdc", schemaVersion = "5.0", friendlyName = "Salesforce", minMuleVersion = "3.5")
+@MetaDataScope(SalesforceMetadataManager.class)
 public class SalesforceConnector extends BaseSalesforceConnector {
     private static final Logger LOGGER = Logger.getLogger(SalesforceConnector.class);
-
-    @MetaDataKeyRetriever
-    public List<MetaDataKey> getMetaDataKeys() throws ConnectionException {
-        List<MetaDataKey> keys = new ArrayList<MetaDataKey>();
-        DescribeGlobalResult describeGlobal = describeGlobal();
-
-        if (describeGlobal != null) {
-            DescribeGlobalSObjectResult[] sobjects = describeGlobal.getSobjects();
-            for (DescribeGlobalSObjectResult sobject : sobjects) {
-                keys.add(new DefaultMetaDataKey(sobject.getName(), sobject.getLabel(), sobject.isQueryable()));
-            }
-        }
-
-        return keys;
-    }
-
-    @MetaDataRetriever
-    public MetaData getMetaData(MetaDataKey key) throws ConnectionException {
-        DescribeSObjectResult describeSObject = describeSObject(key.getId());
-
-        MetaData metaData = null;
-        if (describeSObject != null) {
-            Field[] fields = describeSObject.getFields();
-            DynamicObjectBuilder dynamicObject = new DefaultMetaDataBuilder().createDynamicObject(key.getId());
-            for (Field f : fields) {
-                addField(f, dynamicObject);
-            }
-            MetaDataModel model = dynamicObject.build();
-            metaData = new DefaultMetaData(model);
-        }
-        return metaData;
-    }
-
-    private void addField(Field f, DynamicObjectBuilder dynamicObject) {
-        DataType dataType = getDataType(f.getType());
-        switch (dataType) {
-            case POJO:
-                dynamicObject.addPojoField(f.getName(), Object.class);
-                break;
-            case ENUM:
-                EnumMetaDataBuilder enumMetaDataBuilder = dynamicObject.addEnumField(f.getName());
-                if (f.getPicklistValues().length != 0) {
-                    String[] values = new String[f.getPicklistValues().length];
-                    int i = 0;
-                    for (PicklistEntry picklistEntry : f.getPicklistValues()) {
-                        values[i] = (picklistEntry.getValue());
-                        i++;
-                    }
-                    enumMetaDataBuilder.setValues(values)
-                            .isWhereCapable(f.isFilterable())
-                            .isOrderByCapable(f.isSortable());
-                }
-                break;
-            default:
-                dynamicObject.addSimpleField(f.getName(), dataType)
-                        .isWhereCapable(f.isFilterable())
-                        .isOrderByCapable(f.isSortable());
-        }
-    }
-
-    private DataType getDataType(FieldType fieldType) {
-        DataType dt;
-        switch (fieldType) {
-            case _boolean:
-                dt = DataType.BOOLEAN;
-                break;
-            case _double:
-                dt = DataType.DOUBLE;
-                break;
-            case _int:
-                dt = DataType.INTEGER;
-                break;
-            case anyType:
-                dt = DataType.POJO;
-                break;
-            case base64:
-                dt = DataType.STRING;
-                break;
-            case combobox:
-                dt = DataType.ENUM;
-                break;
-            case currency:
-                dt = DataType.STRING;
-                break;
-            case datacategorygroupreference:
-                dt = DataType.STRING;
-                break;
-            case date:
-                dt = DataType.DATE_TIME;
-                break;
-            case datetime:
-                dt = DataType.DATE_TIME;
-                break;
-            case email:
-                dt = DataType.STRING;
-                break;
-            case encryptedstring:
-                dt = DataType.STRING;
-                break;
-            case id:
-                dt = DataType.STRING;
-                break;
-            case multipicklist:
-                dt = DataType.ENUM;
-                break;
-            case percent:
-                dt = DataType.STRING;
-                break;
-            case phone:
-                dt = DataType.STRING;
-                break;
-            case picklist:
-                dt = DataType.ENUM;
-                break;
-            case reference:
-                dt = DataType.STRING;
-                break;
-            case string:
-                dt = DataType.STRING;
-                break;
-            case textarea:
-                dt = DataType.STRING;
-                break;
-            case time:
-                dt = DataType.DATE_TIME;
-                break;
-            case url:
-                dt = DataType.STRING;
-                break;
-            default:
-                dt = DataType.STRING;
-        }
-        return dt;
-    }
-
 
     /**
      * Partner connection
@@ -203,6 +73,11 @@ public class SalesforceConnector extends BaseSalesforceConnector {
      * REST connection to the bulk API
      */
     private BulkConnection bulkConnection;
+    
+    /**
+     * MetadataConnection connection
+     */
+    private MetadataConnection metadataConnection;
 
     /**
      * Login result
@@ -216,6 +91,10 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     protected void setBulkConnection(BulkConnection bulkConnection) {
         this.bulkConnection = bulkConnection;
     }
+    
+    protected void setMetadataConnection(MetadataConnection metadataConnection) {
+        this.metadataConnection = metadataConnection;
+    }
 
     protected void setLoginResult(LoginResult loginResult) {
         this.loginResult = loginResult;
@@ -227,7 +106,8 @@ public class SalesforceConnector extends BaseSalesforceConnector {
 
     @ValidateConnection
     public boolean isConnected() {
-        return bulkConnection != null
+        return metadataConnection!= null
+        		&& bulkConnection != null
                 && connection != null
                 && loginResult != null
                 && loginResult.getSessionId() != null;
@@ -240,7 +120,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
      */
     @ConnectionIdentifier
     public String getSessionId() {
-        if (connection != null && loginResult != null) {
+        if (connection != null && loginResult != null && metadataConnection != null) {
             return loginResult.getSessionId();
         } else {
             return null;
@@ -353,6 +233,23 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         } catch (MalformedURLException e) {
             throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN_HOST, null, e.getMessage(), e);
         }
+        
+        try {
+			String metadataServiceEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/Soap/c/31.0";
+			ConnectorConfig metadataConfig = new ConnectorConfig();
+			metadataConfig.setUsername(username);
+			metadataConfig.setPassword(password);
+			metadataConfig.setAuthEndpoint(metadataServiceEndpoint);
+			metadataConfig.setServiceEndpoint(loginResult.getMetadataServerUrl());
+			metadataConfig.setSessionId(loginResult.getSessionId());
+			metadataConfig.setManualLogin(true);
+			metadataConfig.setCompression(false);
+	        metadataConnection = new MetadataConnection(metadataConfig);
+		} catch (MalformedURLException e) {
+			 throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN_HOST, null, e.getMessage(), e);
+		} catch (ConnectionException e) {
+			 throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
+		}
 
         this.processSubscriptions();
     }
@@ -441,5 +338,10 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     @Override
     protected BulkConnection getBulkConnection() {
         return bulkConnection;
+    }
+    
+    @Override
+    protected MetadataConnection getMetadataConnection() {
+        return metadataConnection;
     }
 }

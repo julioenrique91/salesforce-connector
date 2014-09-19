@@ -10,21 +10,29 @@
 
 package org.mule.modules.salesforce;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.apache.log4j.Logger;
+import org.mule.RequestContext;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.lifecycle.Start;
+import org.mule.api.annotations.oauth.OAuth2;
+import org.mule.api.annotations.oauth.OAuthAccessToken;
+import org.mule.api.annotations.oauth.OAuthAuthorizationParameter;
+import org.mule.api.annotations.oauth.OAuthCallbackParameter;
+import org.mule.api.annotations.oauth.OAuthConsumerKey;
+import org.mule.api.annotations.oauth.OAuthConsumerSecret;
+import org.mule.api.annotations.oauth.OAuthPostAuthorization;
+
 import com.sforce.async.AsyncApiException;
 import com.sforce.async.BulkConnection;
+import com.sforce.soap.metadata.MetadataConnection;
 import com.sforce.soap.partner.Connector;
 import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 import com.sforce.ws.MessageHandler;
-import org.apache.log4j.Logger;
-import org.mule.RequestContext;
-import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.lifecycle.Start;
-import org.mule.api.annotations.oauth.*;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * The Salesforce Connector will allow to connect to the Salesforce application using OAuth as the authentication
@@ -71,6 +79,11 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
      * REST connection to the bulk API
      */
     private BulkConnection bulkConnection;
+    
+    /**
+     * Connection to the Metadata API
+     */
+    private MetadataConnection metadataConnection;
 
     /**
      * Your application's client identifier (consumer key in Remote Access Detail).
@@ -182,6 +195,11 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     @Override
     protected BulkConnection getBulkConnection() {
         return this.bulkConnection;
+    }
+    
+    @Override
+    protected MetadataConnection getMetadataConnection() {
+        return this.metadataConnection;
     }
 
     @Override
