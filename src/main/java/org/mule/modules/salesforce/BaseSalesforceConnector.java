@@ -66,6 +66,7 @@ import org.mule.modules.salesforce.bulk.SaveResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.bulk.UpsertResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.modules.salesforce.lazystream.impl.LazyQueryResultInputStream;
+import org.mule.modules.salesforce.metadata.ExternalDataSourceRequestProcessor;
 import org.mule.modules.salesforce.metadata.MetadataService;
 import org.mule.modules.salesforce.metadata.category.CreateMetadataCategory;
 import org.mule.modules.salesforce.metadata.category.DeleteMetadataCategory;
@@ -85,10 +86,8 @@ import com.sforce.async.ContentType;
 import com.sforce.async.JobInfo;
 import com.sforce.async.OperationEnum;
 import com.sforce.async.QueryResultList;
-import com.sforce.soap.metadata.AuthenticationProtocol;
-import com.sforce.soap.metadata.ExternalDataSource;
-import com.sforce.soap.metadata.ExternalDataSourceType;
-import com.sforce.soap.metadata.ExternalPrincipalType;
+import com.sforce.soap.metadata.FileProperties;
+import com.sforce.soap.metadata.ListMetadataQuery;
 import com.sforce.soap.metadata.MetadataConnection;
 import com.sforce.soap.partner.AssignmentRuleHeader_element;
 import com.sforce.soap.partner.CallOptions_element;
@@ -283,20 +282,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(CreateMetadataCategory.class)
-	public Object createMetadata(@MetaDataKeyParam String type,
+	public List<com.sforce.soap.metadata.SaveResult> createMetadata(@MetaDataKeyParam String type,
 								 @Default("#[payload]") Map<String, Object> insertRequest)
 			throws Exception {
     	if (type.equals(MetadataType.EXTERNAL_DATA_SOURCE.toString())) {
-    		insertRequest.put("principalType", ExternalPrincipalType.Anonymous);
-    		insertRequest.put("protocol", AuthenticationProtocol.NoAuthentication);
-    		if (insertRequest.containsKey("type")){
-    			if (insertRequest.get("type").toString().equalsIgnoreCase("OData")) {
-    				insertRequest.put("type", ExternalDataSourceType.OData);
-    			}
-    		}
+    		insertRequest = ExternalDataSourceRequestProcessor.processInsertRequest(insertRequest);
     	}
-		/*ExternalDataSource x = new ExternalDataSource();
-		x.setProtocol(protocol);*/
 		return callMetadataService(type, insertRequest, MetadataOperationType.CREATE);
 	}
 	
@@ -306,12 +297,27 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(DeleteMetadataCategory.class)
-	public Object deleteMetadata(@MetaDataKeyParam String type,
+	public List<com.sforce.soap.metadata.DeleteResult> deleteMetadata(@MetaDataKeyParam String type,
 								List<String> fullNames)
 			throws Exception {
 
-		String[] names = fullNames.toArray(new String [fullNames.size()]);
-		return new Object();
+		return callMetadataDeleteService(type, fullNames, MetadataOperationType.DELETE);
+	}
+	
+	@Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(DeleteMetadataCategory.class)
+	public List<FileProperties> listMetadata(@MetaDataKeyParam String type)
+			throws Exception {
+
+		MetadataType metadataType = MetadataType.valueOf(type);
+		ListMetadataQuery query = new ListMetadataQuery();
+		query.setType(metadataType.getDisplayName());
+		FileProperties[] fileProperties = getMetadataConnection().listMetadata(new ListMetadataQuery[] {query}, 31.0);
+		return Arrays.asList(fileProperties);
 	}
 
     /**
@@ -1737,10 +1743,19 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     	return SalesforceMetadataAdapter.adapt(getMetadataConnection());
     }
     
-	private Object callMetadataService(String type, Map<String, Object> request, MetadataOperationType metadataOperation) throws Exception {
+	private List<com.sforce.soap.metadata.SaveResult> callMetadataService(String type, Map<String, Object> request, MetadataOperationType metadataOperation) throws Exception {
 		try {
 			MetadataType metadataType = MetadataType.valueOf(type);
 			return MetadataService.callService(getMetadataConnection(), metadataType, request, metadataOperation);
+		} catch (Exception e) {
+			throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
+		}
+	}
+	
+	private List<com.sforce.soap.metadata.DeleteResult> callMetadataDeleteService(String type, List<String> fullNames, MetadataOperationType metadataOperation) throws Exception {
+		try {
+			MetadataType metadataType = MetadataType.valueOf(type);
+			return MetadataService.callDeleteService(getMetadataConnection(), metadataType, fullNames);
 		} catch (Exception e) {
 			throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
 		}

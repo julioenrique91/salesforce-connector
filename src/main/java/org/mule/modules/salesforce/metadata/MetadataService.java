@@ -13,15 +13,18 @@
  */
 package org.mule.modules.salesforce.metadata;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.jdto.DTOBinderFactory;
 import org.mule.modules.salesforce.metadata.type.MetadataOperationType;
 import org.mule.modules.salesforce.metadata.type.MetadataType;
 
+import com.sforce.soap.metadata.DeleteResult;
 import com.sforce.soap.metadata.Metadata;
 import com.sforce.soap.metadata.MetadataConnection;
-
+import com.sforce.soap.metadata.SaveResult;
 
 /**
  * @author cristian.ambrozie
@@ -29,19 +32,32 @@ import com.sforce.soap.metadata.MetadataConnection;
  */
 public class MetadataService {
 
-	public static Object callService(MetadataConnection connection, MetadataType metadataType,
-			Map<String, Object> request, MetadataOperationType metadataOperation) throws Exception {
+	public static List<SaveResult> callService(MetadataConnection connection,
+			MetadataType metadataType, Map<String, Object> request,
+			MetadataOperationType metadataOperation) throws Exception {
 
 		switch (metadataOperation) {
 		case CREATE:
-			return connection.createMetadata(new Metadata[] {(Metadata) getMetadataObject(metadataType, request)});
+			return Arrays
+					.asList(connection
+							.createMetadata(new Metadata[] { (Metadata) getMetadataObject(
+									metadataType, request) }));
 		default:
 			return null;
 		}
 	}
-	
-	private static Object getMetadataObject(MetadataType metadataType, Map<String, Object> entity) {
-		return DTOBinderFactory.getBinder().bindFromBusinessObject(metadataType.getMetadataEntityClass(), entity);
+
+	public static List<DeleteResult> callDeleteService(
+			MetadataConnection connection, MetadataType metadataType,
+			List<String> fullNames) throws Exception {
+		return Arrays.asList(connection.deleteMetadata(
+				metadataType.getDisplayName(),
+				fullNames.toArray(new String[fullNames.size()])));
 	}
 
+	private static Object getMetadataObject(MetadataType metadataType,
+			Map<String, Object> entity) {
+		return DTOBinderFactory.getBinder().bindFromBusinessObject(
+				metadataType.getMetadataEntityClass(), entity);
+	}
 }

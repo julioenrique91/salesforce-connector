@@ -16,9 +16,9 @@ import org.apache.commons.lang.StringUtils;
  * @author Mulesoft, Inc
  */
 public enum MetadataType {
-    CUSTOM_OBJECT("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomObject.class, "Custom Object"),
-    CUSTOM_FIELD("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomField.class, "Custom Field"),
-    EXTERNAL_DATA_SOURCE("com.sforce.soap.metadata", com.sforce.soap.metadata.ExternalDataSource.class, "External Data Source");
+/*    CUSTOM_OBJECT("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomObject.class, "Custom Object"),
+    CUSTOM_FIELD("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomField.class, "Custom Field"),*/
+    EXTERNAL_DATA_SOURCE("com.sforce.soap.metadata", com.sforce.soap.metadata.ExternalDataSource.class, "ExternalDataSource");
 
     String entityPackage;
     Class metadataEntityClass;
