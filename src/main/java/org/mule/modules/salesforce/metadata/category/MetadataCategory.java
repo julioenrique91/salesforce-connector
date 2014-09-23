@@ -33,7 +33,7 @@ import org.mule.modules.salesforce.metadata.type.MetadataType;
  * @author Mulesoft, Inc
  */
 @MetaDataCategory
-public class CreateMetadataCategory {
+public class MetadataCategory {
 
     @Inject
     private SalesforceConnector connector;

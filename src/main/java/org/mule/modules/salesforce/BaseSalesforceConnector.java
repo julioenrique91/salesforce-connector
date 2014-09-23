@@ -68,8 +68,7 @@ import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.modules.salesforce.lazystream.impl.LazyQueryResultInputStream;
 import org.mule.modules.salesforce.metadata.ExternalDataSourceRequestProcessor;
 import org.mule.modules.salesforce.metadata.MetadataService;
-import org.mule.modules.salesforce.metadata.category.CreateMetadataCategory;
-import org.mule.modules.salesforce.metadata.category.DeleteMetadataCategory;
+import org.mule.modules.salesforce.metadata.category.MetadataCategory;
 import org.mule.modules.salesforce.metadata.type.MetadataOperationType;
 import org.mule.modules.salesforce.metadata.type.MetadataType;
 import org.mule.streaming.PagingConfiguration;
@@ -281,7 +280,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
 	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
-	@MetaDataScope(CreateMetadataCategory.class)
+	@MetaDataScope(MetadataCategory.class)
 	public List<com.sforce.soap.metadata.SaveResult> createMetadata(@MetaDataKeyParam String type,
 								 @Default("#[payload]") Map<String, Object> insertRequest)
 			throws Exception {
@@ -296,7 +295,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
 	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
-	@MetaDataScope(DeleteMetadataCategory.class)
+	@MetaDataScope(MetadataCategory.class)
 	public List<com.sforce.soap.metadata.DeleteResult> deleteMetadata(@MetaDataKeyParam String type,
 								List<String> fullNames)
 			throws Exception {
@@ -309,7 +308,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
 	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
-	@MetaDataScope(DeleteMetadataCategory.class)
+	@MetaDataScope(MetadataCategory.class)
 	public List<FileProperties> listMetadata(@MetaDataKeyParam String type)
 			throws Exception {
 

@@ -67,15 +67,15 @@ public class ExternalDataSourceRequestProcessor {
 
 	private static void setExternalDataSourceProtocol() {
 		if (insertRequest.get("protocol").toString().equalsIgnoreCase("NoAuthentication")) {
-			insertRequest.put("principalType",
+			insertRequest.put("protocol",
 					AuthenticationProtocol.NoAuthentication);
 		} 
 		else if (insertRequest.get("protocol").toString().equalsIgnoreCase("Oauth")) {
-			insertRequest.put("principalType",
+			insertRequest.put("protocol",
 					AuthenticationProtocol.Oauth);
 		}
 		else if (insertRequest.get("protocol").toString().equalsIgnoreCase("Password")) {
-			insertRequest.put("principalType",
+			insertRequest.put("protocol",
 					AuthenticationProtocol.Password);
 		}
 	}
