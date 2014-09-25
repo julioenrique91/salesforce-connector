@@ -17,7 +17,11 @@ import org.apache.commons.lang.StringUtils;
  */
 public enum MetadataOperationType {
     CREATE("Create"),
-    DELETE("Delete");
+    UPDATE("Update"),
+    UPSERT("Upsert"),
+    DELETE("Delete"),
+    RENAME("Rename"),
+    READ("Read");
 
     String name;
 

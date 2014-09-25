@@ -18,13 +18,14 @@ import org.apache.commons.lang.StringUtils;
 public enum MetadataType {
 /*    CUSTOM_OBJECT("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomObject.class, "Custom Object"),
     CUSTOM_FIELD("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomField.class, "Custom Field"),*/
-    EXTERNAL_DATA_SOURCE("com.sforce.soap.metadata", com.sforce.soap.metadata.ExternalDataSource.class, "ExternalDataSource");
+    EXTERNAL_DATA_SOURCE("com.sforce.soap.metadata", com.sforce.soap.metadata.ExternalDataSource.class, "ExternalDataSource"),
+    REMOTE_SITE_SETTING("com.sforce.soap.metadata", com.sforce.soap.metadata.RemoteSiteSetting.class,"RemoteSiteSetting");
 
     String entityPackage;
-    Class metadataEntityClass;
+    Class<? extends com.sforce.soap.metadata.Metadata> metadataEntityClass;
     String displayName;
 
-    MetadataType(String entityPackage, Class metadataEntityClass, String displayName) {
+    MetadataType(String entityPackage, Class<? extends com.sforce.soap.metadata.Metadata> metadataEntityClass, String displayName) {
         this.entityPackage = entityPackage;
         this.metadataEntityClass = metadataEntityClass;
         this.displayName = displayName;
@@ -35,7 +36,7 @@ public enum MetadataType {
         return this.entityPackage;
     }
 
-    public Class getMetadataEntityClass() {
+    public Class<? extends com.sforce.soap.metadata.Metadata> getMetadataEntityClass() {
         return this.metadataEntityClass;
     }
 
