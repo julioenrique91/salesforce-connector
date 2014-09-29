@@ -419,6 +419,26 @@ public class Field implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : filteredLookupInfo of type {urn:partner.soap.sforce.com}FilteredLookupInfo
+     * java type: com.sforce.soap.partner.FilteredLookupInfo
+     */
+    private static final com.sforce.ws.bind.TypeInfo filteredLookupInfo__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","filteredLookupInfo","urn:partner.soap.sforce.com","FilteredLookupInfo",0,1,true);
+
+    private boolean filteredLookupInfo__is_set = false;
+
+    private com.sforce.soap.partner.FilteredLookupInfo filteredLookupInfo;
+
+    public com.sforce.soap.partner.FilteredLookupInfo getFilteredLookupInfo() {
+      return filteredLookupInfo;
+    }
+
+    public void setFilteredLookupInfo(com.sforce.soap.partner.FilteredLookupInfo filteredLookupInfo) {
+      this.filteredLookupInfo = filteredLookupInfo;
+      filteredLookupInfo__is_set = true;
+    }
+
+    /**
      * element : groupable of type {http://www.w3.org/2001/XMLSchema}boolean
      * java type: boolean
      */
@@ -1066,6 +1086,7 @@ public class Field implements com.sforce.ws.bind.XMLizable {
        __typeMapper.writeBoolean(__out, externalId__typeInfo, externalId, externalId__is_set);
        __typeMapper.writeString(__out, extraTypeInfo__typeInfo, extraTypeInfo, extraTypeInfo__is_set);
        __typeMapper.writeBoolean(__out, filterable__typeInfo, filterable, filterable__is_set);
+       __typeMapper.writeObject(__out, filteredLookupInfo__typeInfo, filteredLookupInfo, filteredLookupInfo__is_set);
        __typeMapper.writeBoolean(__out, groupable__typeInfo, groupable, groupable__is_set);
        __typeMapper.writeBoolean(__out, htmlFormatted__typeInfo, htmlFormatted, htmlFormatted__is_set);
        __typeMapper.writeBoolean(__out, idLookup__typeInfo, idLookup, idLookup__is_set);
@@ -1177,6 +1198,10 @@ public class Field implements com.sforce.ws.bind.XMLizable {
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, filterable__typeInfo)) {
             setFilterable(__typeMapper.readBoolean(__in, filterable__typeInfo, boolean.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, filteredLookupInfo__typeInfo)) {
+            setFilteredLookupInfo((com.sforce.soap.partner.FilteredLookupInfo)__typeMapper.readObject(__in, filteredLookupInfo__typeInfo, com.sforce.soap.partner.FilteredLookupInfo.class));
         }
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, groupable__typeInfo)) {
@@ -1314,6 +1339,7 @@ public class Field implements com.sforce.ws.bind.XMLizable {
       sb.append(" externalId='").append(com.sforce.ws.util.Verbose.toString(externalId)).append("'\n");
       sb.append(" extraTypeInfo='").append(com.sforce.ws.util.Verbose.toString(extraTypeInfo)).append("'\n");
       sb.append(" filterable='").append(com.sforce.ws.util.Verbose.toString(filterable)).append("'\n");
+      sb.append(" filteredLookupInfo='").append(com.sforce.ws.util.Verbose.toString(filteredLookupInfo)).append("'\n");
       sb.append(" groupable='").append(com.sforce.ws.util.Verbose.toString(groupable)).append("'\n");
       sb.append(" htmlFormatted='").append(com.sforce.ws.util.Verbose.toString(htmlFormatted)).append("'\n");
       sb.append(" idLookup='").append(com.sforce.ws.util.Verbose.toString(idLookup)).append("'\n");

@@ -135,6 +135,26 @@ public class DescribeTab implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : name of type {http://www.w3.org/2001/XMLSchema}string
+     * java type: java.lang.String
+     */
+    private static final com.sforce.ws.bind.TypeInfo name__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","name","http://www.w3.org/2001/XMLSchema","string",1,1,true);
+
+    private boolean name__is_set = false;
+
+    private java.lang.String name;
+
+    public java.lang.String getName() {
+      return name;
+    }
+
+    public void setName(java.lang.String name) {
+      this.name = name;
+      name__is_set = true;
+    }
+
+    /**
      * element : sobjectName of type {http://www.w3.org/2001/XMLSchema}string
      * java type: java.lang.String
      */
@@ -194,6 +214,7 @@ public class DescribeTab implements com.sforce.ws.bind.XMLizable {
        __typeMapper.writeObject(__out, icons__typeInfo, icons, icons__is_set);
        __typeMapper.writeString(__out, label__typeInfo, label, label__is_set);
        __typeMapper.writeString(__out, miniIconUrl__typeInfo, miniIconUrl, miniIconUrl__is_set);
+       __typeMapper.writeString(__out, name__typeInfo, name, name__is_set);
        __typeMapper.writeString(__out, sobjectName__typeInfo, sobjectName, sobjectName__is_set);
        __typeMapper.writeString(__out, url__typeInfo, url, url__is_set);
     }
@@ -233,6 +254,10 @@ public class DescribeTab implements com.sforce.ws.bind.XMLizable {
             setMiniIconUrl(__typeMapper.readString(__in, miniIconUrl__typeInfo, java.lang.String.class));
         }
         __in.peekTag();
+        if (__typeMapper.verifyElement(__in, name__typeInfo)) {
+            setName(__typeMapper.readString(__in, name__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
         if (__typeMapper.verifyElement(__in, sobjectName__typeInfo)) {
             setSobjectName(__typeMapper.readString(__in, sobjectName__typeInfo, java.lang.String.class));
         }
@@ -252,6 +277,7 @@ public class DescribeTab implements com.sforce.ws.bind.XMLizable {
       sb.append(" icons='").append(com.sforce.ws.util.Verbose.toString(icons)).append("'\n");
       sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
       sb.append(" miniIconUrl='").append(com.sforce.ws.util.Verbose.toString(miniIconUrl)).append("'\n");
+      sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
       sb.append(" sobjectName='").append(com.sforce.ws.util.Verbose.toString(sobjectName)).append("'\n");
       sb.append(" url='").append(com.sforce.ws.util.Verbose.toString(url)).append("'\n");
       sb.append("]\n");

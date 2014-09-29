@@ -371,6 +371,26 @@ public class DescribeSObjectResult implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : namedLayoutInfos of type {urn:partner.soap.sforce.com}NamedLayoutInfo
+     * java type: com.sforce.soap.partner.NamedLayoutInfo[]
+     */
+    private static final com.sforce.ws.bind.TypeInfo namedLayoutInfos__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","namedLayoutInfos","urn:partner.soap.sforce.com","NamedLayoutInfo",0,-1,true);
+
+    private boolean namedLayoutInfos__is_set = false;
+
+    private com.sforce.soap.partner.NamedLayoutInfo[] namedLayoutInfos = new com.sforce.soap.partner.NamedLayoutInfo[0];
+
+    public com.sforce.soap.partner.NamedLayoutInfo[] getNamedLayoutInfos() {
+      return namedLayoutInfos;
+    }
+
+    public void setNamedLayoutInfos(com.sforce.soap.partner.NamedLayoutInfo[] namedLayoutInfos) {
+      this.namedLayoutInfos = namedLayoutInfos;
+      namedLayoutInfos__is_set = true;
+    }
+
+    /**
      * element : queryable of type {http://www.w3.org/2001/XMLSchema}boolean
      * java type: boolean
      */
@@ -672,6 +692,7 @@ public class DescribeSObjectResult implements com.sforce.ws.bind.XMLizable {
        __typeMapper.writeBoolean(__out, layoutable__typeInfo, layoutable, layoutable__is_set);
        __typeMapper.writeBoolean(__out, mergeable__typeInfo, mergeable, mergeable__is_set);
        __typeMapper.writeString(__out, name__typeInfo, name, name__is_set);
+       __typeMapper.writeObject(__out, namedLayoutInfos__typeInfo, namedLayoutInfos, namedLayoutInfos__is_set);
        __typeMapper.writeBoolean(__out, queryable__typeInfo, queryable, queryable__is_set);
        __typeMapper.writeObject(__out, recordTypeInfos__typeInfo, recordTypeInfos, recordTypeInfos__is_set);
        __typeMapper.writeBoolean(__out, replicateable__typeInfo, replicateable, replicateable__is_set);
@@ -761,6 +782,10 @@ public class DescribeSObjectResult implements com.sforce.ws.bind.XMLizable {
             setName(__typeMapper.readString(__in, name__typeInfo, java.lang.String.class));
         }
         __in.peekTag();
+        if (__typeMapper.isElement(__in, namedLayoutInfos__typeInfo)) {
+            setNamedLayoutInfos((com.sforce.soap.partner.NamedLayoutInfo[])__typeMapper.readObject(__in, namedLayoutInfos__typeInfo, com.sforce.soap.partner.NamedLayoutInfo[].class));
+        }
+        __in.peekTag();
         if (__typeMapper.verifyElement(__in, queryable__typeInfo)) {
             setQueryable(__typeMapper.readBoolean(__in, queryable__typeInfo, boolean.class));
         }
@@ -830,6 +855,7 @@ public class DescribeSObjectResult implements com.sforce.ws.bind.XMLizable {
       sb.append(" layoutable='").append(com.sforce.ws.util.Verbose.toString(layoutable)).append("'\n");
       sb.append(" mergeable='").append(com.sforce.ws.util.Verbose.toString(mergeable)).append("'\n");
       sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
+      sb.append(" namedLayoutInfos='").append(com.sforce.ws.util.Verbose.toString(namedLayoutInfos)).append("'\n");
       sb.append(" queryable='").append(com.sforce.ws.util.Verbose.toString(queryable)).append("'\n");
       sb.append(" recordTypeInfos='").append(com.sforce.ws.util.Verbose.toString(recordTypeInfos)).append("'\n");
       sb.append(" replicateable='").append(com.sforce.ws.util.Verbose.toString(replicateable)).append("'\n");

@@ -11,6 +11,66 @@ public class DescribeLayoutButton implements com.sforce.ws.bind.XMLizable {
     public DescribeLayoutButton() {}
 
     /**
+     * element : behavior of type {urn:partner.soap.sforce.com}WebLinkWindowType
+     * java type: com.sforce.soap.partner.WebLinkWindowType
+     */
+    private static final com.sforce.ws.bind.TypeInfo behavior__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","behavior","urn:partner.soap.sforce.com","WebLinkWindowType",0,1,true);
+
+    private boolean behavior__is_set = false;
+
+    private com.sforce.soap.partner.WebLinkWindowType behavior;
+
+    public com.sforce.soap.partner.WebLinkWindowType getBehavior() {
+      return behavior;
+    }
+
+    public void setBehavior(com.sforce.soap.partner.WebLinkWindowType behavior) {
+      this.behavior = behavior;
+      behavior__is_set = true;
+    }
+
+    /**
+     * element : content of type {http://www.w3.org/2001/XMLSchema}string
+     * java type: java.lang.String
+     */
+    private static final com.sforce.ws.bind.TypeInfo content__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","content","http://www.w3.org/2001/XMLSchema","string",0,1,true);
+
+    private boolean content__is_set = false;
+
+    private java.lang.String content;
+
+    public java.lang.String getContent() {
+      return content;
+    }
+
+    public void setContent(java.lang.String content) {
+      this.content = content;
+      content__is_set = true;
+    }
+
+    /**
+     * element : contentSource of type {urn:partner.soap.sforce.com}WebLinkType
+     * java type: com.sforce.soap.partner.WebLinkType
+     */
+    private static final com.sforce.ws.bind.TypeInfo contentSource__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","contentSource","urn:partner.soap.sforce.com","WebLinkType",0,1,true);
+
+    private boolean contentSource__is_set = false;
+
+    private com.sforce.soap.partner.WebLinkType contentSource;
+
+    public com.sforce.soap.partner.WebLinkType getContentSource() {
+      return contentSource;
+    }
+
+    public void setContentSource(com.sforce.soap.partner.WebLinkType contentSource) {
+      this.contentSource = contentSource;
+      contentSource__is_set = true;
+    }
+
+    /**
      * element : custom of type {http://www.w3.org/2001/XMLSchema}boolean
      * java type: boolean
      */
@@ -32,6 +92,46 @@ public class DescribeLayoutButton implements com.sforce.ws.bind.XMLizable {
     public void setCustom(boolean custom) {
       this.custom = custom;
       custom__is_set = true;
+    }
+
+    /**
+     * element : encoding of type {http://www.w3.org/2001/XMLSchema}string
+     * java type: java.lang.String
+     */
+    private static final com.sforce.ws.bind.TypeInfo encoding__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","encoding","http://www.w3.org/2001/XMLSchema","string",0,1,true);
+
+    private boolean encoding__is_set = false;
+
+    private java.lang.String encoding;
+
+    public java.lang.String getEncoding() {
+      return encoding;
+    }
+
+    public void setEncoding(java.lang.String encoding) {
+      this.encoding = encoding;
+      encoding__is_set = true;
+    }
+
+    /**
+     * element : height of type {http://www.w3.org/2001/XMLSchema}int
+     * java type: java.lang.Integer
+     */
+    private static final com.sforce.ws.bind.TypeInfo height__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","height","http://www.w3.org/2001/XMLSchema","int",0,1,true);
+
+    private boolean height__is_set = false;
+
+    private java.lang.Integer height;
+
+    public java.lang.Integer getHeight() {
+      return height;
+    }
+
+    public void setHeight(java.lang.Integer height) {
+      this.height = height;
+      height__is_set = true;
     }
 
     /**
@@ -75,6 +175,26 @@ public class DescribeLayoutButton implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : menubar of type {http://www.w3.org/2001/XMLSchema}boolean
+     * java type: java.lang.Boolean
+     */
+    private static final com.sforce.ws.bind.TypeInfo menubar__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","menubar","http://www.w3.org/2001/XMLSchema","boolean",1,1,true);
+
+    private boolean menubar__is_set = false;
+
+    private java.lang.Boolean menubar;
+
+    public java.lang.Boolean getMenubar() {
+      return menubar;
+    }
+
+    public void setMenubar(java.lang.Boolean menubar) {
+      this.menubar = menubar;
+      menubar__is_set = true;
+    }
+
+    /**
      * element : name of type {http://www.w3.org/2001/XMLSchema}string
      * java type: java.lang.String
      */
@@ -95,6 +215,190 @@ public class DescribeLayoutButton implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : overridden of type {http://www.w3.org/2001/XMLSchema}boolean
+     * java type: boolean
+     */
+    private static final com.sforce.ws.bind.TypeInfo overridden__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","overridden","http://www.w3.org/2001/XMLSchema","boolean",1,1,true);
+
+    private boolean overridden__is_set = false;
+
+    private boolean overridden;
+
+    public boolean getOverridden() {
+      return overridden;
+    }
+
+    public boolean isOverridden() {
+      return overridden;
+    }
+
+    public void setOverridden(boolean overridden) {
+      this.overridden = overridden;
+      overridden__is_set = true;
+    }
+
+    /**
+     * element : resizeable of type {http://www.w3.org/2001/XMLSchema}boolean
+     * java type: java.lang.Boolean
+     */
+    private static final com.sforce.ws.bind.TypeInfo resizeable__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","resizeable","http://www.w3.org/2001/XMLSchema","boolean",1,1,true);
+
+    private boolean resizeable__is_set = false;
+
+    private java.lang.Boolean resizeable;
+
+    public java.lang.Boolean getResizeable() {
+      return resizeable;
+    }
+
+    public void setResizeable(java.lang.Boolean resizeable) {
+      this.resizeable = resizeable;
+      resizeable__is_set = true;
+    }
+
+    /**
+     * element : scrollbars of type {http://www.w3.org/2001/XMLSchema}boolean
+     * java type: java.lang.Boolean
+     */
+    private static final com.sforce.ws.bind.TypeInfo scrollbars__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","scrollbars","http://www.w3.org/2001/XMLSchema","boolean",1,1,true);
+
+    private boolean scrollbars__is_set = false;
+
+    private java.lang.Boolean scrollbars;
+
+    public java.lang.Boolean getScrollbars() {
+      return scrollbars;
+    }
+
+    public void setScrollbars(java.lang.Boolean scrollbars) {
+      this.scrollbars = scrollbars;
+      scrollbars__is_set = true;
+    }
+
+    /**
+     * element : showsLocation of type {http://www.w3.org/2001/XMLSchema}boolean
+     * java type: java.lang.Boolean
+     */
+    private static final com.sforce.ws.bind.TypeInfo showsLocation__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","showsLocation","http://www.w3.org/2001/XMLSchema","boolean",1,1,true);
+
+    private boolean showsLocation__is_set = false;
+
+    private java.lang.Boolean showsLocation;
+
+    public java.lang.Boolean getShowsLocation() {
+      return showsLocation;
+    }
+
+    public void setShowsLocation(java.lang.Boolean showsLocation) {
+      this.showsLocation = showsLocation;
+      showsLocation__is_set = true;
+    }
+
+    /**
+     * element : showsStatus of type {http://www.w3.org/2001/XMLSchema}boolean
+     * java type: java.lang.Boolean
+     */
+    private static final com.sforce.ws.bind.TypeInfo showsStatus__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","showsStatus","http://www.w3.org/2001/XMLSchema","boolean",1,1,true);
+
+    private boolean showsStatus__is_set = false;
+
+    private java.lang.Boolean showsStatus;
+
+    public java.lang.Boolean getShowsStatus() {
+      return showsStatus;
+    }
+
+    public void setShowsStatus(java.lang.Boolean showsStatus) {
+      this.showsStatus = showsStatus;
+      showsStatus__is_set = true;
+    }
+
+    /**
+     * element : toolbar of type {http://www.w3.org/2001/XMLSchema}boolean
+     * java type: java.lang.Boolean
+     */
+    private static final com.sforce.ws.bind.TypeInfo toolbar__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","toolbar","http://www.w3.org/2001/XMLSchema","boolean",1,1,true);
+
+    private boolean toolbar__is_set = false;
+
+    private java.lang.Boolean toolbar;
+
+    public java.lang.Boolean getToolbar() {
+      return toolbar;
+    }
+
+    public void setToolbar(java.lang.Boolean toolbar) {
+      this.toolbar = toolbar;
+      toolbar__is_set = true;
+    }
+
+    /**
+     * element : url of type {http://www.w3.org/2001/XMLSchema}string
+     * java type: java.lang.String
+     */
+    private static final com.sforce.ws.bind.TypeInfo url__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","url","http://www.w3.org/2001/XMLSchema","string",0,1,true);
+
+    private boolean url__is_set = false;
+
+    private java.lang.String url;
+
+    public java.lang.String getUrl() {
+      return url;
+    }
+
+    public void setUrl(java.lang.String url) {
+      this.url = url;
+      url__is_set = true;
+    }
+
+    /**
+     * element : width of type {http://www.w3.org/2001/XMLSchema}int
+     * java type: java.lang.Integer
+     */
+    private static final com.sforce.ws.bind.TypeInfo width__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","width","http://www.w3.org/2001/XMLSchema","int",0,1,true);
+
+    private boolean width__is_set = false;
+
+    private java.lang.Integer width;
+
+    public java.lang.Integer getWidth() {
+      return width;
+    }
+
+    public void setWidth(java.lang.Integer width) {
+      this.width = width;
+      width__is_set = true;
+    }
+
+    /**
+     * element : windowPosition of type {urn:partner.soap.sforce.com}WebLinkPosition
+     * java type: com.sforce.soap.partner.WebLinkPosition
+     */
+    private static final com.sforce.ws.bind.TypeInfo windowPosition__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","windowPosition","urn:partner.soap.sforce.com","WebLinkPosition",0,1,true);
+
+    private boolean windowPosition__is_set = false;
+
+    private com.sforce.soap.partner.WebLinkPosition windowPosition;
+
+    public com.sforce.soap.partner.WebLinkPosition getWindowPosition() {
+      return windowPosition;
+    }
+
+    public void setWindowPosition(com.sforce.soap.partner.WebLinkPosition windowPosition) {
+      this.windowPosition = windowPosition;
+      windowPosition__is_set = true;
+    }
+
+    /**
      */
     @Override
     public void write(javax.xml.namespace.QName __element,
@@ -108,10 +412,25 @@ public class DescribeLayoutButton implements com.sforce.ws.bind.XMLizable {
     protected void writeFields(com.sforce.ws.parser.XmlOutputStream __out,
          com.sforce.ws.bind.TypeMapper __typeMapper)
          throws java.io.IOException {
+       __typeMapper.writeObject(__out, behavior__typeInfo, behavior, behavior__is_set);
+       __typeMapper.writeString(__out, content__typeInfo, content, content__is_set);
+       __typeMapper.writeObject(__out, contentSource__typeInfo, contentSource, contentSource__is_set);
        __typeMapper.writeBoolean(__out, custom__typeInfo, custom, custom__is_set);
+       __typeMapper.writeString(__out, encoding__typeInfo, encoding, encoding__is_set);
+       __typeMapper.writeObject(__out, height__typeInfo, height, height__is_set);
        __typeMapper.writeObject(__out, icons__typeInfo, icons, icons__is_set);
        __typeMapper.writeString(__out, label__typeInfo, label, label__is_set);
+       __typeMapper.writeObject(__out, menubar__typeInfo, menubar, menubar__is_set);
        __typeMapper.writeString(__out, name__typeInfo, name, name__is_set);
+       __typeMapper.writeBoolean(__out, overridden__typeInfo, overridden, overridden__is_set);
+       __typeMapper.writeObject(__out, resizeable__typeInfo, resizeable, resizeable__is_set);
+       __typeMapper.writeObject(__out, scrollbars__typeInfo, scrollbars, scrollbars__is_set);
+       __typeMapper.writeObject(__out, showsLocation__typeInfo, showsLocation, showsLocation__is_set);
+       __typeMapper.writeObject(__out, showsStatus__typeInfo, showsStatus, showsStatus__is_set);
+       __typeMapper.writeObject(__out, toolbar__typeInfo, toolbar, toolbar__is_set);
+       __typeMapper.writeString(__out, url__typeInfo, url, url__is_set);
+       __typeMapper.writeObject(__out, width__typeInfo, width, width__is_set);
+       __typeMapper.writeObject(__out, windowPosition__typeInfo, windowPosition, windowPosition__is_set);
     }
 
     @Override
@@ -125,8 +444,28 @@ public class DescribeLayoutButton implements com.sforce.ws.bind.XMLizable {
     protected void loadFields(com.sforce.ws.parser.XmlInputStream __in,
         com.sforce.ws.bind.TypeMapper __typeMapper) throws java.io.IOException, com.sforce.ws.ConnectionException {
         __in.peekTag();
+        if (__typeMapper.isElement(__in, behavior__typeInfo)) {
+            setBehavior((com.sforce.soap.partner.WebLinkWindowType)__typeMapper.readObject(__in, behavior__typeInfo, com.sforce.soap.partner.WebLinkWindowType.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, content__typeInfo)) {
+            setContent(__typeMapper.readString(__in, content__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, contentSource__typeInfo)) {
+            setContentSource((com.sforce.soap.partner.WebLinkType)__typeMapper.readObject(__in, contentSource__typeInfo, com.sforce.soap.partner.WebLinkType.class));
+        }
+        __in.peekTag();
         if (__typeMapper.verifyElement(__in, custom__typeInfo)) {
             setCustom(__typeMapper.readBoolean(__in, custom__typeInfo, boolean.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, encoding__typeInfo)) {
+            setEncoding(__typeMapper.readString(__in, encoding__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, height__typeInfo)) {
+            setHeight((java.lang.Integer)__typeMapper.readObject(__in, height__typeInfo, java.lang.Integer.class));
         }
         __in.peekTag();
         if (__typeMapper.isElement(__in, icons__typeInfo)) {
@@ -137,8 +476,48 @@ public class DescribeLayoutButton implements com.sforce.ws.bind.XMLizable {
             setLabel(__typeMapper.readString(__in, label__typeInfo, java.lang.String.class));
         }
         __in.peekTag();
+        if (__typeMapper.verifyElement(__in, menubar__typeInfo)) {
+            setMenubar((java.lang.Boolean)__typeMapper.readObject(__in, menubar__typeInfo, java.lang.Boolean.class));
+        }
+        __in.peekTag();
         if (__typeMapper.verifyElement(__in, name__typeInfo)) {
             setName(__typeMapper.readString(__in, name__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, overridden__typeInfo)) {
+            setOverridden(__typeMapper.readBoolean(__in, overridden__typeInfo, boolean.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, resizeable__typeInfo)) {
+            setResizeable((java.lang.Boolean)__typeMapper.readObject(__in, resizeable__typeInfo, java.lang.Boolean.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, scrollbars__typeInfo)) {
+            setScrollbars((java.lang.Boolean)__typeMapper.readObject(__in, scrollbars__typeInfo, java.lang.Boolean.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, showsLocation__typeInfo)) {
+            setShowsLocation((java.lang.Boolean)__typeMapper.readObject(__in, showsLocation__typeInfo, java.lang.Boolean.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, showsStatus__typeInfo)) {
+            setShowsStatus((java.lang.Boolean)__typeMapper.readObject(__in, showsStatus__typeInfo, java.lang.Boolean.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, toolbar__typeInfo)) {
+            setToolbar((java.lang.Boolean)__typeMapper.readObject(__in, toolbar__typeInfo, java.lang.Boolean.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, url__typeInfo)) {
+            setUrl(__typeMapper.readString(__in, url__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, width__typeInfo)) {
+            setWidth((java.lang.Integer)__typeMapper.readObject(__in, width__typeInfo, java.lang.Integer.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.isElement(__in, windowPosition__typeInfo)) {
+            setWindowPosition((com.sforce.soap.partner.WebLinkPosition)__typeMapper.readObject(__in, windowPosition__typeInfo, com.sforce.soap.partner.WebLinkPosition.class));
         }
     }
 
@@ -146,10 +525,25 @@ public class DescribeLayoutButton implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeLayoutButton ");
+      sb.append(" behavior='").append(com.sforce.ws.util.Verbose.toString(behavior)).append("'\n");
+      sb.append(" content='").append(com.sforce.ws.util.Verbose.toString(content)).append("'\n");
+      sb.append(" contentSource='").append(com.sforce.ws.util.Verbose.toString(contentSource)).append("'\n");
       sb.append(" custom='").append(com.sforce.ws.util.Verbose.toString(custom)).append("'\n");
+      sb.append(" encoding='").append(com.sforce.ws.util.Verbose.toString(encoding)).append("'\n");
+      sb.append(" height='").append(com.sforce.ws.util.Verbose.toString(height)).append("'\n");
       sb.append(" icons='").append(com.sforce.ws.util.Verbose.toString(icons)).append("'\n");
       sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
+      sb.append(" menubar='").append(com.sforce.ws.util.Verbose.toString(menubar)).append("'\n");
       sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
+      sb.append(" overridden='").append(com.sforce.ws.util.Verbose.toString(overridden)).append("'\n");
+      sb.append(" resizeable='").append(com.sforce.ws.util.Verbose.toString(resizeable)).append("'\n");
+      sb.append(" scrollbars='").append(com.sforce.ws.util.Verbose.toString(scrollbars)).append("'\n");
+      sb.append(" showsLocation='").append(com.sforce.ws.util.Verbose.toString(showsLocation)).append("'\n");
+      sb.append(" showsStatus='").append(com.sforce.ws.util.Verbose.toString(showsStatus)).append("'\n");
+      sb.append(" toolbar='").append(com.sforce.ws.util.Verbose.toString(toolbar)).append("'\n");
+      sb.append(" url='").append(com.sforce.ws.util.Verbose.toString(url)).append("'\n");
+      sb.append(" width='").append(com.sforce.ws.util.Verbose.toString(width)).append("'\n");
+      sb.append(" windowPosition='").append(com.sforce.ws.util.Verbose.toString(windowPosition)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }
