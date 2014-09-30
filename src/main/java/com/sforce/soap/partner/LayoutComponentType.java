@@ -58,6 +58,18 @@ public enum LayoutComponentType {
 	 */
 	AuraComponent("AuraComponent"),
 
+  
+	/**
+	 * Enumeration  : Canvas
+	 */
+	Canvas("Canvas"),
+
+  
+	/**
+	 * Enumeration  : CustomLink
+	 */
+	CustomLink("CustomLink"),
+
 ;
 
 	public static Map<String, String> valuesToEnums;

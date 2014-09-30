@@ -31,6 +31,26 @@ public class DescribeLayout_element implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : layoutName of type {http://www.w3.org/2001/XMLSchema}string
+     * java type: java.lang.String
+     */
+    private static final com.sforce.ws.bind.TypeInfo layoutName__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","layoutName","http://www.w3.org/2001/XMLSchema","string",1,1,true);
+
+    private boolean layoutName__is_set = false;
+
+    private java.lang.String layoutName;
+
+    public java.lang.String getLayoutName() {
+      return layoutName;
+    }
+
+    public void setLayoutName(java.lang.String layoutName) {
+      this.layoutName = layoutName;
+      layoutName__is_set = true;
+    }
+
+    /**
      * element : recordTypeIds of type {urn:partner.soap.sforce.com}ID
      * java type: java.lang.String[]
      */
@@ -65,6 +85,7 @@ public class DescribeLayout_element implements com.sforce.ws.bind.XMLizable {
          com.sforce.ws.bind.TypeMapper __typeMapper)
          throws java.io.IOException {
        __typeMapper.writeString(__out, sObjectType__typeInfo, sObjectType, sObjectType__is_set);
+       __typeMapper.writeString(__out, layoutName__typeInfo, layoutName, layoutName__is_set);
        __typeMapper.writeObject(__out, recordTypeIds__typeInfo, recordTypeIds, recordTypeIds__is_set);
     }
 
@@ -83,6 +104,10 @@ public class DescribeLayout_element implements com.sforce.ws.bind.XMLizable {
             setSObjectType(__typeMapper.readString(__in, sObjectType__typeInfo, java.lang.String.class));
         }
         __in.peekTag();
+        if (__typeMapper.verifyElement(__in, layoutName__typeInfo)) {
+            setLayoutName(__typeMapper.readString(__in, layoutName__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
         if (__typeMapper.isElement(__in, recordTypeIds__typeInfo)) {
             setRecordTypeIds((java.lang.String[])__typeMapper.readObject(__in, recordTypeIds__typeInfo, java.lang.String[].class));
         }
@@ -93,6 +118,7 @@ public class DescribeLayout_element implements com.sforce.ws.bind.XMLizable {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeLayout_element ");
       sb.append(" sObjectType='").append(com.sforce.ws.util.Verbose.toString(sObjectType)).append("'\n");
+      sb.append(" layoutName='").append(com.sforce.ws.util.Verbose.toString(layoutName)).append("'\n");
       sb.append(" recordTypeIds='").append(com.sforce.ws.util.Verbose.toString(recordTypeIds)).append("'\n");
       sb.append("]\n");
       return sb.toString();

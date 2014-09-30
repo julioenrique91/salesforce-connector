@@ -91,6 +91,26 @@ public class DescribeLayoutSection implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : tabOrder of type {urn:partner.soap.sforce.com}TabOrderType
+     * java type: com.sforce.soap.partner.TabOrderType
+     */
+    private static final com.sforce.ws.bind.TypeInfo tabOrder__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","tabOrder","urn:partner.soap.sforce.com","TabOrderType",1,1,true);
+
+    private boolean tabOrder__is_set = false;
+
+    private com.sforce.soap.partner.TabOrderType tabOrder;
+
+    public com.sforce.soap.partner.TabOrderType getTabOrder() {
+      return tabOrder;
+    }
+
+    public void setTabOrder(com.sforce.soap.partner.TabOrderType tabOrder) {
+      this.tabOrder = tabOrder;
+      tabOrder__is_set = true;
+    }
+
+    /**
      * element : useCollapsibleSection of type {http://www.w3.org/2001/XMLSchema}boolean
      * java type: boolean
      */
@@ -156,6 +176,7 @@ public class DescribeLayoutSection implements com.sforce.ws.bind.XMLizable {
        __typeMapper.writeString(__out, heading__typeInfo, heading, heading__is_set);
        __typeMapper.writeObject(__out, layoutRows__typeInfo, layoutRows, layoutRows__is_set);
        __typeMapper.writeInt(__out, rows__typeInfo, rows, rows__is_set);
+       __typeMapper.writeObject(__out, tabOrder__typeInfo, tabOrder, tabOrder__is_set);
        __typeMapper.writeBoolean(__out, useCollapsibleSection__typeInfo, useCollapsibleSection, useCollapsibleSection__is_set);
        __typeMapper.writeBoolean(__out, useHeading__typeInfo, useHeading, useHeading__is_set);
     }
@@ -187,6 +208,10 @@ public class DescribeLayoutSection implements com.sforce.ws.bind.XMLizable {
             setRows((int)__typeMapper.readInt(__in, rows__typeInfo, int.class));
         }
         __in.peekTag();
+        if (__typeMapper.verifyElement(__in, tabOrder__typeInfo)) {
+            setTabOrder((com.sforce.soap.partner.TabOrderType)__typeMapper.readObject(__in, tabOrder__typeInfo, com.sforce.soap.partner.TabOrderType.class));
+        }
+        __in.peekTag();
         if (__typeMapper.verifyElement(__in, useCollapsibleSection__typeInfo)) {
             setUseCollapsibleSection(__typeMapper.readBoolean(__in, useCollapsibleSection__typeInfo, boolean.class));
         }
@@ -204,6 +229,7 @@ public class DescribeLayoutSection implements com.sforce.ws.bind.XMLizable {
       sb.append(" heading='").append(com.sforce.ws.util.Verbose.toString(heading)).append("'\n");
       sb.append(" layoutRows='").append(com.sforce.ws.util.Verbose.toString(layoutRows)).append("'\n");
       sb.append(" rows='").append(com.sforce.ws.util.Verbose.toString(rows)).append("'\n");
+      sb.append(" tabOrder='").append(com.sforce.ws.util.Verbose.toString(tabOrder)).append("'\n");
       sb.append(" useCollapsibleSection='").append(com.sforce.ws.util.Verbose.toString(useCollapsibleSection)).append("'\n");
       sb.append(" useHeading='").append(com.sforce.ws.util.Verbose.toString(useHeading)).append("'\n");
       sb.append("]\n");

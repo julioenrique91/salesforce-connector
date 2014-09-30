@@ -55,6 +55,26 @@ public class ReportChartComponent extends com.sforce.soap.partner.DescribeLayout
     }
 
     /**
+     * element : error of type {http://www.w3.org/2001/XMLSchema}string
+     * java type: java.lang.String
+     */
+    private static final com.sforce.ws.bind.TypeInfo error__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","error","http://www.w3.org/2001/XMLSchema","string",1,1,true);
+
+    private boolean error__is_set = false;
+
+    private java.lang.String error;
+
+    public java.lang.String getError() {
+      return error;
+    }
+
+    public void setError(java.lang.String error) {
+      this.error = error;
+      error__is_set = true;
+    }
+
+    /**
      * element : hideOnError of type {http://www.w3.org/2001/XMLSchema}boolean
      * java type: boolean
      */
@@ -164,6 +184,7 @@ public class ReportChartComponent extends com.sforce.soap.partner.DescribeLayout
        super.writeFields(__out, __typeMapper);
        __typeMapper.writeBoolean(__out, cacheData__typeInfo, cacheData, cacheData__is_set);
        __typeMapper.writeString(__out, contextFilterableField__typeInfo, contextFilterableField, contextFilterableField__is_set);
+       __typeMapper.writeString(__out, error__typeInfo, error, error__is_set);
        __typeMapper.writeBoolean(__out, hideOnError__typeInfo, hideOnError, hideOnError__is_set);
        __typeMapper.writeBoolean(__out, includeContext__typeInfo, includeContext, includeContext__is_set);
        __typeMapper.writeBoolean(__out, showTitle__typeInfo, showTitle, showTitle__is_set);
@@ -190,6 +211,10 @@ public class ReportChartComponent extends com.sforce.soap.partner.DescribeLayout
             setContextFilterableField(__typeMapper.readString(__in, contextFilterableField__typeInfo, java.lang.String.class));
         }
         __in.peekTag();
+        if (__typeMapper.verifyElement(__in, error__typeInfo)) {
+            setError(__typeMapper.readString(__in, error__typeInfo, java.lang.String.class));
+        }
+        __in.peekTag();
         if (__typeMapper.verifyElement(__in, hideOnError__typeInfo)) {
             setHideOnError(__typeMapper.readBoolean(__in, hideOnError__typeInfo, boolean.class));
         }
@@ -213,6 +238,7 @@ public class ReportChartComponent extends com.sforce.soap.partner.DescribeLayout
       sb.append("[ReportChartComponent ");
       sb.append(super.toString());sb.append(" cacheData='").append(com.sforce.ws.util.Verbose.toString(cacheData)).append("'\n");
       sb.append(" contextFilterableField='").append(com.sforce.ws.util.Verbose.toString(contextFilterableField)).append("'\n");
+      sb.append(" error='").append(com.sforce.ws.util.Verbose.toString(error)).append("'\n");
       sb.append(" hideOnError='").append(com.sforce.ws.util.Verbose.toString(hideOnError)).append("'\n");
       sb.append(" includeContext='").append(com.sforce.ws.util.Verbose.toString(includeContext)).append("'\n");
       sb.append(" showTitle='").append(com.sforce.ws.util.Verbose.toString(showTitle)).append("'\n");

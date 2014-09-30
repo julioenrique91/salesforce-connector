@@ -20,6 +20,7 @@
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
         <jetty.client.version>8.1.13.v20130916</jetty.client.version>
         <wsc.version>31.0.0-hf1</wsc.version>
+        <connector.test.version>2.0.3</connector.test.version>
     </properties>
 
     <build>
