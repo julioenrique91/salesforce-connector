@@ -51,9 +51,12 @@ import org.mule.modules.salesforce.automation.testcases.*;
 	UpsertBulkTestCases.class,
 	CreateSingleTestCases.class,
 	GetUpdatedRangeTestCases.class,
-	UpsertTestCases.class
-	
-		})
+	UpsertTestCases.class,
+    CreateMetadataTestCases.class,
+    DeleteMetadataTestCases.class,
+    DescribeMetadataTestCases.class
+
+})
 
 public class SmokeTestSuite {
 	
