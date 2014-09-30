@@ -379,7 +379,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
-	public DescribeMetadataResult describeMetadata(@MetaDataKeyParam String type)
+	public DescribeMetadataResult describeMetadata()
 			throws Exception {
 
 		return getMetadataConnection().describeMetadata(31.0);
