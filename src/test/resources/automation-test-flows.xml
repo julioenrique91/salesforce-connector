@@ -328,4 +328,16 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
         <sfdc:rename-metadata config-ref="Salesforce" type="#[payload.type]" newFullName="#[payload.newFullName]" oldFullName="#[payload.oldFullName]" />
     </flow>
 
+    <flow name="update-metadata">
+        <sfdc:update-metadata config-ref="Salesforce" type="#[payload.type]">
+            <sfdc:objects ref="#[payload.objects]" />
+        </sfdc:update-metadata>
+    </flow>
+
+    <flow name="upsert-metadata">
+        <sfdc:upsert-metadata config-ref="Salesforce" type="#[payload.type]">
+            <sfdc:objects ref="#[payload.objects]" />
+        </sfdc:upsert-metadata>
+    </flow>
+
 </mule>

@@ -63,7 +63,9 @@ import org.mule.modules.salesforce.automation.testcases.*;
     DeleteMetadataTestCases.class,
     ListMetadataTestCases.class,
     DescribeMetadataTestCases.class,
-    RenameMetadataTestCases.class
+    RenameMetadataTestCases.class,
+    UpdateMetadataTestCases.class,
+    UpsertMetadataTestCases.class
 })
 
 public class RegressionTestSuite {
