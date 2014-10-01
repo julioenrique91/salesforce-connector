@@ -15,6 +15,7 @@ import java.net.URL;
 
 import org.apache.log4j.Logger;
 import org.mule.RequestContext;
+import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.oauth.OAuth2;
@@ -152,11 +153,30 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         String restEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/async/31.0";
         config.setRestEndpoint(restEndpoint);
 
-        this.bulkConnection = new BulkConnection(config);
+		this.bulkConnection = new BulkConnection(config);
 
-        this.processSubscriptions();
+		String metadataendpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/m/31.0/" + doTheUglyParsingToGetTheOrganizationId(userId);
+		
+		ConnectorConfig metadataConfig = new ConnectorConfig();
+		metadataConfig.setServiceEndpoint(metadataendpoint);
+		metadataConfig.setManualLogin(true);
+		metadataConfig.setCompression(false);
+		metadataConfig.setSessionId(accessToken);
+		metadataConnection = new MetadataConnection(metadataConfig);
+		
+
+		this.processSubscriptions();
 
         RequestContext.getEvent().setFlowVariable("remoteUserId", userId);
+    }
+    
+    //TODO: This needs to be changed to a better solution for retrieving the metadata url from Salesforce!!!
+    private String doTheUglyParsingToGetTheOrganizationId(String url){
+    	String[] splitUrl = url.split("/");
+    	if (splitUrl != null & splitUrl.length > 1){
+    		return splitUrl[splitUrl.length - 2];
+    	}
+    	return "";
     }
 
     public String getConsumerKey() {
