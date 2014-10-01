@@ -30,10 +30,10 @@ public class MetadataRequestProcessor {
 		MetadataType metadataType = MetadataType.valueOf(type);
 		
 		switch(metadataType) {
-			case EXTERNAL_DATA_SOURCE:
+			case ExternalDataSource:
 				request =  ExternalDataSourceRequestProcessor.processRequest(request);
 				break;
-			case REMOTE_SITE_SETTING:
+			case RemoteSiteSetting:
 				request = RemoteSiteSettingRequestProcessor.processRequest(request);
 				break;
 			default:

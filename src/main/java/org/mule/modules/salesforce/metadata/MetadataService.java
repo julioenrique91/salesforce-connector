@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.jdto.DTOBinderFactory;
-import org.mule.modules.salesforce.api.SalesforceExceptionHandlerAdapter;
 import org.mule.modules.salesforce.metadata.type.MetadataOperationType;
 import org.mule.modules.salesforce.metadata.type.MetadataType;
 
@@ -42,7 +41,6 @@ public class MetadataService {
 			List<Map<String, Object>> request,
 			MetadataOperationType metadataOperation) throws Exception {
 
-//		try {
 			List<SaveResult> results;
 			MetadataType metadataType = MetadataType.valueOf(type);
 			switch (metadataOperation) {
@@ -60,63 +58,42 @@ public class MetadataService {
 				results = new ArrayList<SaveResult>();
 			}
 			return results;
-//		} catch (Exception e) {
-//			throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
-//		}
-
 	}
 
 	public static List<UpsertResult> callUpsertService(
 			MetadataConnection connection, String type,
 			List<Map<String, Object>> request) throws Exception {
 
-//		try {
 			MetadataType metadataType = MetadataType.valueOf(type);
 			return Arrays.asList(connection.upsertMetadata(getMetadataObjects(
 					metadataType, request)));
-//		} catch (Exception e) {
-//			throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
-//		}
-
 	}
 
 	public static List<DeleteResult> callDeleteService(
 			MetadataConnection connection, String type, List<String> fullNames)
 			throws Exception {
 
-//		try {
 			MetadataType metadataType = MetadataType.valueOf(type);
 			return Arrays.asList(connection.deleteMetadata(
 					metadataType.getDisplayName(),
 					fullNames.toArray(new String[fullNames.size()])));
-//		} catch (Exception e) {
-//			throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
-//		}
 	}
 
 	public static ReadResult callReadService(MetadataConnection connection,
 			String type, List<String> fullNames) throws Exception {
 
-//		try {
 			MetadataType metadataType = MetadataType.valueOf(type);
 			return connection.readMetadata(metadataType.getDisplayName(),
 					fullNames.toArray(new String[fullNames.size()]));
-//		} catch (Exception e) {
-//			throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
-//		}
 	}
 
 	public static SaveResult callRenameService(MetadataConnection connection,
 			String type, String oldFullName, String newFullName)
 			throws Exception {
 
-//		try {
 			MetadataType metadataType = MetadataType.valueOf(type);
 			return connection.renameMetadata(metadataType.getDisplayName(),
 					oldFullName, newFullName);
-//		} catch (Exception e) {
-//			throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
-//		}
 	}
 
 	private static Metadata[] getMetadataObjects(MetadataType metadataType,

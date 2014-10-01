@@ -10,7 +10,6 @@
 
 package org.mule.modules.salesforce.metadata.type;
 
-import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Mulesoft, Inc
@@ -18,8 +17,8 @@ import org.apache.commons.lang.StringUtils;
 public enum MetadataType {
 /*    CUSTOM_OBJECT("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomObject.class, "Custom Object"),
     CUSTOM_FIELD("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomField.class, "Custom Field"),*/
-    EXTERNAL_DATA_SOURCE("com.sforce.soap.metadata", com.sforce.soap.metadata.ExternalDataSource.class, "ExternalDataSource"),
-    REMOTE_SITE_SETTING("com.sforce.soap.metadata", com.sforce.soap.metadata.RemoteSiteSetting.class,"RemoteSiteSetting");
+    ExternalDataSource("com.sforce.soap.metadata", com.sforce.soap.metadata.ExternalDataSource.class, "ExternalDataSource"),
+    RemoteSiteSetting("com.sforce.soap.metadata", com.sforce.soap.metadata.RemoteSiteSetting.class,"RemoteSiteSetting");
 
     String entityPackage;
     Class<? extends com.sforce.soap.metadata.Metadata> metadataEntityClass;
@@ -38,10 +37,6 @@ public enum MetadataType {
 
     public Class<? extends com.sforce.soap.metadata.Metadata> getMetadataEntityClass() {
         return this.metadataEntityClass;
-    }
-
-    public String getServiceNowEndpoint() {
-        return String.format("/%s.do?SOAP", StringUtils.lowerCase(this.toString()));
     }
 
     public String getDisplayName() {
