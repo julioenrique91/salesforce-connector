@@ -131,6 +131,26 @@ public class DescribeCompactLayout implements com.sforce.ws.bind.XMLizable {
     }
 
     /**
+     * element : objectType of type {http://www.w3.org/2001/XMLSchema}string
+     * java type: java.lang.String
+     */
+    private static final com.sforce.ws.bind.TypeInfo objectType__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","objectType","http://www.w3.org/2001/XMLSchema","string",1,1,true);
+
+    private boolean objectType__is_set = false;
+
+    private java.lang.String objectType;
+
+    public java.lang.String getObjectType() {
+      return objectType;
+    }
+
+    public void setObjectType(java.lang.String objectType) {
+      this.objectType = objectType;
+      objectType__is_set = true;
+    }
+
+    /**
      */
     @Override
     public void write(javax.xml.namespace.QName __element,
@@ -150,6 +170,7 @@ public class DescribeCompactLayout implements com.sforce.ws.bind.XMLizable {
        __typeMapper.writeObject(__out, imageItems__typeInfo, imageItems, imageItems__is_set);
        __typeMapper.writeString(__out, label__typeInfo, label, label__is_set);
        __typeMapper.writeString(__out, name__typeInfo, name, name__is_set);
+       __typeMapper.writeString(__out, objectType__typeInfo, objectType, objectType__is_set);
     }
 
     @Override
@@ -186,6 +207,10 @@ public class DescribeCompactLayout implements com.sforce.ws.bind.XMLizable {
         if (__typeMapper.verifyElement(__in, name__typeInfo)) {
             setName(__typeMapper.readString(__in, name__typeInfo, java.lang.String.class));
         }
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, objectType__typeInfo)) {
+            setObjectType(__typeMapper.readString(__in, objectType__typeInfo, java.lang.String.class));
+        }
     }
 
     @Override
@@ -198,6 +223,7 @@ public class DescribeCompactLayout implements com.sforce.ws.bind.XMLizable {
       sb.append(" imageItems='").append(com.sforce.ws.util.Verbose.toString(imageItems)).append("'\n");
       sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
       sb.append(" name='").append(com.sforce.ws.util.Verbose.toString(name)).append("'\n");
+      sb.append(" objectType='").append(com.sforce.ws.util.Verbose.toString(objectType)).append("'\n");
       sb.append("]\n");
       return sb.toString();
     }

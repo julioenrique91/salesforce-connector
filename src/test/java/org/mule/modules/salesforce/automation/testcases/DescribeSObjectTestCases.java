@@ -26,11 +26,11 @@ public class DescribeSObjectTestCases extends SalesforceTestParent {
 	
     @Category({RegressionTests.class})
 	@Test
-	public void testDescribeSObject() {
+	public void testDescribeSObjectForAccount() {
     	
 		try {
 			
-			loadTestRunMessage("describeSObjectTestData");
+			loadTestRunMessage("describeSObjectAccountTestData");
 			
 			DescribeSObjectResult describeSObjectResult = runFlowAndGetPayload("describe-sobject");
 			String sObjectName = describeSObjectResult.getName();
@@ -42,5 +42,24 @@ public class DescribeSObjectTestCases extends SalesforceTestParent {
 		}
      
 	}
+    
+    @Category({RegressionTests.class})
+   	@Test
+   	public void testDescribeSObjectForUser() {
+       	
+   		try {
+   			
+   			loadTestRunMessage("describeSObjectUserTestData");
+   			
+   			DescribeSObjectResult describeSObjectResult = runFlowAndGetPayload("describe-sobject");
+   			String sObjectName = describeSObjectResult.getName();
+
+   	        assertTrue(sObjectName.equals(getTestRunMessageValue("type")));
+
+   		} catch (Exception e) {
+   			fail(ConnectorTestUtils.getStackTrace(e));
+   		}
+        
+   	}
 
 }

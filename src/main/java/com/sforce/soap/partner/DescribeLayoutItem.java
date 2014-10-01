@@ -11,27 +11,51 @@ public class DescribeLayoutItem implements com.sforce.ws.bind.XMLizable {
     public DescribeLayoutItem() {}
 
     /**
-     * element : editable of type {http://www.w3.org/2001/XMLSchema}boolean
+     * element : editableForNew of type {http://www.w3.org/2001/XMLSchema}boolean
      * java type: boolean
      */
-    private static final com.sforce.ws.bind.TypeInfo editable__typeInfo =
-      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","editable","http://www.w3.org/2001/XMLSchema","boolean",1,1,true);
+    private static final com.sforce.ws.bind.TypeInfo editableForNew__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","editableForNew","http://www.w3.org/2001/XMLSchema","boolean",1,1,true);
 
-    private boolean editable__is_set = false;
+    private boolean editableForNew__is_set = false;
 
-    private boolean editable;
+    private boolean editableForNew;
 
-    public boolean getEditable() {
-      return editable;
+    public boolean getEditableForNew() {
+      return editableForNew;
     }
 
-    public boolean isEditable() {
-      return editable;
+    public boolean isEditableForNew() {
+      return editableForNew;
     }
 
-    public void setEditable(boolean editable) {
-      this.editable = editable;
-      editable__is_set = true;
+    public void setEditableForNew(boolean editableForNew) {
+      this.editableForNew = editableForNew;
+      editableForNew__is_set = true;
+    }
+
+    /**
+     * element : editableForUpdate of type {http://www.w3.org/2001/XMLSchema}boolean
+     * java type: boolean
+     */
+    private static final com.sforce.ws.bind.TypeInfo editableForUpdate__typeInfo =
+      new com.sforce.ws.bind.TypeInfo("urn:partner.soap.sforce.com","editableForUpdate","http://www.w3.org/2001/XMLSchema","boolean",1,1,true);
+
+    private boolean editableForUpdate__is_set = false;
+
+    private boolean editableForUpdate;
+
+    public boolean getEditableForUpdate() {
+      return editableForUpdate;
+    }
+
+    public boolean isEditableForUpdate() {
+      return editableForUpdate;
+    }
+
+    public void setEditableForUpdate(boolean editableForUpdate) {
+      this.editableForUpdate = editableForUpdate;
+      editableForUpdate__is_set = true;
     }
 
     /**
@@ -136,7 +160,8 @@ public class DescribeLayoutItem implements com.sforce.ws.bind.XMLizable {
     protected void writeFields(com.sforce.ws.parser.XmlOutputStream __out,
          com.sforce.ws.bind.TypeMapper __typeMapper)
          throws java.io.IOException {
-       __typeMapper.writeBoolean(__out, editable__typeInfo, editable, editable__is_set);
+       __typeMapper.writeBoolean(__out, editableForNew__typeInfo, editableForNew, editableForNew__is_set);
+       __typeMapper.writeBoolean(__out, editableForUpdate__typeInfo, editableForUpdate, editableForUpdate__is_set);
        __typeMapper.writeString(__out, label__typeInfo, label, label__is_set);
        __typeMapper.writeObject(__out, layoutComponents__typeInfo, layoutComponents, layoutComponents__is_set);
        __typeMapper.writeBoolean(__out, placeholder__typeInfo, placeholder, placeholder__is_set);
@@ -154,8 +179,12 @@ public class DescribeLayoutItem implements com.sforce.ws.bind.XMLizable {
     protected void loadFields(com.sforce.ws.parser.XmlInputStream __in,
         com.sforce.ws.bind.TypeMapper __typeMapper) throws java.io.IOException, com.sforce.ws.ConnectionException {
         __in.peekTag();
-        if (__typeMapper.verifyElement(__in, editable__typeInfo)) {
-            setEditable(__typeMapper.readBoolean(__in, editable__typeInfo, boolean.class));
+        if (__typeMapper.verifyElement(__in, editableForNew__typeInfo)) {
+            setEditableForNew(__typeMapper.readBoolean(__in, editableForNew__typeInfo, boolean.class));
+        }
+        __in.peekTag();
+        if (__typeMapper.verifyElement(__in, editableForUpdate__typeInfo)) {
+            setEditableForUpdate(__typeMapper.readBoolean(__in, editableForUpdate__typeInfo, boolean.class));
         }
         __in.peekTag();
         if (__typeMapper.verifyElement(__in, label__typeInfo)) {
@@ -179,7 +208,8 @@ public class DescribeLayoutItem implements com.sforce.ws.bind.XMLizable {
     public String toString() {
       java.lang.StringBuilder sb = new java.lang.StringBuilder();
       sb.append("[DescribeLayoutItem ");
-      sb.append(" editable='").append(com.sforce.ws.util.Verbose.toString(editable)).append("'\n");
+      sb.append(" editableForNew='").append(com.sforce.ws.util.Verbose.toString(editableForNew)).append("'\n");
+      sb.append(" editableForUpdate='").append(com.sforce.ws.util.Verbose.toString(editableForUpdate)).append("'\n");
       sb.append(" label='").append(com.sforce.ws.util.Verbose.toString(label)).append("'\n");
       sb.append(" layoutComponents='").append(com.sforce.ws.util.Verbose.toString(layoutComponents)).append("'\n");
       sb.append(" placeholder='").append(com.sforce.ws.util.Verbose.toString(placeholder)).append("'\n");
