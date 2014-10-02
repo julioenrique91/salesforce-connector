@@ -14,8 +14,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jetty.client.ContentExchange;
+import org.eclipse.jetty.client.HttpClient;
+import org.eclipse.jetty.client.HttpExchange;
+import org.eclipse.jetty.client.RedirectListener;
+import org.eclipse.jetty.http.HttpMethods;
+import org.eclipse.jetty.http.HttpStatus;
+import org.eclipse.jetty.io.ByteArrayBuffer;
 import org.mule.RequestContext;
-import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.oauth.OAuth2;
@@ -26,6 +32,10 @@ import org.mule.api.annotations.oauth.OAuthConsumerKey;
 import org.mule.api.annotations.oauth.OAuthConsumerSecret;
 import org.mule.api.annotations.oauth.OAuthPostAuthorization;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.sforce.async.AsyncApiException;
 import com.sforce.async.BulkConnection;
 import com.sforce.soap.metadata.MetadataConnection;
@@ -122,7 +132,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     }
 
     @OAuthPostAuthorization
-    public void postAuthorize() throws ConnectionException, MalformedURLException, AsyncApiException {
+    public void postAuthorize() throws ConnectionException, MalformedURLException, AsyncApiException, Exception {
         ConnectorConfig config = new ConnectorConfig();
         if (LOGGER.isDebugEnabled()) {
             config.addMessageHandler(new MessageHandler() {
@@ -154,15 +164,16 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         config.setRestEndpoint(restEndpoint);
 
 		this.bulkConnection = new BulkConnection(config);
-
-		String metadataendpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/m/31.0/" + doTheUglyParsingToGetTheOrganizationId(userId);
 		
+//		String metadataendpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/m/31.0/" + doTheUglyParsingToGetTheOrganizationId(userId);
+		
+		String metadataendpoint = getMetadataServiceEndpoint();
 		ConnectorConfig metadataConfig = new ConnectorConfig();
 		metadataConfig.setServiceEndpoint(metadataendpoint);
 		metadataConfig.setManualLogin(true);
 		metadataConfig.setCompression(false);
 		metadataConfig.setSessionId(accessToken);
-		metadataConnection = new MetadataConnection(metadataConfig);
+		this.metadataConnection = new MetadataConnection(metadataConfig);
 		
 
 		this.processSubscriptions();
@@ -170,14 +181,43 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         RequestContext.getEvent().setFlowVariable("remoteUserId", userId);
     }
     
-    //TODO: This needs to be changed to a better solution for retrieving the metadata url from Salesforce!!!
-    private String doTheUglyParsingToGetTheOrganizationId(String url){
+    private String getMetadataServiceEndpoint() throws Exception {
+    	HttpClient client = new HttpClient();
+    	client.setIdleTimeout(5000);
+    	client.setConnectorType(HttpClient.CONNECTOR_SELECT_CHANNEL);
+    	client.registerListener(RedirectListener.class.getName());
+    	client.start();
+    	ContentExchange exchange = new ContentExchange();
+    	exchange.setMethod(HttpMethods.GET);
+    	exchange.setRequestContent(new ByteArrayBuffer(""));
+    	exchange.setURL(userId + "?oauth_token=" + accessToken + "&format=json&version=31.0");
+    	client.send(exchange);
+    	int state = exchange.waitForDone();
+    	int status = exchange.getResponseStatus();
+    	if (status == HttpStatus.OK_200) {
+	    	String result = exchange.getResponseContent();
+	    	client.stop();
+	    	
+	    	JsonElement jElement = new JsonParser().parse(result);
+	    	JsonObject jObject = jElement.getAsJsonObject();
+	    	JsonObject urls = jObject.getAsJsonObject("urls");
+	    	String metadataEndpoint = urls.getAsJsonPrimitive("metadata").getAsString();
+	    	
+	    	return metadataEndpoint;
+    	}
+    	return "";
+    }
+    
+    /*
+     * Leave this method commented until we get a feedback from someone at Salesforce
+     */
+    /*private String doTheUglyParsingToGetTheOrganizationId(String url){
     	String[] splitUrl = url.split("/");
     	if (splitUrl != null & splitUrl.length > 1){
     		return splitUrl[splitUrl.length - 2];
     	}
     	return "";
-    }
+    }*/
 
     public String getConsumerKey() {
         return consumerKey;
