@@ -12,8 +12,6 @@ package org.mule.modules.salesforce.automation.testcases;
 
 import com.sforce.soap.metadata.DeleteResult;
 import com.sforce.soap.metadata.DescribeMetadataResult;
-import com.sforce.soap.metadata.FileProperties;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -31,29 +29,30 @@ import static org.junit.Assert.fail;
 
 public class DeleteMetadataTestCases extends SalesforceTestParent {
 
-    private List<String> fullNames = new ArrayList<String>();
+    private List<String> toDelete = new ArrayList<String>();
+	private String orgNamespace;
 
     @Before
     public void setUp() throws Exception {
         initializeTestRunMessage("deleteMetadataTestData");
         runFlowAndGetPayload("create-metadata");
 
-        List<Map<String, Object>> objects = getTestRunMessageValue("objects");
+		DescribeMetadataResult result = runFlowAndGetPayload("describe-metadata");
+		orgNamespace = result.getOrganizationNamespace();
 
-        DescribeMetadataResult result = runFlowAndGetPayload("describe-metadata");
-        String orgNamespace = result.getOrganizationNamespace();
-
-        for (Map<String, Object> object : objects) {
-            String fullName = (String) object.get("fullName");
-            fullNames.add(orgNamespace + "__" + fullName);
-        }
+		// Get fullnames that were used to create test objects
+		List<Map<String, Object>> metadataObjects = getTestRunMessageValue("objects");
+		for (Map<String, Object> metadataObject : metadataObjects) {
+			String fullName = (String) metadataObject.get("fullName");
+			toDelete.add(orgNamespace + "__" + fullName);
+		}
     }
 
     @Category({SmokeTests.class, RegressionTests.class})
     @Test
     public void testDeleteMetadata() {
         try {
-            upsertOnTestRunMessage("fullNames", fullNames);
+            upsertOnTestRunMessage("fullNames", toDelete);
             List<DeleteResult> deleteResults = runFlowAndGetPayload("delete-metadata");
             for (DeleteResult deleteResult : deleteResults) {
                 assertTrue(deleteResult.isSuccess());
@@ -63,5 +62,4 @@ public class DeleteMetadataTestCases extends SalesforceTestParent {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
-
 }

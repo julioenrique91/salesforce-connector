@@ -1,3 +1,13 @@
+/**
+ * Mule Salesforce Connector
+ *
+ * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ *
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+
 package org.mule.modules.salesforce.automation.testcases;
 
 import com.sforce.soap.metadata.DescribeMetadataResult;
@@ -20,14 +30,15 @@ import static org.junit.Assert.fail;
 
 public class UpsertMetadataTestCases extends SalesforceTestParent {
 
-    private String orgNamespace;
-    private List<String> toDelete = new ArrayList<String>();
+	// Used to delete inserted objects based on their full name.
+	private List<String> toDelete = new ArrayList<String>();
+	private String orgNamespace;
 
     @Before
     public void setUp() throws Exception {
         initializeTestRunMessage("upsertMetadataTestData");
-        DescribeMetadataResult result = runFlowAndGetPayload("describe-metadata");
 
+        DescribeMetadataResult result = runFlowAndGetPayload("describe-metadata");
         orgNamespace = result.getOrganizationNamespace();
     }
 
@@ -35,8 +46,12 @@ public class UpsertMetadataTestCases extends SalesforceTestParent {
     @Test
     public void testUpsertMetadata() {
         try {
-            List objects = new ArrayList();
-            objects.add(getTestRunMessageValue("before"));
+			// creating a new object
+            List<Map<String, Object>> objects = new ArrayList<Map<String, Object>>();
+			Map<String, Object> before = getTestRunMessageValue("before");
+			String fullName = orgNamespace + "__" + before.get("fullName");
+			before.put("fullName", fullName);
+            objects.add(before);
             upsertOnTestRunMessage("objects", objects);
 
             List<UpsertResult> resultsForCreate = runFlowAndGetPayload("upsert-metadata");
@@ -45,9 +60,10 @@ public class UpsertMetadataTestCases extends SalesforceTestParent {
                 assertTrue(result.isCreated());
             }
 
-            objects = new ArrayList();
+			// upserting the above object
+            objects = new ArrayList<Map<String, Object>>();
             Map<String, Object> after = getTestRunMessageValue("after");
-            String fullName = orgNamespace + "__" + after.get("fullName");
+            fullName = orgNamespace + "__" + after.get("fullName");
             after.put("fullName", fullName);
             objects.add(after);
             upsertOnTestRunMessage("objects", objects);
@@ -69,5 +85,4 @@ public class UpsertMetadataTestCases extends SalesforceTestParent {
         upsertOnTestRunMessage("fullNames", toDelete);
         runFlowAndGetPayload("delete-metadata");
     }
-
 }

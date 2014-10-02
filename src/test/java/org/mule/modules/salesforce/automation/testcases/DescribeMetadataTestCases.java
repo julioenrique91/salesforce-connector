@@ -41,5 +41,4 @@ public class DescribeMetadataTestCases extends SalesforceTestParent {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
-
 }

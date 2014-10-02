@@ -11,7 +11,6 @@
 package org.mule.modules.salesforce.automation.testcases;
 
 import com.sforce.soap.metadata.DescribeMetadataResult;
-import com.sforce.soap.metadata.FileProperties;
 import com.sforce.soap.metadata.SaveResult;
 import org.junit.After;
 import org.junit.Test;
@@ -27,6 +26,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class CreateMetadataTestCases extends SalesforceTestParent {
+
+	// Used to delete inserted objects based on their full name.
+	private List<String> toDelete = new ArrayList<String>();
+	private String orgNamespace;
 
     @Category({SmokeTests.class, RegressionTests.class})
     @Test
@@ -46,20 +49,17 @@ public class CreateMetadataTestCases extends SalesforceTestParent {
 
     @After
     public void tearDown() throws Exception {
-        ArrayList<String> fullNames = new ArrayList<String>();
-
         DescribeMetadataResult result = runFlowAndGetPayload("describe-metadata");
-        String orgNamespace = result.getOrganizationNamespace();
+        orgNamespace = result.getOrganizationNamespace();
 
         // Get fullnames that were used to create test objects
         List<Map<String, Object>> metadataObjects = getTestRunMessageValue("objects");
         for (Map<String, Object> metadataObject : metadataObjects) {
             String fullName = (String) metadataObject.get("fullName");
-            fullNames.add(orgNamespace + "__" + fullName);
+            toDelete.add(orgNamespace + "__" + fullName);
         }
 
-        upsertOnTestRunMessage("fullNames", fullNames);
+        upsertOnTestRunMessage("fullNames", toDelete);
         runFlowAndGetPayload("delete-metadata");
     }
-
 }

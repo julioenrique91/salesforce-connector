@@ -10,6 +10,7 @@
 
 package org.mule.modules.salesforce.automation.testcases;
 
+import com.sforce.soap.metadata.DescribeMetadataResult;
 import com.sforce.soap.metadata.FileProperties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -32,47 +33,53 @@ import static org.junit.Assert.fail;
 
 public class ListMetadataTestCases extends SalesforceTestParent {
 
-    // Used to delete inserted objects based on their full name.
-    private List<String> fullNames = new ArrayList<String>();
+	// Used to delete inserted objects based on their full name.
+	private List<String> toDelete = new ArrayList<String>();
+	private String orgNamespace;
 
-    @Before
-    public void setUp() throws Exception {
-        initializeTestRunMessage("listMetadataTestData");
-        runFlowAndGetPayload("create-metadata");
-    }
+	@Before
+	public void setUp() throws Exception {
+		initializeTestRunMessage("listMetadataTestData");
+		runFlowAndGetPayload("create-metadata");
 
-    @Category({ RegressionTests.class })
-    @Test
-    public void testListMetadata() {
-        try {
-            List<Map<String, Object>> objects = getTestRunMessageValue("objects");
-            List<FileProperties> metadata = runFlowAndGetPayload("list-metadata");
+		DescribeMetadataResult result = runFlowAndGetPayload("describe-metadata");
+		orgNamespace = result.getOrganizationNamespace();
+	}
 
-            assertTrue(metadata.size() >= objects.size());
-            for (Map<String, Object> object : objects) {
+	@Category({ RegressionTests.class })
+	@Test
+	public void testListMetadata() {
+		try {
+			List<Map<String, Object>> objects = getTestRunMessageValue("objects");
+			List<FileProperties> metadata = runFlowAndGetPayload("list-metadata");
 
-                String fullName = (String) object.get("fullName");
+			assertTrue(metadata.size() >= objects.size());
 
-                boolean exists = false;
-                for (FileProperties props : metadata) {
-                    if (fullName.equals(props.getFullName())) {
-                        exists = true;
-                        fullNames.add(props.getNamespacePrefix() + "__" + props.getFullName());
-                        break;
-                    }
-                }
-                assertTrue(exists);
-            }
-        }
-        catch (Exception e) {
-            fail(ConnectorTestUtils.getStackTrace(e));
-        }
-    }
+			for (Map<String, Object> object : objects) {
+				String objectFullName = orgNamespace + "__" + (String) object.get("fullName");
+				String propsFullName;
+				boolean exists = false;
 
-    @After
-    public void tearDown() throws Exception {
-        upsertOnTestRunMessage("fullNames", fullNames);
-        runFlowAndGetPayload("delete-metadata");
-    }
+				for (FileProperties props : metadata) {
+					propsFullName = props.getNamespacePrefix() + "__" + props.getFullName();
 
+					if (objectFullName.equals(propsFullName)) {
+						exists = true;
+						toDelete.add(propsFullName);
+						break;
+					}
+				}
+				assertTrue(exists);
+			}
+		}
+		catch (Exception e) {
+			fail(ConnectorTestUtils.getStackTrace(e));
+		}
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		upsertOnTestRunMessage("fullNames", toDelete);
+		runFlowAndGetPayload("delete-metadata");
+	}
 }
