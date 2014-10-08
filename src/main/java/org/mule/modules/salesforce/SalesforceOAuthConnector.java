@@ -165,9 +165,9 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
 
 		this.bulkConnection = new BulkConnection(config);
 		
-//		String metadataendpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/m/31.0/" + doTheUglyParsingToGetTheOrganizationId(userId);
+		String metadataendpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/m/31.0/" + parseUrlAndGetOrganizationId(userId);
 		
-		String metadataendpoint = getMetadataServiceEndpoint();
+//		String metadataendpoint = getMetadataServiceEndpoint();
 		ConnectorConfig metadataConfig = new ConnectorConfig();
 		metadataConfig.setServiceEndpoint(metadataendpoint);
 		metadataConfig.setManualLogin(true);
@@ -181,7 +181,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         RequestContext.getEvent().setFlowVariable("remoteUserId", userId);
     }
     
-    private String getMetadataServiceEndpoint() throws Exception {
+    /*private String getMetadataServiceEndpoint() throws Exception {
     	HttpClient client = new HttpClient();
     	client.setIdleTimeout(5000);
     	client.setConnectorType(HttpClient.CONNECTOR_SELECT_CHANNEL);
@@ -206,18 +206,15 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
 	    	return metadataEndpoint;
     	}
     	return "";
-    }
+    }*/
     
-    /*
-     * Leave this method commented until we get a feedback from someone at Salesforce
-     */
-    /*private String doTheUglyParsingToGetTheOrganizationId(String url){
+    private String parseUrlAndGetOrganizationId(String url){
     	String[] splitUrl = url.split("/");
     	if (splitUrl != null & splitUrl.length > 1){
     		return splitUrl[splitUrl.length - 2];
     	}
     	return "";
-    }*/
+    }
 
     public String getConsumerKey() {
         return consumerKey;

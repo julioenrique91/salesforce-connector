@@ -10,26 +10,23 @@
 
 package org.mule.modules.salesforce.automation.testcases;
 
-import com.sforce.soap.metadata.DescribeMetadataResult;
-import com.sforce.soap.metadata.FileProperties;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.PredicateUtils;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.salesforce.automation.RegressionTests;
 import org.mule.modules.salesforce.automation.SalesforceTestParent;
-import org.mule.modules.salesforce.automation.SmokeTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import com.sforce.soap.metadata.DescribeMetadataResult;
+import com.sforce.soap.metadata.FileProperties;
 
 public class ListMetadataTestCases extends SalesforceTestParent {
 
