@@ -10,15 +10,36 @@
 
 package org.mule.modules.salesforce;
 
-import com.sforce.async.*;
-import com.sforce.soap.partner.*;
-import com.sforce.soap.partner.sobject.SObject;
-import com.sforce.ws.ConnectionException;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.SequenceInputStream;
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
-import org.mule.api.annotations.*;
+import org.mule.api.annotations.Category;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.InvalidateConnectionOn;
+import org.mule.api.annotations.MetaDataScope;
+import org.mule.api.annotations.Paged;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.Query;
+import org.mule.api.annotations.QueryTranslator;
+import org.mule.api.annotations.Source;
+import org.mule.api.annotations.SourceThreadingModel;
 import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
@@ -38,22 +59,57 @@ import org.mule.api.store.ObjectStoreManager;
 import org.mule.common.query.DsqlQuery;
 import org.mule.modules.salesforce.api.SalesforceExceptionHandlerAdapter;
 import org.mule.modules.salesforce.api.SalesforceHeader;
+import org.mule.modules.salesforce.api.SalesforceMetadataAdapter;
 import org.mule.modules.salesforce.api.SalesforceRestAdapter;
 import org.mule.modules.salesforce.api.SalesforceSoapAdapter;
 import org.mule.modules.salesforce.bulk.SaveResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.bulk.UpsertResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.modules.salesforce.lazystream.impl.LazyQueryResultInputStream;
+import org.mule.modules.salesforce.metadata.MetadataService;
+import org.mule.modules.salesforce.metadata.category.MetadataCategory;
+import org.mule.modules.salesforce.metadata.processor.ExternalDataSourceRequestProcessor;
+import org.mule.modules.salesforce.metadata.processor.MetadataRequestProcessor;
+import org.mule.modules.salesforce.metadata.type.MetadataOperationType;
+import org.mule.modules.salesforce.metadata.type.MetadataType;
 import org.mule.streaming.PagingConfiguration;
 import org.mule.streaming.ProviderAwarePagingDelegate;
 import org.springframework.util.StringUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.SequenceInputStream;
-import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.util.*;
+import com.sforce.async.AsyncApiException;
+import com.sforce.async.BatchInfo;
+import com.sforce.async.BatchRequest;
+import com.sforce.async.BatchResult;
+import com.sforce.async.BulkConnection;
+import com.sforce.async.ConcurrencyMode;
+import com.sforce.async.ContentType;
+import com.sforce.async.JobInfo;
+import com.sforce.async.OperationEnum;
+import com.sforce.async.QueryResultList;
+import com.sforce.soap.metadata.DescribeMetadataResult;
+import com.sforce.soap.metadata.FileProperties;
+import com.sforce.soap.metadata.ListMetadataQuery;
+import com.sforce.soap.metadata.MetadataConnection;
+import com.sforce.soap.metadata.ReadResult;
+import com.sforce.soap.partner.AssignmentRuleHeader_element;
+import com.sforce.soap.partner.CallOptions_element;
+import com.sforce.soap.partner.DeleteResult;
+import com.sforce.soap.partner.DescribeGlobalResult;
+import com.sforce.soap.partner.DescribeSObjectResult;
+import com.sforce.soap.partner.EmptyRecycleBinResult;
+import com.sforce.soap.partner.GetDeletedResult;
+import com.sforce.soap.partner.GetUpdatedResult;
+import com.sforce.soap.partner.GetUserInfoResult;
+import com.sforce.soap.partner.LeadConvert;
+import com.sforce.soap.partner.LeadConvertResult;
+import com.sforce.soap.partner.PartnerConnection;
+import com.sforce.soap.partner.QueryResult;
+import com.sforce.soap.partner.SaveResult;
+import com.sforce.soap.partner.SearchRecord;
+import com.sforce.soap.partner.SearchResult;
+import com.sforce.soap.partner.UpsertResult;
+import com.sforce.soap.partner.sobject.SObject;
+import com.sforce.ws.ConnectionException;
 
 public abstract class BaseSalesforceConnector implements MuleContextAware {
 
@@ -149,6 +205,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     protected abstract PartnerConnection getConnection();
 
     protected abstract BulkConnection getBulkConnection();
+    
+    protected abstract MetadataConnection getMetadataConnection();
 
     protected abstract String getSessionId();
 
@@ -219,7 +277,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
         return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).create(sObjects));
     }
-
+    
     /**
      * Creates a Job in order to perform one or more batches through Bulk API Operations.
      * <p/>
@@ -1383,6 +1441,113 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public GetUserInfoResult getUserInfo() throws ConnectionException {
         return getSalesforceSoapAdapter().getUserInfo();
     }
+    
+    @Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public List<com.sforce.soap.metadata.SaveResult> createMetadata(@MetaDataKeyParam String type,
+									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
+			throws Exception {
+    	objects = MetadataRequestProcessor.processRequest(objects, type);
+		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.CREATE);
+	}
+    
+    @Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public List<com.sforce.soap.metadata.SaveResult> updateMetadata(@MetaDataKeyParam String type,
+									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
+			throws Exception {
+    	objects = MetadataRequestProcessor.processRequest(objects, type);
+		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.UPDATE);
+	}
+    
+    @Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public List<com.sforce.soap.metadata.UpsertResult> upsertMetadata(@MetaDataKeyParam String type,
+									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
+			throws Exception {
+    	objects = MetadataRequestProcessor.processRequest(objects, type);
+		return MetadataService.callUpsertService(getMetadataConnection(), type, objects);
+	}
+	
+	@Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public List<com.sforce.soap.metadata.DeleteResult> deleteMetadata(@MetaDataKeyParam String type,
+									@FriendlyName("Full Names") @Optional @Default("#[payload]") List<String> fullNames)
+			throws Exception {
+
+		return MetadataService.callDeleteService(getMetadataConnection(), type, fullNames);
+	}
+	
+	@Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public com.sforce.soap.metadata.SaveResult renameMetadata(@MetaDataKeyParam String type,
+									@FriendlyName("Old Full Name") @Optional @Default("#[payload]") String oldFullName,
+									@FriendlyName("New Full Name") @Optional @Default("#[payload]") String newFullName)
+			throws Exception {
+
+		return MetadataService.callRenameService(getMetadataConnection(), type, oldFullName, newFullName);
+	}
+	
+	@Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public ReadResult readMetadata(@MetaDataKeyParam String type,
+									@FriendlyName("Full Names") @Optional @Default("#[payload]") List<String> fullNames)
+			throws Exception {
+
+		return MetadataService.callReadService(getMetadataConnection(), type, fullNames);
+	}
+	
+	@Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public List<FileProperties> listMetadata(@MetaDataKeyParam String type)
+			throws Exception {
+
+		MetadataType metadataType = MetadataType.valueOf(type);
+		ListMetadataQuery query = new ListMetadataQuery();
+		query.setType(metadataType.getDisplayName());
+		FileProperties[] fileProperties = getMetadataConnection().listMetadata(new ListMetadataQuery[] {query}, 31.0);
+		return Arrays.asList(fileProperties);
+	}
+	
+	@Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public DescribeMetadataResult describeMetadata()
+			throws Exception {
+
+		return getMetadataConnection().describeMetadata(31.0);
+	}
 
     /**
      * Subscribe to a topic.
@@ -1637,5 +1802,9 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     public BulkConnection getSalesforceRestAdapter() {
         return SalesforceRestAdapter.adapt(getBulkConnection());
+    }
+    
+    public MetadataConnection getSalesforceMetadaAdapter() {
+    	return SalesforceMetadataAdapter.adapt(getMetadataConnection());
     }
 }

@@ -21,7 +21,7 @@ import org.mule.modules.salesforce.automation.testcases.*;
 @IncludeCategory(RegressionTests.class)
 
 @SuiteClasses({
-	
+
 	AbortJobTestCases.class,
 	CreateTestCases.class,
 	GetUpdatedTestCases.class,
@@ -58,9 +58,15 @@ import org.mule.modules.salesforce.automation.testcases.*;
 	NonPaginatedQueryTestCases.class,
 	CreateBatchStreamTestCases.class,
 	JobInfoTestCases.class,
-	CreateBatchForQueryTestCases.class
-	
-		})
+	CreateBatchForQueryTestCases.class,
+    CreateMetadataTestCases.class,
+    DeleteMetadataTestCases.class,
+    ListMetadataTestCases.class,
+    DescribeMetadataTestCases.class,
+    RenameMetadataTestCases.class,
+    UpdateMetadataTestCases.class,
+    UpsertMetadataTestCases.class
+})
 
 public class RegressionTestSuite {
 	

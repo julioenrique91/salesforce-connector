@@ -41,7 +41,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 			</sfdc:objects>
 		</sfdc:create>
 	</flow>
-	
+
 	<flow name="create-passing-headers" doc:name="create-passing-headers">
         <sfdc:create config-ref="Salesforce" type="#[payload.type]" doc:name="Salesforce">
             <sfdc:objects ref="#[payload.objectsRef]"/>
@@ -140,7 +140,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 			type="#[payload.type]">
 		</sfdc:reset-updated-objects-timestamp>
 	</flow>
-	
+
 	<flow name="get-updated-objects" doc:name="get-updated-objects">
 		<sfdc:get-updated-objects config-ref="Salesforce"
 			doc:name="Get updated objects" type="#[payload.type]"
@@ -185,14 +185,14 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 	</flow>
 
 	<!--  Bulk API -->
-	
+
 	<flow name="create-bulk" doc:name="create-bulk">
 		<sfdc:create-bulk config-ref="Salesforce" doc:name="Create bulk"
 			type="#[payload.type]">
 			<sfdc:objects ref="#[payload.objectsRef]" />
 		</sfdc:create-bulk>
 	</flow>
-	
+
 	<flow name="update-bulk" doc:name="update-bulk">
 		<sfdc:update-bulk config-ref="Salesforce" doc:name="Update bulk"
 			type="#[payload.type]">
@@ -206,27 +206,27 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 			<sfdc:objects ref="#[payload.objectsRef]" />
 		</sfdc:upsert-bulk>
 	</flow>
-	
+
 	<flow name="hard-delete-bulk" doc:name="hard-delete-bulk">
 		<sfdc:hard-delete-bulk config-ref="Salesforce"
 			doc:name="Hard delete bulk" type="#[payload.type]">
 			<sfdc:objects ref="#[payload.objectsRef]" />
 		</sfdc:hard-delete-bulk>
 	</flow>
-	
+
 	<flow name="create-job" doc:name="create-job">
 		<sfdc:create-job config-ref="Salesforce" doc:name="Create job"
 			type="#[payload.type]" concurrencyMode="#[payload.concurrencyMode]" contentType="#[payload.contentType]"
 			externalIdFieldName="#[payload.externalIdFieldName]" operation="#[payload.operation]">
 		</sfdc:create-job>
 	</flow>
-	
+
 	<flow name="close-job" doc:name="close-job">
 		<sfdc:close-job config-ref="Salesforce" doc:name="Close job"
 			jobId="#[payload.jobId]">
 		</sfdc:close-job>
 	</flow>
-	
+
 	<flow name="abort-job" doc:name="abort-job">
 		<sfdc:abort-job config-ref="Salesforce" doc:name="Abort job"
 			jobId="#[payload.jobId]">
@@ -257,7 +257,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 			<sfdc:batch-info ref="#[payload.batchInfoRef]" />
 		</sfdc:batch-result-stream>
 	</flow>
-	
+
 	<flow name="create-batch" doc:name="create-batch">
 		<sfdc:create-batch config-ref="Salesforce" doc:name="Create batch">
 			<sfdc:job-info ref="#[payload.jobInfoRef]" />
@@ -278,7 +278,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 			<sfdc:batch-info ref="#[payload.batchInfoRef]" />
 		</sfdc:query-result-stream>
 	</flow>
-	
+
 	<flow name="publish-topic" doc:name="publish-topic">
 		<sfdc:publish-topic config-ref="Salesforce"
 			doc:name="Publish topic" description="#[payload.description]" query="#[payload.query]"
@@ -291,17 +291,53 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 				doc:name="Get server timestamp">
 			</sfdc:get-server-timestamp>
 	</flow>
-	
+
 	<flow name="non-paginated-query" doc:name="non paginated query">
 			<sfdc:query config-ref="Salesforce" doc:name="Non Paginated Query"
 				query="#[payload.query]">
 			</sfdc:query>
 	</flow>
-	
+
 	<flow name="create-batch-stream" doc:name="create-batch-stream">
 	        <sfdc:create-batch-stream config-ref="Salesforce"  doc:name="Create Batch Stream" stream-ref="#[payload.stream]">
 	            <sfdc:job-info ref="#[payload.jobInfoRef]"/>
 	        </sfdc:create-batch-stream>
 	</flow>
-	
+
+    <flow name="create-metadata">
+        <sfdc:create-metadata config-ref="Salesforce" type="#[payload.type]">
+            <sfdc:objects ref="#[payload.objects]" />
+        </sfdc:create-metadata>
+    </flow>
+
+    <flow name="list-metadata">
+        <sfdc:list-metadata config-ref="Salesforce" type="#[payload.type]" />
+    </flow>
+
+    <flow name="delete-metadata">
+        <sfdc:delete-metadata config-ref="Salesforce" type="#[payload.type]">
+            <sfdc:full-names ref="#[payload.fullNames]" />
+        </sfdc:delete-metadata>
+    </flow>
+
+    <flow name="describe-metadata">
+        <sfdc:describe-metadata config-ref="Salesforce" />
+    </flow>
+
+    <flow name="rename-metadata">
+        <sfdc:rename-metadata config-ref="Salesforce" type="#[payload.type]" newFullName="#[payload.newFullName]" oldFullName="#[payload.oldFullName]" />
+    </flow>
+
+    <flow name="update-metadata">
+        <sfdc:update-metadata config-ref="Salesforce" type="#[payload.type]">
+            <sfdc:objects ref="#[payload.objects]" />
+        </sfdc:update-metadata>
+    </flow>
+
+    <flow name="upsert-metadata">
+        <sfdc:upsert-metadata config-ref="Salesforce" type="#[payload.type]">
+            <sfdc:objects ref="#[payload.objects]" />
+        </sfdc:upsert-metadata>
+    </flow>
+
 </mule>
