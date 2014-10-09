@@ -278,113 +278,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).create(sObjects));
     }
     
-    @Processor
-	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
-	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
-	@MetaDataScope(MetadataCategory.class)
-	public List<com.sforce.soap.metadata.SaveResult> createMetadata(@MetaDataKeyParam String type,
-									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
-			throws Exception {
-    	objects = MetadataRequestProcessor.processRequest(objects, type);
-		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.CREATE);
-	}
-    
-    @Processor
-	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
-	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
-	@MetaDataScope(MetadataCategory.class)
-	public List<com.sforce.soap.metadata.SaveResult> updateMetadata(@MetaDataKeyParam String type,
-									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
-			throws Exception {
-    	objects = MetadataRequestProcessor.processRequest(objects, type);
-		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.UPDATE);
-	}
-    
-    @Processor
-	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
-	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
-	@MetaDataScope(MetadataCategory.class)
-	public List<com.sforce.soap.metadata.UpsertResult> upsertMetadata(@MetaDataKeyParam String type,
-									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
-			throws Exception {
-    	objects = MetadataRequestProcessor.processRequest(objects, type);
-		return MetadataService.callUpsertService(getMetadataConnection(), type, objects);
-	}
-	
-	@Processor
-	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
-	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
-	@MetaDataScope(MetadataCategory.class)
-	public List<com.sforce.soap.metadata.DeleteResult> deleteMetadata(@MetaDataKeyParam String type,
-									@FriendlyName("Full Names") @Optional @Default("#[payload]") List<String> fullNames)
-			throws Exception {
-
-		return MetadataService.callDeleteService(getMetadataConnection(), type, fullNames);
-	}
-	
-	@Processor
-	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
-	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
-	@MetaDataScope(MetadataCategory.class)
-	public com.sforce.soap.metadata.SaveResult renameMetadata(@MetaDataKeyParam String type,
-									@FriendlyName("Old Full Name") @Optional @Default("#[payload]") String oldFullName,
-									@FriendlyName("New Full Name") @Optional @Default("#[payload]") String newFullName)
-			throws Exception {
-
-		return MetadataService.callRenameService(getMetadataConnection(), type, oldFullName, newFullName);
-	}
-	
-	@Processor
-	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
-	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
-	@MetaDataScope(MetadataCategory.class)
-	public ReadResult readMetadata(@MetaDataKeyParam String type,
-									@FriendlyName("Full Names") @Optional @Default("#[payload]") List<String> fullNames)
-			throws Exception {
-
-		return MetadataService.callReadService(getMetadataConnection(), type, fullNames);
-	}
-	
-	@Processor
-	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
-	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
-	@MetaDataScope(MetadataCategory.class)
-	public List<FileProperties> listMetadata(@MetaDataKeyParam String type)
-			throws Exception {
-
-		MetadataType metadataType = MetadataType.valueOf(type);
-		ListMetadataQuery query = new ListMetadataQuery();
-		query.setType(metadataType.getDisplayName());
-		FileProperties[] fileProperties = getMetadataConnection().listMetadata(new ListMetadataQuery[] {query}, 31.0);
-		return Arrays.asList(fileProperties);
-	}
-	
-	@Processor
-	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
-	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
-	@MetaDataScope(MetadataCategory.class)
-	public DescribeMetadataResult describeMetadata()
-			throws Exception {
-
-		return getMetadataConnection().describeMetadata(31.0);
-	}
-
     /**
      * Creates a Job in order to perform one or more batches through Bulk API Operations.
      * <p/>
@@ -1548,6 +1441,113 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public GetUserInfoResult getUserInfo() throws ConnectionException {
         return getSalesforceSoapAdapter().getUserInfo();
     }
+    
+    @Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public List<com.sforce.soap.metadata.SaveResult> createMetadata(@MetaDataKeyParam String type,
+									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
+			throws Exception {
+    	objects = MetadataRequestProcessor.processRequest(objects, type);
+		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.CREATE);
+	}
+    
+    @Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public List<com.sforce.soap.metadata.SaveResult> updateMetadata(@MetaDataKeyParam String type,
+									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
+			throws Exception {
+    	objects = MetadataRequestProcessor.processRequest(objects, type);
+		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.UPDATE);
+	}
+    
+    @Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public List<com.sforce.soap.metadata.UpsertResult> upsertMetadata(@MetaDataKeyParam String type,
+									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
+			throws Exception {
+    	objects = MetadataRequestProcessor.processRequest(objects, type);
+		return MetadataService.callUpsertService(getMetadataConnection(), type, objects);
+	}
+	
+	@Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public List<com.sforce.soap.metadata.DeleteResult> deleteMetadata(@MetaDataKeyParam String type,
+									@FriendlyName("Full Names") @Optional @Default("#[payload]") List<String> fullNames)
+			throws Exception {
+
+		return MetadataService.callDeleteService(getMetadataConnection(), type, fullNames);
+	}
+	
+	@Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public com.sforce.soap.metadata.SaveResult renameMetadata(@MetaDataKeyParam String type,
+									@FriendlyName("Old Full Name") @Optional @Default("#[payload]") String oldFullName,
+									@FriendlyName("New Full Name") @Optional @Default("#[payload]") String newFullName)
+			throws Exception {
+
+		return MetadataService.callRenameService(getMetadataConnection(), type, oldFullName, newFullName);
+	}
+	
+	@Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public ReadResult readMetadata(@MetaDataKeyParam String type,
+									@FriendlyName("Full Names") @Optional @Default("#[payload]") List<String> fullNames)
+			throws Exception {
+
+		return MetadataService.callReadService(getMetadataConnection(), type, fullNames);
+	}
+	
+	@Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public List<FileProperties> listMetadata(@MetaDataKeyParam String type)
+			throws Exception {
+
+		MetadataType metadataType = MetadataType.valueOf(type);
+		ListMetadataQuery query = new ListMetadataQuery();
+		query.setType(metadataType.getDisplayName());
+		FileProperties[] fileProperties = getMetadataConnection().listMetadata(new ListMetadataQuery[] {query}, 31.0);
+		return Arrays.asList(fileProperties);
+	}
+	
+	@Processor
+	@OAuthProtected
+	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
+	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public DescribeMetadataResult describeMetadata()
+			throws Exception {
+
+		return getMetadataConnection().describeMetadata(31.0);
+	}
 
     /**
      * Subscribe to a topic.
