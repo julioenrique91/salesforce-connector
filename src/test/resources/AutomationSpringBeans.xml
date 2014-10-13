@@ -803,18 +803,6 @@
 		<entry key="expectedSObjectNames" value-ref="describeGlobalsObjectNames" />
 	</util:map>
 
-	<!-- describe-sobject -->
-
-	<util:map id="describeSObjectAccountTestData" map-class="java.util.HashMap"
-		key-type="java.lang.String" value-type="java.lang.Object">
-		<entry key="type" value="Account" />
-	</util:map>
-	
-	<util:map id="describeSObjectUserTestData" map-class="java.util.HashMap"
-		key-type="java.lang.String" value-type="java.lang.Object">
-		<entry key="type" value="User" />
-	</util:map>
-
 	<!-- get-updated-objects -->
 
 	<util:list id="getUpdatedObjectsFieldsRef">
