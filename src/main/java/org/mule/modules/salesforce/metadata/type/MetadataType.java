@@ -10,13 +10,15 @@
 
 package org.mule.modules.salesforce.metadata.type;
 
+import com.sforce.soap.metadata.Metadata;
+
 
 /**
  * @author Mulesoft, Inc
  */
 public enum MetadataType {
-/*    CUSTOM_OBJECT("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomObject.class, "Custom Object"),
-    CUSTOM_FIELD("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomField.class, "Custom Field"),*/
+    CustomObject("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomObject.class, "Custom Object"),
+    CustomField("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomField.class, "Custom Field"),
     ExternalDataSource("com.sforce.soap.metadata", com.sforce.soap.metadata.ExternalDataSource.class, "ExternalDataSource"),
     RemoteSiteSetting("com.sforce.soap.metadata", com.sforce.soap.metadata.RemoteSiteSetting.class,"RemoteSiteSetting");
 
@@ -41,5 +43,18 @@ public enum MetadataType {
 
     public String getDisplayName() {
         return  displayName;
+    }
+    
+    public Metadata getMetadataObject() throws InstantiationException, IllegalAccessException {
+    	return this.metadataEntityClass.newInstance();
+    }
+    
+    public static MetadataType getByClass(Class<? extends com.sforce.soap.metadata.Metadata> clazz){
+    	for (MetadataType type : values()) {
+    	    if (type.metadataEntityClass.equals(clazz)) {
+    	      return type;
+    	    }
+    	  }
+    	return null;
     }
 }

@@ -68,8 +68,6 @@ import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.modules.salesforce.lazystream.impl.LazyQueryResultInputStream;
 import org.mule.modules.salesforce.metadata.MetadataService;
 import org.mule.modules.salesforce.metadata.category.MetadataCategory;
-import org.mule.modules.salesforce.metadata.processor.ExternalDataSourceRequestProcessor;
-import org.mule.modules.salesforce.metadata.processor.MetadataRequestProcessor;
 import org.mule.modules.salesforce.metadata.type.MetadataOperationType;
 import org.mule.modules.salesforce.metadata.type.MetadataType;
 import org.mule.streaming.PagingConfiguration;
@@ -1451,7 +1449,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	public List<com.sforce.soap.metadata.SaveResult> createMetadata(@MetaDataKeyParam String type,
 									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
 			throws Exception {
-    	objects = MetadataRequestProcessor.processRequest(objects, type);
 		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.CREATE);
 	}
     
@@ -1464,7 +1461,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	public List<com.sforce.soap.metadata.SaveResult> updateMetadata(@MetaDataKeyParam String type,
 									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
 			throws Exception {
-    	objects = MetadataRequestProcessor.processRequest(objects, type);
 		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.UPDATE);
 	}
     
@@ -1477,7 +1473,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	public List<com.sforce.soap.metadata.UpsertResult> upsertMetadata(@MetaDataKeyParam String type,
 									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
 			throws Exception {
-    	objects = MetadataRequestProcessor.processRequest(objects, type);
 		return MetadataService.callUpsertService(getMetadataConnection(), type, objects);
 	}
 	

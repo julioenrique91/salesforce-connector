@@ -13,13 +13,15 @@
  */
 package org.mule.modules.salesforce.metadata;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jdto.DTOBinderFactory;
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.ConvertUtilsBean;
+import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.mule.modules.salesforce.metadata.type.MetadataOperationType;
 import org.mule.modules.salesforce.metadata.type.MetadataType;
 
@@ -96,25 +98,52 @@ public class MetadataService {
 					oldFullName, newFullName);
 	}
 
-	private static Metadata[] getMetadataObjects(MetadataType metadataType,
-			List<Map<String, Object>> entities)
-			throws InvocationTargetException, IllegalAccessException,
-			ClassNotFoundException, InstantiationException {
-		Metadata[] metadata = new Metadata[entities.size()];
-		for (int i = 0; i < entities.size(); i++) {
-			Metadata metadataObject = (Metadata) getMetadataObject(
-					metadataType, entities.get(i));
-			metadata[i] = metadataObject;
-
-		}
-		return metadata;
-	}
-
-	private static Object getMetadataObject(MetadataType metadataType,
-			Map<String, Object> entity) throws InvocationTargetException,
-			IllegalAccessException, ClassNotFoundException,
-			InstantiationException {
-		return DTOBinderFactory.getBinder().bindFromBusinessObject(
-				metadataType.getMetadataEntityClass(), entity);
-	}
+    public static Metadata[] getMetadataObjects(MetadataType metadataType, List<Map<String, Object>> objects) throws Exception {
+    	
+    	BeanUtilsBean beanUtilsBean = new BeanUtilsBean(new ConvertUtilsBean() {
+			@Override
+			public Object convert(String value, Class clazz) {
+				if (clazz.isEnum()) {
+					return Enum.valueOf(clazz, value);
+				} 
+				else {
+					return super.convert(value, clazz);
+				}
+			}
+		});
+    	
+        Metadata[] mobjects = new Metadata[objects.size()];
+        int s = 0;
+        for (Map<String, Object> map : objects) {
+        	mobjects[s] = toMetadataObject(beanUtilsBean, metadataType, map);
+            s++;
+        }
+        return mobjects;
+    }
+    
+    public static Metadata toMetadataObject(BeanUtilsBean beanUtilsBean, MetadataType metadataType, Map<String, Object> map) throws Exception {
+    	Metadata metadataObject = metadataType.getMetadataObject();
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+           String key = entry.getKey();
+           if (entry.getValue() instanceof Map) {
+        	   PropertyUtilsBean propertyUtilsBean = new PropertyUtilsBean();
+        	   Class childClass = propertyUtilsBean.getPropertyType(metadataObject, key);
+        	   MetadataType childType = MetadataType.getByClass(childClass);
+        	   if (childType != null){
+        	   	beanUtilsBean.setProperty(metadataObject, key, toMetadataObject(beanUtilsBean, childType, toMObjectMap((Map) entry.getValue())));
+        	   }
+            } else {
+            	beanUtilsBean.setProperty(metadataObject, key, entry.getValue());
+            }
+        }
+        return metadataObject;
+    }
+    
+    public static Map<String, Object> toMObjectMap(Map<Object, Object> map) {
+        Map<String, Object> mObjectMap = new HashMap<String, Object>();
+        for (Map.Entry<Object, Object> entry : map.entrySet()) {
+        	mObjectMap.put(entry.getKey().toString(), entry.getValue());
+        }
+        return mObjectMap;
+    }
 }
