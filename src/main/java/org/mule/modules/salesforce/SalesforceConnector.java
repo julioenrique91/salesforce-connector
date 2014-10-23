@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.net.*;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.*;
@@ -41,6 +42,7 @@ import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 import com.sforce.ws.MessageHandler;
 import com.sforce.ws.SessionRenewer;
+
 import org.mule.common.metadata.*;
 import org.mule.common.metadata.datatype.DataType;
 
@@ -311,7 +313,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
                                      @Optional @Placement(group = "Session") String sessionId,
                                      @Optional @Placement(group = "Session") String serviceEndpoint) throws org.mule.api.ConnectionException {
 
-        ConnectorConfig connectorConfig = createConnectorConfig(url, username, password + securityToken, proxyHost, proxyPort, proxyUsername, proxyPassword);
+        ConnectorConfig connectorConfig = createConnectorConfig(url, username, password + StringUtils.defaultString(securityToken, ""), proxyHost, proxyPort, proxyUsername, proxyPassword);
         if (LOGGER.isDebugEnabled()) {
             connectorConfig.addMessageHandler(new MessageHandler() {
                 @Override
