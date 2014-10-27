@@ -10,8 +10,13 @@
 
 package org.mule.modules.salesforce.automation.testcases;
 
-import com.sforce.soap.metadata.DescribeMetadataResult;
-import com.sforce.soap.metadata.SaveResult;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -20,10 +25,8 @@ import org.mule.modules.salesforce.automation.SalesforceTestParent;
 import org.mule.modules.salesforce.automation.SmokeTests;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import java.util.*;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import com.sforce.soap.metadata.DescribeMetadataResult;
+import com.sforce.soap.metadata.SaveResult;
 
 public class CreateMetadataTestCases extends SalesforceTestParent {
 
@@ -33,9 +36,25 @@ public class CreateMetadataTestCases extends SalesforceTestParent {
 
     @Category({SmokeTests.class, RegressionTests.class})
     @Test
-    public void testCreateMetadata() {
+    public void testCreateExternalDataSourceMetadata() {
         try {
-            initializeTestRunMessage("createMetadataTestData");
+            initializeTestRunMessage("createExternalDataSourceMetadataTestData");
+
+            List<SaveResult> results = runFlowAndGetPayload("create-metadata");
+            for (SaveResult result : results) {
+                assertTrue(result.isSuccess());
+            }
+        }
+        catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+    }
+    
+    @Category({SmokeTests.class, RegressionTests.class})
+    @Test
+    public void testCreateCustomObjectsMetadata() {
+        try {
+            initializeTestRunMessage("createCustomObjectMetadataTestData");
 
             List<SaveResult> results = runFlowAndGetPayload("create-metadata");
             for (SaveResult result : results) {
@@ -49,14 +68,20 @@ public class CreateMetadataTestCases extends SalesforceTestParent {
 
     @After
     public void tearDown() throws Exception {
+    	
         DescribeMetadataResult result = runFlowAndGetPayload("describe-metadata");
         orgNamespace = result.getOrganizationNamespace();
 
-        // Get fullnames that were used to create test objects
+        // Get fullnames that were used to create metadata objects
         List<Map<String, Object>> metadataObjects = getTestRunMessageValue("objects");
         for (Map<String, Object> metadataObject : metadataObjects) {
             String fullName = (String) metadataObject.get("fullName");
-            toDelete.add(orgNamespace + "__" + fullName);
+            if (orgNamespace != null && !orgNamespace.isEmpty()) {
+            	toDelete.add(orgNamespace + "__" + fullName);
+            } 
+            else {
+            	toDelete.add(fullName);
+            }
         }
 
         upsertOnTestRunMessage("fullNames", toDelete);
