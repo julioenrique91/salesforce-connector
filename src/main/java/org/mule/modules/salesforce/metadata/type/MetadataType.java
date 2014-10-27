@@ -17,8 +17,8 @@ import com.sforce.soap.metadata.Metadata;
  * @author Mulesoft, Inc
  */
 public enum MetadataType {
-    CustomObject("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomObject.class, "Custom Object"),
-    CustomField("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomField.class, "Custom Field"),
+    CustomObject("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomObject.class, "CustomObject"),
+    CustomField("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomField.class, "CustomField"),
     ExternalDataSource("com.sforce.soap.metadata", com.sforce.soap.metadata.ExternalDataSource.class, "ExternalDataSource"),
     RemoteSiteSetting("com.sforce.soap.metadata", com.sforce.soap.metadata.RemoteSiteSetting.class,"RemoteSiteSetting");
 

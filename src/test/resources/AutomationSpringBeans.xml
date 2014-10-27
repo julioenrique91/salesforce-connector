@@ -16,7 +16,7 @@
 	</bean>
 
     <bean id="randomString" class="org.apache.commons.lang.RandomStringUtils" factory-method="randomAlphanumeric" scope="prototype">
-        <constructor-arg index="0" value="#{16}" />
+        <constructor-arg index="0" value="#{8}" />
     </bean>
 	<!-- get user info -->
 
@@ -89,18 +89,18 @@
 
     <!-- create-metadata -->
 
-    <util:map id="createMetadataTestData" map-class="java.util.HashMap"
+    <util:map id="createExternalDataSourceMetadataTestData" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
         <entry key="type" value="ExternalDataSource" />
         <entry key="objects">
             <list>
-                <ref bean="createMetadataFirstMetadataSObject" />
-                <ref bean="createMetadataSecondMetadataSObject" />
+                <ref bean="createExternalDataSourceMetadataFirstObject" />
+                <ref bean="createExternalDataSourceMetadataSecondObject" />
             </list>
         </entry>
      </util:map>
 
-    <util:map id="createMetadataFirstMetadataSObject" map-class="java.util.HashMap"
+    <util:map id="createExternalDataSourceMetadataFirstObject" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
         <entry key="fullName" value="Muleman_QA_Gateway_First_#{randomString}" />
         <entry key="label" value="Muleman_QA_Gateway_First_#{randomString}" />
@@ -109,13 +109,56 @@
         <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
     </util:map>
 
-    <util:map id="createMetadataSecondMetadataSObject" map-class="java.util.HashMap"
+    <util:map id="createExternalDataSourceMetadataSecondObject" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
         <entry key="fullName" value="Muleman_QA_Gateway_Second_#{randomString}" />
         <entry key="label" value="Muleman_QA_Gateway_Second_#{randomString}" />
         <entry key="principalType" value="#{T(com.sforce.soap.metadata.ExternalPrincipalType).NamedUser }" />
         <entry key="protocol" value="#{T(com.sforce.soap.metadata.AuthenticationProtocol).NoAuthentication}" />
         <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
+    </util:map>
+    
+     <util:map id="createCustomObjectMetadataTestData" map-class="java.util.HashMap"
+              key-type="java.lang.String" value-type="java.lang.Object">
+        <entry key="type" value="CustomObject" />
+        <entry key="objects">
+            <list>
+                <ref bean="createCustomObjectMetadataFirstObject" />
+                <ref bean="createCustomObjectMetadataSecondObject" />
+            </list>
+        </entry>
+     </util:map>
+
+    <util:map id="createCustomObjectMetadataFirstObject" map-class="java.util.HashMap"
+              key-type="java.lang.String" value-type="java.lang.Object">
+        <entry key="fullName" value="Muleman_QA_CustObj_First_#{randomString}__c" />
+        <entry key="label" value="Muleman_QA_CustObj_First_#{randomString}" />
+        <entry key="pluralLabel" value="Muleman_QA_CustObjs_First_#{randomString}" />
+        <entry key="deploymentStatus" value="#{T(com.sforce.soap.metadata.DeploymentStatus).Deployed }" />
+        <entry key="sharingModel" value="#{T(com.sforce.soap.metadata.SharingModel).ReadWrite}" />
+        <entry key="nameField" value-ref="firstCustomObjectMetadataNameField" />
+    </util:map>
+    
+    <util:map id="firstCustomObjectMetadataNameField" map-class="java.util.HashMap"
+    			key-type="java.lang.String" value-type="java.lang.Object">
+    	<entry key="type" value="#{T(com.sforce.soap.metadata.FieldType).Text}"/>
+    	<entry key="label" value="Muleman_QA_CustObj_First_#{randomString}"/>			
+    </util:map>
+
+    <util:map id="createCustomObjectMetadataSecondObject" map-class="java.util.HashMap"
+              key-type="java.lang.String" value-type="java.lang.Object">
+       	<entry key="fullName" value="Muleman_QA_CustObj_Second_#{randomString}__c" />
+        <entry key="label" value="Muleman_QA_CustObj_Second_#{randomString}" />
+        <entry key="pluralLabel" value="Muleman_QA_CustObjs_Second_#{randomString}" />
+        <entry key="deploymentStatus" value="#{T(com.sforce.soap.metadata.DeploymentStatus).Deployed }" />
+        <entry key="sharingModel" value="#{T(com.sforce.soap.metadata.SharingModel).ReadWrite}" />
+        <entry key="nameField" value-ref="secondCustomObjectMetadataNameField" />
+    </util:map>
+    
+    <util:map id="secondCustomObjectMetadataNameField" map-class="java.util.HashMap"
+    			key-type="java.lang.String" value-type="java.lang.Object">
+    	<entry key="type" value="#{T(com.sforce.soap.metadata.FieldType).Text}"/>
+    	<entry key="label" value="Muleman_QA_CustObj_Second_#{randomString}"/>			
     </util:map>
 
     <!-- list-metadata -->
@@ -156,13 +199,13 @@
         <entry key="type" value="ExternalDataSource" />
         <entry key="objects">
             <list>
-                <ref bean="deleteMetadataFirstMetadataSObject" />
-                <ref bean="deleteMetadataSecondMetadataSObject" />
+                <ref bean="deleteMetadataFirstMetadataObject" />
+                <ref bean="deleteMetadataSecondMetadataObject" />
             </list>
         </entry>
     </util:map>
 
-    <util:map id="deleteMetadataFirstMetadataSObject" map-class="java.util.HashMap"
+    <util:map id="deleteMetadataFirstMetadataObject" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
         <entry key="fullName" value="Delete_Metadata_QA_Gateway_First_#{randomString}" />
         <entry key="label" value="Delete_Metadata_QA_Gateway_First_#{randomString}" />
@@ -171,7 +214,7 @@
         <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
     </util:map>
 
-    <util:map id="deleteMetadataSecondMetadataSObject" map-class="java.util.HashMap"
+    <util:map id="deleteMetadataSecondMetadataObject" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
         <entry key="fullName" value="Delete_Metadata_QA_Gateway_Second_#{randomString}" />
         <entry key="label" value="Delete_Metadata_QA_Gateway_Second_#{randomString}" />
