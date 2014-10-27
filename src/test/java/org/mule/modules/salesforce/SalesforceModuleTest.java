@@ -61,6 +61,7 @@ import com.sforce.async.ContentType;
 import com.sforce.async.JobInfo;
 import com.sforce.async.OperationEnum;
 import com.sforce.async.QueryResultList;
+import com.sforce.soap.metadata.MetadataConnection;
 import com.sforce.soap.partner.DeleteResult;
 import com.sforce.soap.partner.DescribeGlobalResult;
 import com.sforce.soap.partner.DescribeSObjectResult;
@@ -76,6 +77,7 @@ import com.sforce.soap.partner.QueryResult;
 import com.sforce.soap.partner.SaveResult;
 import com.sforce.soap.partner.sobject.SObject;
 import com.sforce.ws.ConnectorConfig;
+
 import org.mule.streaming.ProviderAwarePagingDelegate;
 
 public class SalesforceModuleTest {
@@ -351,6 +353,8 @@ public class SalesforceModuleTest {
         connector.setLoginResult(loginResult);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
         connector.setBulkConnection(bulkConnection);
+        MetadataConnection metadataConnection = Mockito.mock(MetadataConnection.class);
+        connector.setMetadataConnection(metadataConnection);
         when(loginResult.getSessionId()).thenReturn(MOCKED_ID);
 
         assertTrue(connector.isConnected());
@@ -365,6 +369,8 @@ public class SalesforceModuleTest {
         connector.setLoginResult(loginResult);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
         connector.setBulkConnection(bulkConnection);
+        MetadataConnection metadataConnection = Mockito.mock(MetadataConnection.class);
+        connector.setMetadataConnection(metadataConnection);
         when(loginResult.getSessionId()).thenReturn(MOCKED_ID);
 
         assertEquals(connector.getSessionId(), MOCKED_ID);

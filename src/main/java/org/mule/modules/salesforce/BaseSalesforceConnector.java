@@ -68,8 +68,6 @@ import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.modules.salesforce.lazystream.impl.LazyQueryResultInputStream;
 import org.mule.modules.salesforce.metadata.MetadataService;
 import org.mule.modules.salesforce.metadata.category.MetadataCategory;
-import org.mule.modules.salesforce.metadata.processor.ExternalDataSourceRequestProcessor;
-import org.mule.modules.salesforce.metadata.processor.MetadataRequestProcessor;
 import org.mule.modules.salesforce.metadata.type.MetadataOperationType;
 import org.mule.modules.salesforce.metadata.type.MetadataType;
 import org.mule.streaming.PagingConfiguration;
@@ -91,6 +89,7 @@ import com.sforce.soap.metadata.FileProperties;
 import com.sforce.soap.metadata.ListMetadataQuery;
 import com.sforce.soap.metadata.MetadataConnection;
 import com.sforce.soap.metadata.ReadResult;
+import com.sforce.soap.metadata.SearchLayouts;
 import com.sforce.soap.partner.AssignmentRuleHeader_element;
 import com.sforce.soap.partner.CallOptions_element;
 import com.sforce.soap.partner.DeleteResult;
@@ -1451,7 +1450,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	public List<com.sforce.soap.metadata.SaveResult> createMetadata(@MetaDataKeyParam String type,
 									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
 			throws Exception {
-    	objects = MetadataRequestProcessor.processRequest(objects, type);
 		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.CREATE);
 	}
     
@@ -1464,7 +1462,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	public List<com.sforce.soap.metadata.SaveResult> updateMetadata(@MetaDataKeyParam String type,
 									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
 			throws Exception {
-    	objects = MetadataRequestProcessor.processRequest(objects, type);
 		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.UPDATE);
 	}
     
@@ -1477,7 +1474,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	public List<com.sforce.soap.metadata.UpsertResult> upsertMetadata(@MetaDataKeyParam String type,
 									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
 			throws Exception {
-    	objects = MetadataRequestProcessor.processRequest(objects, type);
 		return MetadataService.callUpsertService(getMetadataConnection(), type, objects);
 	}
 	
