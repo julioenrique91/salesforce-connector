@@ -192,7 +192,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
                                      @Optional @Placement(group = "Session") String sessionId,
                                      @Optional @Placement(group = "Session") String serviceEndpoint) throws org.mule.api.ConnectionException {
 
-        ConnectorConfig connectorConfig = createConnectorConfig(url, username, password + StringUtils.defaultString(securityToken, ""), proxyHost, proxyPort, proxyUsername, proxyPassword);
+        ConnectorConfig connectorConfig = createConnectorConfig(url, username, password + StringUtils.defaultString(securityToken), proxyHost, proxyPort, proxyUsername, proxyPassword);
         if (LOGGER.isDebugEnabled()) {
             connectorConfig.addMessageHandler(new MessageHandler() {
                 @Override
