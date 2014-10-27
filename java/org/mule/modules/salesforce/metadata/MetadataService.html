@@ -300,8 +300,6 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/metadata/category/connection/package-summary.html">org.mule.modules.salesforce.metadata.category.connection</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/salesforce/metadata/processor/package-summary.html">org.mule.modules.salesforce.metadata.processor</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/metadata/type/package-summary.html">org.mule.modules.salesforce.metadata.type</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/salesforce/oauth/package-summary.html">org.mule.modules.salesforce.oauth</a></li>
@@ -629,6 +627,54 @@ Summary:
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/metadata/MetadataService.html#callUpsertService(com.sforce.soap.metadata.MetadataConnection, java.lang.String, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">callUpsertService</a></span>(MetadataConnection connection, String type, List&lt;Map&lt;String,&nbsp;Object&gt;&gt; request)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            Metadata[]</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/metadata/MetadataService.html#getMetadataObjects(org.mule.modules.salesforce.metadata.type.MetadataType, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)">getMetadataObjects</a></span>(<a href="../../../../../../java/org/mule/modules/salesforce/metadata/type/MetadataType.html">MetadataType</a> metadataType, List&lt;Map&lt;String,&nbsp;Object&gt;&gt; objects)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            Map&lt;String,&nbsp;Object&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/metadata/MetadataService.html#toMObjectMap(java.util.Map<java.lang.Object, java.lang.Object>)">toMObjectMap</a></span>(Map&lt;Object,&nbsp;Object&gt; map)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            Metadata</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/salesforce/metadata/MetadataService.html#toMetadataObject(org.apache.commons.beanutils.BeanUtilsBean, org.mule.modules.salesforce.metadata.type.MetadataType, java.util.Map<java.lang.String, java.lang.Object>)">toMetadataObject</a></span>(BeanUtilsBean beanUtilsBean, <a href="../../../../../../java/org/mule/modules/salesforce/metadata/type/MetadataType.html">MetadataType</a> metadataType, Map&lt;String,&nbsp;Object&gt; map)</nobr>
         
   </td></tr>
 
@@ -1204,6 +1250,156 @@ From class
         </tr>
         <tr>
           <th>request</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getMetadataObjects(org.mule.modules.salesforce.metadata.type.MetadataType, java.util.List<java.util.Map<java.lang.String, java.lang.Object>>)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        Metadata[]
+      </span>
+      <span class="sympad">getMetadataObjects</span>
+      <span class="normal">(<a href="../../../../../../java/org/mule/modules/salesforce/metadata/type/MetadataType.html">MetadataType</a> metadataType, List&lt;Map&lt;String,&nbsp;Object&gt;&gt; objects)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>metadataType</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>objects</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="toMObjectMap(java.util.Map<java.lang.Object, java.lang.Object>)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        Map&lt;String,&nbsp;Object&gt;
+      </span>
+      <span class="sympad">toMObjectMap</span>
+      <span class="normal">(Map&lt;Object,&nbsp;Object&gt; map)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>map</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="toMetadataObject(org.apache.commons.beanutils.BeanUtilsBean, org.mule.modules.salesforce.metadata.type.MetadataType, java.util.Map<java.lang.String, java.lang.Object>)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        Metadata
+      </span>
+      <span class="sympad">toMetadataObject</span>
+      <span class="normal">(BeanUtilsBean beanUtilsBean, <a href="../../../../../../java/org/mule/modules/salesforce/metadata/type/MetadataType.html">MetadataType</a> metadataType, Map&lt;String,&nbsp;Object&gt; map)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>beanUtilsBean</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>metadataType</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>map</td>
           <td></td>
         </tr>
       </table>

@@ -23,7 +23,6 @@ org.mule.modules.salesforce.lazystream.impl
 org.mule.modules.salesforce.metadata
 org.mule.modules.salesforce.metadata.category
 org.mule.modules.salesforce.metadata.category.connection
-org.mule.modules.salesforce.metadata.processor
 org.mule.modules.salesforce.metadata.type
 org.mule.modules.salesforce.oauth
 org.mule.modules.salesforce.pooling
