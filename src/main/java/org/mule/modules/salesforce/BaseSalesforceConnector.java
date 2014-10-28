@@ -1362,6 +1362,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         return getSalesforceSoapAdapter().getUserInfo();
     }
     
+    /**
+     * @param type
+     * @param objects
+     * @return An array of {@link com.sforce.soap.metadata.SaveResult}
+     * @throws Exception when there is an error
+     */
     @Processor
 	@OAuthProtected
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
@@ -1372,6 +1378,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.CREATE);
 	}
     
+    /**
+     * @param type
+     * @param objects
+     * @return An array of {@link com.sforce.soap.metadata.SaveResult}
+     * @throws Exception when there is an error
+     */
     @Processor
 	@OAuthProtected
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
@@ -1382,6 +1394,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.UPDATE);
 	}
     
+    /**
+     * @param type
+     * @param objects
+     * @return An array of {@link com.sforce.soap.metadata.UpsertResult}
+     * @throws Exception when there is an error
+     */
     @Processor
 	@OAuthProtected
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
@@ -1392,6 +1410,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 		return MetadataService.callUpsertService(getMetadataConnection(), type, objects);
 	}
 	
+	/**
+	 * @param type
+	 * @param fullNames
+	 * @return An array of {@link com.sforce.soap.metadata.DeleteResult}
+	 * @throws Exception when there is an error
+	 */
 	@Processor
 	@OAuthProtected
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
@@ -1403,6 +1427,13 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 		return MetadataService.callDeleteService(getMetadataConnection(), type, fullNames);
 	}
 	
+	/**
+	 * @param type
+	 * @param oldFullName
+	 * @param newFullName
+	 * @return {@link com.sforce.soap.metadata.SaveResult}
+	 * @throws Exception when there is an error
+	 */
 	@Processor
 	@OAuthProtected
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
@@ -1415,6 +1446,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 		return MetadataService.callRenameService(getMetadataConnection(), type, oldFullName, newFullName);
 	}
 	
+	/**
+	 * @param type
+	 * @param fullNames
+	 * @return {@link com.sforce.soap.metadata.ReadResult}
+	 * @throws Exception when there is an error
+	 */
 	@Processor
 	@OAuthProtected
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
@@ -1426,6 +1463,11 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 		return MetadataService.callReadService(getMetadataConnection(), type, fullNames);
 	}
 	
+	/**
+	 * @param type
+	 * @return An array of {@link com.sforce.soap.metadata.FileProperties}
+	 * @throws Exception when there is an error
+	 */
 	@Processor
 	@OAuthProtected
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
@@ -1440,6 +1482,10 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 		return Arrays.asList(fileProperties);
 	}
 	
+	/**
+	 * @return {@link com.sforce.soap.metadata.DescribeMetadataResult}
+	 * @throws Exception when there is an error
+	 */
 	@Processor
 	@OAuthProtected
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
