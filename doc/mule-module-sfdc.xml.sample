@@ -292,4 +292,47 @@
 <!-- BEGIN_INCLUDE(sfdc:get-server-timestamp) -->
 <sfdc:get-server-timestamp config-ref="mySalesforceConfig"/>
 <!-- END_INCLUDE(sfdc:get-server-timestamp) -->
-
+<!-- BEGIN_INCLUDE(sfdc:create-metadata) -->
+	<sfdc:create-metadata config-ref="mySalesforceConfig" type="Account">
+	    <sfdc:objects>
+        	<sfdc:object ref="#[payload]" />
+    	</sfdc:objects>
+    </sfdc:create-metadata>
+<!-- END_INCLUDE(sfdc:create-metadata) -->
+<!-- BEGIN_INCLUDE(sfdc:update-metadata) -->
+	<sfdc:update-metadata config-ref="mySalesforceConfig" type="Account">
+	    <sfdc:objects>
+        	<sfdc:object ref="#[payload]" />
+    	</sfdc:objects>
+    </sfdc:update-metadata>
+<!-- END_INCLUDE(sfdc:update-metadata) -->
+<!-- BEGIN_INCLUDE(sfdc:upsert-metadata) -->
+	<sfdc:upsert-metadata config-ref="mySalesforceConfig" type="Account">
+	    <sfdc:objects>
+        	<sfdc:object ref="#[payload]" />
+    	</sfdc:objects>
+    </sfdc:upsert-metadata>
+<!-- END_INCLUDE(sfdc:upsert-metadata) -->
+<!-- BEGIN_INCLUDE(sfdc:delete-metadata) -->
+	<sfdc:delete-metadata config-ref="mySalesforceConfig" type="Account">
+	    <sfdc:full-names>
+        	<sfdc:full-name>Full Name</sfdc:full-name>
+    	</sfdc:full-names>
+    </sfdc:delete-metadata>
+<!-- END_INCLUDE(sfdc:delete-metadata) -->
+<!-- BEGIN_INCLUDE(sfdc:rename-metadata) -->
+	<sfdc:rename-metadata config-ref="mySalesforceConfig" type="Account" oldFullName="oldAccount" newFullName="newAccount"/>
+<!-- END_INCLUDE(sfdc:rename-metadata) -->
+<!-- BEGIN_INCLUDE(sfdc:read-metadata) -->
+	<sfdc:read-metadata config-ref="mySalesforceConfig" type="Account">
+	    <sfdc:full-names>
+        	<sfdc:full-name>Full Name</sfdc:full-name>
+    	</sfdc:full-names>
+    </sfdc:read-metadata>
+<!-- END_INCLUDE(sfdc:read-metadata) -->
+<!-- BEGIN_INCLUDE(sfdc:list-metadata) -->
+	<sfdc:list-metadata config-ref="mySalesforceConfig" type="Account"/>
+<!-- END_INCLUDE(sfdc:list-metadata) -->
+<!-- BEGIN_INCLUDE(sfdc:describe-metadata) -->
+	<sfdc:describe-metadata config-ref="mySalesforceConfig"/>
+<!-- END_INCLUDE(sfdc:describe-metadata) -->
