@@ -32,18 +32,17 @@ import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.api.annotations.Category;
 import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.InvalidateConnectionOn;
 import org.mule.api.annotations.MetaDataScope;
 import org.mule.api.annotations.Paged;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.Query;
 import org.mule.api.annotations.QueryTranslator;
+import org.mule.api.annotations.ReconnectOn;
 import org.mule.api.annotations.Source;
 import org.mule.api.annotations.SourceThreadingModel;
 import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
-import org.mule.api.annotations.oauth.OAuthInvalidateAccessTokenOn;
 import org.mule.api.annotations.oauth.OAuthProtected;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.MetaDataKeyParam;
@@ -89,7 +88,6 @@ import com.sforce.soap.metadata.FileProperties;
 import com.sforce.soap.metadata.ListMetadataQuery;
 import com.sforce.soap.metadata.MetadataConnection;
 import com.sforce.soap.metadata.ReadResult;
-import com.sforce.soap.metadata.SearchLayouts;
 import com.sforce.soap.partner.AssignmentRuleHeader_element;
 import com.sforce.soap.partner.CallOptions_element;
 import com.sforce.soap.partner.DeleteResult;
@@ -110,6 +108,8 @@ import com.sforce.soap.partner.UpsertResult;
 import com.sforce.soap.partner.sobject.SObject;
 import com.sforce.ws.ConnectionException;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
+@ReconnectOn(exceptions={SalesforceSessionExpiredException.class})
 public abstract class BaseSalesforceConnector implements MuleContextAware {
 
     private static final Logger LOGGER = Logger.getLogger(BaseSalesforceConnector.class);
@@ -267,8 +267,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<SaveResult> create(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
@@ -300,8 +298,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public JobInfo createJob(OperationEnum operation, @MetaDataKeyParam String type, @Optional String externalIdFieldName, @Optional ContentType contentType, @Optional ConcurrencyMode concurrencyMode) throws Exception {
         return createJobInfo(operation, type, externalIdFieldName, contentType, concurrencyMode);
@@ -319,8 +315,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public JobInfo closeJob(String jobId) throws Exception {
         return getSalesforceRestAdapter().closeJob(jobId);
@@ -338,8 +332,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public JobInfo abortJob(String jobId) throws Exception {
         return getSalesforceRestAdapter().abortJob(jobId);
@@ -358,8 +350,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public JobInfo jobInfo(String jobId) throws Exception {
         return getSalesforceRestAdapter().getJobStatus(jobId);
@@ -381,8 +371,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo createBatch(JobInfo jobInfo, @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
         return createBatchAndCompleteRequest(jobInfo, objects);
@@ -404,8 +392,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo createBatchStream(JobInfo jobInfo, @Optional @Default("#[payload]") InputStream stream) throws Exception {
         return getSalesforceRestAdapter().createBatchFromStream(jobInfo, stream);
@@ -427,8 +413,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo createBatchForQuery(JobInfo jobInfo, @Optional @Default("#[payload]") String query) throws Exception {
         InputStream queryStream = new ByteArrayInputStream(query.getBytes());
@@ -451,8 +435,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo createBulk(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                 @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
@@ -476,8 +458,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public SaveResult createSingle(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "sObject Field Mappings") @FriendlyName("sObject") @Optional @Default("#[payload]") Map<String, Object> object,
@@ -505,8 +485,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<SaveResult> update(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
@@ -530,8 +508,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public SaveResult updateSingle(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "Salesforce Object") @FriendlyName("sObject") @Optional @Default("#[payload]") Map<String, Object> object,
@@ -555,8 +531,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo updateBulk(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                 @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
@@ -583,8 +557,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<UpsertResult> upsert(@Placement(group = "Information") String externalIdFieldName,
                                      @MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
@@ -615,8 +587,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo upsertBulk(@MetaDataKeyParam @Placement(group = "Information", order = 1) @FriendlyName("sObject Type") String type,
                                 @Placement(group = "Information", order = 2) String externalIdFieldName,
@@ -637,8 +607,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo batchInfo(@Default("#[payload:]") BatchInfo batchInfo) throws Exception {
         return getSalesforceRestAdapter().getBatchInfo(batchInfo.getJobId(), batchInfo.getId());
@@ -658,8 +626,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchResult batchResult(@Default("#[payload:]") BatchInfo batchInfo) throws Exception {
         return getSalesforceRestAdapter().getBatchResult(batchInfo.getJobId(), batchInfo.getId());
@@ -679,8 +645,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public InputStream batchResultStream(@Default("#[payload:]") BatchInfo batchInfo) throws Exception {
         return getSalesforceRestAdapter().getBatchResultStream(batchInfo.getJobId(), batchInfo.getId());
@@ -703,8 +667,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public InputStream queryResultStream(@Default("#[payload:]") BatchInfo batchInfo) throws AsyncApiException {
 
@@ -736,8 +698,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Describe Calls", description = "A set of calls to describe record structure in Salesforce.")
     public DescribeGlobalResult describeGlobal() throws ConnectionException {
         return getSalesforceSoapAdapter().describeGlobal();
@@ -757,8 +717,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<Map<String, Object>> retrieve(@MetaDataKeyParam @Placement(group = "Information", order = 1) @FriendlyName("sObject Type") String type,
                                               @Placement(group = "Ids to Retrieve") List<String> ids,
@@ -792,8 +750,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     @Paged
     public ProviderAwarePagingDelegate<Map<String, Object>, BaseSalesforceConnector> query(@Query @Placement(group = "Query") final String query, final PagingConfiguration pagingConfiguration,
@@ -831,8 +787,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<Map<String, Object>> nonPaginatedQuery(@org.mule.api.annotations.Query @Placement(group = "Query") String query,
                                                        @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
@@ -865,8 +819,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     @Paged
     public ProviderAwarePagingDelegate<Map<String, Object>, BaseSalesforceConnector> queryAll(@Placement(group = "Query") String query, PagingConfiguration pagingConfiguration,
@@ -893,8 +845,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<Map<String, Object>> search(@Placement(group = "Query") String query,
                                             @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
@@ -924,8 +874,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public Map<String, Object> querySingle(@Placement(group = "Query") String query,
                                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
@@ -988,8 +936,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public LeadConvertResult convertLead(String leadId, @Optional String contactId,
                                          @Optional String accountId,
@@ -1036,8 +982,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<EmptyRecycleBinResult> emptyRecycleBin(@Placement(group = "Ids to Delete") List<String> ids,
                                                        @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
@@ -1055,8 +999,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public Calendar getServerTimestamp() throws ConnectionException {
         return getSalesforceSoapAdapter().getServerTimestamp().getTimestamp();
@@ -1076,8 +1018,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<DeleteResult> delete(@Optional @Default("#[payload]") @Placement(group = "Ids to Delete") List<String> ids,
                                      @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
@@ -1102,8 +1042,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo hardDeleteBulk(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                     @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
@@ -1130,8 +1068,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public GetUpdatedResult getUpdatedRange(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                             @Placement(group = "Information") @FriendlyName("Start Time Reference") Calendar startTime,
@@ -1172,8 +1108,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public GetDeletedResult getDeletedRange(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                             @Placement(group = "Information") @FriendlyName("Start Time Reference") Calendar startTime,
@@ -1206,8 +1140,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor(name = "describe-sobject", friendlyName = "Describe sObject")
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Describe Calls", description = "A set of calls to describe record structure in Salesforce.")
     public DescribeSObjectResult describeSObject(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type) throws ConnectionException {
         return getSalesforceSoapAdapter().describeSObject(type);
@@ -1228,8 +1160,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public GetDeletedResult getDeleted(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                        @Placement(group = "Information") int duration,
@@ -1259,8 +1189,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public GetUpdatedResult getUpdated(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                        @Placement(group = "Information") int duration,
@@ -1297,8 +1225,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Utility Calls", description = "API calls that your client applications can invoke to obtain the system timestamp, user information, and change user passwords.")
     public List<Map<String, Object>> getUpdatedObjects(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                                        @Placement(group = "Information") int initialTimeWindow,
@@ -1385,8 +1311,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Streaming API", description = "Create topics, to which applications can subscribe, receiving asynchronous notifications of changes to data in Salesforce, via the Bayeux protocol.")
     public void publishTopic(@Placement(group = "Information") String topicName,
                              @Placement(group = "Information") String query,
@@ -1434,8 +1358,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     @Processor
     @OAuthProtected
-    @InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-    @OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
     @Category(name = "Utility Calls", description = "API calls that your client applications can invoke to obtain the system timestamp, user information, and change user passwords.")
     public GetUserInfoResult getUserInfo() throws ConnectionException {
         return getSalesforceSoapAdapter().getUserInfo();
@@ -1443,8 +1365,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     
     @Processor
 	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public List<com.sforce.soap.metadata.SaveResult> createMetadata(@MetaDataKeyParam String type,
@@ -1455,8 +1375,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     
     @Processor
 	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public List<com.sforce.soap.metadata.SaveResult> updateMetadata(@MetaDataKeyParam String type,
@@ -1467,8 +1385,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     
     @Processor
 	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public List<com.sforce.soap.metadata.UpsertResult> upsertMetadata(@MetaDataKeyParam String type,
@@ -1479,8 +1395,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	
 	@Processor
 	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public List<com.sforce.soap.metadata.DeleteResult> deleteMetadata(@MetaDataKeyParam String type,
@@ -1492,8 +1406,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	
 	@Processor
 	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public com.sforce.soap.metadata.SaveResult renameMetadata(@MetaDataKeyParam String type,
@@ -1506,8 +1418,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	
 	@Processor
 	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public ReadResult readMetadata(@MetaDataKeyParam String type,
@@ -1519,8 +1429,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	
 	@Processor
 	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public List<FileProperties> listMetadata(@MetaDataKeyParam String type)
@@ -1535,8 +1443,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	
 	@Processor
 	@OAuthProtected
-	@InvalidateConnectionOn(exception = SalesforceSessionExpiredException.class)
-	@OAuthInvalidateAccessTokenOn(exception = SalesforceSessionExpiredException.class)
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public DescribeMetadataResult describeMetadata()
@@ -1651,7 +1557,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         return getSalesforceRestAdapter().createJob(jobInfo);
     }
 
-    protected SObject toSObject(String type, Map<String, Object> map) {
+	protected SObject toSObject(String type, Map<String, Object> map) {
         SObject sObject = new SObject();
         sObject.setType(type);
         for (Map.Entry<String, Object> entry : map.entrySet()) {
