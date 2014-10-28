@@ -1363,8 +1363,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     }
     
     /**
-     * @param type
-     * @param objects
+     * Create metadata
+     * <p/>
+	 * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:create-metadata}
+	 * 
+     * @param type metadata type
+     * @param objects Objects
      * @return An array of {@link com.sforce.soap.metadata.SaveResult}
      * @throws Exception when there is an error
      */
@@ -1379,8 +1383,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	}
     
     /**
-     * @param type
-     * @param objects
+     * Update metadata
+     * <p/>
+	 * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:update-metadata}
+	 * 
+     * @param type metadata type
+     * @param objects Objects
      * @return An array of {@link com.sforce.soap.metadata.SaveResult}
      * @throws Exception when there is an error
      */
@@ -1395,8 +1403,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	}
     
     /**
-     * @param type
-     * @param objects
+     * Upsert metadata
+     * <p/>
+	 * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:upsert-metadata}
+	 * 
+     * @param type metadata type
+     * @param objects Objects
      * @return An array of {@link com.sforce.soap.metadata.UpsertResult}
      * @throws Exception when there is an error
      */
@@ -1411,8 +1423,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	}
 	
 	/**
-	 * @param type
-	 * @param fullNames
+	 * Delete metadata
+	 * <p/>
+	 * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:delete-metadata}
+	 * 
+	 * @param type metadata type
+	 * @param fullNames full names
 	 * @return An array of {@link com.sforce.soap.metadata.DeleteResult}
 	 * @throws Exception when there is an error
 	 */
@@ -1428,9 +1444,13 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	}
 	
 	/**
-	 * @param type
-	 * @param oldFullName
-	 * @param newFullName
+	 * Rename metadata
+	 * <p/>
+	 * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:rename-metadata}
+	 * 
+	 * @param type metadata type
+	 * @param oldFullName old full names
+	 * @param newFullName new full names
 	 * @return {@link com.sforce.soap.metadata.SaveResult}
 	 * @throws Exception when there is an error
 	 */
@@ -1447,8 +1467,12 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	}
 	
 	/**
-	 * @param type
-	 * @param fullNames
+	 * Read metadata
+	 * <p/>
+	 * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:read-metadata}
+	 * 
+	 * @param type metadata type
+	 * @param fullNames full names
 	 * @return {@link com.sforce.soap.metadata.ReadResult}
 	 * @throws Exception when there is an error
 	 */
@@ -1464,7 +1488,11 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	}
 	
 	/**
-	 * @param type
+	 * List metadata
+	 * <p/>
+	 * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:list-metadata}
+	 * 
+	 * @param type metadata type
 	 * @return An array of {@link com.sforce.soap.metadata.FileProperties}
 	 * @throws Exception when there is an error
 	 */
@@ -1483,6 +1511,10 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	}
 	
 	/**
+	 * Describe metadata
+	 * <p/>
+	 * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:describe-metadata}
+	 * 
 	 * @return {@link com.sforce.soap.metadata.DescribeMetadataResult}
 	 * @throws Exception when there is an error
 	 */
