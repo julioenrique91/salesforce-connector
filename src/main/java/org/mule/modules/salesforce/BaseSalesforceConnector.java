@@ -153,7 +153,6 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      * Creating a batch will create SObjects using this value for the MAX_DEPTH check.
      */
     @Configurable
-    @Optional
     @Default("5")
     private Integer batchSobjectMaxDepth;
 
@@ -269,7 +268,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthProtected
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<SaveResult> create(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
-                                   @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
+                                   @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Default("#[payload]") List<Map<String, Object>> objects,
                                    @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
         return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).create(sObjects));
@@ -372,7 +371,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Processor
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public BatchInfo createBatch(JobInfo jobInfo, @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
+    public BatchInfo createBatch(JobInfo jobInfo, @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
         return createBatchAndCompleteRequest(jobInfo, objects);
     }
 
@@ -393,7 +392,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Processor
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public BatchInfo createBatchStream(JobInfo jobInfo, @Optional @Default("#[payload]") InputStream stream) throws Exception {
+    public BatchInfo createBatchStream(JobInfo jobInfo, @Default("#[payload]") InputStream stream) throws Exception {
         return getSalesforceRestAdapter().createBatchFromStream(jobInfo, stream);
     }
 
@@ -414,7 +413,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Processor
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public BatchInfo createBatchForQuery(JobInfo jobInfo, @Optional @Default("#[payload]") String query) throws Exception {
+    public BatchInfo createBatchForQuery(JobInfo jobInfo, @Default("#[payload]") String query) throws Exception {
         InputStream queryStream = new ByteArrayInputStream(query.getBytes());
         return createBatchForQuery(jobInfo, queryStream);
     }
@@ -437,7 +436,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo createBulk(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
-                                @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
+                                @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
 
         return createBatchAndCompleteRequest(createJobInfo(OperationEnum.insert, type), objects);
     }
@@ -460,7 +459,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthProtected
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public SaveResult createSingle(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
-                                   @Placement(group = "sObject Field Mappings") @FriendlyName("sObject") @Optional @Default("#[payload]") Map<String, Object> object,
+                                   @Placement(group = "sObject Field Mappings") @FriendlyName("sObject") @Default("#[payload]") Map<String, Object> object,
                                    @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         SaveResult[] saveResults = getSalesforceSoapAdapter(headers).create(new SObject[]{SalesforceUtils.toSObject(type, object)});
         if (saveResults.length > 0) {
@@ -487,7 +486,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthProtected
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<SaveResult> update(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
-                                   @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
+                                   @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Default("#[payload]") List<Map<String, Object>> objects,
                                    @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
         return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).update(sObjects));
@@ -510,7 +509,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthProtected
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public SaveResult updateSingle(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
-                                   @Placement(group = "Salesforce Object") @FriendlyName("sObject") @Optional @Default("#[payload]") Map<String, Object> object,
+                                   @Placement(group = "Salesforce Object") @FriendlyName("sObject") @Default("#[payload]") Map<String, Object> object,
                                    @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         return getSalesforceSoapAdapter(headers).update(new SObject[]{SalesforceUtils.toSObject(type, object)})[0];
     }
@@ -533,7 +532,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo updateBulk(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
-                                @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
+                                @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
         return createBatchAndCompleteRequest(createJobInfo(OperationEnum.update, type), objects);
     }
 
@@ -560,7 +559,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<UpsertResult> upsert(@Placement(group = "Information") String externalIdFieldName,
                                      @MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
-                                     @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects,
+                                     @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Default("#[payload]") List<Map<String, Object>> objects,
                                      @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
         SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
         return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).upsert(externalIdFieldName, sObjects));
@@ -590,7 +589,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo upsertBulk(@MetaDataKeyParam @Placement(group = "Information", order = 1) @FriendlyName("sObject Type") String type,
                                 @Placement(group = "Information", order = 2) String externalIdFieldName,
-                                @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
+                                @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
         return createBatchAndCompleteRequest(createJobInfo(OperationEnum.upsert, type, externalIdFieldName, null, null), objects);
     }
 
@@ -939,11 +938,11 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public LeadConvertResult convertLead(String leadId, @Optional String contactId,
                                          @Optional String accountId,
-                                         @Optional @Default("false") Boolean overWriteLeadSource,
-                                         @Optional @Default("false") Boolean doNotCreateOpportunity,
+                                         @Default("false") Boolean overWriteLeadSource,
+                                         @Default("false") Boolean doNotCreateOpportunity,
                                          @Optional String opportunityName,
                                          String convertedStatus,
-                                         @Optional @Default("false") Boolean sendEmailToOwner,
+                                         @Default("false") Boolean sendEmailToOwner,
                                          @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
 
         LeadConvert leadConvert = new LeadConvert();
@@ -1019,7 +1018,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Processor
     @OAuthProtected
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
-    public List<DeleteResult> delete(@Optional @Default("#[payload]") @Placement(group = "Ids to Delete") List<String> ids,
+    public List<DeleteResult> delete(@Default("#[payload]") @Placement(group = "Ids to Delete") List<String> ids,
                                      @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         return Arrays.asList(getSalesforceSoapAdapter(headers).delete(ids.toArray(new String[ids.size()])));
     }
@@ -1044,7 +1043,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo hardDeleteBulk(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
-                                    @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Optional @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
+                                    @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Default("#[payload]") List<Map<String, Object>> objects) throws Exception {
         return createBatchAndCompleteRequest(createJobInfo(OperationEnum.hardDelete, type), objects);
     }
 
@@ -1228,7 +1227,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Category(name = "Utility Calls", description = "API calls that your client applications can invoke to obtain the system timestamp, user information, and change user passwords.")
     public List<Map<String, Object>> getUpdatedObjects(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                                        @Placement(group = "Information") int initialTimeWindow,
-                                                       @Optional @Default("#[payload]") @Placement(group = "Fields") List<String> fields,
+                                                       @Default("#[payload]") @Placement(group = "Fields") List<String> fields,
                                                        @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException, ObjectStoreException {
 
         Calendar now = (Calendar) getSalesforceSoapAdapter().getServerTimestamp().getTimestamp().clone();
@@ -1368,7 +1367,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public List<com.sforce.soap.metadata.SaveResult> createMetadata(@MetaDataKeyParam String type,
-									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
+									@FriendlyName("Metadata Objects") @Default("#[payload]") List<Map<String, Object>> objects)
 			throws Exception {
 		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.CREATE);
 	}
@@ -1378,7 +1377,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public List<com.sforce.soap.metadata.SaveResult> updateMetadata(@MetaDataKeyParam String type,
-									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
+									@FriendlyName("Metadata Objects") @Default("#[payload]") List<Map<String, Object>> objects)
 			throws Exception {
 		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.UPDATE);
 	}
@@ -1388,7 +1387,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public List<com.sforce.soap.metadata.UpsertResult> upsertMetadata(@MetaDataKeyParam String type,
-									@FriendlyName("Metadata Objects") @Optional @Default("#[payload]") List<Map<String, Object>> objects)
+									@FriendlyName("Metadata Objects") @Default("#[payload]") List<Map<String, Object>> objects)
 			throws Exception {
 		return MetadataService.callUpsertService(getMetadataConnection(), type, objects);
 	}
@@ -1398,7 +1397,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public List<com.sforce.soap.metadata.DeleteResult> deleteMetadata(@MetaDataKeyParam String type,
-									@FriendlyName("Full Names") @Optional @Default("#[payload]") List<String> fullNames)
+									@FriendlyName("Full Names") @Default("#[payload]") List<String> fullNames)
 			throws Exception {
 
 		return MetadataService.callDeleteService(getMetadataConnection(), type, fullNames);
@@ -1409,8 +1408,8 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public com.sforce.soap.metadata.SaveResult renameMetadata(@MetaDataKeyParam String type,
-									@FriendlyName("Old Full Name") @Optional @Default("#[payload]") String oldFullName,
-									@FriendlyName("New Full Name") @Optional @Default("#[payload]") String newFullName)
+									@FriendlyName("Old Full Name") @Default("#[payload]") String oldFullName,
+									@FriendlyName("New Full Name") @Default("#[payload]") String newFullName)
 			throws Exception {
 
 		return MetadataService.callRenameService(getMetadataConnection(), type, oldFullName, newFullName);
@@ -1421,7 +1420,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public ReadResult readMetadata(@MetaDataKeyParam String type,
-									@FriendlyName("Full Names") @Optional @Default("#[payload]") List<String> fullNames)
+									@FriendlyName("Full Names") @Default("#[payload]") List<String> fullNames)
 			throws Exception {
 
 		return MetadataService.callReadService(getMetadataConnection(), type, fullNames);
