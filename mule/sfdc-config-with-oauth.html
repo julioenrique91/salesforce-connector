@@ -452,6 +452,10 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#create-metadata">&lt;sfdc:create-metadata&gt;</a></nobr>
         
+        <div class="jd-descrdiv">Create metadata
+ <p/>
+ </div>
+        
   </td></tr>
 
 
@@ -459,6 +463,10 @@ Summary:
     <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#delete-metadata">&lt;sfdc:delete-metadata&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Delete metadata
+ <p/>
+ </div>
         
   </td></tr>
 
@@ -468,6 +476,10 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#describe-metadata">&lt;sfdc:describe-metadata&gt;</a></nobr>
         
+        <div class="jd-descrdiv">Describe metadata
+ <p/>
+ </div>
+        
   </td></tr>
 
 
@@ -475,6 +487,10 @@ Summary:
     <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#list-metadata">&lt;sfdc:list-metadata&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">List metadata
+ <p/>
+ </div>
         
   </td></tr>
 
@@ -484,6 +500,10 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#read-metadata">&lt;sfdc:read-metadata&gt;</a></nobr>
         
+        <div class="jd-descrdiv">Read metadata
+ <p/>
+ </div>
+        
   </td></tr>
 
 
@@ -491,6 +511,10 @@ Summary:
     <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#rename-metadata">&lt;sfdc:rename-metadata&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Rename metadata
+ <p/>
+ </div>
         
   </td></tr>
 
@@ -500,6 +524,10 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#update-metadata">&lt;sfdc:update-metadata&gt;</a></nobr>
         
+        <div class="jd-descrdiv">Update metadata
+ <p/>
+ </div>
+        
   </td></tr>
 
 
@@ -507,6 +535,10 @@ Summary:
     <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/sfdc-config-with-oauth.html#upsert-metadata">&lt;sfdc:upsert-metadata&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Upsert metadata
+ <p/>
+ </div>
         
   </td></tr>
 
@@ -1367,7 +1399,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:fields&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i>The fields to retrieve for the updated objects</td>
+                        <td>The fields to retrieve for the updated objects</td>
                         <td>List&lt;String&gt;</td>
                     </tr>
                 
@@ -1832,7 +1864,13 @@ protected operation that uses that token.
       
   <div class="jd-tagdata jd-tagdescr"><p>
       
-        
+        Create metadata
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:create-metadata config-ref="mySalesforceConfig" type="Account"&gt;
+    &lt;sfdc:objects&gt;
+        	&lt;sfdc:object ref="#[payload]" /&gt;
+    	&lt;/sfdc:objects&gt;
+    &lt;/sfdc:create-metadata&gt;</pre></div>
       
   </p></div>
   <div class="jd-tagdata">
@@ -1855,7 +1893,7 @@ protected operation that uses that token.
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>type</nobr></td>
                             <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"></td>
+                            <td class="jd-descrcol">Metadata type</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -1883,7 +1921,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:objects&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i></td>
+                        <td>Objects</td>
                         <td>List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</td>
                     </tr>
                 
@@ -1893,6 +1931,22 @@ protected operation that uses that token.
       </div>
   
   
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                
+                    <td class="jd-descrcol">List&lt;SaveResult&gt;</td>
+                    <td class="jd-descrcol">An array of com.sforce.soap.metadata.SaveResult</td>
+                
+
+             </tr>
+         </table>
+  </div>
     
   
   <div class="jd-tagdata">
@@ -1902,7 +1956,8 @@ protected operation that uses that token.
         
         <tr>
             <td>Exception</td>
-            <td></td>
+            <td>when there is an error
+</td>
         </tr>
       </table>
   </div>
@@ -1926,7 +1981,13 @@ protected operation that uses that token.
       
   <div class="jd-tagdata jd-tagdescr"><p>
       
-        
+        Delete metadata
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:delete-metadata config-ref="mySalesforceConfig" type="Account"&gt;
+    &lt;sfdc:full-names&gt;
+        	&lt;sfdc:full-name&gt;Full Name&lt;/sfdc:full-name&gt;
+    	&lt;/sfdc:full-names&gt;
+    &lt;/sfdc:delete-metadata&gt;</pre></div>
       
   </p></div>
   <div class="jd-tagdata">
@@ -1949,7 +2010,7 @@ protected operation that uses that token.
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>type</nobr></td>
                             <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"></td>
+                            <td class="jd-descrcol">Metadata type</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -1977,7 +2038,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:full-names&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i></td>
+                        <td>Full names</td>
                         <td>List&lt;String&gt;</td>
                     </tr>
                 
@@ -1987,6 +2048,22 @@ protected operation that uses that token.
       </div>
   
   
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                
+                    <td class="jd-descrcol">List&lt;DeleteResult&gt;</td>
+                    <td class="jd-descrcol">An array of com.sforce.soap.metadata.DeleteResult</td>
+                
+
+             </tr>
+         </table>
+  </div>
     
   
   <div class="jd-tagdata">
@@ -1996,7 +2073,8 @@ protected operation that uses that token.
         
         <tr>
             <td>Exception</td>
-            <td></td>
+            <td>when there is an error
+</td>
         </tr>
       </table>
   </div>
@@ -2020,7 +2098,9 @@ protected operation that uses that token.
       
   <div class="jd-tagdata jd-tagdescr"><p>
       
-        
+        Describe metadata
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:describe-metadata config-ref="mySalesforceConfig"/&gt;</pre></div>
       
   </p></div>
   <div class="jd-tagdata">
@@ -2044,6 +2124,22 @@ protected operation that uses that token.
   </div>
   
   
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                
+                    <td class="jd-descrcol">DescribeMetadataResult</td>
+                    <td class="jd-descrcol">com.sforce.soap.metadata.DescribeMetadataResult</td>
+                
+
+             </tr>
+         </table>
+  </div>
     
   
   <div class="jd-tagdata">
@@ -2053,7 +2149,8 @@ protected operation that uses that token.
         
         <tr>
             <td>Exception</td>
-            <td></td>
+            <td>when there is an error
+</td>
         </tr>
       </table>
   </div>
@@ -2077,7 +2174,9 @@ protected operation that uses that token.
       
   <div class="jd-tagdata jd-tagdescr"><p>
       
-        
+        List metadata
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:list-metadata config-ref="mySalesforceConfig" type="Account"/&gt;</pre></div>
       
   </p></div>
   <div class="jd-tagdata">
@@ -2100,7 +2199,7 @@ protected operation that uses that token.
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>type</nobr></td>
                             <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"></td>
+                            <td class="jd-descrcol">Metadata type</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -2115,6 +2214,22 @@ protected operation that uses that token.
   </div>
   
   
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                
+                    <td class="jd-descrcol">List&lt;FileProperties&gt;</td>
+                    <td class="jd-descrcol">An array of com.sforce.soap.metadata.FileProperties</td>
+                
+
+             </tr>
+         </table>
+  </div>
     
   
   <div class="jd-tagdata">
@@ -2124,7 +2239,8 @@ protected operation that uses that token.
         
         <tr>
             <td>Exception</td>
-            <td></td>
+            <td>when there is an error
+</td>
         </tr>
       </table>
   </div>
@@ -2148,7 +2264,13 @@ protected operation that uses that token.
       
   <div class="jd-tagdata jd-tagdescr"><p>
       
-        
+        Read metadata
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:read-metadata config-ref="mySalesforceConfig" type="Account"&gt;
+    &lt;sfdc:full-names&gt;
+        	&lt;sfdc:full-name&gt;Full Name&lt;/sfdc:full-name&gt;
+    	&lt;/sfdc:full-names&gt;
+    &lt;/sfdc:read-metadata&gt;</pre></div>
       
   </p></div>
   <div class="jd-tagdata">
@@ -2171,7 +2293,7 @@ protected operation that uses that token.
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>type</nobr></td>
                             <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"></td>
+                            <td class="jd-descrcol">Metadata type</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -2199,7 +2321,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:full-names&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i></td>
+                        <td>Full names</td>
                         <td>List&lt;String&gt;</td>
                     </tr>
                 
@@ -2209,6 +2331,22 @@ protected operation that uses that token.
       </div>
   
   
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                
+                    <td class="jd-descrcol">ReadResult</td>
+                    <td class="jd-descrcol">com.sforce.soap.metadata.ReadResult</td>
+                
+
+             </tr>
+         </table>
+  </div>
     
   
   <div class="jd-tagdata">
@@ -2218,7 +2356,8 @@ protected operation that uses that token.
         
         <tr>
             <td>Exception</td>
-            <td></td>
+            <td>when there is an error
+</td>
         </tr>
       </table>
   </div>
@@ -2242,7 +2381,9 @@ protected operation that uses that token.
       
   <div class="jd-tagdata jd-tagdescr"><p>
       
-        
+        Rename metadata
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:rename-metadata config-ref="mySalesforceConfig" type="Account" oldFullName="oldAccount" newFullName="newAccount"/&gt;</pre></div>
       
   </p></div>
   <div class="jd-tagdata">
@@ -2265,7 +2406,7 @@ protected operation that uses that token.
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>type</nobr></td>
                             <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"></td>
+                            <td class="jd-descrcol">Metadata type</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -2279,7 +2420,7 @@ protected operation that uses that token.
                         <tr class="alt-color api apilevel-" >
                             <td class="jd-linkcol"><nobr>oldFullName</nobr></td>
                             <td class="jd-descrcol">#[payload]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i></td>
+                            <td class="jd-descrcol">Old full names</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -2293,7 +2434,7 @@ protected operation that uses that token.
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>newFullName</nobr></td>
                             <td class="jd-descrcol">#[payload]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i></td>
+                            <td class="jd-descrcol">New full names</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -2308,6 +2449,22 @@ protected operation that uses that token.
   </div>
   
   
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                
+                    <td class="jd-descrcol">SaveResult</td>
+                    <td class="jd-descrcol">com.sforce.soap.metadata.SaveResult</td>
+                
+
+             </tr>
+         </table>
+  </div>
     
   
   <div class="jd-tagdata">
@@ -2317,7 +2474,8 @@ protected operation that uses that token.
         
         <tr>
             <td>Exception</td>
-            <td></td>
+            <td>when there is an error
+</td>
         </tr>
       </table>
   </div>
@@ -2341,7 +2499,13 @@ protected operation that uses that token.
       
   <div class="jd-tagdata jd-tagdescr"><p>
       
-        
+        Update metadata
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:update-metadata config-ref="mySalesforceConfig" type="Account"&gt;
+    &lt;sfdc:objects&gt;
+        	&lt;sfdc:object ref="#[payload]" /&gt;
+    	&lt;/sfdc:objects&gt;
+    &lt;/sfdc:update-metadata&gt;</pre></div>
       
   </p></div>
   <div class="jd-tagdata">
@@ -2364,7 +2528,7 @@ protected operation that uses that token.
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>type</nobr></td>
                             <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"></td>
+                            <td class="jd-descrcol">Metadata type</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -2392,7 +2556,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:objects&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i></td>
+                        <td>Objects</td>
                         <td>List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</td>
                     </tr>
                 
@@ -2402,6 +2566,22 @@ protected operation that uses that token.
       </div>
   
   
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                
+                    <td class="jd-descrcol">List&lt;SaveResult&gt;</td>
+                    <td class="jd-descrcol">An array of com.sforce.soap.metadata.SaveResult</td>
+                
+
+             </tr>
+         </table>
+  </div>
     
   
   <div class="jd-tagdata">
@@ -2411,7 +2591,8 @@ protected operation that uses that token.
         
         <tr>
             <td>Exception</td>
-            <td></td>
+            <td>when there is an error
+</td>
         </tr>
       </table>
   </div>
@@ -2435,7 +2616,13 @@ protected operation that uses that token.
       
   <div class="jd-tagdata jd-tagdescr"><p>
       
-        
+        Upsert metadata
+ <p/>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;sfdc:upsert-metadata config-ref="mySalesforceConfig" type="Account"&gt;
+    &lt;sfdc:objects&gt;
+        	&lt;sfdc:object ref="#[payload]" /&gt;
+    	&lt;/sfdc:objects&gt;
+    &lt;/sfdc:upsert-metadata&gt;</pre></div>
       
   </p></div>
   <div class="jd-tagdata">
@@ -2458,7 +2645,7 @@ protected operation that uses that token.
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>type</nobr></td>
                             <td class="jd-descrcol"></td>
-                            <td class="jd-descrcol"></td>
+                            <td class="jd-descrcol">Metadata type</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -2486,7 +2673,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:objects&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i></td>
+                        <td>Objects</td>
                         <td>List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</td>
                     </tr>
                 
@@ -2496,6 +2683,22 @@ protected operation that uses that token.
       </div>
   
   
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                
+                    <td class="jd-descrcol">List&lt;UpsertResult&gt;</td>
+                    <td class="jd-descrcol">An array of com.sforce.soap.metadata.UpsertResult</td>
+                
+
+             </tr>
+         </table>
+  </div>
     
   
   <div class="jd-tagdata">
@@ -2505,7 +2708,8 @@ protected operation that uses that token.
         
         <tr>
             <td>Exception</td>
-            <td></td>
+            <td>when there is an error
+</td>
         </tr>
       </table>
   </div>
@@ -2801,7 +3005,7 @@ protected operation that uses that token.
                         <tr class="alt-color api apilevel-" >
                             <td class="jd-linkcol"><nobr>overWriteLeadSource</nobr></td>
                             <td class="jd-descrcol">false</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Specifies whether to overwrite the LeadSource field on the target Contact object
+                            <td class="jd-descrcol">Specifies whether to overwrite the LeadSource field on the target Contact object
                                with the contents of the LeadSource field in the source Lead object (true), or
                                not (false, the default). To set this field to true, the client application
                                must specify a contactId for the target contact.</td>
@@ -2818,7 +3022,7 @@ protected operation that uses that token.
                         <tr class=" api apilevel-" >
                             <td class="jd-linkcol"><nobr>doNotCreateOpportunity</nobr></td>
                             <td class="jd-descrcol">false</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Specifies whether to create an Opportunity during lead conversion (false, the
+                            <td class="jd-descrcol">Specifies whether to create an Opportunity during lead conversion (false, the
                                default) or not (true). Set this flag to true only if you do not want to create
                                an opportunity from the lead. An opportunity is created by default.</td>
                             <td class="jd-descrcol">Boolean</td>
@@ -2868,7 +3072,7 @@ protected operation that uses that token.
                         <tr class="alt-color api apilevel-" >
                             <td class="jd-linkcol"><nobr>sendEmailToOwner</nobr></td>
                             <td class="jd-descrcol">false</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>Specifies whether to send a notification email to the owner specified in the
+                            <td class="jd-descrcol">Specifies whether to send a notification email to the owner specified in the
                                ownerId (true) or not (false, the default).</td>
                             <td class="jd-descrcol">Boolean</td>
                             <td class="jd-descrcol">*/*</td>
@@ -3052,7 +3256,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:objects&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i>An array of one or more sObjects objects.</td>
+                        <td>An array of one or more sObjects objects.</td>
                         <td>List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</td>
                     </tr>
                 
@@ -3190,7 +3394,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:object&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i>SObject to create</td>
+                        <td>SObject to create</td>
                         <td>Map&lt;String,&nbsp;Object&gt;</td>
                     </tr>
                 
@@ -3306,7 +3510,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:ids&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i>Array of one or more IDs associated with the objects to delete.</td>
+                        <td>Array of one or more IDs associated with the objects to delete.</td>
                         <td>List&lt;String&gt;</td>
                     </tr>
                 
@@ -5012,7 +5216,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:objects&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i>An array of one or more sObjects objects.</td>
+                        <td>An array of one or more sObjects objects.</td>
                         <td>List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</td>
                     </tr>
                 
@@ -5142,7 +5346,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:object&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i>The object to be updated.</td>
+                        <td>The object to be updated.</td>
                         <td>Map&lt;String,&nbsp;Object&gt;</td>
                     </tr>
                 
@@ -5302,7 +5506,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:objects&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i>The objects to upsert</td>
+                        <td>The objects to upsert</td>
                         <td>List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</td>
                     </tr>
                 
@@ -5910,7 +6114,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:objects&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i>A list of one or more sObjects objects. This parameter defaults to payload content.</td>
+                        <td>A list of one or more sObjects objects. This parameter defaults to payload content.</td>
                         <td>List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</td>
                     </tr>
                 
@@ -6016,7 +6220,7 @@ protected operation that uses that token.
                         <tr class="alt-color api apilevel-" >
                             <td class="jd-linkcol"><nobr>query</nobr></td>
                             <td class="jd-descrcol">#[payload]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>The query to be executed.</td>
+                            <td class="jd-descrcol">The query to be executed.</td>
                             <td class="jd-descrcol">String</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol">UTF-8</td>
@@ -6127,7 +6331,7 @@ protected operation that uses that token.
                         <tr class="alt-color api apilevel-" >
                             <td class="jd-linkcol"><nobr>stream</nobr></td>
                             <td class="jd-descrcol">#[payload]</td>
-                            <td class="jd-descrcol"><i>Optional.&nbsp;</i>A stream containing the data. This parameter defaults to payload content.</td>
+                            <td class="jd-descrcol">A stream containing the data. This parameter defaults to payload content.</td>
                             <td class="jd-descrcol">InputStream</td>
                             <td class="jd-descrcol">*/*</td>
                             <td class="jd-descrcol"></td>
@@ -6261,7 +6465,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:objects&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i>An array of one or more sObjects objects.</td>
+                        <td>An array of one or more sObjects objects.</td>
                         <td>List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</td>
                     </tr>
                 
@@ -6544,7 +6748,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:objects&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i>An array of one or more sObjects objects.</td>
+                        <td>An array of one or more sObjects objects.</td>
                         <td>List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</td>
                     </tr>
                 
@@ -6857,7 +7061,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:objects&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i>An array of one or more sObjects objects.</td>
+                        <td>An array of one or more sObjects objects.</td>
                         <td>List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</td>
                     </tr>
                 
@@ -7007,7 +7211,7 @@ protected operation that uses that token.
                     <tr>
                         <td><nobr>&lt;sfdc:objects&gt;</nobr></td>
                         <td>#[payload]</td>
-                        <td><i>Optional.&nbsp;</i>The objects to upsert</td>
+                        <td>The objects to upsert</td>
                         <td>List&lt;Map&lt;String,&nbsp;Object&gt;&gt;</td>
                     </tr>
                 
