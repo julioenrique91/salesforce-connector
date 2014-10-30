@@ -10,8 +10,11 @@
 
 package org.mule.modules.salesforce.automation.testcases;
 
-import com.sforce.soap.metadata.DescribeMetadataResult;
-import com.sforce.soap.metadata.SaveResult;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.Arrays;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,13 +23,8 @@ import org.mule.modules.salesforce.automation.RegressionTests;
 import org.mule.modules.salesforce.automation.SalesforceTestParent;
 import org.mule.modules.tests.ConnectorTestUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import com.sforce.soap.metadata.DescribeMetadataResult;
+import com.sforce.soap.metadata.SaveResult;
 
 public class RenameMetadataTestCases extends SalesforceTestParent {
 
@@ -49,8 +47,14 @@ public class RenameMetadataTestCases extends SalesforceTestParent {
 			String oldFullName = getTestRunMessageValue("oldFullName");
 			String newFullName = getTestRunMessageValue("newFullName");
 
-			upsertOnTestRunMessage("oldFullName", orgNamespace + "__" + oldFullName);
-			upsertOnTestRunMessage("newFullName", orgNamespace + "__" + newFullName);
+			 if (orgNamespace != null && !orgNamespace.isEmpty()) {
+				 upsertOnTestRunMessage("oldFullName", orgNamespace + "__" + oldFullName);
+				 upsertOnTestRunMessage("newFullName", orgNamespace + "__" + newFullName);
+			 }
+			 else {
+				 upsertOnTestRunMessage("oldFullName", oldFullName);
+				 upsertOnTestRunMessage("newFullName", newFullName);
+			 }
 
 			SaveResult result = runFlowAndGetPayload("rename-metadata");
 			assertTrue(result.isSuccess());

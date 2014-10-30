@@ -48,6 +48,10 @@ public class UpdateMetadataTestCases extends SalesforceTestParent {
         try {
             List<Map<String, Object>> objects = new ArrayList<Map<String, Object>>();
             Map<String, Object> updatedObject = (Map<String, Object>) getTestRunMessageValue("updatedObject");
+            if (orgNamespace != null && !orgNamespace.isEmpty()) {
+            	String objectName = updatedObject.get("fullName").toString();
+            	updatedObject.put("fullName", orgNamespace + "__" + objectName);
+            }
             objects.add(updatedObject);
             upsertOnTestRunMessage("objects", objects);
 
@@ -55,7 +59,10 @@ public class UpdateMetadataTestCases extends SalesforceTestParent {
 
             for (SaveResult result : results) {
                 assertTrue(result.isSuccess());
-				toDelete.add(orgNamespace + "__" + result.getFullName());
+                
+                //no need to check for the orgNamespace here, we add it above
+                // if we put it here as well we would end up with "orgNamespace__orgNamespace__fullName
+                toDelete.add(result.getFullName());
             }
         }
         catch (Exception e) {

@@ -34,7 +34,7 @@ public class DeleteMetadataTestCases extends SalesforceTestParent {
 
     @Before
     public void setUp() throws Exception {
-        initializeTestRunMessage("deleteMetadataTestData");
+        initializeTestRunMessage("createRemoteSiteSettingMetadataTestData");
         runFlowAndGetPayload("create-metadata");
 
 		DescribeMetadataResult result = runFlowAndGetPayload("describe-metadata");
@@ -44,7 +44,12 @@ public class DeleteMetadataTestCases extends SalesforceTestParent {
 		List<Map<String, Object>> metadataObjects = getTestRunMessageValue("objects");
 		for (Map<String, Object> metadataObject : metadataObjects) {
 			String fullName = (String) metadataObject.get("fullName");
-			toDelete.add(orgNamespace + "__" + fullName);
+			 if (orgNamespace != null && !orgNamespace.isEmpty()) {
+				 toDelete.add(orgNamespace + "__" + fullName);
+			 }
+			 else {
+				 toDelete.add(fullName);
+			 }
 		}
     }
 

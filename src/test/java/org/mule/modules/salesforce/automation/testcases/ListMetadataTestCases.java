@@ -36,7 +36,7 @@ public class ListMetadataTestCases extends SalesforceTestParent {
 
 	@Before
 	public void setUp() throws Exception {
-		initializeTestRunMessage("listMetadataTestData");
+		initializeTestRunMessage("createRemoteSiteSettingMetadataTestData");
 		runFlowAndGetPayload("create-metadata");
 
 		DescribeMetadataResult result = runFlowAndGetPayload("describe-metadata");
@@ -53,13 +53,23 @@ public class ListMetadataTestCases extends SalesforceTestParent {
 			assertTrue(metadata.size() >= objects.size());
 
 			for (Map<String, Object> object : objects) {
-				String objectFullName = orgNamespace + "__" + (String) object.get("fullName");
+				String objectFullName = null;
+				if (orgNamespace != null && !orgNamespace.isEmpty()) {
+					objectFullName = orgNamespace + "__" + (String) object.get("fullName");
+				} 
+				else {
+					objectFullName = (String) object.get("fullName");
+				}
 				String propsFullName;
 				boolean exists = false;
 
 				for (FileProperties props : metadata) {
-					propsFullName = props.getNamespacePrefix() + "__" + props.getFullName();
-
+					if (props.getNamespacePrefix() != null && !props.getNamespacePrefix().isEmpty()) {
+						propsFullName = props.getNamespacePrefix() + "__" + props.getFullName();
+					}
+					else {
+						propsFullName = props.getFullName();
+					}
 					if (objectFullName.equals(propsFullName)) {
 						exists = true;
 						toDelete.add(propsFullName);
