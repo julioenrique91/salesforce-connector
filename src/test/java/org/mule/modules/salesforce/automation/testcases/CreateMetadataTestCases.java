@@ -36,9 +36,9 @@ public class CreateMetadataTestCases extends SalesforceTestParent {
 
     @Category({SmokeTests.class, RegressionTests.class})
     @Test
-    public void testCreateExternalDataSourceMetadata() {
+    public void testCreateRemoteSiteSettingMetadata() {
         try {
-            initializeTestRunMessage("createExternalDataSourceMetadataTestData");
+            initializeTestRunMessage("createRemoteSiteSettingMetadataTestData");
 
             List<SaveResult> results = runFlowAndGetPayload("create-metadata");
             for (SaveResult result : results) {
@@ -55,7 +55,7 @@ public class CreateMetadataTestCases extends SalesforceTestParent {
     public void testCreateCustomObjectsMetadata() {
         try {
             initializeTestRunMessage("createCustomObjectMetadataTestData");
-
+            
             List<SaveResult> results = runFlowAndGetPayload("create-metadata");
             for (SaveResult result : results) {
                 assertTrue(result.isSuccess());
@@ -65,7 +65,7 @@ public class CreateMetadataTestCases extends SalesforceTestParent {
             fail(ConnectorTestUtils.getStackTrace(e));
         }
     }
-
+    
     @After
     public void tearDown() throws Exception {
     	

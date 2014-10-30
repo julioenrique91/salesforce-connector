@@ -56,66 +56,66 @@
 
     <!-- update-metadata -->
 
-    <bean id="updateMetadataSObjectName" class="java.lang.String">
-        <constructor-arg index="0" value="Update_Metadata_QA_Gateway_#{randomString}"/>
+    <bean id="updateMetadataObjectName" class="java.lang.String">
+        <constructor-arg index="0" value="Update_Metadata_QA_Remote_#{randomString}"/>
     </bean>
 
     <util:map id="updateMetadataTestData" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="type" value="ExternalDataSource" />
+        <entry key="type" value="RemoteSiteSetting" />
         <entry key="objects">
             <list>
-                <ref bean="originalMetadataMetadataSObject"/>
+                <ref bean="originalMetadataObject"/>
             </list>
         </entry>
-        <entry key="updatedObject" value-ref="updatedMetadataMetadataSObject" />
+        <entry key="updatedObject" value-ref="updatedMetadataObject" />
     </util:map>
 
-    <util:map id="originalMetadataMetadataSObject" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="fullName" value-ref="updateMetadataSObjectName" />
-        <entry key="label" value="Original_Metadata_QA_Gateway_#{randomString}"/>
-        <entry key="principalType" value="#{T(com.sforce.soap.metadata.ExternalPrincipalType).NamedUser }" />
-        <entry key="protocol" value="#{T(com.sforce.soap.metadata.AuthenticationProtocol).NoAuthentication}" />
-        <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
+    <util:map id="originalMetadataObject" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object">
+        <entry key="fullName" value-ref="updateMetadataObjectName" />
+        <entry key="description" value="Before update description" />
+        <entry key="disableProtocolSecurity" value="false" />
+        <entry key="isActive" value="false" />
+        <entry key="url" value="https://test.com" />
     </util:map>
 
-    <util:map id="updatedMetadataMetadataSObject" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="fullName" value-ref="updateMetadataSObjectName" />
-        <entry key="label" value="Updated_Metadata_QA_Gateway_#{randomString}"/>
-        <entry key="principalType" value="#{T(com.sforce.soap.metadata.ExternalPrincipalType).NamedUser }" />
-        <entry key="protocol" value="#{T(com.sforce.soap.metadata.AuthenticationProtocol).NoAuthentication}" />
-        <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
+    <util:map id="updatedMetadataObject" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.Object">
+        <entry key="fullName" value-ref="updateMetadataObjectName" />
+		<entry key="description" value="After update description" />
+        <entry key="disableProtocolSecurity" value="false" />
+        <entry key="isActive" value="false" />
+        <entry key="url" value="https://test.com" />
     </util:map>
 
     <!-- create-metadata -->
 
-    <util:map id="createExternalDataSourceMetadataTestData" map-class="java.util.HashMap"
+    <util:map id="createRemoteSiteSettingMetadataTestData" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="type" value="ExternalDataSource" />
+        <entry key="type" value="RemoteSiteSetting" />
         <entry key="objects">
             <list>
-                <ref bean="createExternalDataSourceMetadataFirstObject" />
-                <ref bean="createExternalDataSourceMetadataSecondObject" />
+                <ref bean="createRemoteSiteSettingMetadataFirstObject" />
+                <ref bean="createRemoteSiteSettingMetadataSecondObject" />
             </list>
         </entry>
      </util:map>
 
-    <util:map id="createExternalDataSourceMetadataFirstObject" map-class="java.util.HashMap"
+    <util:map id="createRemoteSiteSettingMetadataFirstObject" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="fullName" value="Muleman_QA_Gateway_First_#{randomString}" />
-        <entry key="label" value="Muleman_QA_Gateway_First_#{randomString}" />
-        <entry key="principalType" value="#{T(com.sforce.soap.metadata.ExternalPrincipalType).NamedUser }" />
-        <entry key="protocol" value="#{T(com.sforce.soap.metadata.AuthenticationProtocol).NoAuthentication}" />
-        <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
+        <entry key="fullName" value="Muleman_QA_Remote_First_#{randomString}" />
+        <entry key="description" value="First description" />
+        <entry key="disableProtocolSecurity" value="false" />
+        <entry key="isActive" value="false" />
+        <entry key="url" value="https://test.com" />
     </util:map>
 
-    <util:map id="createExternalDataSourceMetadataSecondObject" map-class="java.util.HashMap"
+    <util:map id="createRemoteSiteSettingMetadataSecondObject" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="fullName" value="Muleman_QA_Gateway_Second_#{randomString}" />
-        <entry key="label" value="Muleman_QA_Gateway_Second_#{randomString}" />
-        <entry key="principalType" value="#{T(com.sforce.soap.metadata.ExternalPrincipalType).NamedUser }" />
-        <entry key="protocol" value="#{T(com.sforce.soap.metadata.AuthenticationProtocol).NoAuthentication}" />
-        <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
+        <entry key="fullName" value="Muleman_QA_Remote_Second_#{randomString}" />
+        <entry key="description" value="Second description" />
+        <entry key="disableProtocolSecurity" value="false" />
+        <entry key="isActive" value="false" />
+        <entry key="url" value="https://test.com" />
     </util:map>
     
      <util:map id="createCustomObjectMetadataTestData" map-class="java.util.HashMap"
@@ -131,9 +131,9 @@
 
     <util:map id="createCustomObjectMetadataFirstObject" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="fullName" value="Muleman_QA_CustObj_First_#{randomString}__c" />
-        <entry key="label" value="Muleman_QA_CustObj_First_#{randomString}" />
-        <entry key="pluralLabel" value="Muleman_QA_CustObjs_First_#{randomString}" />
+        <entry key="fullName" value="Muleman_QA_CustObj_First__c" />
+        <entry key="label" value="Muleman_QA_CustObj_First" />
+        <entry key="pluralLabel" value="Muleman_QA_CustObjs_First" />
         <entry key="deploymentStatus" value="#{T(com.sforce.soap.metadata.DeploymentStatus).Deployed }" />
         <entry key="sharingModel" value="#{T(com.sforce.soap.metadata.SharingModel).ReadWrite}" />
         <entry key="nameField" value-ref="firstCustomObjectMetadataNameField" />
@@ -142,9 +142,9 @@
     <util:map id="firstCustomObjectMetadataNameField" map-class="java.util.HashMap"
     			key-type="java.lang.String" value-type="java.lang.Object">
     	<entry key="type" value="#{T(com.sforce.soap.metadata.FieldType).Text}"/>
-    	<entry key="label" value="Muleman_QA_CustObj_First_#{randomString}"/>			
+    	<entry key="label" value="Muleman_QA_CustObj_First_Name"/>			
     </util:map>
-
+    
     <util:map id="createCustomObjectMetadataSecondObject" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
        	<entry key="fullName" value="Muleman_QA_CustObj_Second_#{randomString}__c" />
@@ -158,69 +158,7 @@
     <util:map id="secondCustomObjectMetadataNameField" map-class="java.util.HashMap"
     			key-type="java.lang.String" value-type="java.lang.Object">
     	<entry key="type" value="#{T(com.sforce.soap.metadata.FieldType).Text}"/>
-    	<entry key="label" value="Muleman_QA_CustObj_Second_#{randomString}"/>			
-    </util:map>
-
-    <!-- list-metadata -->
-
-    <util:map id="listMetadataTestData" map-class="java.util.HashMap"
-              key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="type" value="ExternalDataSource" />
-        <entry key="objects">
-            <list>
-                <ref bean="listMetadataFirstMetadataSObject" />
-                <ref bean="listMetadataSecondMetadataSObject" />
-            </list>
-        </entry>
-    </util:map>
-
-    <util:map id="listMetadataFirstMetadataSObject" map-class="java.util.HashMap"
-              key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="fullName" value="List_Metadata_QA_Gateway_First_#{randomString}" />
-        <entry key="label" value="List_Metadata_QA_Gateway_First_#{randomString}" />
-        <entry key="principalType" value="#{T(com.sforce.soap.metadata.ExternalPrincipalType).NamedUser }" />
-        <entry key="protocol" value="#{T(com.sforce.soap.metadata.AuthenticationProtocol).NoAuthentication}" />
-        <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
-    </util:map>
-
-    <util:map id="listMetadataSecondMetadataSObject" map-class="java.util.HashMap"
-              key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="fullName" value="List_Metadata_QA_Gateway_Second_#{randomString}" />
-        <entry key="label" value="List_Metadata_QA_Gateway_Second_#{randomString}" />
-        <entry key="principalType" value="#{T(com.sforce.soap.metadata.ExternalPrincipalType).NamedUser }" />
-        <entry key="protocol" value="#{T(com.sforce.soap.metadata.AuthenticationProtocol).NoAuthentication}" />
-        <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
-    </util:map>
-
-    <!-- delete-metadata -->
-
-    <util:map id="deleteMetadataTestData" map-class="java.util.HashMap"
-              key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="type" value="ExternalDataSource" />
-        <entry key="objects">
-            <list>
-                <ref bean="deleteMetadataFirstMetadataObject" />
-                <ref bean="deleteMetadataSecondMetadataObject" />
-            </list>
-        </entry>
-    </util:map>
-
-    <util:map id="deleteMetadataFirstMetadataObject" map-class="java.util.HashMap"
-              key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="fullName" value="Delete_Metadata_QA_Gateway_First_#{randomString}" />
-        <entry key="label" value="Delete_Metadata_QA_Gateway_First_#{randomString}" />
-        <entry key="principalType" value="#{T(com.sforce.soap.metadata.ExternalPrincipalType).NamedUser }" />
-        <entry key="protocol" value="#{T(com.sforce.soap.metadata.AuthenticationProtocol).NoAuthentication}" />
-        <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
-    </util:map>
-
-    <util:map id="deleteMetadataSecondMetadataObject" map-class="java.util.HashMap"
-              key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="fullName" value="Delete_Metadata_QA_Gateway_Second_#{randomString}" />
-        <entry key="label" value="Delete_Metadata_QA_Gateway_Second_#{randomString}" />
-        <entry key="principalType" value="#{T(com.sforce.soap.metadata.ExternalPrincipalType).NamedUser }" />
-        <entry key="protocol" value="#{T(com.sforce.soap.metadata.AuthenticationProtocol).NoAuthentication}" />
-        <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
+    	<entry key="label" value="Muleman_QA_CustObj_Second_Name"/>			
     </util:map>
 
     <!-- describe-metadata -->
@@ -232,16 +170,16 @@
     <!-- rename-metadata -->
 
     <bean id="beforeName" class="java.lang.String">
-        <constructor-arg index="0" value="Rename_Before_Metadata_QA_Gateway_#{randomString}" />
+        <constructor-arg index="0" value="Before_QA_Remote_#{randomString}" />
     </bean>
 
     <bean id="afterName" class="java.lang.String">
-        <constructor-arg index="0" value="Rename_After_Metadata_QA_Gateway_#{randomString}" />
+        <constructor-arg index="0" value="After_QA_Remote_#{randomString}" />
     </bean>
 
     <util:map id="renameMetadataTestData" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="type" value="ExternalDataSource" />
+        <entry key="type" value="RemoteSiteSetting" />
         <entry key="objects">
             <list>
                 <ref bean="renameMetadataMetadataSObject" />
@@ -254,37 +192,37 @@
     <util:map id="renameMetadataMetadataSObject" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
         <entry key="fullName" value-ref="beforeName" />
-        <entry key="label" value-ref="beforeName" />
-        <entry key="principalType" value="#{T(com.sforce.soap.metadata.ExternalPrincipalType).NamedUser }" />
-        <entry key="protocol" value="#{T(com.sforce.soap.metadata.AuthenticationProtocol).NoAuthentication}" />
-        <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
+        <entry key="description" value="Description" />
+        <entry key="disableProtocolSecurity" value="false" />
+        <entry key="isActive" value="false" />
+        <entry key="url" value="https://test.com" />
     </util:map>
 
     <!-- upsert-metadata -->
 
-    <bean id="upsertMetadataSObjectName" class="java.lang.String">
-        <constructor-arg index="0" value="Upsert_Metadata_QA_Gateway_#{randomString}" />
+    <bean id="upsertMetadataObjectName" class="java.lang.String">
+        <constructor-arg index="0" value="Upsert_Metadata_QA_Remote_#{randomString}" />
     </bean>
 
     <util:map id="upsertMetadataTestData" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="type" value="ExternalDataSource" />
+        <entry key="type" value="RemoteSiteSetting" />
         <entry key="before">
             <map key-type="java.lang.String" value-type="java.lang.Object">
-                <entry key="fullName" value-ref="upsertMetadataSObjectName" />
-                <entry key="label" value="Before_#{upsertMetadataSObjectName}" />
-                <entry key="principalType" value="#{T(com.sforce.soap.metadata.ExternalPrincipalType).NamedUser }" />
-                <entry key="protocol" value="#{T(com.sforce.soap.metadata.AuthenticationProtocol).NoAuthentication}" />
-                <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
+                <entry key="fullName" value-ref="upsertMetadataObjectName" />
+                <entry key="description" value="Description" />
+		        <entry key="disableProtocolSecurity" value="false" />
+		        <entry key="isActive" value="false" />
+		        <entry key="url" value="https://test.com" />
             </map>
         </entry>
         <entry key="after">
             <map key-type="java.lang.String" value-type="java.lang.Object">
-                <entry key="fullName" value-ref="upsertMetadataSObjectName" />
-                <entry key="label" value="After_#{upsertMetadataSObjectName}" />
-                <entry key="principalType" value="#{T(com.sforce.soap.metadata.ExternalPrincipalType).NamedUser }" />
-                <entry key="protocol" value="#{T(com.sforce.soap.metadata.AuthenticationProtocol).NoAuthentication}" />
-                <entry key="type" value="#{T(com.sforce.soap.metadata.ExternalDataSourceType).OData}" />
+                <entry key="fullName" value-ref="upsertMetadataObjectName" />
+                <entry key="description" value="Upsert description" />
+		        <entry key="disableProtocolSecurity" value="false" />
+		        <entry key="isActive" value="false" />
+		        <entry key="url" value="https://test.com" />
             </map>
         </entry>
     </util:map>
