@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<mule xmlns:https="http://www.mulesoft.org/schema/mule/https" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:context="http://www.springframework.org/schema/context"
       xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc"
       xmlns:http="http://www.mulesoft.org/schema/mule/http"
-      xsi:schemaLocation="
-        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.3/mule.xsd
-        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.3/mule-http.xsd
-        http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.3/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.3/mule-http.xsd
+http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd" version="EE-3.5.1">
 
-    <description>
-        SalesForce OAuth Demo
-    </description>
-
-    <spring:beans>
-        <context:property-placeholder
-                location="classpath:credentials.properties"/>
-    </spring:beans>
-
-    <sfdc:config-with-oauth name="salesforce-oauth"
-                            consumerKey="${salesforce.consumerKey}"
-                            consumerSecret="${salesforce.consumerSecret}">
-        <sfdc:oauth-callback-config domain="localhost" localPort="8081" remotePort="8081" path="oauthcallback"/>
-        <sfdc:oauth-store-config objectStore-ref="_defaultInMemoryObjectStore"/>
+    <context:property-placeholder location="mule.properties"/>
+    
+    <sfdc:config-with-oauth name="salesforce-oauth" consumerKey="${salesforce.consumerKey}" consumerSecret="${salesforce.consumerSecret}" doc:name="Salesforce (OAuth)">
+        <sfdc:oauth-callback-config domain="localhost" localPort="8082" remotePort="8082" path="callback" connector-ref="HTTP_HTTPS" />
     </sfdc:config-with-oauth>
+    
+    <https:connector name="HTTP_HTTPS" cookieSpec="netscape" validateConnections="true" sendBufferSize="0" receiveBufferSize="0" receiveBacklog="0" clientSoTimeout="10000" serverSoTimeout="10000" socketSoLinger="0" doc:name="HTTP-HTTPS">
+        <https:tls-key-store path="D:\MuleSoft\salesforce\keystore.jks" keyPassword="mulesoft" storePassword="mulesoft"/>
+    </https:connector>
 
-    <flow name="unauthorize">
-        <http:inbound-endpoint host="localhost" port="8081" path="unauthorize"/>
-        <sfdc:unauthorize config-ref="salesforce-oauth" accessTokenId="#[message.inboundProperties['http.query.params'].get('accessTokenId')]"/>
-        <http:response-builder status="200">
-            <set-payload value="You have successfully unauthorized the connector for #[message.inboundProperties['http.query.params'].get('accessTokenId')]"/>
+    <flow name="unauthorize" doc:name="unauthorize">
+        <https:inbound-endpoint host="localhost" port="8082" path="unauthorize" doc:name="Unauthorize" connector-ref="HTTP_HTTPS" exchange-pattern="request-response"/>
+        <sfdc:unauthorize config-ref="salesforce-oauth" doc:name="Salesforce Unauthorize"/>
+        <http:response-builder status="200" doc:name="HTTP Response Builder">
+            <set-payload value="You have successfully unauthorized the connector"/>
         </http:response-builder>
+        <catch-exception-strategy doc:name="Catch Exception Strategy">
+            <http:response-builder status="404" doc:name="HTTP Response Builder">
+                <set-payload value="An error has occurred unauthorizing the connector"/>
+            </http:response-builder>
+        </catch-exception-strategy>
     </flow>
 
-    <flow name="authorize">
-        <http:inbound-endpoint host="localhost" port="8081" path="authorize"/>
-        <sfdc:authorize config-ref="salesforce-oauth" display="PAGE"/>
-        <http:response-builder status="200">
+    <flow name="authorize" doc:name="authorize">
+        <https:inbound-endpoint host="localhost" port="8082" path="authorize" doc:name="Authorize" connector-ref="HTTP_HTTPS" exchange-pattern="request-response"/>
+        <sfdc:authorize config-ref="salesforce-oauth" display="PAGE" doc:name="Salesforce Authorize"/>
+        <http:response-builder status="200" doc:name="HTTP Response Builder">
             <set-payload value="You have successfully authorized the connector. You access token id is #[flowVars['OAuthAccessTokenId']]"/>
         </http:response-builder>
-        <catch-exception-strategy>
-            <http:response-builder status="404">
+        <catch-exception-strategy doc:name="Catch Exception Strategy">
+            <http:response-builder status="404" doc:name="HTTP Response Builder">
                 <set-payload value="An error has occurred authorizing the connector"/>
             </http:response-builder>
         </catch-exception-strategy>
     </flow>
 
-    <flow name="getUserInfo">
-        <http:inbound-endpoint host="localhost" port="8081" path="getuserinfo"/>
-        <sfdc:get-user-info config-ref="#[app.registry.get('salesforce-oauth')]" accessTokenId="#[message.inboundProperties['http.query.params'].get('accessTokenId')]"/>
-        <http:response-builder status="200">
-            <set-payload
-                    value="You are #[payload.userFullName] (#[payload.userEmail])"/>
-        </http:response-builder>
-        <catch-exception-strategy>
-            <http:response-builder status="200">
+    <flow name="getUserInfo" doc:name="getUserInfo">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8085" path="getuserinfo"  doc:name="Get User Info"/>
+
+        <sfdc:get-user-info config-ref="salesforce-oauth" doc:name="Salesforce GetUserInfo"/>
+        <object-to-string-transformer doc:name="Object to String"/>
+        <http:response-builder status="200" doc:name="HTTP Response Builder"/>
+
+        <catch-exception-strategy doc:name="Catch Exception Strategy">
+            <http:response-builder status="200" doc:name="HTTP Response Builder">
                 <set-payload
                         value="The connector has not been authorized yet. Use /authorize before hitting this URL again"/>
             </http:response-builder>
