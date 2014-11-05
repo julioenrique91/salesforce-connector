@@ -163,8 +163,6 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
 
 		this.bulkConnection = new BulkConnection(config);
 		
-//		String metadataendpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/m/31.0/" + parseUrlAndGetOrganizationId(userId);
-		
 		String metadataendpoint = getMetadataServiceEndpoint();
 		ConnectorConfig metadataConfig = new ConnectorConfig();
 		metadataConfig.setServiceEndpoint(metadataendpoint);
@@ -180,40 +178,33 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     }
     
     private String getMetadataServiceEndpoint() throws Exception {
-    	HttpClient client = new HttpClient();
-    	client.setIdleTimeout(5000);
-    	client.setConnectorType(HttpClient.CONNECTOR_SELECT_CHANNEL);
-    	client.registerListener(RedirectListener.class.getName());
-    	client.start();
-    	ContentExchange exchange = new ContentExchange();
-    	exchange.setMethod(HttpMethods.GET);
-    	exchange.setRequestContent(new ByteArrayBuffer(""));
-    	exchange.setURL(userId + "?oauth_token=" + accessToken + "&format=json&version=31.0");
-    	client.send(exchange);
-    	int state = exchange.waitForDone();
-    	int status = exchange.getResponseStatus();
-    	if (status == HttpStatus.OK_200) {
-	    	String result = exchange.getResponseContent();
-	    	client.stop();
-	    	
-	    	JsonElement jElement = new JsonParser().parse(result);
-	    	JsonObject jObject = jElement.getAsJsonObject();
-	    	JsonObject urls = jObject.getAsJsonObject("urls");
-	    	String metadataEndpoint = urls.getAsJsonPrimitive("metadata").getAsString();
-	    	
-	    	return metadataEndpoint;
-    	}
-    	return "";
-    }
+        HttpClient client = new HttpClient();
+        client.setIdleTimeout(5000);
+        client.setConnectorType(HttpClient.CONNECTOR_SELECT_CHANNEL);
+        client.registerListener(RedirectListener.class.getName());
+        client.start();
+        ContentExchange exchange = new ContentExchange();
+        exchange.addRequestHeader("Authorization", "Bearer " + accessToken);
+        exchange.addRequestHeader("Accept", "application/json");
+        exchange.setMethod(HttpMethods.POST);
+        exchange.setURL(userId + "?version=32.0");
+        client.send(exchange);
+        exchange.waitForDone();
+        int status = exchange.getResponseStatus();
+        if (status == HttpStatus.OK_200) {
+         String result = exchange.getResponseContent();
+         client.stop();
+         
+         JsonElement jElement = new JsonParser().parse(result);
+         JsonObject jObject = jElement.getAsJsonObject();
+         JsonObject urls = jObject.getAsJsonObject("urls");
+         String metadataEndpoint = urls.getAsJsonPrimitive("metadata").getAsString();
+         
+         return metadataEndpoint;
+        }
+        return "";
+       }
     
-/*    private String parseUrlAndGetOrganizationId(String url){
-    	String[] splitUrl = url.split("/");
-    	if (splitUrl != null & splitUrl.length > 1){
-    		return splitUrl[splitUrl.length - 2];
-    	}
-    	return "";
-    }*/
-
     public String getConsumerKey() {
         return consumerKey;
     }
