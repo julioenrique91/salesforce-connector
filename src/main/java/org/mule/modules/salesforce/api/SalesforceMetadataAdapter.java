@@ -54,7 +54,7 @@ public class SalesforceMetadataAdapter {
                             logger.debug("Method " + method.getName() + " threw " + e.getClass());
                         }
 
-                        throw SalesforceExceptionHandlerAdapter.analyzeRestException(e);
+                        throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
                     }
 
                 }

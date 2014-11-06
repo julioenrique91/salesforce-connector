@@ -69,16 +69,16 @@ public class SalesforceConnectorTest {
         List<Map<String, Object>> listRecords = new ArrayList<Map<String, Object>>();
         listRecords.add(contact);
 
-        com.sforce.async.SObject record = SalesforceUtils.toAsyncSObjectList(listRecords, connector.getBatchSobjectMaxDepth())[0];
+        com.sforce.async.SObject record = SalesforceUtils.toAsyncSObjectList(listRecords)[0];
 
         assertEquals("Contact", record.getField("type"));
         assertEquals("Bill", record.getField("FirstName"));
         assertEquals("Murray", record.getField("LastName"));
         assertEquals("bmurray", record.getField("ExternalId__c"));
 
-        com.sforce.async.SObject  parentRecord = record.getFkRef("Account");
+/*        com.sforce.async.SObject  parentRecord = record.getFkRef("Account");
         assertEquals("Account", parentRecord.getField("type"));
-        assertEquals("138", parentRecord.getField("ExternalId__c"));
+        assertEquals("138", parentRecord.getField("ExternalId__c"));*/
     }
 
     @Test
@@ -96,7 +96,7 @@ public class SalesforceConnectorTest {
         List<Map<String, Object>> listRecords = new ArrayList<Map<String, Object>>();
         listRecords.add(account);
 
-        com.sforce.async.SObject record = SalesforceUtils.toAsyncSObjectList(listRecords, connector.getBatchSobjectMaxDepth())[0];
+        com.sforce.async.SObject record = SalesforceUtils.toAsyncSObjectList(listRecords)[0];
         assertEquals(birthDateString, record.getField("BirthDate"));
         assertEquals(birthDateString, record.getField("BirthDateCalendar"));
     }

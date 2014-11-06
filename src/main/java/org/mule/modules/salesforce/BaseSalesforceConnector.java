@@ -1318,7 +1318,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         if (result.getSize() == 0) {
             SObject pushTopic = new SObject();
             pushTopic.setType("PushTopic");
-            pushTopic.setField("ApiVersion", "31.0");  //TODO the version in master was 26.0, which one should it go?
+            pushTopic.setField("ApiVersion", "32.0");  //TODO the version in master was 26.0, which one should it go?
             if (description != null) {
                 pushTopic.setField("Description", description);
             }
@@ -1379,7 +1379,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	public List<com.sforce.soap.metadata.SaveResult> createMetadata(@MetaDataKeyParam String type,
 									@FriendlyName("Metadata Objects") @Default("#[payload]") List<Map<String, Object>> objects)
 			throws Exception {
-		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.CREATE);
+		return MetadataService.callCreateUpdateService(getSalesforceMetadaAdapter(), type, objects, MetadataOperationType.CREATE);
 	}
     
     /**
@@ -1506,7 +1506,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 		MetadataType metadataType = MetadataType.valueOf(type);
 		ListMetadataQuery query = new ListMetadataQuery();
 		query.setType(metadataType.getDisplayName());
-		FileProperties[] fileProperties = getMetadataConnection().listMetadata(new ListMetadataQuery[] {query}, 31.0);
+		FileProperties[] fileProperties = getMetadataConnection().listMetadata(new ListMetadataQuery[] {query}, 32.0);
 		return Arrays.asList(fileProperties);
 	}
 	
@@ -1525,7 +1525,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	public DescribeMetadataResult describeMetadata()
 			throws Exception {
 
-		return getMetadataConnection().describeMetadata(31.0);
+		return getMetadataConnection().describeMetadata(32.0);
 	}
 
     /**
@@ -1594,7 +1594,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     private BatchInfo createBatchAndCompleteRequest(JobInfo jobInfo, List<Map<String, Object>> objects) throws Exception {
         BatchRequest batchRequest = getSalesforceRestAdapter().createBatch(jobInfo);
         try {
-            batchRequest.addSObjects(SalesforceUtils.toAsyncSObjectList(objects, getBatchSobjectMaxDepth()));
+            batchRequest.addSObjects(SalesforceUtils.toAsyncSObjectList(objects));
             return batchRequest.completeRequest();
         } catch (AsyncApiException e) {
             /**
