@@ -19,7 +19,6 @@ import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.RedirectListener;
 import org.eclipse.jetty.http.HttpMethods;
 import org.eclipse.jetty.http.HttpStatus;
-import org.eclipse.jetty.io.ByteArrayBuffer;
 import org.mule.RequestContext;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.lifecycle.Start;
@@ -187,7 +186,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         exchange.addRequestHeader("Authorization", "Bearer " + accessToken);
         exchange.addRequestHeader("Accept", "application/json");
         exchange.setMethod(HttpMethods.POST);
-        exchange.setURL(userId + "?version=32.0");
+        exchange.setURL(userId + "?version=31.0");
         client.send(exchange);
         exchange.waitForDone();
         int status = exchange.getResponseStatus();
