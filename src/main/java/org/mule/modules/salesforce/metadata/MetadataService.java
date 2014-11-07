@@ -13,6 +13,7 @@
  */
 package org.mule.modules.salesforce.metadata;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -121,20 +122,53 @@ public class MetadataService {
         return mobjects;
     }
     
-    public static Metadata toMetadataObject(BeanUtilsBean beanUtilsBean, MetadataType metadataType, Map<String, Object> map) throws Exception {
+    private static <T> Metadata toMetadataObject(BeanUtilsBean beanUtilsBean, MetadataType metadataType, Map<String, Object> map) throws Exception {
     	Metadata metadataObject = metadataType.getMetadataObject();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
            String key = entry.getKey();
+           
+           // if the object is a map, transform to object
            if (entry.getValue() instanceof Map) {
         	   PropertyUtilsBean propertyUtilsBean = new PropertyUtilsBean();
         	   Class childClass = propertyUtilsBean.getPropertyType(metadataObject, key);
         	   MetadataType childType = MetadataType.getByClass(childClass);
         	   if (childType != null){
-        	   	beanUtilsBean.setProperty(metadataObject, key, toMetadataObject(beanUtilsBean, childType, toMObjectMap((Map) entry.getValue())));
+        	   		beanUtilsBean.setProperty(metadataObject, key, toMetadataObject(beanUtilsBean, childType, toMObjectMap((Map) entry.getValue())));
         	   }
-            } else {
+           }
+           
+           //if the object is a list, transform to array
+           else if (entry.getValue() instanceof List) {
+        	   List<Object> objectsList = (List) entry.getValue();
+        	   Metadata[] mobjects = new Metadata[objectsList.size()];
+        	   int s=0;
+        	   Class metadataClass = null;
+        	   for (Object objectEntry : objectsList ) {
+        		   if (objectEntry instanceof Map) {
+        			   PropertyUtilsBean propertyUtilsBean = new PropertyUtilsBean();
+                	   Class childClass = propertyUtilsBean.getPropertyType(metadataObject, key);
+                	   if (childClass.isArray()) {
+                		   childClass = childClass.getComponentType();
+                	   }
+                	   if (metadataClass == null) {
+                		   metadataClass = childClass;
+                	   }
+                	   MetadataType childType = MetadataType.getByClass(childClass);
+                	   mobjects[s] = toMetadataObject(beanUtilsBean, childType, toMObjectMap((Map) objectEntry));
+                	   s++;
+        		   }
+        	   }
+        	   if (metadataClass != null){
+        		   Object[] metadataChildObject = (T[]) Array.newInstance(metadataClass, mobjects.length);
+        		   for (int i=0;i<mobjects.length;i++) {
+        			   metadataChildObject[i] = metadataClass.cast(mobjects[i]);
+        		   }
+        		   beanUtilsBean.setProperty(metadataObject, key, metadataChildObject);
+        	   }
+           }
+            else {
             	beanUtilsBean.setProperty(metadataObject, key, entry.getValue());
-            }
+           }
         }
         return metadataObject;
     }
