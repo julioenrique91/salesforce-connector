@@ -19,6 +19,7 @@ import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.RedirectListener;
 import org.eclipse.jetty.http.HttpMethods;
 import org.eclipse.jetty.http.HttpStatus;
+import org.eclipse.jetty.io.ByteArrayBuffer;
 import org.mule.RequestContext;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.lifecycle.Start;
@@ -151,16 +152,18 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
 
         config.setCompression(false);
 
-        String serviceEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/u/32.0";
+        String serviceEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/u/31.0";
         config.setServiceEndpoint(serviceEndpoint);
 
         this.partnerConnection = Connector.newConnection(config);
         setConnectionOptions(this.partnerConnection);
 
-        String restEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/async/32.0";
+        String restEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/async/31.0";
         config.setRestEndpoint(restEndpoint);
 
 		this.bulkConnection = new BulkConnection(config);
+		
+//		String metadataendpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/m/31.0/" + parseUrlAndGetOrganizationId(userId);
 		
 		String metadataendpoint = getMetadataServiceEndpoint();
 		ConnectorConfig metadataConfig = new ConnectorConfig();
@@ -183,12 +186,11 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     	client.registerListener(RedirectListener.class.getName());
     	client.start();
     	ContentExchange exchange = new ContentExchange();
-    	exchange.addRequestHeader("Authorization", "Bearer " + accessToken);
-    	exchange.addRequestHeader("Accept", "application/json");
-    	exchange.setMethod(HttpMethods.POST);
-    	exchange.setURL(userId + "?version=32.0");
+    	exchange.setMethod(HttpMethods.GET);
+    	exchange.setRequestContent(new ByteArrayBuffer(""));
+    	exchange.setURL(userId + "?oauth_token=" + accessToken + "&format=json&version=31.0");
     	client.send(exchange);
-    	exchange.waitForDone();
+    	int state = exchange.waitForDone();
     	int status = exchange.getResponseStatus();
     	if (status == HttpStatus.OK_200) {
 	    	String result = exchange.getResponseContent();
@@ -204,6 +206,14 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     	return "";
     }
     
+/*    private String parseUrlAndGetOrganizationId(String url){
+    	String[] splitUrl = url.split("/");
+    	if (splitUrl != null & splitUrl.length > 1){
+    		return splitUrl[splitUrl.length - 2];
+    	}
+    	return "";
+    }*/
+
     public String getConsumerKey() {
         return consumerKey;
     }

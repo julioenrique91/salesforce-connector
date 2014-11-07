@@ -54,7 +54,7 @@ public class SalesforceBayeuxClient extends BayeuxClient {
      * @param salesforceConnector Salesforce connection
      */
     public SalesforceBayeuxClient(BaseSalesforceConnector salesforceConnector) throws MalformedURLException {
-        super("https://" + (new URL(salesforceConnector.getConnection().getConfig().getServiceEndpoint())).getHost() + "/cometd/32.0",
+        super("https://" + (new URL(salesforceConnector.getConnection().getConfig().getServiceEndpoint())).getHost() + "/cometd/31.0",
                 SalesforceLongPollingTransport.create(salesforceConnector, LONG_POLLING_OPTIONS));
 
         this.salesforceConnector = salesforceConnector;

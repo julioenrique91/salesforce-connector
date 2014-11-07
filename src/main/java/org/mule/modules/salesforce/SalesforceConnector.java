@@ -184,7 +184,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     public synchronized void connect(@ConnectionKey String username,
                                      @Password String password,
                                      @Optional String securityToken,
-                                     @Optional @Default("https://login.salesforce.com/services/Soap/u/32.0") String url,
+                                     @Optional @Default("https://login.salesforce.com/services/Soap/u/31.0") String url,
                                      @Optional @Placement(group = "Proxy Settings") String proxyHost,
                                      @Optional @Placement(group = "Proxy Settings") @Default("80") int proxyPort,
                                      @Optional @Placement(group = "Proxy Settings") String proxyUsername,
@@ -225,7 +225,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         }
 
         try {
-            String restEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/async/32.0";
+            String restEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/async/31.0";
             connectorConfig.setRestEndpoint(restEndpoint);
             bulkConnection = new BulkConnection(connectorConfig);
         } catch (AsyncApiException e) {
@@ -235,7 +235,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         }
         
         try {
-			String metadataServiceEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/Soap/c/32.0";
+			String metadataServiceEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/Soap/c/31.0";
 			ConnectorConfig metadataConfig = new ConnectorConfig();
 			metadataConfig.setUsername(username);
 			metadataConfig.setPassword(password);

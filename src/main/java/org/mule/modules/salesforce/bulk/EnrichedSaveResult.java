@@ -10,18 +10,16 @@
 
 package org.mule.modules.salesforce.bulk;
 
-import java.io.IOException;
-
-import javax.xml.namespace.QName;
-
 import com.sforce.soap.partner.Error;
-import com.sforce.soap.partner.IError;
 import com.sforce.soap.partner.SaveResult;
 import com.sforce.soap.partner.sobject.SObject;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.bind.TypeMapper;
 import com.sforce.ws.parser.XmlInputStream;
 import com.sforce.ws.parser.XmlOutputStream;
+
+import javax.xml.namespace.QName;
+import java.io.IOException;
 
 public class EnrichedSaveResult extends SaveResult {
 
@@ -71,10 +69,10 @@ public class EnrichedSaveResult extends SaveResult {
 
     /**
      * @param errors
-     * @see com.sforce.soap.partner.SaveResult#setErrors(com.sforce.soap.partner.IError[])
+     * @see com.sforce.soap.partner.SaveResult#setErrors(com.sforce.soap.partner.Error[])
      */
     @Override
-    public void setErrors(IError[] errors) {
+    public void setErrors(Error[] errors) {
         wrapped.setErrors(errors);
     }
 

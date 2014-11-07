@@ -75,15 +75,16 @@ public class SalesforceUtils {
      * @param batchSobjectMaxDepth Async SObject recursive MAX_DEPTH check
      * @return Async SObject
      */
-    public static com.sforce.async.SObject toAsyncSObject(Map<String, Object> map) {
-        com.sforce.async.SObject sObject = new com.sforce.async.SObject();
+    public static com.sforce.async.SObject toAsyncSObject(Map<String, Object> map, Integer batchSobjectMaxDepth) {
+        com.sforce.async.SObject sObject = batchSobjectMaxDepth != null && batchSobjectMaxDepth != 0 ?
+                new com.sforce.async.SObject(batchSobjectMaxDepth) : new com.sforce.async.SObject();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             Object value = entry.getValue();
             String key = entry.getKey();
 
             if (value != null) {
                 if (value instanceof Map) {
-                    sObject.setFieldReference(key, toAsyncSObject(toSObjectMap((Map) value)));
+                    sObject.setFieldReference(key, toAsyncSObject(toSObjectMap((Map) value), batchSobjectMaxDepth));
                 } else if (isDateField(value)) {
                     sObject.setField(key, convertDateToString(value));
                 } else {
@@ -139,11 +140,11 @@ public class SalesforceUtils {
      * @param batchSobjectMaxDepth Async SObject recursive MAX_DEPTH check
      * @return
      */
-    public static com.sforce.async.SObject[] toAsyncSObjectList(List<Map<String, Object>> objects) {
+    public static com.sforce.async.SObject[] toAsyncSObjectList(List<Map<String, Object>> objects, Integer batchSobjectMaxDepth) {
         com.sforce.async.SObject[] sobjects = new com.sforce.async.SObject[objects.size()];
         int s = 0;
         for (Map<String, Object> map : objects) {
-            sobjects[s] = toAsyncSObject(map);
+            sobjects[s] = toAsyncSObject(map, batchSobjectMaxDepth);
             s++;
         }
         return sobjects;
