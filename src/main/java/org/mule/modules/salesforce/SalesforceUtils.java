@@ -30,9 +30,9 @@ import java.util.*;
 /**
  * @author Mulesoft, Inc
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class SalesforceUtils {
 
-    @SuppressWarnings("rawtypes")
     public static final DataType<BulkOperationResult> BULK_OPERATION_RESULT_DATA_TYPE = DataTypeFactory.create(BulkOperationResult.class);
 
     private SalesforceUtils() {
@@ -47,24 +47,26 @@ public class SalesforceUtils {
      */
     public static Map<String, Object> toMap(XmlObject xmlObject) {
         Map<String, Object> map = new HashMap<String, Object>();
-        Object value = xmlObject.getValue();
+        if(xmlObject != null) {
+            Object value = xmlObject.getValue();
 
-        if (value == null && xmlObject.hasChildren()) {
-            XmlObject child;
-            Iterator<XmlObject> childrenIterator = xmlObject.getChildren();
+            if (value == null && xmlObject.hasChildren()) {
+                XmlObject child;
+                Iterator<XmlObject> childrenIterator = xmlObject.getChildren();
 
-            while (childrenIterator.hasNext()) {
-                child = childrenIterator.next();
-                if (child.getValue() != null) {
-                    map.put(child.getName().getLocalPart(), child.getValue());
-                } else if (child.getChildren().hasNext()) {
-                    putToMultiMap(map, child.getName().getLocalPart(), toMap(child));
-                } else {
-                    map.put(child.getName().getLocalPart(), null);
+                while (childrenIterator.hasNext()) {
+                    child = childrenIterator.next();
+                    if (child.getValue() != null) {
+                        map.put(child.getName().getLocalPart(), child.getValue());
+                    } else if (child.getChildren().hasNext()) {
+                        putToMultiMap(map, child.getName().getLocalPart(), toMap(child));
+                    } else {
+                        map.put(child.getName().getLocalPart(), null);
+                    }
                 }
             }
         }
-
+        
         return map;
     }
 
@@ -75,7 +77,7 @@ public class SalesforceUtils {
      * @param batchSobjectMaxDepth Async SObject recursive MAX_DEPTH check
      * @return Async SObject
      */
-    public static com.sforce.async.SObject toAsyncSObject(Map<String, Object> map, Integer batchSobjectMaxDepth) {
+	public static com.sforce.async.SObject toAsyncSObject(Map<String, Object> map, Integer batchSobjectMaxDepth) {
         com.sforce.async.SObject sObject = batchSobjectMaxDepth != null && batchSobjectMaxDepth != 0 ?
                 new com.sforce.async.SObject(batchSobjectMaxDepth) : new com.sforce.async.SObject();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
@@ -175,7 +177,6 @@ public class SalesforceUtils {
      * @param key      key to add/populate
      * @param newValue value to add
      */
-    @SuppressWarnings("unchecked")
     private static void putToMultiMap(Map<String, Object> map, String key, Object newValue) {
         if (map.containsKey(key)) {
             Object value = map.get(key);
