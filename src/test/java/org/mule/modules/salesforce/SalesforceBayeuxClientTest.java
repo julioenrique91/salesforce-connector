@@ -10,18 +10,6 @@
 
 package org.mule.modules.salesforce;
 
-import com.sforce.soap.partner.LoginResult;
-import com.sforce.soap.partner.PartnerConnection;
-import com.sforce.ws.ConnectorConfig;
-import org.cometd.bayeux.Message;
-import org.cometd.bayeux.client.ClientSessionChannel;
-import org.cometd.client.transport.ClientTransport;
-import org.junit.Test;
-import org.mockito.Mockito;
-
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -29,6 +17,19 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+
+import org.cometd.bayeux.Message;
+import org.cometd.bayeux.client.ClientSessionChannel;
+import org.cometd.client.transport.ClientTransport;
+import org.junit.Test;
+import org.mockito.Mockito;
+import org.mule.modules.salesforce.connection.CustomPartnerConnection;
+
+import com.sforce.soap.partner.LoginResult;
+import com.sforce.ws.ConnectorConfig;
 
 public class SalesforceBayeuxClientTest {
     @Test
@@ -49,11 +50,11 @@ public class SalesforceBayeuxClientTest {
     }
 
     private SalesforceBayeuxClient mockBayeuxClient() throws MalformedURLException {
-        PartnerConnection connection = Mockito.mock(PartnerConnection.class);
+        CustomPartnerConnection connection = Mockito.mock(CustomPartnerConnection.class);
         LoginResult loginResult = Mockito.mock(LoginResult.class);
         ConnectorConfig connectorConfig = Mockito.mock(ConnectorConfig.class);
         SalesforceConnector connector = Mockito.mock(SalesforceConnector.class);
-        when(connector.getConnection()).thenReturn(connection);
+        when(connector.getCustomPartnerConnection()).thenReturn(connection);
         when(connector.getLoginResult()).thenReturn(loginResult);
         when(connector.getSessionId()).thenReturn("001");
         when(connection.getConfig()).thenReturn(connectorConfig);

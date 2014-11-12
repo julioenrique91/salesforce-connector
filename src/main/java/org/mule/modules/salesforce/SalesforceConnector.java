@@ -29,6 +29,8 @@ import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
+import org.mule.modules.salesforce.connection.CustomMetadataConnection;
+import org.mule.modules.salesforce.connection.CustomPartnerConnection;
 
 import com.sforce.async.AsyncApiException;
 import com.sforce.async.BulkConnection;
@@ -67,7 +69,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     /**
      * Partner connection
      */
-    private PartnerConnection connection;
+    private CustomPartnerConnection connection;
 
     /**
      * REST connection to the bulk API
@@ -77,14 +79,14 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     /**
      * MetadataConnection connection
      */
-    private MetadataConnection metadataConnection;
+    private CustomMetadataConnection metadataConnection;
 
     /**
      * Login result
      */
     private LoginResult loginResult;
 
-    protected void setConnection(PartnerConnection connection) {
+    protected void setConnection(CustomPartnerConnection connection) {
         this.connection = connection;
     }
 
@@ -92,7 +94,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         this.bulkConnection = bulkConnection;
     }
     
-    protected void setMetadataConnection(MetadataConnection metadataConnection) {
+    protected void setCustomMetadataConnection(CustomMetadataConnection metadataConnection) {
         this.metadataConnection = metadataConnection;
     }
 
@@ -106,7 +108,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
 
     @ValidateConnection
     public boolean isConnected() {
-        return metadataConnection!= null
+        return metadataConnection != null
         		&& bulkConnection != null
                 && connection != null
                 && loginResult != null
@@ -146,6 +148,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
                 LOGGER.error(ce);
             } finally {
                 loginResult = null;
+                connection.setConnection(null);
                 connection = null;
                 setBayeuxClient(null);
             }
@@ -184,7 +187,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     public synchronized void connect(@ConnectionKey String username,
                                      @Password String password,
                                      @Optional String securityToken,
-                                     @Optional @Default("https://login.salesforce.com/services/Soap/u/31.0") String url,
+                                     @Optional @Default("https://login.salesforce.com/services/Soap/u/32.0") String url,
                                      @Optional @Placement(group = "Proxy Settings") String proxyHost,
                                      @Optional @Placement(group = "Proxy Settings") @Default("80") int proxyPort,
                                      @Optional @Placement(group = "Proxy Settings") String proxyUsername,
@@ -210,7 +213,9 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         }
 
         try {
-            connection = Connector.newConnection(connectorConfig);
+            PartnerConnection _connection = Connector.newConnection(connectorConfig);
+            this.connection = new CustomPartnerConnection();
+            this.connection.setConnection(_connection);
             setConnectionOptions(connection);
         } catch (ConnectionException e) {
             throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
@@ -225,7 +230,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         }
 
         try {
-            String restEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/async/31.0";
+            String restEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/async/32.0";
             connectorConfig.setRestEndpoint(restEndpoint);
             bulkConnection = new BulkConnection(connectorConfig);
         } catch (AsyncApiException e) {
@@ -235,7 +240,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         }
         
         try {
-			String metadataServiceEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/Soap/c/31.0";
+			String metadataServiceEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/Soap/c/32.0";
 			ConnectorConfig metadataConfig = new ConnectorConfig();
 			metadataConfig.setUsername(username);
 			metadataConfig.setPassword(password);
@@ -244,7 +249,9 @@ public class SalesforceConnector extends BaseSalesforceConnector {
 			metadataConfig.setSessionId(loginResult.getSessionId());
 			metadataConfig.setManualLogin(true);
 			metadataConfig.setCompression(false);
-	        metadataConnection = new MetadataConnection(metadataConfig);
+			MetadataConnection _metadataConnection = new MetadataConnection(metadataConfig);
+	        this.metadataConnection = new CustomMetadataConnection();
+	        this.metadataConnection.setConnection(_metadataConnection);
 		} catch (MalformedURLException e) {
 			 throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN_HOST, null, e.getMessage(), e);
 		} catch (ConnectionException e) {
@@ -331,7 +338,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     }
 
     @Override
-    protected PartnerConnection getConnection() {
+    protected CustomPartnerConnection getCustomPartnerConnection() {
         return connection;
     }
 
@@ -341,7 +348,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
     }
     
     @Override
-    protected MetadataConnection getMetadataConnection() {
+    protected CustomMetadataConnection getCustomMetadataConnection() {
         return metadataConnection;
     }
 }

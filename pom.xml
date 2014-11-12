@@ -19,7 +19,7 @@
         <licensePath>LICENSE.md</licensePath>
         <devkit.studio.package.skip>false</devkit.studio.package.skip>
         <jetty.client.version>8.1.13.v20130916</jetty.client.version>
-        <wsc.version>31.0.0-hf1</wsc.version>
+        <wsc.version>32.1.1-hf1</wsc.version>
         <connector.test.version>2.0.3</connector.test.version>
     </properties>
 
@@ -79,8 +79,13 @@
         <dependency>
 			<groupId>com.force.api</groupId>
 			<artifactId>force-metadata-api</artifactId>
-			<version>31.0.0</version>
+			<version>32.0.0</version>
  		</dependency>
+ 		<dependency>
+			<groupId>com.force.api</groupId>
+			<artifactId>force-partner-api</artifactId>
+			<version>32.0.0</version>
+		</dependency>
         <dependency>
             <groupId>org.cometd.java</groupId>
             <artifactId>cometd-java-client</artifactId>
