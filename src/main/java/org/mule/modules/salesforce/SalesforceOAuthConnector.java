@@ -30,6 +30,8 @@ import org.mule.api.annotations.oauth.OAuthCallbackParameter;
 import org.mule.api.annotations.oauth.OAuthConsumerKey;
 import org.mule.api.annotations.oauth.OAuthConsumerSecret;
 import org.mule.api.annotations.oauth.OAuthPostAuthorization;
+import org.mule.modules.salesforce.connection.CustomMetadataConnection;
+import org.mule.modules.salesforce.connection.CustomPartnerConnection;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -82,7 +84,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     /**
      * Connection to the SOAP API
      */
-    private PartnerConnection partnerConnection;
+    private CustomPartnerConnection partnerConnection;
 
     /**
      * REST connection to the bulk API
@@ -92,7 +94,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     /**
      * Connection to the Metadata API
      */
-    private MetadataConnection metadataConnection;
+    private CustomMetadataConnection metadataConnection;
 
     /**
      * Your application's client identifier (consumer key in Remote Access Detail).
@@ -152,18 +154,18 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
 
         config.setCompression(false);
 
-        String serviceEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/u/31.0";
+        String serviceEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/u/32.0";
         config.setServiceEndpoint(serviceEndpoint);
 
-        this.partnerConnection = Connector.newConnection(config);
+        PartnerConnection _connection = Connector.newConnection(config);
+        this.partnerConnection = new CustomPartnerConnection();
+        this.partnerConnection.setConnection(_connection);
         setConnectionOptions(this.partnerConnection);
 
-        String restEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/async/31.0";
+        String restEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/async/32.0";
         config.setRestEndpoint(restEndpoint);
 
 		this.bulkConnection = new BulkConnection(config);
-		
-//		String metadataendpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/m/31.0/" + parseUrlAndGetOrganizationId(userId);
 		
 		String metadataendpoint = getMetadataServiceEndpoint();
 		ConnectorConfig metadataConfig = new ConnectorConfig();
@@ -171,48 +173,43 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
 		metadataConfig.setManualLogin(true);
 		metadataConfig.setCompression(false);
 		metadataConfig.setSessionId(accessToken);
-		this.metadataConnection = new MetadataConnection(metadataConfig);
-		
+		MetadataConnection _metadataConnection = new MetadataConnection(metadataConfig);
+        this.metadataConnection = new CustomMetadataConnection();
+        this.metadataConnection.setConnection(_metadataConnection);
 
 		this.processSubscriptions();
 
         RequestContext.getEvent().setFlowVariable("remoteUserId", userId);
     }
     
-    private String getMetadataServiceEndpoint() throws Exception {
-    	HttpClient client = new HttpClient();
-    	client.setIdleTimeout(5000);
-    	client.setConnectorType(HttpClient.CONNECTOR_SELECT_CHANNEL);
-    	client.registerListener(RedirectListener.class.getName());
-    	client.start();
-    	ContentExchange exchange = new ContentExchange();
-    	exchange.setMethod(HttpMethods.GET);
-    	exchange.setRequestContent(new ByteArrayBuffer(""));
-    	exchange.setURL(userId + "?oauth_token=" + accessToken + "&format=json&version=31.0");
-    	client.send(exchange);
-    	int state = exchange.waitForDone();
-    	int status = exchange.getResponseStatus();
-    	if (status == HttpStatus.OK_200) {
-	    	String result = exchange.getResponseContent();
-	    	client.stop();
-	    	
-	    	JsonElement jElement = new JsonParser().parse(result);
-	    	JsonObject jObject = jElement.getAsJsonObject();
-	    	JsonObject urls = jObject.getAsJsonObject("urls");
-	    	String metadataEndpoint = urls.getAsJsonPrimitive("metadata").getAsString();
-	    	
-	    	return metadataEndpoint;
-    	}
-    	return "";
-    }
-    
-/*    private String parseUrlAndGetOrganizationId(String url){
-    	String[] splitUrl = url.split("/");
-    	if (splitUrl != null & splitUrl.length > 1){
-    		return splitUrl[splitUrl.length - 2];
-    	}
-    	return "";
-    }*/
+	private String getMetadataServiceEndpoint() throws Exception {
+		HttpClient client = new HttpClient();
+		client.setIdleTimeout(5000);
+		client.setConnectorType(HttpClient.CONNECTOR_SELECT_CHANNEL);
+		client.registerListener(RedirectListener.class.getName());
+		client.start();
+		ContentExchange exchange = new ContentExchange();
+		exchange.addRequestHeader("Authorization", "Bearer " + accessToken);
+		exchange.addRequestHeader("Accept", "application/json");
+		exchange.setMethod(HttpMethods.POST);
+		exchange.setURL(userId + "?version=32.0");
+		client.send(exchange);
+		exchange.waitForDone();
+		int status = exchange.getResponseStatus();
+		if (status == HttpStatus.OK_200) {
+			String result = exchange.getResponseContent();
+			client.stop();
+
+			JsonElement jElement = new JsonParser().parse(result);
+			JsonObject jObject = jElement.getAsJsonObject();
+			JsonObject urls = jObject.getAsJsonObject("urls");
+			String metadataEndpoint = urls.getAsJsonPrimitive("metadata")
+					.getAsString();
+
+			return metadataEndpoint;
+		}
+		return "";
+	}
 
     public String getConsumerKey() {
         return consumerKey;
@@ -243,7 +240,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     }
 
     @Override
-    protected PartnerConnection getConnection() {
+    protected CustomPartnerConnection getCustomPartnerConnection() {
         return this.partnerConnection;
     }
 
@@ -253,7 +250,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     }
     
     @Override
-    protected MetadataConnection getMetadataConnection() {
+    protected CustomMetadataConnection getCustomMetadataConnection() {
         return this.metadataConnection;
     }
 

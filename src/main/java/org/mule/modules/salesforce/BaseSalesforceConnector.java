@@ -63,6 +63,8 @@ import org.mule.modules.salesforce.api.SalesforceRestAdapter;
 import org.mule.modules.salesforce.api.SalesforceSoapAdapter;
 import org.mule.modules.salesforce.bulk.SaveResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.bulk.UpsertResultToBulkOperationTransformer;
+import org.mule.modules.salesforce.connection.CustomMetadataConnection;
+import org.mule.modules.salesforce.connection.CustomPartnerConnection;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.modules.salesforce.lazystream.impl.LazyQueryResultInputStream;
 import org.mule.modules.salesforce.metadata.MetadataService;
@@ -86,7 +88,6 @@ import com.sforce.async.QueryResultList;
 import com.sforce.soap.metadata.DescribeMetadataResult;
 import com.sforce.soap.metadata.FileProperties;
 import com.sforce.soap.metadata.ListMetadataQuery;
-import com.sforce.soap.metadata.MetadataConnection;
 import com.sforce.soap.metadata.ReadResult;
 import com.sforce.soap.partner.AssignmentRuleHeader_element;
 import com.sforce.soap.partner.CallOptions_element;
@@ -99,7 +100,6 @@ import com.sforce.soap.partner.GetUpdatedResult;
 import com.sforce.soap.partner.GetUserInfoResult;
 import com.sforce.soap.partner.LeadConvert;
 import com.sforce.soap.partner.LeadConvertResult;
-import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.soap.partner.QueryResult;
 import com.sforce.soap.partner.SaveResult;
 import com.sforce.soap.partner.SearchRecord;
@@ -200,32 +200,34 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
      */
     private SalesforceBayeuxClient bc;
 
-    protected abstract PartnerConnection getConnection();
+    protected abstract CustomPartnerConnection getCustomPartnerConnection();
 
     protected abstract BulkConnection getBulkConnection();
     
-    protected abstract MetadataConnection getMetadataConnection();
+    protected abstract CustomMetadataConnection getCustomMetadataConnection();
 
     protected abstract String getSessionId();
 
     protected abstract boolean isReadyToSubscribe();
 
-    protected SalesforceBayeuxClient getBayeuxClient() {
-        try {
-            if (bc == null && getConnection() != null &&
-                    getConnection().getConfig() != null) {
-                bc = new SalesforceBayeuxClient(this);
+	protected SalesforceBayeuxClient getBayeuxClient() {
+		try {
+			if (bc == null
+					&& getCustomPartnerConnection() != null
+					&& getCustomPartnerConnection().getConnection() != null
+					&& getCustomPartnerConnection().getConnection().getConfig() != null) {
+				bc = new SalesforceBayeuxClient(this);
 
-                if (!bc.isHandshook()) {
-                    bc.handshake();
-                }
-            }
-        } catch (MalformedURLException e) {
-            LOGGER.error(e.getMessage());
-        }
+				if (!bc.isHandshook()) {
+					bc.handshake();
+				}
+			}
+		} catch (MalformedURLException e) {
+			LOGGER.error(e.getMessage());
+		}
 
-        return bc;
-    }
+		return bc;
+	}
 
     protected boolean isInitializedBayeuxClient() {
         return this.bc != null;
@@ -756,7 +758,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         return new SalesforcePagingDelegate(query, headers) {
 
             @Override
-            protected QueryResult doQuery(PartnerConnection connection, String query) throws ConnectionException {
+            protected QueryResult doQuery(CustomPartnerConnection connection, String query) throws ConnectionException {
                 return connection.query(query);
             }
         };
@@ -825,7 +827,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         return new SalesforcePagingDelegate(query, headers) {
 
             @Override
-            protected QueryResult doQuery(PartnerConnection connection, String query) throws ConnectionException {
+            protected QueryResult doQuery(CustomPartnerConnection connection, String query) throws ConnectionException {
                 return connection.queryAll(query);
             }
         };
@@ -1318,7 +1320,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         if (result.getSize() == 0) {
             SObject pushTopic = new SObject();
             pushTopic.setType("PushTopic");
-            pushTopic.setField("ApiVersion", "31.0");  //TODO the version in master was 26.0, which one should it go?
+            pushTopic.setField("ApiVersion", "32.0");
             if (description != null) {
                 pushTopic.setField("Description", description);
             }
@@ -1379,7 +1381,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	public List<com.sforce.soap.metadata.SaveResult> createMetadata(@MetaDataKeyParam String type,
 									@FriendlyName("Metadata Objects") @Default("#[payload]") List<Map<String, Object>> objects)
 			throws Exception {
-		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.CREATE);
+		return MetadataService.callCreateUpdateService(getSalesforceMetadaAdapter(), type, objects, MetadataOperationType.CREATE);
 	}
     
     /**
@@ -1399,7 +1401,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	public List<com.sforce.soap.metadata.SaveResult> updateMetadata(@MetaDataKeyParam String type,
 									@FriendlyName("Metadata Objects") @Default("#[payload]") List<Map<String, Object>> objects)
 			throws Exception {
-		return MetadataService.callCreateUpdateService(getMetadataConnection(), type, objects, MetadataOperationType.UPDATE);
+		return MetadataService.callCreateUpdateService(getSalesforceMetadaAdapter(), type, objects, MetadataOperationType.UPDATE);
 	}
     
     /**
@@ -1419,7 +1421,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	public List<com.sforce.soap.metadata.UpsertResult> upsertMetadata(@MetaDataKeyParam String type,
 									@FriendlyName("Metadata Objects") @Default("#[payload]") List<Map<String, Object>> objects)
 			throws Exception {
-		return MetadataService.callUpsertService(getMetadataConnection(), type, objects);
+		return MetadataService.callUpsertService(getSalesforceMetadaAdapter(), type, objects);
 	}
 	
 	/**
@@ -1440,7 +1442,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 									@FriendlyName("Full Names") @Default("#[payload]") List<String> fullNames)
 			throws Exception {
 
-		return MetadataService.callDeleteService(getMetadataConnection(), type, fullNames);
+		return MetadataService.callDeleteService(getSalesforceMetadaAdapter(), type, fullNames);
 	}
 	
 	/**
@@ -1463,7 +1465,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 									@FriendlyName("New Full Name") @Default("#[payload]") String newFullName)
 			throws Exception {
 
-		return MetadataService.callRenameService(getMetadataConnection(), type, oldFullName, newFullName);
+		return MetadataService.callRenameService(getSalesforceMetadaAdapter(), type, oldFullName, newFullName);
 	}
 	
 	/**
@@ -1484,7 +1486,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 									@FriendlyName("Full Names") @Default("#[payload]") List<String> fullNames)
 			throws Exception {
 
-		return MetadataService.callReadService(getMetadataConnection(), type, fullNames);
+		return MetadataService.callReadService(getSalesforceMetadaAdapter(), type, fullNames);
 	}
 	
 	/**
@@ -1506,7 +1508,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 		MetadataType metadataType = MetadataType.valueOf(type);
 		ListMetadataQuery query = new ListMetadataQuery();
 		query.setType(metadataType.getDisplayName());
-		FileProperties[] fileProperties = getMetadataConnection().listMetadata(new ListMetadataQuery[] {query}, 31.0);
+		FileProperties[] fileProperties = getSalesforceMetadaAdapter().listMetadata(new ListMetadataQuery[] {query}, 32.0);
 		return Arrays.asList(fileProperties);
 	}
 	
@@ -1525,7 +1527,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	public DescribeMetadataResult describeMetadata()
 			throws Exception {
 
-		return getMetadataConnection().describeMetadata(31.0);
+		return getSalesforceMetadaAdapter().describeMetadata(32.0);
 	}
 
     /**
@@ -1666,7 +1668,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         return objectStoreHelper;
     }
 
-    protected void setConnectionOptions(PartnerConnection connection) {
+    protected void setConnectionOptions(CustomPartnerConnection connection) {
         //call options
         String clientId = getClientId();
         if (clientId != null) {
@@ -1771,19 +1773,19 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         }
     }
 
-    public PartnerConnection getSalesforceSoapAdapter() {
+    public CustomPartnerConnection getSalesforceSoapAdapter() {
         return getSalesforceSoapAdapter(new HashMap<SalesforceHeader, Object>());
     }
 
-    public PartnerConnection getSalesforceSoapAdapter(Map<SalesforceHeader, Object> headers) {
-        return SalesforceSoapAdapter.adapt(getConnection(), headers);
+    public CustomPartnerConnection getSalesforceSoapAdapter(Map<SalesforceHeader, Object> headers) {
+        return SalesforceSoapAdapter.adapt(getCustomPartnerConnection(), headers);
     }
 
     public BulkConnection getSalesforceRestAdapter() {
         return SalesforceRestAdapter.adapt(getBulkConnection());
     }
     
-    public MetadataConnection getSalesforceMetadaAdapter() {
-    	return SalesforceMetadataAdapter.adapt(getMetadataConnection());
+    public CustomMetadataConnection getSalesforceMetadaAdapter() {
+    	return SalesforceMetadataAdapter.adapt(getCustomMetadataConnection());
     }
 }

@@ -17,8 +17,7 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.InvocationHandler;
 
 import org.apache.log4j.Logger;
-
-import com.sforce.soap.metadata.MetadataConnection;
+import org.mule.modules.salesforce.connection.CustomMetadataConnection;
 
 /**
  * Adapter for Salesforce Rest Partner Connection
@@ -28,10 +27,10 @@ import com.sforce.soap.metadata.MetadataConnection;
 public class SalesforceMetadataAdapter {
     private static Logger logger = Logger.getLogger(SalesforceMetadataAdapter.class);
 
-    public static MetadataConnection adapt(final MetadataConnection facade) {
+    public static CustomMetadataConnection adapt(final CustomMetadataConnection facade) {
 
-        return (MetadataConnection) Enhancer.create(
-        		MetadataConnection.class,
+        return (CustomMetadataConnection) Enhancer.create(
+        		CustomMetadataConnection.class,
             new InvocationHandler() {
                 public Object invoke(Object proxy, Method method,
                                      Object[] args) throws Throwable {
@@ -54,7 +53,7 @@ public class SalesforceMetadataAdapter {
                             logger.debug("Method " + method.getName() + " threw " + e.getClass());
                         }
 
-                        throw SalesforceExceptionHandlerAdapter.analyzeRestException(e);
+                        throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
                     }
 
                 }

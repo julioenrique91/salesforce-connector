@@ -10,15 +10,16 @@
 
 package org.mule.modules.salesforce.api;
 
-import com.sforce.soap.partner.PartnerConnection;
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.InvocationHandler;
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
-
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Map;
+
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.InvocationHandler;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
+import org.mule.modules.salesforce.connection.CustomPartnerConnection;
 
 /**
  * Adapter for Salesforce Partner Connection
@@ -32,11 +33,11 @@ public class SalesforceSoapAdapter {
 
     }
 
-    public static PartnerConnection adapt(
-            final PartnerConnection facade, final Map<SalesforceHeader, Object> headers) {
+    public static CustomPartnerConnection adapt(
+            final CustomPartnerConnection facade, final Map<SalesforceHeader, Object> headers) {
 
-        return (PartnerConnection) Enhancer.create(
-                PartnerConnection.class,
+        return (CustomPartnerConnection) Enhancer.create(
+        		CustomPartnerConnection.class,
                 new InvocationHandler() {
                     public Object invoke(Object proxy, Method method,
                                          Object[] args) throws Exception {
@@ -46,7 +47,7 @@ public class SalesforceSoapAdapter {
                                     method.getName(), Arrays.toString(args)));
                         }
                         try {
-                            PartnerConnection connection = addHeaders(facade, headers);
+                        	CustomPartnerConnection connection = addHeaders(facade, headers);
                             Object ret = method.invoke(connection, args);
                             if (LOGGER.isDebugEnabled()) {
                                 LOGGER.debug(String.format(
@@ -69,7 +70,7 @@ public class SalesforceSoapAdapter {
         );
     }
 
-    private static PartnerConnection addHeaders(PartnerConnection partnerConnection, Map<SalesforceHeader, Object> headers) {
+    private static CustomPartnerConnection addHeaders(CustomPartnerConnection partnerConnection, Map<SalesforceHeader, Object> headers) {
         clearHeaders(partnerConnection);
         if (headers != null) {
             for (Map.Entry<SalesforceHeader, Object> entry : headers.entrySet()) {
@@ -90,17 +91,17 @@ public class SalesforceSoapAdapter {
         return partnerConnection;
     }
 
-    private static void clearHeaders(PartnerConnection partnerConnection) {
-        partnerConnection.clearAllOrNoneHeader();
-        partnerConnection.clearAllowFieldTruncationHeader();
-        partnerConnection.clearAssignmentRuleHeader();
-        partnerConnection.clearCallOptions();
-        partnerConnection.clearDisableFeedTrackingHeader();
-        partnerConnection.clearEmailHeader();
-        partnerConnection.clearLocaleOptions();
-        partnerConnection.clearMruHeader();
-        partnerConnection.clearOwnerChangeOptions();
-        partnerConnection.clearQueryOptions();
-        partnerConnection.clearUserTerritoryDeleteHeader();
+    private static void clearHeaders(CustomPartnerConnection partnerConnection) {
+        partnerConnection.getConnection().clearAllOrNoneHeader();
+        partnerConnection.getConnection().clearAllowFieldTruncationHeader();
+        partnerConnection.getConnection().clearAssignmentRuleHeader();
+        partnerConnection.getConnection().clearCallOptions();
+        partnerConnection.getConnection().clearDisableFeedTrackingHeader();
+        partnerConnection.getConnection().clearEmailHeader();
+        partnerConnection.getConnection().clearLocaleOptions();
+        partnerConnection.getConnection().clearMruHeader();
+        partnerConnection.getConnection().clearOwnerChangeOptions();
+        partnerConnection.getConnection().clearQueryOptions();
+        partnerConnection.getConnection().clearUserTerritoryDeleteHeader();
     }
 }
