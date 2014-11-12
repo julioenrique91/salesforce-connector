@@ -10,18 +10,19 @@
 
 package org.mule.modules.salesforce;
 
-import com.sforce.soap.partner.PartnerConnection;
-import com.sforce.soap.partner.QueryResult;
-import com.sforce.soap.partner.sobject.SObject;
-import com.sforce.ws.ConnectionException;
-import org.mule.api.MuleException;
-import org.mule.modules.salesforce.api.SalesforceHeader;
-import org.mule.streaming.ProviderAwarePagingDelegate;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import org.mule.api.MuleException;
+import org.mule.modules.salesforce.api.SalesforceHeader;
+import org.mule.modules.salesforce.connection.CustomPartnerConnection;
+import org.mule.streaming.ProviderAwarePagingDelegate;
+
+import com.sforce.soap.partner.QueryResult;
+import com.sforce.soap.partner.sobject.SObject;
+import com.sforce.ws.ConnectionException;
 
 public abstract class SalesforcePagingDelegate extends ProviderAwarePagingDelegate<Map<String, Object>, BaseSalesforceConnector> {
     private String query;
@@ -65,7 +66,7 @@ public abstract class SalesforcePagingDelegate extends ProviderAwarePagingDelega
         return this.queryLocator != null ? connector.getSalesforceSoapAdapter(headers).queryMore(this.queryLocator) : this.doQuery(connector.getSalesforceSoapAdapter(headers), query);
     }
 
-    protected abstract QueryResult doQuery(PartnerConnection connection, String query) throws ConnectionException;
+    protected abstract QueryResult doQuery(CustomPartnerConnection connection, String query) throws ConnectionException;
 
     private List<Map<String, Object>> consume(QueryResult queryResult) {
         List<Map<String, Object>> result = null;

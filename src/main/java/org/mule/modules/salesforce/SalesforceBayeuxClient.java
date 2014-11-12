@@ -54,7 +54,7 @@ public class SalesforceBayeuxClient extends BayeuxClient {
      * @param salesforceConnector Salesforce connection
      */
     public SalesforceBayeuxClient(BaseSalesforceConnector salesforceConnector) throws MalformedURLException {
-        super("https://" + (new URL(salesforceConnector.getConnection().getConfig().getServiceEndpoint())).getHost() + "/cometd/31.0",
+        super("https://" + (new URL(salesforceConnector.getCustomPartnerConnection().getConfig().getServiceEndpoint())).getHost() + "/cometd/32.0",
                 SalesforceLongPollingTransport.create(salesforceConnector, LONG_POLLING_OPTIONS));
 
         this.salesforceConnector = salesforceConnector;
@@ -98,7 +98,7 @@ public class SalesforceBayeuxClient extends BayeuxClient {
 
     private void setCookies() {
         setCookie(LOCALEINFO_COOKIE, "us");
-        setCookie(LOGIN_COOKIE, salesforceConnector.getConnection().getConfig().getUsername());
+        setCookie(LOGIN_COOKIE, salesforceConnector.getCustomPartnerConnection().getConfig().getUsername());
         setCookie(SESSIONID_COOKIE, salesforceConnector.getSessionId());
         setCookie(LANGUAGE_COOKIE, "en_US");
     }

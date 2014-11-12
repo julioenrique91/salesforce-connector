@@ -22,6 +22,7 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.beanutils.PropertyUtilsBean;
+import org.mule.modules.salesforce.connection.CustomMetadataConnection;
 import org.mule.modules.salesforce.metadata.type.MetadataOperationType;
 import org.mule.modules.salesforce.metadata.type.MetadataType;
 
@@ -39,7 +40,7 @@ import com.sforce.soap.metadata.UpsertResult;
 public class MetadataService {
 
 	public static List<SaveResult> callCreateUpdateService(
-			MetadataConnection connection, String type,
+			CustomMetadataConnection connection, String type,
 			List<Map<String, Object>> request,
 			MetadataOperationType metadataOperation) throws Exception {
 
@@ -63,7 +64,7 @@ public class MetadataService {
 	}
 
 	public static List<UpsertResult> callUpsertService(
-			MetadataConnection connection, String type,
+			CustomMetadataConnection connection, String type,
 			List<Map<String, Object>> request) throws Exception {
 
 			MetadataType metadataType = MetadataType.valueOf(type);
@@ -72,7 +73,7 @@ public class MetadataService {
 	}
 
 	public static List<DeleteResult> callDeleteService(
-			MetadataConnection connection, String type, List<String> fullNames)
+			CustomMetadataConnection connection, String type, List<String> fullNames)
 			throws Exception {
 
 			MetadataType metadataType = MetadataType.valueOf(type);
@@ -81,7 +82,7 @@ public class MetadataService {
 					fullNames.toArray(new String[fullNames.size()])));
 	}
 
-	public static ReadResult callReadService(MetadataConnection connection,
+	public static ReadResult callReadService(CustomMetadataConnection connection,
 			String type, List<String> fullNames) throws Exception {
 
 			MetadataType metadataType = MetadataType.valueOf(type);
@@ -89,7 +90,7 @@ public class MetadataService {
 					fullNames.toArray(new String[fullNames.size()]));
 	}
 
-	public static SaveResult callRenameService(MetadataConnection connection,
+	public static SaveResult callRenameService(CustomMetadataConnection connection,
 			String type, String oldFullName, String newFullName)
 			throws Exception {
 
