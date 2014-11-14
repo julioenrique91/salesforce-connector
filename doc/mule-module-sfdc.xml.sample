@@ -285,8 +285,8 @@
 <sfdc:set-password userId="#[payload['Id']]" config-ref="pepe" newPassword="#[newPassword]"/>
 <!-- END_INCLUDE(sfdc:set-password) -->
 <!-- BEGIN_INCLUDE(sfdc:create-batch-for-query) -->
-<sfdc:create-batch-for-query config-ref="mySalesforceConfig" query="#[payload]">
-    <sfdc:job-info id="#[flowVars['jobInfo']"/>
+<sfdc:create-batch-for-query config-ref="mySalesforceConfig" query="select AccountNumber, Name from Account">
+    <sfdc:job-info ref="#[payload]"/>
 </sfdc:create-batch-for-query>
 <!-- END_INCLUDE(sfdc:create-batch-for-query) -->
 <!-- BEGIN_INCLUDE(sfdc:get-server-timestamp) -->
