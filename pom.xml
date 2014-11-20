@@ -79,7 +79,7 @@
         <dependency>
 			<groupId>com.force.api</groupId>
 			<artifactId>force-metadata-api</artifactId>
-			<version>32.0.0</version>
+			<version>32.0.0-hf1</version>
  		</dependency>
  		<dependency>
 			<groupId>com.force.api</groupId>

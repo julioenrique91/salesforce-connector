@@ -17,10 +17,19 @@ import com.sforce.soap.metadata.Metadata;
  * @author Mulesoft, Inc
  */
 public enum MetadataType {
+	ExternalDataSource("com.sforce.soap.metadata", com.sforce.soap.metadata.ExternalDataSource.class, "ExternalDataSource"),
+	RemoteSiteSetting("com.sforce.soap.metadata", com.sforce.soap.metadata.RemoteSiteSetting.class,"RemoteSiteSetting"),
     CustomObject("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomObject.class, "CustomObject"),
+    BusinessProcess("com.sforce.soap.metadata", com.sforce.soap.metadata.BusinessProcess.class, "BusinessProcess"),
+    PicklistValue("com.sforce.soap.metadata", com.sforce.soap.metadata.PicklistValue.class, "PicklistValue"),
+    CompactLayout("com.sforce.soap.metadata", com.sforce.soap.metadata.CompactLayout.class, "CompactLayout"),
     CustomField("com.sforce.soap.metadata", com.sforce.soap.metadata.CustomField.class, "CustomField"),
-    ExternalDataSource("com.sforce.soap.metadata", com.sforce.soap.metadata.ExternalDataSource.class, "ExternalDataSource"),
-    RemoteSiteSetting("com.sforce.soap.metadata", com.sforce.soap.metadata.RemoteSiteSetting.class,"RemoteSiteSetting");
+    FieldSet("com.sforce.soap.metadata", com.sforce.soap.metadata.FieldSet.class, "FieldSet"),
+    ListView("com.sforce.soap.metadata", com.sforce.soap.metadata.ListView.class, "ListView"),
+    RecordType("com.sforce.soap.metadata", com.sforce.soap.metadata.RecordType.class, "RecordType"),
+    SharingReason("com.sforce.soap.metadata", com.sforce.soap.metadata.SharingReason.class, "SharingReason"),
+    ValidationRule("com.sforce.soap.metadata", com.sforce.soap.metadata.ValidationRule.class, "ValidationRule"),
+    WebLink("com.sforce.soap.metadata", com.sforce.soap.metadata.WebLink.class, "WebLink");
 
     String entityPackage;
     Class<? extends com.sforce.soap.metadata.Metadata> metadataEntityClass;

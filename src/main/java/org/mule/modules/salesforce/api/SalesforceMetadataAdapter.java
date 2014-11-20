@@ -25,7 +25,7 @@ import org.mule.modules.salesforce.connection.CustomMetadataConnection;
  * @author Mulesoft, Inc
  */
 public class SalesforceMetadataAdapter {
-    private static Logger logger = Logger.getLogger(SalesforceMetadataAdapter.class);
+    private static final Logger logger = Logger.getLogger(SalesforceMetadataAdapter.class);
 
     public static CustomMetadataConnection adapt(final CustomMetadataConnection facade) {
 
