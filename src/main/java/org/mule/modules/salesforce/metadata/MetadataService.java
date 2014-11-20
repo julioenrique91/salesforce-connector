@@ -29,7 +29,6 @@ import org.mule.modules.salesforce.metadata.type.MetadataType;
 
 import com.sforce.soap.metadata.DeleteResult;
 import com.sforce.soap.metadata.Metadata;
-import com.sforce.soap.metadata.MetadataConnection;
 import com.sforce.soap.metadata.ReadResult;
 import com.sforce.soap.metadata.SaveResult;
 import com.sforce.soap.metadata.UpsertResult;

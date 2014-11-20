@@ -131,13 +131,13 @@
 
     <util:map id="createCustomObjectMetadataFirstObject" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
-        <entry key="fullName" value="Muleman_QA_CustObj_First__c" />
+        <entry key="fullName" value="Muleman_QA_CustObj_First_#{randomString}__c" />
         <entry key="label" value="Muleman_QA_CustObj_First" />
         <entry key="pluralLabel" value="Muleman_QA_CustObjs_First" />
         <entry key="deploymentStatus" value="#{T(com.sforce.soap.metadata.DeploymentStatus).Deployed }" />
         <entry key="sharingModel" value="#{T(com.sforce.soap.metadata.SharingModel).ReadWrite}" />
         <entry key="nameField" value-ref="firstCustomObjectMetadataNameField" />
-        <!--         <entry key="fields" value-ref="firstCustomObjectMetadataFields" /> -->
+                <entry key="fields" value-ref="firstCustomObjectMetadataFields" />
     </util:map>
     
     <util:map id="firstCustomObjectMetadataNameField" map-class="java.util.HashMap"
@@ -146,24 +146,26 @@
     	<entry key="label" value="Muleman_QA_CustObj_First_Name"/>			
     </util:map>
     
-<!--     <util:list id="firstCustomObjectMetadataFields"> -->
-<!--     	<ref bean="firstCustomObjectMetadataField1"/> -->
-<!--     	<ref bean="firstCustomObjectMetadataField2"/> -->
-<!--     </util:list> -->
+    <util:list id="firstCustomObjectMetadataFields">
+    	<ref bean="firstCustomObjectMetadataField1"/>
+    	<ref bean="firstCustomObjectMetadataField2"/>
+    </util:list>
     
-<!--     <util:map id="firstCustomObjectMetadataField1" map-class="java.util.HashMap" -->
-<!--     			key-type="java.lang.String" value-type="java.lang.Object"> -->
-<!--     	<entry key="type" value="#{T(com.sforce.soap.metadata.FieldType).Number}"/> -->
-<!--     	<entry key="label" value="CustObj_First_CustField1"/> -->
-<!--     	<entry key="fullName" value="Muleman_QA_CustObj_First__c.CustObj_First_CustField1__c"/>			 -->
-<!--     </util:map> -->
+    <util:map id="firstCustomObjectMetadataField1" map-class="java.util.HashMap"
+    			key-type="java.lang.String" value-type="java.lang.Object">
+    	<entry key="type" value="#{T(com.sforce.soap.metadata.FieldType).Text}"/>
+    	<entry key="length" value="32"/>
+    	<entry key="label" value="CustObj_First_CustField1"/>
+    	<entry key="fullName" value="CustObj_First_CustField1__c"/>			
+    </util:map>
     
-<!--     <util:map id="firstCustomObjectMetadataField2" map-class="java.util.HashMap" -->
-<!--     			key-type="java.lang.String" value-type="java.lang.Object"> -->
-<!--     	<entry key="type" value="#{T(com.sforce.soap.metadata.FieldType).Date}"/> -->
-<!--     	<entry key="label" value="CustObj_First_CustField2"/>	 -->
-<!--     	<entry key="fullName" value="Muleman_QA_CustObj_First__c.CustObj_First_CustField2__c"/>				 -->
-<!--     </util:map> -->
+    <util:map id="firstCustomObjectMetadataField2" map-class="java.util.HashMap"
+    			key-type="java.lang.String" value-type="java.lang.Object">
+    	<entry key="type" value="#{T(com.sforce.soap.metadata.FieldType).Text}"/>
+    	<entry key="length" value="64"/>
+    	<entry key="label" value="CustObj_First_CustField2"/>	
+    	<entry key="fullName" value="CustObj_First_CustField2__c"/>				
+    </util:map>
     
     <util:map id="createCustomObjectMetadataSecondObject" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.Object">
