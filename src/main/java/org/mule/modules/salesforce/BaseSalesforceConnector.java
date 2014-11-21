@@ -395,7 +395,11 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
     public BatchInfo createBatchStream(JobInfo jobInfo, @Default("#[payload]") InputStream stream) throws Exception {
-        return getSalesforceRestAdapter().createBatchFromStream(jobInfo, stream);
+    	if(ContentType.ZIP_XML.equals(jobInfo.getContentType()) || ContentType.ZIP_CSV.equals(jobInfo.getContentType())) {
+    		return getSalesforceRestAdapter().createBatchFromZipStream(jobInfo, stream);
+    	} else {
+    		return getSalesforceRestAdapter().createBatchFromStream(jobInfo, stream);
+    	}
     }
 
     /**
