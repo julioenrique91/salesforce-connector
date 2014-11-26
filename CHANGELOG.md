@@ -1,20 +1,26 @@
 Salesforce Connector Release Notes
 ==================================
 
-Date: 14-MAY-2014
+Date: DEC-2014
 
-Version: 5.4.7
+Version: 5.5.0
 
 Supported API versions
 ------------------------
-Salesforce v28 API. 
+Salesforce v32 API. 
 
 Supported Mule Runtime Versions
 --------------------------------
-3.5.0
+3.5.1
 
 New Features and Functionality
 ------------------------------
+5.5.0
+=====
+ - Added Salesforce Metadata API support
+ - Bug fixing
+ - Devkit 3.5.2
+ 
 5.4.7
 =====
  - Added Salesforce SOAP API headers support
