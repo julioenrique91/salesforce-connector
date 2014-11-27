@@ -137,7 +137,7 @@
         <entry key="deploymentStatus" value="#{T(com.sforce.soap.metadata.DeploymentStatus).Deployed }" />
         <entry key="sharingModel" value="#{T(com.sforce.soap.metadata.SharingModel).ReadWrite}" />
         <entry key="nameField" value-ref="firstCustomObjectMetadataNameField" />
-                <entry key="fields" value-ref="firstCustomObjectMetadataFields" />
+        <entry key="fields" value-ref="firstCustomObjectMetadataFields" />
     </util:map>
     
     <util:map id="firstCustomObjectMetadataNameField" map-class="java.util.HashMap"

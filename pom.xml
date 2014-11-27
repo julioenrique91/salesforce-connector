@@ -21,6 +21,7 @@
         <jetty.client.version>8.1.13.v20130916</jetty.client.version>
         <wsc.version>32.1.1-hf1</wsc.version>
         <connector.test.version>2.0.3</connector.test.version>
+        <mule.test.timeoutSecs>180</mule.test.timeoutSecs>
     </properties>
 
     <build>
