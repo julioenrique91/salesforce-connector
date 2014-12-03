@@ -147,7 +147,7 @@ public class MetadataService {
         		   if (objectEntry instanceof Map) {
         			   PropertyUtilsBean propertyUtilsBean = new PropertyUtilsBean();
                 	   Class childClass = propertyUtilsBean.getPropertyType(metadataObject, key);
-                	   if (childClass.isArray()) {
+                	   if (childClass != null && childClass.isArray()) {
                 		   childClass = childClass.getComponentType();
                 	   }
                 	   if (metadataClass == null) {
@@ -158,7 +158,7 @@ public class MetadataService {
                 	   s++;
         		   }
         	   }
-        	   if (metadataClass != null){
+        	   if (metadataClass != null) {
         		   Object[] metadataChildObject = (T[]) Array.newInstance(metadataClass, mobjects.length);
         		   for (int i=0;i<mobjects.length;i++) {
         			   metadataChildObject[i] = metadataClass.cast(mobjects[i]);

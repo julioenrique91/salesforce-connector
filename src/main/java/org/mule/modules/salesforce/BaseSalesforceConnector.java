@@ -73,6 +73,7 @@ import org.mule.modules.salesforce.metadata.type.MetadataOperationType;
 import org.mule.modules.salesforce.metadata.type.MetadataType;
 import org.mule.streaming.PagingConfiguration;
 import org.mule.streaming.ProviderAwarePagingDelegate;
+import org.mule.util.BeanUtils;
 import org.springframework.util.StringUtils;
 
 import com.sforce.async.AsyncApiException;
@@ -88,6 +89,7 @@ import com.sforce.async.QueryResultList;
 import com.sforce.soap.metadata.DescribeMetadataResult;
 import com.sforce.soap.metadata.FileProperties;
 import com.sforce.soap.metadata.ListMetadataQuery;
+import com.sforce.soap.metadata.Metadata;
 import com.sforce.soap.metadata.ReadResult;
 import com.sforce.soap.partner.AssignmentRuleHeader_element;
 import com.sforce.soap.partner.CallOptions_element;
@@ -1486,11 +1488,23 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	@OAuthProtected
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
-	public ReadResult readMetadata(@MetaDataKeyParam String type,
+	public List<Map<String, Object>> readMetadata(@MetaDataKeyParam String type,
 									@FriendlyName("Full Names") @Default("#[payload]") List<String> fullNames)
 			throws Exception {
 
-		return MetadataService.callReadService(getSalesforceMetadaAdapter(), type, fullNames);
+		ReadResult readResult =  MetadataService.callReadService(getSalesforceMetadaAdapter(), type, fullNames);
+		Metadata[] metadataObjects =  readResult.getRecords();
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		if (metadataObjects != null && metadataObjects.length > 0) {
+			Class metadataObjClass = MetadataType.valueOf(type).getMetadataEntityClass();
+			if (metadataObjClass != null) {
+				for (Metadata metadataObj : metadataObjects) {
+					Map<String, Object> beanMap = BeanUtils.describe(metadataObjClass.cast(metadataObj));
+					result.add(beanMap);
+				}
+			}
+		}
+		return result;
 	}
 	
 	/**
