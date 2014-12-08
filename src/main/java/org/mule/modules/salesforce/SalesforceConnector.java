@@ -230,7 +230,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         }
 
         try {
-            String restEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/async/32.0";
+            String restEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/async/" + getApiVersion();
             connectorConfig.setRestEndpoint(restEndpoint);
             bulkConnection = new BulkConnection(connectorConfig);
         } catch (AsyncApiException e) {
@@ -240,7 +240,7 @@ public class SalesforceConnector extends BaseSalesforceConnector {
         }
         
         try {
-			String metadataServiceEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/Soap/c/32.0";
+			String metadataServiceEndpoint = "https://" + (new URL(connectorConfig.getServiceEndpoint())).getHost() + "/services/Soap/c/" + getApiVersion();
 			ConnectorConfig metadataConfig = new ConnectorConfig();
 			metadataConfig.setUsername(username);
 			metadataConfig.setPassword(password);
