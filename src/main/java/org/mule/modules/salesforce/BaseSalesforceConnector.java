@@ -157,8 +157,15 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     @Configurable
     @Default("5")
     private Integer batchSobjectMaxDepth;
-
+    
     /**
+     * Salesforce API version
+     */
+    @Configurable
+    @Default("32.0")
+    private Double apiVersion;
+
+	/**
      * If true, truncate field values that are too long, which is the behavior in API versions 14.0 and earlier.
      * <p/>
      * Default is false: no change in behavior. If a string or textarea value is too large, the operation fails and the fault code STRING_TOO_LONG is returned.
@@ -1326,7 +1333,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
         if (result.getSize() == 0) {
             SObject pushTopic = new SObject();
             pushTopic.setType("PushTopic");
-            pushTopic.setField("ApiVersion", "32.0");
+            pushTopic.setField("ApiVersion", apiVersion);
             if (description != null) {
                 pushTopic.setField("Description", description);
             }
@@ -1526,7 +1533,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 		MetadataType metadataType = MetadataType.valueOf(type);
 		ListMetadataQuery query = new ListMetadataQuery();
 		query.setType(metadataType.getDisplayName());
-		FileProperties[] fileProperties = getSalesforceMetadaAdapter().listMetadata(new ListMetadataQuery[] {query}, 32.0);
+		FileProperties[] fileProperties = getSalesforceMetadaAdapter().listMetadata(new ListMetadataQuery[] {query}, apiVersion);
 		return Arrays.asList(fileProperties);
 	}
 	
@@ -1545,7 +1552,7 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
 	public DescribeMetadataResult describeMetadata()
 			throws Exception {
 
-		return getSalesforceMetadaAdapter().describeMetadata(32.0);
+		return getSalesforceMetadaAdapter().describeMetadata(apiVersion);
 	}
 
     /**
@@ -1806,4 +1813,18 @@ public abstract class BaseSalesforceConnector implements MuleContextAware {
     public CustomMetadataConnection getSalesforceMetadaAdapter() {
     	return SalesforceMetadataAdapter.adapt(getCustomMetadataConnection());
     }
+    
+    /**
+	 * @return the apiVersion
+	 */
+	public Double getApiVersion() {
+		return apiVersion;
+	}
+
+	/**
+	 * @param apiVersion the apiVersion to set
+	 */
+	public void setApiVersion(Double apiVersion) {
+		this.apiVersion = apiVersion;
+	}
 }

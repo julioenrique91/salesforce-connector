@@ -19,7 +19,6 @@ import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.RedirectListener;
 import org.eclipse.jetty.http.HttpMethods;
 import org.eclipse.jetty.http.HttpStatus;
-import org.eclipse.jetty.io.ByteArrayBuffer;
 import org.mule.RequestContext;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.lifecycle.Start;
@@ -154,7 +153,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
 
         config.setCompression(false);
 
-        String serviceEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/u/32.0";
+        String serviceEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/Soap/u/" + getApiVersion();
         config.setServiceEndpoint(serviceEndpoint);
 
         PartnerConnection _connection = Connector.newConnection(config);
@@ -162,7 +161,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         this.partnerConnection.setConnection(_connection);
         setConnectionOptions(this.partnerConnection);
 
-        String restEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/async/32.0";
+        String restEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/async/" + getApiVersion();
         config.setRestEndpoint(restEndpoint);
 
 		this.bulkConnection = new BulkConnection(config);
@@ -192,7 +191,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
 		exchange.addRequestHeader("Authorization", "Bearer " + accessToken);
 		exchange.addRequestHeader("Accept", "application/json");
 		exchange.setMethod(HttpMethods.POST);
-		exchange.setURL(userId + "?version=32.0");
+		exchange.setURL(userId + "?version=" + getApiVersion());
 		client.send(exchange);
 		exchange.waitForDone();
 		int status = exchange.getResponseStatus();
