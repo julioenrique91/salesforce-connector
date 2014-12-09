@@ -193,9 +193,11 @@ public class SalesforceConnector extends BaseSalesforceConnector {
                                      @Optional @Placement(group = "Proxy Settings") String proxyUsername,
                                      @Optional @Placement(group = "Proxy Settings") @Password String proxyPassword,
                                      @Optional @Placement(group = "Session") String sessionId,
-                                     @Optional @Placement(group = "Session") String serviceEndpoint) throws org.mule.api.ConnectionException {
+                                     @Optional @Placement(group = "Session") String serviceEndpoint,
+                                     @Optional @Default("0") int readTimeout,
+                                     @Optional @Default("0") int connectionTimeout) throws org.mule.api.ConnectionException {
 
-        ConnectorConfig connectorConfig = createConnectorConfig(url, username, password + StringUtils.defaultString(securityToken), proxyHost, proxyPort, proxyUsername, proxyPassword);
+        ConnectorConfig connectorConfig = createConnectorConfig(url, username, password + StringUtils.defaultString(securityToken), proxyHost, proxyPort, proxyUsername, proxyPassword, readTimeout, connectionTimeout);
         if (LOGGER.isDebugEnabled()) {
             connectorConfig.addMessageHandler(new MessageHandler() {
                 @Override
@@ -294,10 +296,13 @@ public class SalesforceConnector extends BaseSalesforceConnector {
      * @param proxyPassword
      * @return
      */
-    protected ConnectorConfig createConnectorConfig(String endpoint, String username, String password, String proxyHost, int proxyPort, String proxyUsername, String proxyPassword) {
+    protected ConnectorConfig createConnectorConfig(String endpoint, String username, String password, String proxyHost, int proxyPort, String proxyUsername, String proxyPassword, int readTimeout, int connectionTimeout) {
         ConnectorConfig config = new ConnectorConfig();
         config.setUsername(username);
         config.setPassword(password);
+        
+        config.setReadTimeout(readTimeout);
+        config.setConnectionTimeout(connectionTimeout);
 
         config.setAuthEndpoint(endpoint);
         config.setServiceEndpoint(endpoint);

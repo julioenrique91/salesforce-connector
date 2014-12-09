@@ -29,6 +29,7 @@ import org.mule.api.annotations.oauth.OAuthCallbackParameter;
 import org.mule.api.annotations.oauth.OAuthConsumerKey;
 import org.mule.api.annotations.oauth.OAuthConsumerSecret;
 import org.mule.api.annotations.oauth.OAuthPostAuthorization;
+import org.mule.api.annotations.param.Default;
 import org.mule.modules.salesforce.connection.CustomMetadataConnection;
 import org.mule.modules.salesforce.connection.CustomPartnerConnection;
 
@@ -119,6 +120,20 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     // by itself in a right way after authorize
     @OAuthCallbackParameter(expression = "#[json:id]")
     private String userId;
+    
+    /**
+     * Salesforce read timeout
+     */
+    @Configurable
+    @Default("0")
+    private Integer readTimeout;
+    
+    /**
+     * Salesforce connection timeout
+     */
+    @Configurable
+    @Default("0")
+    private Integer connectionTimeout;
 
     @Override
     protected boolean isReadyToSubscribe() {
@@ -150,6 +165,9 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         }
         config.setSessionId(accessToken);
         config.setManualLogin(true);
+        
+        config.setReadTimeout(readTimeout);
+        config.setConnectionTimeout(connectionTimeout);
 
         config.setCompression(false);
 
@@ -262,11 +280,45 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         return instanceId;
     }
 
+    /**
+     * @return the userId
+     */
     public String getUserId() {
         return userId;
     }
 
+    /**
+     * @param userId the userId to set
+     */
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+	/**
+	 * @return the readTimeout
+	 */
+	public Integer getReadTimeout() {
+		return readTimeout;
+	}
+
+	/**
+	 * @param readTimeout the readTimeout to set
+	 */
+	public void setReadTimeout(Integer readTimeout) {
+		this.readTimeout = readTimeout;
+	}
+
+	/**
+	 * @return the connectionTimeout
+	 */
+	public Integer getConnectionTimeout() {
+		return connectionTimeout;
+	}
+
+	/**
+	 * @param connectionTimeout the connectionTimeout to set
+	 */
+	public void setConnectionTimeout(Integer connectionTimeout) {
+		this.connectionTimeout = connectionTimeout;
+	}
 }

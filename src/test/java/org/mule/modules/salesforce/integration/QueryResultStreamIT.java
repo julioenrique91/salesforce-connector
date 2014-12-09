@@ -62,7 +62,7 @@ public class QueryResultStreamIT {
 
 		connector = new SalesforceConnector();
 		connector.connect(prop.getProperty("salesforce.username"), prop.getProperty("salesforce.password"),
-				prop.getProperty("salesforce.securityToken"), prop.getProperty("salesforce.url"), null, 80, null, null, null, null);
+				prop.getProperty("salesforce.securityToken"), prop.getProperty("salesforce.url"), null, 80, null, null, null, null, 0, 0);
 
 		if (!StringUtils.isEmpty(prop.getProperty("salesforce.jobid")) && !StringUtils.isEmpty(prop.getProperty("salesforce.batchid"))) {
 			batchInfo = new BatchInfo();
