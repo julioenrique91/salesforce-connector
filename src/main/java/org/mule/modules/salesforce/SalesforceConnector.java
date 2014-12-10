@@ -1340,8 +1340,8 @@ public class SalesforceConnector implements MuleContextAware {
 	@MetaDataScope(MetadataCategory.class)
 	public com.sforce.soap.metadata.SaveResult renameMetadata(@MetaDataKeyParam String type,
 									@FriendlyName("Old Full Name") @Default("#[payload]") String oldFullName,
-									@FriendlyName("New Full Name") @Default("#[payload]") String newFullName)
-			throws Exception {
+                                    @FriendlyName("New Full Name") /*@Default("#[payload]")*/ String newFullName) //TODO: Cristian, please choose which one should be the #[payload]
+    throws Exception {
 
 		return MetadataService.callRenameService(getSalesforceMetadaAdapter(), type, oldFullName, newFullName);
 	}
