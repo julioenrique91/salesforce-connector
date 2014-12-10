@@ -64,10 +64,26 @@ import java.io.SequenceInputStream;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * The Salesforce Connector will allow to connect to the Salesforce application using regular username and password via
+ * the SOAP API. Almost every operation that can be done via the Salesforce's API can be done thru this connector. This
+ * connector will also work if your Salesforce objects are customized with additional fields or even you are working
+ * with custom objects.
+ * <p/>
+ * Integrating with Salesforce consists of web service calls utilizing XML request/response setup
+ * over an HTTPS connection. The technical details of this connection such as request headers,
+ * error handling, HTTPS connection, etc. are all abstracted from the user to make implementation
+ * quick and easy.
+ * <p/>
+ * {@sample.config ../../../doc/mule-module-sfdc.xml.sample sfdc:config}
+ *
+ * @author MuleSoft, Inc.
+ */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 @org.mule.api.annotations.Connector(name = "sfdc", schemaVersion = "5.0", friendlyName = "Salesforce", minMuleVersion = "3.5")
 @MetaDataScope(SalesforceMetadataManager.class)
 @ReconnectOn(exceptions={SalesforceSessionExpiredException.class})
+
 public class SalesforceConnector implements MuleContextAware {
 
     private static final Logger LOGGER = Logger.getLogger(SalesforceConnector.class);
