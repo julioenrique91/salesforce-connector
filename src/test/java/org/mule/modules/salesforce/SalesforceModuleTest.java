@@ -50,6 +50,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.mule.modules.salesforce.connection.CustomMetadataConnection;
 import org.mule.modules.salesforce.connection.CustomPartnerConnection;
+import org.mule.modules.salesforce.connection.strategy.SalesforceBasicAuthStrategy;
 import org.mule.modules.salesforce.exception.SalesforceSessionExpiredException;
 import org.mule.streaming.PagingConfiguration;
 import org.mule.streaming.ProviderAwarePagingDelegate;
@@ -113,7 +114,9 @@ public class SalesforceModuleTest {
     public void testCreateJob() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
         ArgumentCaptor<JobInfo> expectedJobInfo = ArgumentCaptor.forClass(JobInfo.class);
 
         Mockito.when(bulkConnection.createJob(Mockito.isA(JobInfo.class))).thenAnswer(new Answer<JobInfo>() {
@@ -138,7 +141,9 @@ public class SalesforceModuleTest {
     public void testCloseJob() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
         JobInfo expectedJobInfo = new JobInfo();
         String jobId = "uVsd234k23neasd";
 
@@ -152,7 +157,9 @@ public class SalesforceModuleTest {
     public void testJobInfo() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
         JobInfo expectedJobInfo = new JobInfo();
         String jobId = "uVsd234k23neasd";
 
@@ -166,7 +173,9 @@ public class SalesforceModuleTest {
     public void testAbortJob() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
         JobInfo expectedJobInfo = new JobInfo();
         String jobId = "uVsd234k23neasd";
 
@@ -181,7 +190,9 @@ public class SalesforceModuleTest {
         SalesforceConnector connector = new SalesforceConnector();
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
         BatchRequest batchRequest = Mockito.mock(BatchRequest.class);
-        connector.setBulkConnection(bulkConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
 
         JobInfo jobInfo = new JobInfo();
         List<Map<String, Object>> objects = new ArrayList<Map<String, Object>>();
@@ -200,7 +211,9 @@ public class SalesforceModuleTest {
         SalesforceConnector connector = new SalesforceConnector();
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
         AsyncApiException exception = Mockito.mock(AsyncApiException.class);
-        connector.setBulkConnection(bulkConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
 
         JobInfo jobInfo = new JobInfo();
         List<Map<String, Object>> objects = new ArrayList<Map<String, Object>>();
@@ -215,7 +228,9 @@ public class SalesforceModuleTest {
         SalesforceConnector connector = new SalesforceConnector();
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
         ArgumentCaptor<JobInfo> expectedJobInfo = ArgumentCaptor.forClass(JobInfo.class);
-        connector.setBulkConnection(bulkConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
 
         JobInfo actualJobInfo = new JobInfo();
         String query = "SELECT Id FROM Contact";
@@ -234,7 +249,9 @@ public class SalesforceModuleTest {
         SalesforceConnector connector = new SalesforceConnector();
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
         ArgumentCaptor<JobInfo> expectedJobInfo = ArgumentCaptor.forClass(JobInfo.class);
-        connector.setBulkConnection(bulkConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
 
         JobInfo actualJobInfo = new JobInfo();
         InputStream stream = Mockito.mock(InputStream.class);
@@ -254,7 +271,9 @@ public class SalesforceModuleTest {
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
         ArgumentCaptor<JobInfo> expectedJobInfo = ArgumentCaptor.forClass(JobInfo.class);
         AsyncApiException exception = Mockito.mock(AsyncApiException.class);
-        connector.setBulkConnection(bulkConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
 
         JobInfo actualJobInfo = new JobInfo();
         String query = "SELECT Id FROM Contact";
@@ -269,12 +288,14 @@ public class SalesforceModuleTest {
     @Test
     public void testCreate() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         SaveResult saveResult = Mockito.mock(SaveResult.class);
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
         when(partnerConnection.create(Mockito.argThat(new SObjectArrayMatcher()))).thenReturn(new SaveResult[]{saveResult});
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
 
         Map<String, Object> sObject = new HashMap<String, Object>();
         sObject.put(FIRST_NAME_FIELD, FIRST_NAME);
@@ -290,12 +311,14 @@ public class SalesforceModuleTest {
     @Test
     public void testCreateSingle() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         SaveResult saveResult = Mockito.mock(SaveResult.class);
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
         when(partnerConnection.create(Mockito.argThat(new SObjectArrayMatcher()))).thenReturn(new SaveResult[]{saveResult});
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
 
         Map<String, Object> sObject = new HashMap<String, Object>();
         sObject.put(FIRST_NAME_FIELD, FIRST_NAME);
@@ -309,11 +332,13 @@ public class SalesforceModuleTest {
     @Test
     public void testCreateSingleWithNoSaveResults() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
         when(partnerConnection.create(Mockito.argThat(new SObjectArrayMatcher()))).thenReturn(new SaveResult[]{});
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
 
         Map<String, Object> sObject = new HashMap<String, Object>();
         sObject.put(FIRST_NAME_FIELD, FIRST_NAME);
@@ -326,52 +351,58 @@ public class SalesforceModuleTest {
 
     @Test
     public void testIsNotConnectedWhenConnectionIsNull() throws Exception {
-        SalesforceConnector connector = new SalesforceConnector();
-
-        assertFalse(connector.isConnected());
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        assertFalse(strategy.isConnected());
     }
 
     @Test
     public void testIsNotConnectedWhenLoginResultIsNull() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
 
-        assertFalse(connector.isConnected());
+        assertFalse(((SalesforceBasicAuthStrategy) connector.getSalesforceStrategy()).isConnected());
     }
 
     @Test
     public void testIsConnected() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        connector.setSalesforceStrategy(strategy);
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
         LoginResult loginResult = Mockito.mock(LoginResult.class);
-        connector.setConnection(partnerConnection);
-        connector.setLoginResult(loginResult);
+        strategy.setConnection(partnerConnection);
+        strategy.setLoginResult(loginResult);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+
         CustomMetadataConnection metadataConnection = Mockito.mock(CustomMetadataConnection.class);
-        connector.setCustomMetadataConnection(metadataConnection);
+        strategy.setCustomMetadataConnection(metadataConnection);
         when(loginResult.getSessionId()).thenReturn(MOCKED_ID);
 
-        assertTrue(connector.isConnected());
+        assertTrue(((SalesforceBasicAuthStrategy) connector.getSalesforceStrategy()).isConnected());
     }
 
     @Test
     public void testGetSessionId() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
         LoginResult loginResult = Mockito.mock(LoginResult.class);
-        connector.setConnection(partnerConnection);
-        connector.setLoginResult(loginResult);
+        strategy.setConnection(partnerConnection);
+        strategy.setLoginResult(loginResult);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
         CustomMetadataConnection metadataConnection = Mockito.mock(CustomMetadataConnection.class);
-        connector.setCustomMetadataConnection(metadataConnection);
+        strategy.setCustomMetadataConnection(metadataConnection);
         when(loginResult.getSessionId()).thenReturn(MOCKED_ID);
 
-        assertEquals(connector.getSessionId(), MOCKED_ID);
+        assertEquals(strategy.getSessionId(), MOCKED_ID);
     }
 
     @Test
@@ -386,8 +417,10 @@ public class SalesforceModuleTest {
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
         when(partnerConnection.update(Mockito.argThat(new SObjectArrayMatcher()))).thenReturn(new SaveResult[]{saveResult});
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
-        connector.setConnection(partnerConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
+        strategy.setConnection(partnerConnection);
 
         Map<String, Object> sObject = new HashMap<String, Object>();
         sObject.put(FIRST_NAME_FIELD, FIRST_NAME);
@@ -406,8 +439,10 @@ public class SalesforceModuleTest {
         DescribeGlobalResult describeGlobalResult = Mockito.mock(DescribeGlobalResult.class);
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
-        connector.setConnection(partnerConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
+        strategy.setConnection(partnerConnection);
 
         when(partnerConnection.describeGlobal()).thenReturn(describeGlobalResult);
 
@@ -421,8 +456,10 @@ public class SalesforceModuleTest {
         SalesforceConnector connector = new SalesforceConnector();
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
-        connector.setConnection(partnerConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
+        strategy.setConnection(partnerConnection);
 
         SObject sObject1 = Mockito.mock(SObject.class);
         SObject sObject2 = Mockito.mock(SObject.class);
@@ -470,13 +507,15 @@ public class SalesforceModuleTest {
 
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
-        connector.setConnection(partnerConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
+        strategy.setConnection(partnerConnection);
 
         when(partnerConnection.query(eq(MOCK_QUERY))).thenReturn(queryResult);
         when(partnerConnection.queryMore("001")).thenReturn(queryResult);
 
-        ProviderAwarePagingDelegate<Map<String,Object>,BaseSalesforceConnector> delegate = connector.query(MOCK_QUERY, new PagingConfiguration(1), null);
+        ProviderAwarePagingDelegate<Map<String,Object>,SalesforceConnector> delegate = connector.query(MOCK_QUERY, new PagingConfiguration(1), null);
         List<Map<String, Object>> result = delegate.getPage(connector);
         assertEquals(1, result.size());
 
@@ -494,8 +533,10 @@ public class SalesforceModuleTest {
         when(queryResult.getRecords()).thenReturn(new SObject[]{});
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
-        connector.setConnection(partnerConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
+        strategy.setConnection(partnerConnection);
 
         when(partnerConnection.query(eq(MOCK_QUERY))).thenReturn(queryResult);
 
@@ -510,8 +551,10 @@ public class SalesforceModuleTest {
         when(queryResult.getRecords()).thenReturn(new SObject[]{sObject});
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
-        connector.setConnection(partnerConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
+        strategy.setConnection(partnerConnection);
 
         when(partnerConnection.query(eq(MOCK_QUERY))).thenReturn(queryResult);
 
@@ -523,11 +566,13 @@ public class SalesforceModuleTest {
     @Test
     public void testEmptyRecycleBin() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         EmptyRecycleBinResult emptyRecycleBinResult = Mockito.mock(EmptyRecycleBinResult.class);
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
 
 
         when(partnerConnection.emptyRecycleBin(argThat(new StringArrayMatcher()))).thenReturn(new EmptyRecycleBinResult[]{emptyRecycleBinResult});
@@ -541,11 +586,13 @@ public class SalesforceModuleTest {
     @Test
     public void testDelete() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         DeleteResult deleteResult = Mockito.mock(DeleteResult.class);
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
 
 
         when(partnerConnection.delete(argThat(new StringArrayMatcher()))).thenReturn(new DeleteResult[]{deleteResult});
@@ -559,11 +606,13 @@ public class SalesforceModuleTest {
     @Test
     public void testDescribeSObject() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         DescribeSObjectResult describeSObjectResult = Mockito.mock(DescribeSObjectResult.class);
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
 
 
         when(partnerConnection.describeSObject(eq(MOCK_OBJET_TYPE))).thenReturn(describeSObjectResult);
@@ -661,7 +710,7 @@ public class SalesforceModuleTest {
         SalesforceConnector connector = new SalesforceConnector();
         BatchInfo batchInfo = setupBulkConnection(connector);
         QueryResultList queryResultList = Mockito.mock(QueryResultList.class);
-        BulkConnection bulkConnection = connector.getBulkConnection();
+        BulkConnection bulkConnection = connector.getSalesforceStrategy().getBulkConnection();
         String[] queryResults = {"ID1", "ID2"};
         byte[] a = {'a'};
         byte[] b = {'b'};
@@ -682,7 +731,7 @@ public class SalesforceModuleTest {
         SalesforceConnector connector = new SalesforceConnector();
         BatchInfo batchInfo = setupBulkConnection(connector);
         QueryResultList queryResultList = Mockito.mock(QueryResultList.class);
-        BulkConnection bulkConnection = connector.getBulkConnection();
+        BulkConnection bulkConnection = connector.getSalesforceStrategy().getBulkConnection();
         String[] queryResults = new String[0];
 
         when(bulkConnection.getQueryResultList(batchInfo.getJobId(), batchInfo.getId())).thenReturn(queryResultList);
@@ -695,7 +744,7 @@ public class SalesforceModuleTest {
     public void testBatchResultsStream() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
         BatchInfo batchInfo = setupBulkConnection(connector);
-        BulkConnection bulkConnection = connector.getBulkConnection();
+        BulkConnection bulkConnection = connector.getSalesforceStrategy().getBulkConnection();
         InputStream stream = Mockito.mock(InputStream.class);
 
         when(bulkConnection.getBatchResultStream(batchInfo.getJobId(), batchInfo.getId())).thenReturn(stream);
@@ -707,10 +756,12 @@ public class SalesforceModuleTest {
     @Test
     public void testPublishTopic() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
         SaveResult saveResult = Mockito.mock(SaveResult.class);
         when(saveResult.isSuccess()).thenReturn(true);
         when(partnerConnection.create(Mockito.argThat(new SObjectArrayMatcher()))).thenReturn(new SaveResult[]{saveResult});
@@ -726,10 +777,12 @@ public class SalesforceModuleTest {
     @Test
     public void testPublishTopicAlreadyExists() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
         SaveResult saveResult = Mockito.mock(SaveResult.class);
         when(saveResult.isSuccess()).thenReturn(true);
         when(partnerConnection.update(Mockito.argThat(new SObjectArrayMatcher()))).thenReturn(new SaveResult[]{saveResult});
@@ -747,10 +800,12 @@ public class SalesforceModuleTest {
     @Test
     public void testGetUserInfo() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
         GetUserInfoResult getUserInfoResult = Mockito.mock(GetUserInfoResult.class);
         when(partnerConnection.getUserInfo()).thenReturn(getUserInfoResult);
 
@@ -760,10 +815,12 @@ public class SalesforceModuleTest {
     @Test
     public void testGetUpdatedRange() throws Exception {
         SalesforceConnector connector = spy(new SalesforceConnector());
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
         GetServerTimestampResult getServerTimestampResult = Mockito.mock(GetServerTimestampResult.class);
         when(partnerConnection.getServerTimestamp()).thenReturn(getServerTimestampResult);
 
@@ -775,10 +832,12 @@ public class SalesforceModuleTest {
     @Test
     public void testGetUpdated() throws Exception {
         SalesforceConnector connector = spy(new SalesforceConnector());
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
         GetServerTimestampResult getServerTimestampResult = Mockito.mock(GetServerTimestampResult.class);
         when(partnerConnection.getServerTimestamp()).thenReturn(getServerTimestampResult);
         when(getServerTimestampResult.getTimestamp()).thenReturn(Calendar.getInstance());
@@ -791,10 +850,12 @@ public class SalesforceModuleTest {
     @Test
     public void testGetDeletedRange() throws Exception {
         SalesforceConnector connector = spy(new SalesforceConnector());
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
         GetServerTimestampResult getServerTimestampResult = Mockito.mock(GetServerTimestampResult.class);
         when(partnerConnection.getServerTimestamp()).thenReturn(getServerTimestampResult);
 
@@ -806,10 +867,12 @@ public class SalesforceModuleTest {
     @Test
     public void testGetDeleted() throws Exception {
         SalesforceConnector connector = spy(new SalesforceConnector());
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
         GetServerTimestampResult getServerTimestampResult = Mockito.mock(GetServerTimestampResult.class);
         when(partnerConnection.getServerTimestamp()).thenReturn(getServerTimestampResult);
         when(getServerTimestampResult.getTimestamp()).thenReturn(Calendar.getInstance());
@@ -822,12 +885,14 @@ public class SalesforceModuleTest {
     @Test(expected = SalesforceSessionExpiredException.class)
     public void testCreateBulkWithTimeOutException() throws Exception {
         SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         SaveResult saveResult = Mockito.mock(SaveResult.class);
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
         when(partnerConnection.create(Mockito.argThat(new SObjectArrayMatcher()))).thenReturn(new SaveResult[]{saveResult});
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
         JobInfo jobInfo = Mockito.mock(JobInfo.class);
         BatchRequest batchRequest = Mockito.mock(BatchRequest.class);
         AsyncApiException exception = Mockito.mock(AsyncApiException.class);
@@ -847,43 +912,43 @@ public class SalesforceModuleTest {
 
     @Test
     public void testDestroySessionWithNull() throws Exception {
-        SalesforceConnector connector = new SalesforceConnector();
-        connector.destroySession();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.destroySession();
     }
 
     @Test
     public void testDestroySessionWithNullBayeuxClient() throws Exception {
-        SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        connector.setConnection(partnerConnection);
+        strategy.setConnection(partnerConnection);
         LoginResult loginResult = Mockito.mock(LoginResult.class);
-        connector.setLoginResult(loginResult);
+        strategy.setLoginResult(loginResult);
 
-        connector.destroySession();
+        strategy.destroySession();
 
         verify(partnerConnection, atLeastOnce()).logout();
 
-        assertNull(connector.getCustomPartnerConnection());
-        assertNull(connector.getLoginResult());
+        assertNull(strategy.getCustomPartnerConnection());
+        assertNull(strategy.getLoginResult());
     }
 
     @Test
     public void testDestroySessionWithBayeuxClient() throws Exception {
-        SalesforceConnector connector = new SalesforceConnector();
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         SalesforceBayeuxClient salesforceBayeuxClient = Mockito.mock(SalesforceBayeuxClient.class);
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        connector.setBayeuxClient(salesforceBayeuxClient);
-        connector.setConnection(partnerConnection);
+        strategy.setBayeuxClient(salesforceBayeuxClient);
+        strategy.setConnection(partnerConnection);
         LoginResult loginResult = Mockito.mock(LoginResult.class);
-        connector.setLoginResult(loginResult);
+        strategy.setLoginResult(loginResult);
         when(salesforceBayeuxClient.isConnected()).thenReturn(true);
 
-        connector.destroySession();
+        strategy.destroySession();
 
         verify(salesforceBayeuxClient, atLeastOnce()).disconnect();
 
-        assertNull(connector.getCustomPartnerConnection());
-        assertNull(connector.getLoginResult());
+        assertNull(strategy.getCustomPartnerConnection());
+        assertNull(strategy.getLoginResult());
     }
 
     @Test
@@ -891,8 +956,10 @@ public class SalesforceModuleTest {
         SalesforceConnector connector = new SalesforceConnector();
         CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        connector.setBulkConnection(bulkConnection);
-        connector.setConnection(partnerConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setBulkConnection(bulkConnection);
+        connector.setSalesforceStrategy(strategy);
+        strategy.setConnection(partnerConnection);
         LeadConvertResult result = Mockito.mock(LeadConvertResult.class);
 
         when(partnerConnection.convertLead(argThat(new Matcher<LeadConvert[]>() {
@@ -958,9 +1025,8 @@ public class SalesforceModuleTest {
 
     @Test
     public void testCreateConnectorConfig() throws Exception {
-        SalesforceConnector connector = new SalesforceConnector();
-
-        ConnectorConfig config = connector.createConnectorConfig("http://www.salesforce.com", "username", "password", "", 0, "", "", 0, 0);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        ConnectorConfig config = strategy.createConnectorConfig("http://www.salesforce.com", "username", "password", "", 0, "", "", 0, 0);
 
         assertEquals(config.getUsername(), "username");
         assertEquals(config.getPassword(), "password");
@@ -972,9 +1038,8 @@ public class SalesforceModuleTest {
 
     @Test
     public void testCreateConnectorConfigWithProxy() throws Exception {
-        SalesforceConnector connector = new SalesforceConnector();
-
-        ConnectorConfig config = connector.createConnectorConfig("http://www.salesforce.com", "username", "password", "proxyhost", 80, "aa", "bb", 0, 0);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        ConnectorConfig config = strategy.createConnectorConfig("http://www.salesforce.com", "username", "password", "proxyhost", 80, "aa", "bb", 0, 0);
 
         assertEquals(config.getUsername(), "username");
         assertEquals(config.getPassword(), "password");
@@ -990,7 +1055,9 @@ public class SalesforceModuleTest {
     @Test
     public void testGetUpdatedObjectsFirstTimeCalled() throws Exception {
         SalesforceConnector connector = Mockito.spy(new SalesforceConnector());
-        connector.setConnection(connection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setConnection(connection);
+        connector.setSalesforceStrategy(strategy);
         when(connection.getConfig()).thenReturn(createConnectorConfig("userX"));
         connector.setObjectStoreHelper(objectStoreHelper);
         when(objectStoreHelper.getTimestamp("Account")).thenReturn(null);
@@ -1015,7 +1082,9 @@ public class SalesforceModuleTest {
     @Test
     public void testGetUpdatedObjects() throws Exception {
         SalesforceConnector connector = Mockito.spy(new SalesforceConnector());
-        connector.setConnection(connection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setConnection(connection);
+        connector.setSalesforceStrategy(strategy);
         when(connection.getConfig()).thenReturn(createConnectorConfig("userX"));
         connector.setObjectStoreHelper(objectStoreHelper);
         Calendar lastUpdateTime = createCalendar(4, 15);
@@ -1040,9 +1109,11 @@ public class SalesforceModuleTest {
 
     private BatchInfo setupBulkConnection(SalesforceConnector salesforceConnector) throws AsyncApiException {
     	CustomPartnerConnection partnerConnection = Mockito.mock(CustomPartnerConnection.class);
-        salesforceConnector.setConnection(partnerConnection);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
+        strategy.setConnection(partnerConnection);
         BulkConnection bulkConnection = Mockito.mock(BulkConnection.class);
-        salesforceConnector.setBulkConnection(bulkConnection);
+        strategy.setBulkConnection(bulkConnection);
+        salesforceConnector.setSalesforceStrategy(strategy);
         JobInfo jobInfo = Mockito.mock(JobInfo.class);
         BatchRequest batchRequest = Mockito.mock(BatchRequest.class);
         BatchInfo batchInfo = Mockito.mock(BatchInfo.class);

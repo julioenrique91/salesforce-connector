@@ -1,49 +1,4 @@
-/**
- * Mule Salesforce Connector
- *
- * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
- *
- * The software in this package is published under the terms of the CPAL v1.0
- * license, a copy of which has been included with this distribution in the
- * LICENSE.txt file.
- */
-
-package org.mule.modules.salesforce;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import org.apache.log4j.Logger;
-import org.eclipse.jetty.client.ContentExchange;
-import org.eclipse.jetty.client.HttpClient;
-import org.eclipse.jetty.client.RedirectListener;
-import org.eclipse.jetty.http.HttpMethods;
-import org.eclipse.jetty.http.HttpStatus;
-import org.mule.RequestContext;
-import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.lifecycle.Start;
-import org.mule.api.annotations.oauth.OAuth2;
-import org.mule.api.annotations.oauth.OAuthAccessToken;
-import org.mule.api.annotations.oauth.OAuthAuthorizationParameter;
-import org.mule.api.annotations.oauth.OAuthCallbackParameter;
-import org.mule.api.annotations.oauth.OAuthConsumerKey;
-import org.mule.api.annotations.oauth.OAuthConsumerSecret;
-import org.mule.api.annotations.oauth.OAuthPostAuthorization;
-import org.mule.api.annotations.param.Default;
-import org.mule.modules.salesforce.connection.CustomMetadataConnection;
-import org.mule.modules.salesforce.connection.CustomPartnerConnection;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.sforce.async.AsyncApiException;
-import com.sforce.async.BulkConnection;
-import com.sforce.soap.metadata.MetadataConnection;
-import com.sforce.soap.partner.Connector;
-import com.sforce.soap.partner.PartnerConnection;
-import com.sforce.ws.ConnectionException;
-import com.sforce.ws.ConnectorConfig;
-import com.sforce.ws.MessageHandler;
+package org.mule.modules.salesforce.connection.strategy;
 
 /**
  * The Salesforce Connector will allow to connect to the Salesforce application using OAuth as the authentication
@@ -63,12 +18,43 @@ import com.sforce.ws.MessageHandler;
  *
  * @author MuleSoft, Inc.
  */
-@org.mule.api.annotations.Connector(name = "sfdc",
-        schemaVersion = "5.0",
-        friendlyName = "Salesforce (OAuth)",
-        minMuleVersion = "3.5",
-        configElementName = "config-with-oauth")
-@OAuth2(authorizationUrl = "https://login.salesforce.com/services/oauth2/authorize",
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.sforce.async.AsyncApiException;
+import com.sforce.async.BulkConnection;
+import com.sforce.soap.metadata.MetadataConnection;
+import com.sforce.soap.partner.Connector;
+import com.sforce.soap.partner.PartnerConnection;
+import com.sforce.ws.ConnectionException;
+import com.sforce.ws.ConnectorConfig;
+import com.sforce.ws.MessageHandler;
+import org.apache.log4j.Logger;
+import org.eclipse.jetty.client.ContentExchange;
+import org.eclipse.jetty.client.HttpClient;
+import org.eclipse.jetty.client.RedirectListener;
+import org.eclipse.jetty.http.HttpMethods;
+import org.eclipse.jetty.http.HttpStatus;
+import org.mule.RequestContext;
+import org.mule.api.annotations.components.*;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.lifecycle.Start;
+import org.mule.api.annotations.oauth.*;
+import org.mule.api.annotations.param.Default;
+import org.mule.modules.salesforce.SalesforceOAuthDisplay;
+import org.mule.modules.salesforce.SalesforceOAuthImmediate;
+import org.mule.modules.salesforce.SalesforceOAuthPrompt;
+import org.mule.modules.salesforce.connection.CustomMetadataConnection;
+import org.mule.modules.salesforce.connection.CustomPartnerConnection;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+
+@OAuth2(configElementName = "config-with-oauth",
+        friendlyName = "OAuth v2.0",
+        authorizationUrl = "https://login.salesforce.com/services/oauth2/authorize",
         accessTokenUrl = "https://login.salesforce.com/services/oauth2/token",
         authorizationParameters = {
                 @OAuthAuthorizationParameter(name = "display", type = SalesforceOAuthDisplay.class,
@@ -78,8 +64,9 @@ import com.sforce.ws.MessageHandler;
                 @OAuthAuthorizationParameter(name = "prompt", type = SalesforceOAuthPrompt.class,
                         optional = true, description = "Specifies how the authorization server prompts the user for reauthentication and reapproval.")
         })
-public class SalesforceOAuthConnector extends BaseSalesforceConnector {
-    private static final Logger LOGGER = Logger.getLogger(SalesforceOAuthConnector.class);
+public class SalesforceOAuth2Strategy extends SalesforceStrategy {
+
+    private static final Logger LOGGER = Logger.getLogger(SalesforceOAuth2Strategy.class);
 
     /**
      * Connection to the SOAP API
@@ -90,7 +77,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
      * REST connection to the bulk API
      */
     private BulkConnection bulkConnection;
-    
+
     /**
      * Connection to the Metadata API
      */
@@ -120,14 +107,14 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     // by itself in a right way after authorize
     @OAuthCallbackParameter(expression = "#[json:id]")
     private String userId;
-    
+
     /**
      * Salesforce read timeout
      */
     @Configurable
     @Default("0")
     private Integer readTimeout;
-    
+
     /**
      * Salesforce connection timeout
      */
@@ -136,13 +123,8 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     private Integer connectionTimeout;
 
     @Override
-    protected boolean isReadyToSubscribe() {
+    public boolean isReadyToSubscribe() {
         return this.accessToken != null;
-    }
-
-    @Start
-    public void init() {
-        this.registerTransformers();
     }
 
     @OAuthPostAuthorization
@@ -165,7 +147,7 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         }
         config.setSessionId(accessToken);
         config.setManualLogin(true);
-        
+
         config.setReadTimeout(readTimeout);
         config.setConnectionTimeout(connectionTimeout);
 
@@ -182,51 +164,51 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         String restEndpoint = "https://" + (new URL(instanceId)).getHost() + "/services/async/" + getApiVersion();
         config.setRestEndpoint(restEndpoint);
 
-		this.bulkConnection = new BulkConnection(config);
-		
-		String metadataendpoint = getMetadataServiceEndpoint();
-		ConnectorConfig metadataConfig = new ConnectorConfig();
-		metadataConfig.setServiceEndpoint(metadataendpoint);
-		metadataConfig.setManualLogin(true);
-		metadataConfig.setCompression(false);
-		metadataConfig.setSessionId(accessToken);
-		MetadataConnection _metadataConnection = new MetadataConnection(metadataConfig);
+        this.bulkConnection = new BulkConnection(config);
+
+        String metadataendpoint = getMetadataServiceEndpoint();
+        ConnectorConfig metadataConfig = new ConnectorConfig();
+        metadataConfig.setServiceEndpoint(metadataendpoint);
+        metadataConfig.setManualLogin(true);
+        metadataConfig.setCompression(false);
+        metadataConfig.setSessionId(accessToken);
+        MetadataConnection _metadataConnection = new MetadataConnection(metadataConfig);
         this.metadataConnection = new CustomMetadataConnection();
         this.metadataConnection.setConnection(_metadataConnection);
 
-		this.processSubscriptions();
+        this.processSubscriptions();
 
         RequestContext.getEvent().setFlowVariable("remoteUserId", userId);
     }
-    
-	private String getMetadataServiceEndpoint() throws Exception {
-		HttpClient client = new HttpClient();
-		client.setIdleTimeout(5000);
-		client.setConnectorType(HttpClient.CONNECTOR_SELECT_CHANNEL);
-		client.registerListener(RedirectListener.class.getName());
-		client.start();
-		ContentExchange exchange = new ContentExchange();
-		exchange.addRequestHeader("Authorization", "Bearer " + accessToken);
-		exchange.addRequestHeader("Accept", "application/json");
-		exchange.setMethod(HttpMethods.POST);
-		exchange.setURL(userId + "?version=" + getApiVersion());
-		client.send(exchange);
-		exchange.waitForDone();
-		int status = exchange.getResponseStatus();
-		if (status == HttpStatus.OK_200) {
-			String result = exchange.getResponseContent();
-			client.stop();
 
-			JsonElement jElement = new JsonParser().parse(result);
-			JsonObject jObject = jElement.getAsJsonObject();
-			JsonObject urls = jObject.getAsJsonObject("urls");
-			String metadataEndpoint = urls.getAsJsonPrimitive("metadata")
-					.getAsString();
+    private String getMetadataServiceEndpoint() throws Exception {
+        HttpClient client = new HttpClient();
+        client.setIdleTimeout(5000);
+        client.setConnectorType(HttpClient.CONNECTOR_SELECT_CHANNEL);
+        client.registerListener(RedirectListener.class.getName());
+        client.start();
+        ContentExchange exchange = new ContentExchange();
+        exchange.addRequestHeader("Authorization", "Bearer " + accessToken);
+        exchange.addRequestHeader("Accept", "application/json");
+        exchange.setMethod(HttpMethods.POST);
+        exchange.setURL(userId + "?version=" + getApiVersion());
+        client.send(exchange);
+        exchange.waitForDone();
+        int status = exchange.getResponseStatus();
+        if (status == HttpStatus.OK_200) {
+            String result = exchange.getResponseContent();
+            client.stop();
 
-			return metadataEndpoint;
-		}
-		return "";
-	}
+            JsonElement jElement = new JsonParser().parse(result);
+            JsonObject jObject = jElement.getAsJsonObject();
+            JsonObject urls = jObject.getAsJsonObject("urls");
+            String metadataEndpoint = urls.getAsJsonPrimitive("metadata")
+                    .getAsString();
+
+            return metadataEndpoint;
+        }
+        return "";
+    }
 
     public String getConsumerKey() {
         return consumerKey;
@@ -257,22 +239,22 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
     }
 
     @Override
-    protected CustomPartnerConnection getCustomPartnerConnection() {
+    public CustomPartnerConnection getCustomPartnerConnection() {
         return this.partnerConnection;
     }
 
     @Override
-    protected BulkConnection getBulkConnection() {
+    public BulkConnection getBulkConnection() {
         return this.bulkConnection;
     }
-    
+
     @Override
-    protected CustomMetadataConnection getCustomMetadataConnection() {
+    public CustomMetadataConnection getCustomMetadataConnection() {
         return this.metadataConnection;
     }
 
     @Override
-    protected String getSessionId() {
+    public String getSessionId() {
         return this.accessToken;
     }
 
@@ -294,31 +276,31 @@ public class SalesforceOAuthConnector extends BaseSalesforceConnector {
         this.userId = userId;
     }
 
-	/**
-	 * @return the readTimeout
-	 */
-	public Integer getReadTimeout() {
-		return readTimeout;
-	}
+    /**
+     * @return the readTimeout
+     */
+    public Integer getReadTimeout() {
+        return readTimeout;
+    }
 
-	/**
-	 * @param readTimeout the readTimeout to set
-	 */
-	public void setReadTimeout(Integer readTimeout) {
-		this.readTimeout = readTimeout;
-	}
+    /**
+     * @param readTimeout the readTimeout to set
+     */
+    public void setReadTimeout(Integer readTimeout) {
+        this.readTimeout = readTimeout;
+    }
 
-	/**
-	 * @return the connectionTimeout
-	 */
-	public Integer getConnectionTimeout() {
-		return connectionTimeout;
-	}
+    /**
+     * @return the connectionTimeout
+     */
+    public Integer getConnectionTimeout() {
+        return connectionTimeout;
+    }
 
-	/**
-	 * @param connectionTimeout the connectionTimeout to set
-	 */
-	public void setConnectionTimeout(Integer connectionTimeout) {
-		this.connectionTimeout = connectionTimeout;
-	}
+    /**
+     * @param connectionTimeout the connectionTimeout to set
+     */
+    public void setConnectionTimeout(Integer connectionTimeout) {
+        this.connectionTimeout = connectionTimeout;
+    }
 }

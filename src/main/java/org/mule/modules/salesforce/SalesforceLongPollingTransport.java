@@ -13,22 +13,23 @@ package org.mule.modules.salesforce;
 import org.cometd.client.transport.LongPollingTransport;
 import org.eclipse.jetty.client.ContentExchange;
 import org.eclipse.jetty.client.HttpClient;
+import org.mule.modules.salesforce.connection.strategy.SalesforceStrategy;
 
 import java.util.Map;
 
 public class SalesforceLongPollingTransport extends LongPollingTransport {
-    private BaseSalesforceConnector salesforceConnector;
+    private SalesforceStrategy salesforceStrategy;
 
-    public static SalesforceLongPollingTransport create(BaseSalesforceConnector salesforceConnector, Map<String, Object> options) {
+    public static SalesforceLongPollingTransport create(SalesforceStrategy salesforceStrategy, Map<String, Object> options) {
         HttpClient httpClient = new HttpClient();
         httpClient.setIdleTimeout(5000);
         httpClient.setConnectorType(HttpClient.CONNECTOR_SELECT_CHANNEL);
         httpClient.setMaxConnectionsPerAddress(32768);
-        return create(salesforceConnector, options, httpClient);
+        return create(salesforceStrategy, options, httpClient);
     }
 
-    public static SalesforceLongPollingTransport create(BaseSalesforceConnector salesforceConnector, Map<String, Object> options, HttpClient httpClient) {
-        SalesforceLongPollingTransport transport = new SalesforceLongPollingTransport(salesforceConnector, options, httpClient);
+    public static SalesforceLongPollingTransport create(SalesforceStrategy salesforceStrategy, Map<String, Object> options, HttpClient httpClient) {
+        SalesforceLongPollingTransport transport = new SalesforceLongPollingTransport(salesforceStrategy, options, httpClient);
         if (!httpClient.isStarted()) {
             try {
                 httpClient.start();
@@ -39,16 +40,16 @@ public class SalesforceLongPollingTransport extends LongPollingTransport {
         return transport;
     }
 
-    public SalesforceLongPollingTransport(BaseSalesforceConnector salesforceConnector, Map<String, Object> options, HttpClient httpClient) {
+    public SalesforceLongPollingTransport(SalesforceStrategy salesforceStrategy, Map<String, Object> options, HttpClient httpClient) {
         super(options, httpClient);
 
-        this.salesforceConnector = salesforceConnector;
+        this.salesforceStrategy = salesforceStrategy;
     }
 
     @Override
     protected void customize(ContentExchange exchange) {
         super.customize(exchange);
 
-        exchange.getRequestFields().add("Authorization", "OAuth " + salesforceConnector.getSessionId());
+        exchange.getRequestFields().add("Authorization", "OAuth " + salesforceStrategy.getSessionId());
     }
 }
