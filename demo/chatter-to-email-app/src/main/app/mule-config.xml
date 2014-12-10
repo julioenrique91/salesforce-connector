@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:spring="http://www.springframework.org/schema/beans" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc"
+      xmlns:http="http://www.mulesoft.org/schema/mule/http"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd" version="EE-3.5.1">
+
+<context:property-placeholder location="mule.properties"/>
+    <sfdc:config name="salesforce-default" username="${salesforce.username}" password="${salesforce.password}" securityToken="${salesforce.securityToken}" doc:name="Salesforce"/>
+    <smtp:connector name="SMTP" validateConnections="true" doc:name="SMTP"/>
+
+    <flow name="createTopic" doc:name="createTopic">
+        <http:inbound-endpoint host="localhost" port="8081" doc:name="HTTP" exchange-pattern="request-response" path="createTopic"/>
+        <sfdc:publish-topic topicName="NewsFeedStream" query="SELECT Id, To__c, Text__c FROM SMSNotification__c" config-ref="salesforce-default" doc:name="Salesforce"/>
+    </flow>
+
+    <flow name="sendEmailNotifications" doc:name="sendEmailNotifications">
+        <sfdc:subscribe-topic config-ref="salesforce-default"
+                              topic="/NewsFeedStream" doc:name="Salesforce (Streaming)"/>
+        <logger level="INFO" message="#[payload]" doc:name="Logger"/>
+        <regex-filter pattern="\#now" doc:name="Regex"/>
+        <smtp:outbound-endpoint host="${email.host}" responseTimeout="10000" doc:name="SMTP" from="${email.from}" password="${email.password}" port="${email.port}" subject="${email.subject}" to="${email.to}" user="${email.user}"/>
+    </flow>
+</mule>
