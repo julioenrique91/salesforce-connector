@@ -60,6 +60,7 @@ public class GetUpdatedObjectsTestCases extends SalesforceTestParent {
 	
 	@Category({RegressionTests.class})
 	@Test
+	@Ignore(value = "Run separately")
 	public void testGetUpdatedObjects() {
 		
 		List<String> updatedRecordsList = getTestRunMessageValue("idsToDeleteFromMessage");
