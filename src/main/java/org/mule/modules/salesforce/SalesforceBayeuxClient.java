@@ -16,6 +16,8 @@ import org.cometd.bayeux.Message;
 import org.cometd.bayeux.client.ClientSessionChannel;
 import org.cometd.client.BayeuxClient;
 import org.cometd.client.transport.ClientTransport;
+import org.mule.modules.salesforce.connection.strategy.SalesforceBasicAuthStrategy;
+import org.mule.modules.salesforce.connection.strategy.SalesforceStrategy;
 
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -39,7 +41,7 @@ public class SalesforceBayeuxClient extends BayeuxClient {
     protected static final String LANGUAGE_COOKIE = "language";
     protected Map<String, org.cometd.bayeux.client.ClientSessionChannel.MessageListener> subscriptions;
     protected Map<String, org.cometd.bayeux.client.ClientSessionChannel.MessageListener> currentSubscriptions;
-    protected BaseSalesforceConnector salesforceConnector;
+    protected SalesforceStrategy salesforceStrategy;
     private boolean needToResubscribe = false;
 
     private static Map<String, Object> createLongPollingOptions() {
@@ -51,13 +53,13 @@ public class SalesforceBayeuxClient extends BayeuxClient {
     /**
      * Create a new instance of this Bayeux client.
      *
-     * @param salesforceConnector Salesforce connection
+     * @param salesforceStrategy Salesforce connection
      */
-    public SalesforceBayeuxClient(BaseSalesforceConnector salesforceConnector) throws MalformedURLException {
-        super("https://" + (new URL(salesforceConnector.getCustomPartnerConnection().getConfig().getServiceEndpoint())).getHost() + "/cometd/32.0",
-                SalesforceLongPollingTransport.create(salesforceConnector, LONG_POLLING_OPTIONS));
+    public SalesforceBayeuxClient(SalesforceStrategy salesforceStrategy) throws MalformedURLException {
+        super("https://" + (new URL(salesforceStrategy.getCustomPartnerConnection().getConfig().getServiceEndpoint())).getHost() + "/cometd/32.0",
+                SalesforceLongPollingTransport.create(salesforceStrategy, LONG_POLLING_OPTIONS));
 
-        this.salesforceConnector = salesforceConnector;
+        this.salesforceStrategy = salesforceStrategy;
         this.subscriptions = Collections.synchronizedMap(new HashMap<String, ClientSessionChannel.MessageListener>());
         this.currentSubscriptions = Collections.synchronizedMap(new HashMap<String, ClientSessionChannel.MessageListener>());
         setCookies();
@@ -98,8 +100,8 @@ public class SalesforceBayeuxClient extends BayeuxClient {
 
     private void setCookies() {
         setCookie(LOCALEINFO_COOKIE, "us");
-        setCookie(LOGIN_COOKIE, salesforceConnector.getCustomPartnerConnection().getConfig().getUsername());
-        setCookie(SESSIONID_COOKIE, salesforceConnector.getSessionId());
+        setCookie(LOGIN_COOKIE, salesforceStrategy.getCustomPartnerConnection().getConfig().getUsername());
+        setCookie(SESSIONID_COOKIE, salesforceStrategy.getSessionId());
         setCookie(LANGUAGE_COOKIE, "en_US");
     }
 
@@ -117,8 +119,8 @@ public class SalesforceBayeuxClient extends BayeuxClient {
                 // EL: not sure this is the best way of doing this.
                 // Ideally it should be the same for OAuth and non-OAuth
                 // ways of reconnecting.
-                if (salesforceConnector instanceof SalesforceConnector) {
-                    ((SalesforceConnector) salesforceConnector).reconnect();
+                if (salesforceStrategy instanceof SalesforceBasicAuthStrategy) {
+                    ((SalesforceBasicAuthStrategy) salesforceStrategy).reconnect();
                 }
                 setCookies();
                 handshake();

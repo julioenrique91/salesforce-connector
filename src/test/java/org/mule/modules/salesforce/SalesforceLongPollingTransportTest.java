@@ -12,16 +12,17 @@ package org.mule.modules.salesforce;
 
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.mule.modules.salesforce.connection.strategy.SalesforceBasicAuthStrategy;
 
 import java.util.Map;
 
 public class SalesforceLongPollingTransportTest {
     @Test
     public void testCreate() throws Exception {
-        SalesforceConnector salesforceConnector = Mockito.mock(SalesforceConnector.class);
+        SalesforceBasicAuthStrategy strategy = new SalesforceBasicAuthStrategy();
         Map options = Mockito.mock(Map.class);
 
-        SalesforceLongPollingTransport transport = SalesforceLongPollingTransport.create(salesforceConnector, options);
+        SalesforceLongPollingTransport transport = SalesforceLongPollingTransport.create(strategy, options);
     }
     
     

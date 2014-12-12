@@ -30,6 +30,7 @@ import org.mule.modules.salesforce.connection.CustomPartnerConnection;
 
 import com.sforce.soap.partner.LoginResult;
 import com.sforce.ws.ConnectorConfig;
+import org.mule.modules.salesforce.connection.strategy.SalesforceBasicAuthStrategy;
 
 public class SalesforceBayeuxClientTest {
     @Test
@@ -50,17 +51,19 @@ public class SalesforceBayeuxClientTest {
     }
 
     private SalesforceBayeuxClient mockBayeuxClient() throws MalformedURLException {
+        SalesforceBasicAuthStrategy strategy = Mockito.mock(SalesforceBasicAuthStrategy.class);
         CustomPartnerConnection connection = Mockito.mock(CustomPartnerConnection.class);
         LoginResult loginResult = Mockito.mock(LoginResult.class);
         ConnectorConfig connectorConfig = Mockito.mock(ConnectorConfig.class);
         SalesforceConnector connector = Mockito.mock(SalesforceConnector.class);
-        when(connector.getCustomPartnerConnection()).thenReturn(connection);
-        when(connector.getLoginResult()).thenReturn(loginResult);
-        when(connector.getSessionId()).thenReturn("001");
+        connector.setSalesforceStrategy(strategy);
+        when(strategy.getCustomPartnerConnection()).thenReturn(connection);
+        when(strategy.getLoginResult()).thenReturn(loginResult);
+        when(strategy.getSessionId()).thenReturn("001");
         when(connection.getConfig()).thenReturn(connectorConfig);
         when(connectorConfig.getServiceEndpoint()).thenReturn("http://xxx.salesforce.com");
         when(connectorConfig.getUsername()).thenReturn("mulesoft");
-        return new SalesforceBayeuxClient(connector);
+        return new SalesforceBayeuxClient(strategy);
     }
 
     @Test
@@ -94,7 +97,7 @@ public class SalesforceBayeuxClientTest {
         
         bayeuxClient.onFailure(protocolException, new Message[]{});
 
-        verify((SalesforceConnector)bayeuxClient.salesforceConnector, times(1)).reconnect();
+        verify((SalesforceBasicAuthStrategy)bayeuxClient.salesforceStrategy, times(1)).reconnect();
 
     }
 

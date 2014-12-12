@@ -24,7 +24,7 @@ import com.sforce.soap.partner.QueryResult;
 import com.sforce.soap.partner.sobject.SObject;
 import com.sforce.ws.ConnectionException;
 
-public abstract class SalesforcePagingDelegate extends ProviderAwarePagingDelegate<Map<String, Object>, BaseSalesforceConnector> {
+public abstract class SalesforcePagingDelegate extends ProviderAwarePagingDelegate<Map<String, Object>, SalesforceConnector> {
     private String query;
     private Map<SalesforceHeader, Object> headers;
     private String queryLocator = null;
@@ -37,7 +37,7 @@ public abstract class SalesforcePagingDelegate extends ProviderAwarePagingDelega
     }
 
     @Override
-    public List<Map<String, Object>> getPage(BaseSalesforceConnector connector) throws Exception {
+    public List<Map<String, Object>> getPage(SalesforceConnector connector) throws Exception {
         if (this.cachedQueryResult != null) {
             List<Map<String, Object>> items = this.consume(this.cachedQueryResult);
             this.cachedQueryResult = null;
@@ -62,7 +62,7 @@ public abstract class SalesforcePagingDelegate extends ProviderAwarePagingDelega
         }
     }
 
-    private QueryResult getQueryResult(BaseSalesforceConnector connector) throws Exception {
+    private QueryResult getQueryResult(SalesforceConnector connector) throws Exception {
         return this.queryLocator != null ? connector.getSalesforceSoapAdapter(headers).queryMore(this.queryLocator) : this.doQuery(connector.getSalesforceSoapAdapter(headers), query);
     }
 
@@ -88,7 +88,7 @@ public abstract class SalesforcePagingDelegate extends ProviderAwarePagingDelega
     }
 
     @Override
-    public int getTotalResults(BaseSalesforceConnector connector) throws Exception {
+    public int getTotalResults(SalesforceConnector connector) throws Exception {
         if (this.cachedQueryResult == null) {
             this.cachedQueryResult = this.getQueryResult(connector);
             setQueryLocatorStatus(this.cachedQueryResult);

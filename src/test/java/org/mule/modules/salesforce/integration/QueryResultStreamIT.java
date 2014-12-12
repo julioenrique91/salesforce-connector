@@ -27,6 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mule.api.ConnectionException;
 import org.mule.modules.salesforce.SalesforceConnector;
+import org.mule.modules.salesforce.connection.strategy.SalesforceBasicAuthStrategy;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -50,6 +51,7 @@ public class QueryResultStreamIT {
 	static final private int BATCH_SLEEP_TIME_MS = 5000;
 
 	private SalesforceConnector connector;
+	private SalesforceBasicAuthStrategy strategy;
 	private BatchInfo batchInfo = null;
 
 	@Before
@@ -61,7 +63,9 @@ public class QueryResultStreamIT {
 		prop.load(stream);
 
 		connector = new SalesforceConnector();
-		connector.connect(prop.getProperty("salesforce.username"), prop.getProperty("salesforce.password"),
+		strategy = new SalesforceBasicAuthStrategy();
+		connector.setSalesforceStrategy(strategy);
+		strategy.connect(prop.getProperty("salesforce.username"), prop.getProperty("salesforce.password"),
 				prop.getProperty("salesforce.securityToken"), prop.getProperty("salesforce.url"), null, 80, null, null, null, null, 0, 0);
 
 		if (!StringUtils.isEmpty(prop.getProperty("salesforce.jobid")) && !StringUtils.isEmpty(prop.getProperty("salesforce.batchid"))) {
