@@ -19,7 +19,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.salesforce.automation.RegressionTests;
@@ -58,6 +57,13 @@ public class GetDeletedRangeTestCases extends SalesforceTestParent {
 		GetDeletedResult deletedResult =  runFlowAndGetPayload("get-deleted");
 		DeletedRecord[] deletedRecords = deletedResult.getDeletedRecords();
 		
+		List<String> deletedRecordsIds = new ArrayList<String>();
+		for (DeletedRecord deletedRecord : deletedRecords) {
+			deletedRecordsIds.add(deletedRecord.getId());
+		}
+		
+		upsertOnTestRunMessage("deletedRecordsIds", deletedRecordsIds);
+		
 		GregorianCalendar endTime = (GregorianCalendar) ((DeletedRecord) deletedRecords[0]).getDeletedDate();
 		endTime.add(GregorianCalendar.MINUTE, 1);
 		
@@ -71,10 +77,9 @@ public class GetDeletedRangeTestCases extends SalesforceTestParent {
 	
 	@Category({RegressionTests.class})
 	@Test
-    @Ignore(value = "Run separately")
 	public void testGetDeletedRange() {
 		
-		List<String> createdRecordsIds = getTestRunMessageValue("idsToDeleteFromMessage");
+		List<String> deletedRecordsIds = getTestRunMessageValue("deletedRecordsIds");
 		
 		try {
 			
@@ -84,7 +89,7 @@ public class GetDeletedRangeTestCases extends SalesforceTestParent {
 			assertTrue(deletedRecords != null && deletedRecords.length > 0);
 
 			for (int i = 0; i < deletedRecords.length; i++) {
-				assertTrue(createdRecordsIds.contains(((DeletedRecord) deletedRecords[i]).getId())); 
+				assertTrue(deletedRecordsIds.contains(((DeletedRecord) deletedRecords[i]).getId())); 
 		     }
 		
 		} catch (Exception e) {

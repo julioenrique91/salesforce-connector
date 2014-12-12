@@ -556,7 +556,7 @@
 		<entry key="type" value="Account" />
 		<entry key="sObjectFieldMappingsFromMessage" value-ref="getUpdatedRangeSObjectFieldMappingsList" />
 		<entry key="salesforceSObjectsListFromMessage" value-ref="getUpdatedRangeSalesforceSObjectsList" />
-		<entry key="duration" value="180" />
+		<entry key="duration" value="10" />
 	</util:map>
 
 	<!-- query -->

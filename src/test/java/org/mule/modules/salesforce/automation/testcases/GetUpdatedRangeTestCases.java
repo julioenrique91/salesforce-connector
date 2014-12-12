@@ -21,7 +21,6 @@ import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.salesforce.automation.RegressionTests;
@@ -58,10 +57,10 @@ public class GetUpdatedRangeTestCases extends SalesforceTestParent {
 
 		upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
 
-		runFlowAndGetPayload("update-from-message");			
-		GetUpdatedResult updatedResult = runFlowAndGetPayload("get-updated");
+		runFlowAndGetPayload("update-from-message");
+		Thread.sleep(AFTER_UPDATE_DELAY);
 		
-		System.out.println("### get-updated\n" + updatedResult);
+		GetUpdatedResult updatedResult = runFlowAndGetPayload("get-updated");
 		
 		GregorianCalendar endTime = (GregorianCalendar) updatedResult.getLatestDateCovered();
 		endTime.add(GregorianCalendar.MINUTE, 1);
@@ -83,7 +82,6 @@ public class GetUpdatedRangeTestCases extends SalesforceTestParent {
 	
 	@Category({SmokeTests.class, RegressionTests.class})
 	@Test
-    @Ignore(value = "Run separately")
 	public void testGetUpdatedRange() {
 		
 		List<String> createdRecordsIds = getTestRunMessageValue("idsToDeleteFromMessage");
