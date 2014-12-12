@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:quickbooks="http://www.mulesoft.org/schema/mule/quickbooks"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd
+http://www.mulesoft.org/schema/mule/quickbooks http://www.mulesoft.org/schema/mule/quickbooks/current/mule-quickbooks.xsd">
+
+	<context:property-placeholder location="mule.properties" />
+
+	<sfdc:config name="salesforce-default" username="${salesforce.username}"
+		password="${salesforce.password}" securityToken="${salesforce.securityToken}"
+		doc:name="Salesforce" />
+	<quickbooks:config name="Quickbooks_Online"
+		consumerKey="${quickbooks.consumerKey}" consumerSecret="${quickbooks.consumerSecret}"
+		doc:name="Quickbooks Online" />
+	<flow name="createTopic" doc:name="createTopic">
+		<http:inbound-endpoint host="localhost" port="8081"
+			doc:name="HTTP" exchange-pattern="request-response" path="createTopic" />
+		<sfdc:publish-topic topicName="QuickbooksStream"
+			query="SELECT Id, To__c, Text__c FROM SMSNotification__c" config-ref="salesforce-default"
+			doc:name="Salesforce" />
+	</flow>
+
+	<flow name="syncContactsWithQuickbooks" doc:name="syncContactsWithQuickbooks">
+		<sfdc:subscribe-topic config-ref="salesforce-default"
+			topic="/QuickbooksStream" doc:name="Salesforce (Streaming)" />
+		<logger level="INFO" message="#[payload]" doc:name="Logger" />
+		<enricher doc:name="Message Enricher">
+			<sfdc:query-single
+				query="SELECT Id,Name,Phone,Fax,BillingStreet,BillingState, BillingPostalCode,BillingCountry,BillingCity FROM Account WHERE Id = '#[map-payload:AccountId]'"
+				config-ref="salesforce-default" doc:name="Salesforce" />
+			<enrich target="#[variable:accountName]" source="#[map-payload:Name]" />
+			<enrich target="#[variable:accountPhone]" source="#[map-payload:Phone?]" />
+			<enrich target="#[variable:accountFax]" source="#[map-payload:Fax?]" />
+			<enrich target="#[variable:accountBillingStreet]" source="#[map-payload:BillingStreet?]" />
+			<enrich target="#[variable:accountBillingState]" source="#[map-payload:BillingState?]" />
+			<enrich target="#[variable:accountBillingPostalCode]" source="#[map-payload:BillingPostalCode?]" />
+			<enrich target="#[variable:accountBillingCountry]" source="#[map-payload:BillingCountry?]" />
+			<enrich target="#[variable:accountBillingCity]" source="#[map-payload:BillingCity?]" />
+		</enricher>
+		<logger level="INFO" message="ENRICHED -> #[payload]" doc:name="Logger" />
+		<quickbooks:create-account config-ref="Quickbooks_Online"
+			accessTokenId="${quickbooks.accessTokenId}"
+			doc:name="Quickbooks Online">
+			<quickbooks:account>
+				<quickbooks:account-ex>
+					<quickbooks:any ref="#[payload]" />
+				</quickbooks:account-ex>
+			</quickbooks:account>
+		</quickbooks:create-account>
+		<logger level="INFO" message="#[payload]" doc:name="Logger" />
+	</flow>
+</mule>
