@@ -1467,6 +1467,19 @@ public class SalesforceConnector implements MuleContextAware {
             }
         };
     }
+    
+    /**
+     * Return session Id
+     * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:get-session-id}
+     *
+     * @return session Id
+     */
+    @Processor
+    @OAuthProtected
+    @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
+    public String getSessionId() {
+        return salesforceStrategy.getSessionId();
+    }
 
     public synchronized void setObjectStoreManager(ObjectStoreManager objectStoreManager) {
         this.objectStoreManager = objectStoreManager;
