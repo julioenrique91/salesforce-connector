@@ -10,6 +10,7 @@
 
 package org.mule.modules.salesforce.connection.strategy;
 
+import com.google.common.base.Charsets;
 import com.sforce.async.AsyncApiException;
 import com.sforce.async.BulkConnection;
 import com.sforce.soap.metadata.MetadataConnection;
@@ -195,13 +196,13 @@ public class SalesforceBasicAuthStrategy extends SalesforceStrategy{
                 @Override
                 public void handleRequest(URL endpoint, byte[] request) {
                     LOGGER.debug("Sending request to " + endpoint.toString());
-                    LOGGER.debug(new String(request));
+                    LOGGER.debug(new String(request, Charsets.UTF_8));
                 }
 
                 @Override
                 public void handleResponse(URL endpoint, byte[] response) {
                     LOGGER.debug("Receiving response from " + endpoint.toString());
-                    LOGGER.debug(new String(response));
+                    LOGGER.debug(new String(response, Charsets.UTF_8));
                 }
             });
         }

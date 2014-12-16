@@ -27,10 +27,9 @@ import org.mule.modules.salesforce.connection.CustomPartnerConnection;
  * @author Mulesoft, Inc
  */
 public class SalesforceSoapAdapter {
-    private static final Logger logger = Logger.getLogger(SalesforceSoapAdapter.class);
+    private static final Logger LOGGER = Logger.getLogger(SalesforceSoapAdapter.class);
 
     private SalesforceSoapAdapter() {
-
     }
 
     public static CustomPartnerConnection adapt(
@@ -41,24 +40,24 @@ public class SalesforceSoapAdapter {
                 new InvocationHandler() {
                     public Object invoke(Object proxy, Method method,
                                          Object[] args) throws Exception {
-                        if (logger.isDebugEnabled()) {
-                        	logger.debug(String.format(
+                        if (LOGGER.isDebugEnabled()) {
+                        	LOGGER.debug(String.format(
                                     "Invoked method %s with arguments %s",
                                     method.getName(), Arrays.toString(args)));
                         }
                         try {
                         	CustomPartnerConnection connection = addHeaders(facade, headers);
                             Object ret = method.invoke(connection, args);
-                            if (logger.isDebugEnabled()) {
-                            	logger.debug(String.format(
+                            if (LOGGER.isDebugEnabled()) {
+                            	LOGGER.debug(String.format(
                                         "Returned method %s with value %s",
                                         ret, Arrays.toString(args)));
                             }
 
                             return ret;
                         } catch (Exception e) {
-                            if (logger.isDebugEnabled()) {
-                            	logger.debug("Method " + method.getName() + " thew " + e.getClass());
+                            if (LOGGER.isDebugEnabled()) {
+                            	LOGGER.debug("Method " + method.getName() + " thew " + e.getClass());
                             }
 
                             throw SalesforceExceptionHandlerAdapter.analyzeSoapException(e);
@@ -75,7 +74,7 @@ public class SalesforceSoapAdapter {
         if (headers != null) {
             for (Map.Entry<SalesforceHeader, Object> entry : headers.entrySet()) {
                 if (!Map.class.isAssignableFrom(entry.getValue().getClass())) {
-                	logger.error(String.format("The header %s should be a Map", entry.getKey().getHeaderName()));
+                	LOGGER.error(String.format("The header %s should be a Map", entry.getKey().getHeaderName()));
                     continue;
                 }
                 try {
@@ -84,7 +83,7 @@ public class SalesforceSoapAdapter {
                     partnerConnection.getClass().getMethod("__set" + entry.getKey().getHeaderName(), entry.getKey().getHeaderClass()).
                             invoke(partnerConnection, headerObject);
                 } catch (Exception e) { //NOSONAR ReflectiveOperationException is not present in JDK 6
-                	logger.error(String.format("Header %s is incorrect, couldn't be added to the request", entry.getKey().toString()), e);
+                	LOGGER.error(String.format("Header %s is incorrect, couldn't be added to the request", entry.getKey().toString()), e);
                 }
             }
         }

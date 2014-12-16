@@ -29,6 +29,32 @@ package org.mule.modules.salesforce.connection.strategy;
  * @author MuleSoft, Inc.
  */
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.apache.log4j.Logger;
+import org.eclipse.jetty.client.ContentExchange;
+import org.eclipse.jetty.client.HttpClient;
+import org.eclipse.jetty.client.RedirectListener;
+import org.eclipse.jetty.http.HttpMethods;
+import org.eclipse.jetty.http.HttpStatus;
+import org.mule.RequestContext;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.oauth.OAuth2;
+import org.mule.api.annotations.oauth.OAuthAccessToken;
+import org.mule.api.annotations.oauth.OAuthAuthorizationParameter;
+import org.mule.api.annotations.oauth.OAuthCallbackParameter;
+import org.mule.api.annotations.oauth.OAuthConsumerKey;
+import org.mule.api.annotations.oauth.OAuthConsumerSecret;
+import org.mule.api.annotations.oauth.OAuthPostAuthorization;
+import org.mule.api.annotations.param.Default;
+import org.mule.modules.salesforce.SalesforceOAuthDisplay;
+import org.mule.modules.salesforce.SalesforceOAuthImmediate;
+import org.mule.modules.salesforce.SalesforceOAuthPrompt;
+import org.mule.modules.salesforce.connection.CustomMetadataConnection;
+import org.mule.modules.salesforce.connection.CustomPartnerConnection;
+
+import com.google.common.base.Charsets;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -40,26 +66,6 @@ import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 import com.sforce.ws.MessageHandler;
-import org.apache.log4j.Logger;
-import org.eclipse.jetty.client.ContentExchange;
-import org.eclipse.jetty.client.HttpClient;
-import org.eclipse.jetty.client.RedirectListener;
-import org.eclipse.jetty.http.HttpMethods;
-import org.eclipse.jetty.http.HttpStatus;
-import org.mule.RequestContext;
-import org.mule.api.annotations.components.*;
-import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.lifecycle.Start;
-import org.mule.api.annotations.oauth.*;
-import org.mule.api.annotations.param.Default;
-import org.mule.modules.salesforce.SalesforceOAuthDisplay;
-import org.mule.modules.salesforce.SalesforceOAuthImmediate;
-import org.mule.modules.salesforce.SalesforceOAuthPrompt;
-import org.mule.modules.salesforce.connection.CustomMetadataConnection;
-import org.mule.modules.salesforce.connection.CustomPartnerConnection;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 
 @OAuth2(configElementName = "config-with-oauth",
@@ -145,13 +151,13 @@ public class SalesforceOAuth2Strategy extends SalesforceStrategy {
                 @Override
                 public void handleRequest(URL endpoint, byte[] request) {
                     LOGGER.debug("Sending request to " + endpoint.toString());
-                    LOGGER.debug(new String(request));
+                    LOGGER.debug(new String(request, Charsets.UTF_8));
                 }
 
                 @Override
                 public void handleResponse(URL endpoint, byte[] response) {
                     LOGGER.debug("Receiving response from " + endpoint.toString());
-                    LOGGER.debug(new String(response));
+                    LOGGER.debug(new String(response, Charsets.UTF_8));
                 }
             });
         }

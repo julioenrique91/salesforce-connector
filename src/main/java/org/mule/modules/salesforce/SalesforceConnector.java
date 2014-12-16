@@ -10,6 +10,7 @@
 
 package org.mule.modules.salesforce;
 
+import com.google.common.base.Charsets;
 import com.sforce.async.*;
 import com.sforce.soap.metadata.*;
 import com.sforce.soap.partner.DeleteResult;
@@ -152,7 +153,7 @@ public class SalesforceConnector implements MuleContextAware {
      * @param type    Type of object to create
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link com.sforce.soap.partner.SaveResult} if async is false
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_create.htm">create()</a>
      * @since 4.0
      */
@@ -161,7 +162,7 @@ public class SalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<SaveResult> create(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "sObject Field Mappings") @FriendlyName("sObjects") @Default("#[payload]") List<Map<String, Object>> objects,
-                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
         return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).create(sObjects));
     }
@@ -183,14 +184,14 @@ public class SalesforceConnector implements MuleContextAware {
      *                            batchResultStream} method to retrieve results.
      * @param concurrencyMode     The concurrency mode of the job, either Parallel or Serial.
      * @return A {@link com.sforce.async.JobInfo} that identifies the created Job. {@see http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_reference_jobinfo.htm}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws AsyncApiException {@link com.sforce.async.AsyncApiException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_jobs_create.htm">createJob()</a>
      * @since 4.3
      */
     @Processor
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public JobInfo createJob(OperationEnum operation, @MetaDataKeyParam String type, @Optional String externalIdFieldName, @Optional ContentType contentType, @Optional ConcurrencyMode concurrencyMode) throws Exception {
+    public JobInfo createJob(OperationEnum operation, @MetaDataKeyParam String type, @Optional String externalIdFieldName, @Optional ContentType contentType, @Optional ConcurrencyMode concurrencyMode) throws AsyncApiException {
         return createJobInfo(operation, type, externalIdFieldName, contentType, concurrencyMode);
     }
 
@@ -200,14 +201,14 @@ public class SalesforceConnector implements MuleContextAware {
      *
      * @param jobId The Job ID identifying the Job to be closed.
      * @return A {@link JobInfo} that identifies the closed Job. {@see http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_reference_jobinfo.htm}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws AsyncApiException {@link com.sforce.async.AsyncApiException} when there is an error
      * @api.doc <a href="www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_jobs_close.htm">closeJob()</a>
      * @since 4.3
      */
     @Processor
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public JobInfo closeJob(String jobId) throws Exception {
+    public JobInfo closeJob(String jobId) throws AsyncApiException {
         return getSalesforceRestAdapter().closeJob(jobId);
     }
 
@@ -217,14 +218,14 @@ public class SalesforceConnector implements MuleContextAware {
      *
      * @param jobId The Job ID identifying the Job to be aborted.
      * @return A {@link JobInfo} that identifies the aborted Job. {@see http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_reference_jobinfo.htm}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws AsyncApiException {@link com.sforce.async.AsyncApiException} when there is an error
      * @api.doc <a href="www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_jobs_abort.htm">abortJob()</a>
      * @since 5.0
      */
     @Processor
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public JobInfo abortJob(String jobId) throws Exception {
+    public JobInfo abortJob(String jobId) throws AsyncApiException {
         return getSalesforceRestAdapter().abortJob(jobId);
     }
 
@@ -235,14 +236,14 @@ public class SalesforceConnector implements MuleContextAware {
      *
      * @param jobId the {@link JobInfo} being monitored
      * @return Latest {@link JobInfo} representing status of the job result.
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws AsyncApiException {@link com.sforce.async.AsyncApiException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_jobs_get_details.htm">getJobInfo()</a>
      * @since 5.0
      */
     @Processor
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public JobInfo jobInfo(String jobId) throws Exception {
+    public JobInfo jobInfo(String jobId) throws AsyncApiException {
         return getSalesforceRestAdapter().getJobStatus(jobId);
     }
 
@@ -256,7 +257,7 @@ public class SalesforceConnector implements MuleContextAware {
      * @param jobInfo The {@link JobInfo} in which the batch will be created.
      * @param objects A list of one or more sObjects objects. This parameter defaults to payload content.
      * @return A {@link com.sforce.async.BatchInfo} that identifies the batch job. {@see http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_reference_batchinfo.htm}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws Exception when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_create.htm">createBatch()</a>
      * @since 4.3
      */
@@ -277,14 +278,14 @@ public class SalesforceConnector implements MuleContextAware {
      * @param jobInfo The {@link JobInfo} in which the batch will be created.
      * @param stream  A stream containing the data. This parameter defaults to payload content.
      * @return A {@link com.sforce.async.BatchInfo} that identifies the batch job. {@see http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_reference_batchinfo.htm}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws AsyncApiException {@link com.sforce.async.AsyncApiException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_create.htm">createBatch()</a>
      * @since 5.0
      */
     @Processor
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public BatchInfo createBatchStream(JobInfo jobInfo, @Default("#[payload]") InputStream stream) throws Exception {
+    public BatchInfo createBatchStream(JobInfo jobInfo, @Default("#[payload]") InputStream stream) throws AsyncApiException {
     	if(ContentType.ZIP_XML.equals(jobInfo.getContentType()) || ContentType.ZIP_CSV.equals(jobInfo.getContentType())) {
     		return getSalesforceRestAdapter().createBatchFromZipStream(jobInfo, stream);
     	} else {
@@ -302,15 +303,15 @@ public class SalesforceConnector implements MuleContextAware {
      * @param jobInfo The {@link JobInfo} in which the batch will be created.
      * @param query   The query to be executed.
      * @return A {@link BatchInfo} that identifies the batch job. {@see http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_reference_batchinfo.htm}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws AsyncApiException {@link com.sforce.async.AsyncApiException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_create.htm">createBatch()</a>
      * @since 4.5
      */
     @Processor
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public BatchInfo createBatchForQuery(JobInfo jobInfo, @Default("#[payload]") String query) throws Exception {
-        InputStream queryStream = new ByteArrayInputStream(query.getBytes());
+    public BatchInfo createBatchForQuery(JobInfo jobInfo, @Default("#[payload]") String query) throws AsyncApiException {
+        InputStream queryStream = new ByteArrayInputStream(query.getBytes(Charsets.UTF_8));
         return createBatchForQuery(jobInfo, queryStream);
     }
 
@@ -347,7 +348,7 @@ public class SalesforceConnector implements MuleContextAware {
      * @param type    Type of object to create
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SaveResult}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_create.htm">create()</a>
      * @since 4.1
      */
@@ -356,7 +357,7 @@ public class SalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public SaveResult createSingle(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "sObject Field Mappings") @FriendlyName("sObject") @Default("#[payload]") Map<String, Object> object,
-                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         SaveResult[] saveResults = getSalesforceSoapAdapter(headers).create(new SObject[]{SalesforceUtils.toSObject(type, object)});
         if (saveResults.length > 0) {
             return saveResults[0];
@@ -374,7 +375,7 @@ public class SalesforceConnector implements MuleContextAware {
      * @param type    Type of object to update
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SaveResult}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_update.htm">update()</a>
      * @since 4.0
      */
@@ -383,7 +384,7 @@ public class SalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public List<SaveResult> update(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Default("#[payload]") List<Map<String, Object>> objects,
-                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
         return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).update(sObjects));
     }
@@ -397,7 +398,7 @@ public class SalesforceConnector implements MuleContextAware {
      * @param type    Type of object to update
      * @param headers Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return A {@link SaveResult}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_update.htm">update()</a>
      * @since 4.0
      */
@@ -406,7 +407,7 @@ public class SalesforceConnector implements MuleContextAware {
     @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
     public SaveResult updateSingle(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                    @Placement(group = "Salesforce Object") @FriendlyName("sObject") @Default("#[payload]") Map<String, Object> object,
-                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                   @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         return getSalesforceSoapAdapter(headers).update(new SObject[]{SalesforceUtils.toSObject(type, object)})[0];
     }
 
@@ -420,7 +421,7 @@ public class SalesforceConnector implements MuleContextAware {
      * @param objects An array of one or more sObjects objects.
      * @param type    Type of object to update
      * @return A {@link BatchInfo} that identifies the batch job. {@see http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_reference_batchinfo.htm}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws Exception when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_create.htm">createBatch()</a>
      * @since 4.1
      */
@@ -446,7 +447,7 @@ public class SalesforceConnector implements MuleContextAware {
      * @param objects             the objects to upsert
      * @param headers             Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return a list of {@link com.sforce.soap.partner.UpsertResult}, one for each passed object
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error if a connection error occurs
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error if a connection error occurs
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_upsert.htm">upsert()</a>
      * @since 4.0
      */
@@ -456,7 +457,7 @@ public class SalesforceConnector implements MuleContextAware {
     public List<UpsertResult> upsert(@Placement(group = "Information") String externalIdFieldName,
                                      @MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type,
                                      @Placement(group = "Salesforce sObjects list") @FriendlyName("sObjects") @Default("#[payload]") List<Map<String, Object>> objects,
-                                     @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                                     @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         SObject[] sObjects = SalesforceUtils.toSObjectList(type, objects);
         return SalesforceUtils.enrichWithPayload(sObjects, getSalesforceSoapAdapter(headers).upsert(externalIdFieldName, sObjects));
     }
@@ -476,7 +477,7 @@ public class SalesforceConnector implements MuleContextAware {
      * @param type                the type of the given objects. The list of objects to upsert must be homogeneous
      * @param objects             the objects to upsert
      * @return A {@link BatchInfo} that identifies the batch job. {@see http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_reference_batchinfo.htm}
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws Exception when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_create.htm">createBatch()</a>
      * @since 4.1
      */
@@ -496,14 +497,14 @@ public class SalesforceConnector implements MuleContextAware {
      *
      * @param batchInfo the {@link BatchInfo} being monitored
      * @return Latest {@link BatchInfo} representing status of the batch job result.
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws AsyncApiException {@link com.sforce.async.AsyncApiException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_get_info.htm">getBatchInfo()</a>
      * @since 4.1
      */
     @Processor
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public BatchInfo batchInfo(@Default("#[payload:]") BatchInfo batchInfo) throws Exception {
+    public BatchInfo batchInfo(@Default("#[payload:]") BatchInfo batchInfo) throws AsyncApiException {
         return getSalesforceRestAdapter().getBatchInfo(batchInfo.getJobId(), batchInfo.getId());
     }
 
@@ -514,7 +515,7 @@ public class SalesforceConnector implements MuleContextAware {
      *
      * @param batchInfo the {@link BatchInfo} being monitored
      * @return {@link com.sforce.async.BatchResult} representing result of the batch job result.
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws AsyncApiException {@link com.sforce.async.AsyncApiException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_get_results.htm">getBatchResult()</a>
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_interpret_status.htm">BatchInfo status</a>
      * @since 4.1
@@ -522,7 +523,7 @@ public class SalesforceConnector implements MuleContextAware {
     @Processor
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public BatchResult batchResult(@Default("#[payload:]") BatchInfo batchInfo) throws Exception {
+    public BatchResult batchResult(@Default("#[payload:]") BatchInfo batchInfo) throws AsyncApiException {
         return getSalesforceRestAdapter().getBatchResult(batchInfo.getJobId(), batchInfo.getId());
     }
 
@@ -533,7 +534,7 @@ public class SalesforceConnector implements MuleContextAware {
      *
      * @param batchInfo the {@link BatchInfo} being monitored
      * @return {@link java.io.InputStream} representing result of the batch job result.
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws AsyncApiException {@link com.sforce.async.AsyncApiException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_get_results.htm">getBatchResult()</a>
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_interpret_status.htm">BatchInfo status</a>
      * @since 5.0
@@ -541,7 +542,7 @@ public class SalesforceConnector implements MuleContextAware {
     @Processor
     @OAuthProtected
     @Category(name = "Bulk API", description = "The Bulk API provides programmatic access to allow you to quickly load your organization's data into Salesforce.")
-    public InputStream batchResultStream(@Default("#[payload:]") BatchInfo batchInfo) throws Exception {
+    public InputStream batchResultStream(@Default("#[payload:]") BatchInfo batchInfo) throws AsyncApiException {
         return getSalesforceRestAdapter().getBatchResultStream(batchInfo.getJobId(), batchInfo.getId());
     }
 
@@ -555,7 +556,7 @@ public class SalesforceConnector implements MuleContextAware {
      *
      * @param batchInfo the {@link BatchInfo} being monitored
      * @return {@link InputStream} with the results of the Batch.
-     * @throws AsyncApiException {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws AsyncApiException {@link com.sforce.async.AsyncApiException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_get_results.htm">getBatchResult()</a>
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_asynch/Content/asynch_api_batches_interpret_status.htm">BatchInfo status</a>
      * @since 4.5
@@ -639,7 +640,6 @@ public class SalesforceConnector implements MuleContextAware {
      * @param pagingConfiguration the paging configuration
      * @param headers             Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SObject}s
-     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_query.htm">query()</a>
      * @since 4.0
      */
@@ -709,7 +709,6 @@ public class SalesforceConnector implements MuleContextAware {
      * @param pagingConfiguration the paging configuration
      * @param headers             Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
      * @return An array of {@link SObject}s
-     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_query.htm">query()</a>
      */
     @Processor
@@ -1178,13 +1177,13 @@ public class SalesforceConnector implements MuleContextAware {
      * @param userId      The user to set the password for.
      * @param newPassword The new password for the user.
      * @param headers     Salesforce Headers <a href="http://www.salesforce.com/us/developer/docs/api/Content/soap_headers.htm">More Info</a>
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
      */
     @Processor
     @Category(name = "Utility Calls", description = "API calls that your client applications can invoke to obtain the system timestamp, user information, and change user passwords.")
     public void setPassword(@Placement(group = "Information") @FriendlyName("User ID") String userId,
                             @Placement(group = "Information") @FriendlyName("Password") @Password String newPassword,
-                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws Exception {
+                            @Placement(group = "Salesforce SOAP Headers") @FriendlyName("Headers") @Optional Map<SalesforceHeader, Object> headers) throws ConnectionException {
         getSalesforceSoapAdapter(headers).setPassword(userId, newPassword);
     }
 
@@ -1200,7 +1199,7 @@ public class SalesforceConnector implements MuleContextAware {
      * @param description Description of what kinds of records are returned by the query. Limit: 400 characters
      * @param query       The SOQL query statement that determines which records' changes trigger events to be sent to
      *                    the channel. Maximum length: 1200 characters
-     * @throws Exception {@link com.sforce.ws.ConnectionException} when there is an error
+     * @throws ConnectionException {@link com.sforce.ws.ConnectionException}, SalesforceException {@link org.mule.modules.salesforce.SalesforceException} when there is an error
      * @api.doc <a href="http://www.salesforce.com/us/developer/docs/api_streaming/Content/pushtopic.htm">Push Topic</a>
      * @since 4.0
      */
@@ -1209,7 +1208,7 @@ public class SalesforceConnector implements MuleContextAware {
     @Category(name = "Streaming API", description = "Create topics, to which applications can subscribe, receiving asynchronous notifications of changes to data in Salesforce, via the Bayeux protocol.")
     public void publishTopic(@Placement(group = "Information") String topicName,
                              @Placement(group = "Information") String query,
-                             @Placement(group = "Information") @Optional String description) throws Exception {
+                             @Placement(group = "Information") @Optional String description) throws ConnectionException, SalesforceException {
         QueryResult result = getSalesforceSoapAdapter().query("SELECT Id FROM PushTopic WHERE Name = '" + topicName + "'");
         if (result.getSize() == 0) {
             SObject pushTopic = new SObject();
@@ -1402,14 +1401,14 @@ public class SalesforceConnector implements MuleContextAware {
 	 * 
 	 * @param type metadata type
 	 * @return An array of {@link com.sforce.soap.metadata.FileProperties}
-	 * @throws Exception when there is an error
+	 * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
 	 */
 	@Processor
 	@OAuthProtected
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public List<FileProperties> listMetadata(@MetaDataKeyParam String type)
-			throws Exception {
+			throws ConnectionException {
 
 		MetadataType metadataType = MetadataType.valueOf(type);
 		ListMetadataQuery query = new ListMetadataQuery();
@@ -1424,14 +1423,14 @@ public class SalesforceConnector implements MuleContextAware {
 	 * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:describe-metadata}
 	 * 
 	 * @return {@link com.sforce.soap.metadata.DescribeMetadataResult}
-	 * @throws Exception when there is an error
+	 * @throws ConnectionException {@link com.sforce.ws.ConnectionException} when there is an error
 	 */
 	@Processor
 	@OAuthProtected
 	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
 	@MetaDataScope(MetadataCategory.class)
 	public DescribeMetadataResult describeMetadata()
-			throws Exception {
+			throws ConnectionException {
 
 		return getSalesforceMetadaAdapter().describeMetadata(getSalesforceStrategy().getApiVersion());
 	}

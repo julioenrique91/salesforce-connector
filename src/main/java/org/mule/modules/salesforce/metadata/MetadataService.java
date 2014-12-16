@@ -38,6 +38,9 @@ import com.sforce.soap.metadata.UpsertResult;
  * 
  */
 public class MetadataService {
+	
+	private MetadataService() {
+	}
 
 	public static List<SaveResult> callCreateUpdateService(
 			CustomMetadataConnection connection, String type,
