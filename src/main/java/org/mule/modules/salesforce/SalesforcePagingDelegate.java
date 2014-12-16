@@ -62,7 +62,7 @@ public abstract class SalesforcePagingDelegate extends ProviderAwarePagingDelega
         }
     }
 
-    private QueryResult getQueryResult(SalesforceConnector connector) throws Exception {
+    private QueryResult getQueryResult(SalesforceConnector connector) throws ConnectionException {
         return this.queryLocator != null ? connector.getSalesforceSoapAdapter(headers).queryMore(this.queryLocator) : this.doQuery(connector.getSalesforceSoapAdapter(headers), query);
     }
 

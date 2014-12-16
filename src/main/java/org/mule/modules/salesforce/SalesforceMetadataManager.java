@@ -41,7 +41,7 @@ public class SalesforceMetadataManager {
         if (describeGlobal != null) {
             DescribeGlobalSObjectResult[] sobjects = describeGlobal.getSobjects();
             for (DescribeGlobalSObjectResult sobject : sobjects) {
-                keys.add(new DefaultMetaDataKey(sobject.getName(), sobject.getLabel(), sobject.isQueryable()));
+                keys.add(new DefaultMetaDataKey(sobject.getName(), sobject.getLabel()));
             }
         }
 

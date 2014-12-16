@@ -17,7 +17,8 @@ import com.sforce.soap.partner.StatusCode;
  */
 public class SalesforceException extends Exception {
 
-    private final StatusCode statusCode;
+	private static final long serialVersionUID = 1L;
+	private final StatusCode statusCode;
 
     public SalesforceException(StatusCode statusCode, String message, Throwable e) {
         super(message, e);
