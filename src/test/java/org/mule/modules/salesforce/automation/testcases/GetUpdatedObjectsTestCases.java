@@ -20,7 +20,6 @@ import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.salesforce.automation.RegressionTests;
@@ -36,7 +35,7 @@ public class GetUpdatedObjectsTestCases extends SalesforceTestParent {
     	
 		List<String> sObjectsIds = new ArrayList<String>();
 		
-		loadTestRunMessage("getUpdatedObjectsTestData");
+		initializeTestRunMessage("getUpdatedObjectsTestData");
 		Map<String,Object> sObject = getTestRunMessageValue("salesforceObjectFromMessage");
 
         SaveResult saveResult = (SaveResult) runFlowAndGetPayload("create-single-from-message");
@@ -60,7 +59,7 @@ public class GetUpdatedObjectsTestCases extends SalesforceTestParent {
 	
 	@Category({RegressionTests.class})
 	@Test
-	@Ignore(value = "Run separately")
+	//@Ignore(value = "Run separately")
 	public void testGetUpdatedObjects() {
 		
 		List<String> updatedRecordsList = getTestRunMessageValue("idsToDeleteFromMessage");
@@ -69,26 +68,32 @@ public class GetUpdatedObjectsTestCases extends SalesforceTestParent {
 		String anUpdatedRecordId = updatedRecordsList.get(0).toString();
 
 		try {
-
 	        returnedSObjectsIds = getReturnedSObjectsIds((List<Map<String, Object>>) runFlowAndGetPayload("get-updated-objects"));
-			
 			assertTrue(updatedRecordsList.size() > 0);
 			assertTrue(returnedSObjectsIds.contains(anUpdatedRecordId)); 
-			
-			runFlowAndGetPayload("reset-updated-objects-timestamp");
-			
-	        returnedSObjectsIds = getReturnedSObjectsIds((List<Map<String, Object>>) runFlowAndGetPayload("get-updated-objects"));
-			
-			assertTrue(!returnedSObjectsIds.contains(anUpdatedRecordId)); 
-			
 		} catch (Exception e) {
 			fail(ConnectorTestUtils.getStackTrace(e));
 		}
 		
 	}
+	
+	@Category({RegressionTests.class})
+	@Test
+	public void testResetUpdatedObjects() {
+		List<String> updatedRecordsList = getTestRunMessageValue("idsToDeleteFromMessage");
+		List<String> returnedSObjectsIds;
+		String anUpdatedRecordId = updatedRecordsList.get(0).toString();
+		try {
+			assertTrue(updatedRecordsList.size() > 0);
+			runFlowAndGetPayload("reset-updated-objects-timestamp");
+	        returnedSObjectsIds = getReturnedSObjectsIds((List<Map<String, Object>>) runFlowAndGetPayload("get-updated-objects"));
+			assertTrue(!returnedSObjectsIds.contains(anUpdatedRecordId)); 
+		} catch (Exception e) {
+			fail(ConnectorTestUtils.getStackTrace(e));
+		}
+	}
 
 	private List<String> getReturnedSObjectsIds(List<Map<String, Object>> records) {
-
 		List<String> sObjectsIds = new ArrayList<String>();
 		Iterator<Map<String, Object>> iter;
         iter = records.iterator();  
@@ -99,7 +104,6 @@ public class GetUpdatedObjectsTestCases extends SalesforceTestParent {
 		}
 		
 		return sObjectsIds;
-		
 	}
 
 }

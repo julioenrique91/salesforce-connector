@@ -335,6 +335,21 @@
 		<entry key="type" value="Account" />
 		<entry key="sObjectFieldMappingsFromMessage" value-ref="SObjectFieldMappings" />
 	</util:map>
+	
+	
+	<!-- create-empty -->
+	
+	<util:map id="SObjectEmptyFieldMappings" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object">
+		<entry key="FirstName" value="John" />
+		<entry key="LastName" value="Doe"/>
+	</util:map>
+
+	<util:map id="createEmptyRecord" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object">
+		<entry key="type" value="Account" />
+		<entry key="sObjectEmptyFieldMappingsFromMessage" value-ref="SObjectEmptyFieldMappings" /> 
+	</util:map>
 
 	<!-- get deleted -->
 
@@ -650,6 +665,14 @@
 		<entry key="sObjectFieldMappingsFromMessage" value-ref="querySingleSObjectFieldMappingsList" />
 		<entry key="query"
 			value="SELECT Id, Name, BillingCity FROM Account WHERE BillingCity = 'querySingleBillingCity'" />
+	</util:map>
+	
+	<util:map id="querySingleEmptyTestData" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.Object">
+		<entry key="type" value="Account" />
+		<entry key="sObjectFieldMappingsFromMessage" value-ref="querySingleSObjectFieldMappingsList" />
+		<entry key="query"
+			value="SELECT Id, Name, BillingCity FROM Account WHERE BillingCity = 'querySingleBillingCity_notFound'" />
 	</util:map>
 
 	<!-- retrieve -->
@@ -1114,6 +1137,44 @@
 			<entry key="description" value="DefaultDescription" />
 			<entry key="topicName" value="DefaultTopic6" />
 		</util:map>
+		
+	<!-- publish-topic-no-description -->
+		
+		<util:map id="publishTopicNoDescription" map-class="java.util.HashMap"
+			key-type="java.lang.String" value-type="java.lang.Object">
+			<entry key="query"
+				value="SELECT Id, Name, BillingCity FROM Account WHERE BillingCity = 'San Francisco'" />
+			<entry key="topicName" value="DefaultTopic6" />
+		</util:map>
+		
+	<!-- publish-existing-topic -->
+		
+		<util:map id="publishExistingTopic" map-class="java.util.HashMap"
+			key-type="java.lang.String" value-type="java.lang.Object">
+			<entry key="query"
+				value="SELECT Id, Name, BillingCity FROM Account WHERE BillingCity = 'San Francisco'" />
+			<entry key="description" value="DefaultDescription" />
+			<entry key="topicName" value="DefaultTopic3" />
+		</util:map>
+		
+	<!-- publish-existing-topic -->
+		
+		<util:map id="publishExistingTopicNoDescription" map-class="java.util.HashMap"
+			key-type="java.lang.String" value-type="java.lang.Object">
+			<entry key="query"
+				value="SELECT Id, Name, BillingCity FROM Account WHERE BillingCity = 'San Francisco'" />
+			<entry key="topicName" value="DefaultTopic3" />
+		</util:map>	
+	
+	<!-- cannot-create-topic -->
+		
+		<util:map id="cannotCreateTopic" map-class="java.util.HashMap"
+			key-type="java.lang.String" value-type="java.lang.Object">
+			<entry key="query"
+				value="SELECT BillingCityNoExistingField FROM Account WHERE BillingCity = 'San Francisco'" />
+			<entry key="description" value="DefaultDescription" />
+			<entry key="topicName" value="DefaultTopic6" />
+		</util:map>
 	
 	<!-- create-stream-batch -->
 	
@@ -1122,6 +1183,17 @@
 			<entry key="type" value="Contact" />
 			<entry key="concurrencyMode" value="Parallel" />
 			<entry key="contentType" value="CSV" />
+			<entry key="externalIdFieldName" value="Id" />
+			<entry key="operation" value="insert" />
+		</util:map>
+		
+		<!-- create-zip-batch -->
+	
+		<util:map id="createZipBatchTestData" map-class="java.util.HashMap"
+			key-type="java.lang.String" value-type="java.lang.Object">
+			<entry key="type" value="Contact" />
+			<entry key="concurrencyMode" value="Parallel" />
+			<entry key="contentType" value="ZIP_CSV" />
 			<entry key="externalIdFieldName" value="Id" />
 			<entry key="operation" value="insert" />
 		</util:map>

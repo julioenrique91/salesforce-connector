@@ -39,7 +39,7 @@ public class GetUpdatedRangeTestCases extends SalesforceTestParent {
     	
     	List<String> sObjectsIds = new ArrayList<String>();
 
-		loadTestRunMessage("getUpdatedRangeTestData");
+		initializeTestRunMessage("getUpdatedRangeTestData");
         
         List<SaveResult> saveResultsList =  runFlowAndGetPayload("create-from-message");
         Iterator<SaveResult> saveResultsIter = saveResultsList.iterator();  
@@ -59,7 +59,7 @@ public class GetUpdatedRangeTestCases extends SalesforceTestParent {
 		upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
 
 		runFlowAndGetPayload("update-from-message");
-		Thread.sleep(AFTER_UPDATE_DELAY);
+		//Thread.sleep(AFTER_UPDATE_DELAY);
 		
 		GetUpdatedResult updatedResult = runFlowAndGetPayload("get-updated");
 		
