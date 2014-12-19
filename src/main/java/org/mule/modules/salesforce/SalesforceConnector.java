@@ -10,20 +10,34 @@
 
 package org.mule.modules.salesforce;
 
-import com.google.common.base.Charsets;
-import com.sforce.async.*;
-import com.sforce.soap.metadata.*;
-import com.sforce.soap.partner.DeleteResult;
-import com.sforce.soap.partner.*;
-import com.sforce.soap.partner.SaveResult;
-import com.sforce.soap.partner.UpsertResult;
-import com.sforce.soap.partner.sobject.SObject;
-import com.sforce.ws.ConnectionException;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.SequenceInputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
-import org.mule.api.annotations.*;
+import org.mule.api.annotations.Category;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.ConnectionStrategy;
+import org.mule.api.annotations.MetaDataScope;
+import org.mule.api.annotations.Paged;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.Query;
+import org.mule.api.annotations.QueryTranslator;
+import org.mule.api.annotations.ReconnectOn;
+import org.mule.api.annotations.Source;
+import org.mule.api.annotations.SourceThreadingModel;
 import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
@@ -41,7 +55,11 @@ import org.mule.api.store.ObjectStore;
 import org.mule.api.store.ObjectStoreException;
 import org.mule.api.store.ObjectStoreManager;
 import org.mule.common.query.DsqlQuery;
-import org.mule.modules.salesforce.api.*;
+import org.mule.modules.salesforce.api.SalesforceExceptionHandlerAdapter;
+import org.mule.modules.salesforce.api.SalesforceHeader;
+import org.mule.modules.salesforce.api.SalesforceMetadataAdapter;
+import org.mule.modules.salesforce.api.SalesforceRestAdapter;
+import org.mule.modules.salesforce.api.SalesforceSoapAdapter;
 import org.mule.modules.salesforce.bulk.SaveResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.bulk.UpsertResultToBulkOperationTransformer;
 import org.mule.modules.salesforce.connection.CustomMetadataConnection;
@@ -59,11 +77,38 @@ import org.mule.streaming.ProviderAwarePagingDelegate;
 import org.mule.util.BeanUtils;
 import org.springframework.util.StringUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.SequenceInputStream;
-import java.io.Serializable;
-import java.util.*;
+import com.google.common.base.Charsets;
+import com.sforce.async.AsyncApiException;
+import com.sforce.async.BatchInfo;
+import com.sforce.async.BatchRequest;
+import com.sforce.async.BatchResult;
+import com.sforce.async.BulkConnection;
+import com.sforce.async.ConcurrencyMode;
+import com.sforce.async.ContentType;
+import com.sforce.async.JobInfo;
+import com.sforce.async.OperationEnum;
+import com.sforce.async.QueryResultList;
+import com.sforce.soap.metadata.DescribeMetadataResult;
+import com.sforce.soap.metadata.FileProperties;
+import com.sforce.soap.metadata.ListMetadataQuery;
+import com.sforce.soap.metadata.Metadata;
+import com.sforce.soap.metadata.ReadResult;
+import com.sforce.soap.partner.DeleteResult;
+import com.sforce.soap.partner.DescribeGlobalResult;
+import com.sforce.soap.partner.DescribeSObjectResult;
+import com.sforce.soap.partner.EmptyRecycleBinResult;
+import com.sforce.soap.partner.GetDeletedResult;
+import com.sforce.soap.partner.GetUpdatedResult;
+import com.sforce.soap.partner.GetUserInfoResult;
+import com.sforce.soap.partner.LeadConvert;
+import com.sforce.soap.partner.LeadConvertResult;
+import com.sforce.soap.partner.QueryResult;
+import com.sforce.soap.partner.SaveResult;
+import com.sforce.soap.partner.SearchRecord;
+import com.sforce.soap.partner.SearchResult;
+import com.sforce.soap.partner.UpsertResult;
+import com.sforce.soap.partner.sobject.SObject;
+import com.sforce.ws.ConnectionException;
 
 /**
  * The Salesforce Connector will allow to connect to the Salesforce application using regular username and password via
@@ -1209,7 +1254,8 @@ public class SalesforceConnector implements MuleContextAware {
     public void publishTopic(@Placement(group = "Information") String topicName,
                              @Placement(group = "Information") String query,
                              @Placement(group = "Information") @Optional String description) throws ConnectionException, SalesforceException {
-        QueryResult result = getSalesforceSoapAdapter().query("SELECT Id FROM PushTopic WHERE Name = '" + topicName + "'");
+    	QueryResult result = getSalesforceSoapAdapter().query("SELECT Id FROM PushTopic WHERE Name = '" + topicName + "'");
+
         if (result.getSize() == 0) {
             SObject pushTopic = new SObject();
             pushTopic.setType("PushTopic");
@@ -1467,19 +1513,6 @@ public class SalesforceConnector implements MuleContextAware {
             }
         };
     }
-    
-    /**
-     * Return session Id
-     * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:get-session-id}
-     *
-     * @return session Id
-     */
-    @Processor
-    @OAuthProtected
-    @Category(name = "Core Calls", description = "A set of calls that compromise the core of the API.")
-    public String getSessionId() {
-        return salesforceStrategy.getSessionId();
-    }
 
     public synchronized void setObjectStoreManager(ObjectStoreManager objectStoreManager) {
         this.objectStoreManager = objectStoreManager;
@@ -1584,11 +1617,6 @@ public class SalesforceConnector implements MuleContextAware {
     public void setMuleContext(MuleContext context) {
         setObjectStoreManager((ObjectStoreManager) context.getRegistry().get(MuleProperties.OBJECT_STORE_MANAGER));
         setRegistry((MuleRegistry) context.getRegistry());
-    }
-
-    protected boolean isDateField(Object object) {
-        return object instanceof Date || object instanceof GregorianCalendar
-                || object instanceof Calendar;
     }
 
     protected String convertDateToString(Object object) {

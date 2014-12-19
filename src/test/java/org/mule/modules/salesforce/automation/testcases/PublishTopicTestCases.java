@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.salesforce.automation.RegressionTests;
@@ -28,16 +29,13 @@ import org.mule.streaming.ConsumerIterator;
 
 public class PublishTopicTestCases extends SalesforceTestParent {
 
-	
     @Category({RegressionTests.class})
 	@Test
-	public void testCreateBatchStream() {
-    
-    	loadTestRunMessage("publishTopic");
+	public void testPublishTopicWithDescription() {
+    	initializeTestRunMessage("publishTopic");
     	boolean isTrue=true;
     	try {
 			runFlowAndGetPayload("publish-topic");
-			
 		} catch (Exception e) {
 			isTrue=false;
 			fail(ConnectorTestUtils.getStackTrace(e));
@@ -45,8 +43,71 @@ public class PublishTopicTestCases extends SalesforceTestParent {
     	finally{
     		assertTrue(isTrue);
     	}
-    	
-    	     
+	}
+    
+    @Category({RegressionTests.class})
+	@Test
+	public void testPublishTopicWithNoDescription() {
+    	initializeTestRunMessage("publishTopicNoDescription");
+    	boolean isTrue=true;
+    	try {
+			runFlowAndGetPayload("publish-topic");
+		} catch (Exception e) {
+			isTrue=false;
+			fail(ConnectorTestUtils.getStackTrace(e));
+		}
+    	finally{
+    		assertTrue(isTrue);
+    	}
+	}
+    
+    @Category({RegressionTests.class})
+	@Test
+	@Ignore
+	public void testPublishExistingTopic() {
+    	initializeTestRunMessage("publishExistingTopic");
+    	boolean isTrue=true;
+    	try {
+			runFlowAndGetPayload("publish-topic");
+		} catch (Exception e) {
+			isTrue=false;
+			fail(ConnectorTestUtils.getStackTrace(e));
+		}
+    	finally{
+    		assertTrue(isTrue);
+    	}
+	}
+    
+    @Category({RegressionTests.class})
+	@Test
+	@Ignore
+	public void testPublishExistingTopicNoDescription() {
+    	initializeTestRunMessage("publishExistingTopicNoDescription");
+    	boolean isTrue=true;
+    	try {
+			runFlowAndGetPayload("publish-topic");
+		} catch (Exception e) {
+			isTrue=false;
+			fail(ConnectorTestUtils.getStackTrace(e));
+		}
+    	finally{
+    		assertTrue(isTrue);
+    	}
+	}
+    
+    @Category({RegressionTests.class})
+	@Test
+	public void testCannotCreateTopic() {
+    	initializeTestRunMessage("cannotCreateTopic");
+    	boolean isTrue=false;
+    	try {
+			runFlowAndGetPayload("publish-topic");
+		} catch (Exception e) {
+			isTrue=true;
+		} 
+    	finally{
+    		assertTrue(isTrue);
+    	}
 	}
     
     @After
@@ -62,8 +123,6 @@ public class PublishTopicTestCases extends SalesforceTestParent {
     	sObjectsIds.add((String)getTestRunMessageValue("topicName"));
     	upsertOnTestRunMessage("idsToDeleteFromMessage", sObjectsIds);
 		runFlowAndGetPayload("delete-from-message");
-     
 	}
-   
 
 }

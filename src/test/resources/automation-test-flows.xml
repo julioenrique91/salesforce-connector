@@ -33,6 +33,13 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 			leadId="#[payload.leadId]">
 		</sfdc:convert-lead>
 	</flow>
+	
+	<flow name="convert-lead-with-opportunity" doc:name="convert-lead-default-values">
+		<sfdc:convert-lead config-ref="Salesforce" doc:name="Salesforce"
+			contactId="#[payload.contactId]" convertedStatus="#[payload.convertedStatus]"
+			leadId="#[payload.leadId]" opportunityName="#[payload.opportunityName]">
+		</sfdc:convert-lead>
+	</flow>
 
 	<flow name="create-from-message" doc:name="create-from-message">
 		<sfdc:create config-ref="Salesforce" doc:name="Create"
@@ -53,6 +60,13 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 		<sfdc:create-single config-ref="Salesforce"
 			doc:name="Create single" type="#[payload.type]">
 			<sfdc:object ref="#[payload.sObjectFieldMappingsFromMessage]" />
+		</sfdc:create-single>
+	</flow>
+	
+	<flow name="create-empty-from-message" doc:name="create-empty-from-message">
+		<sfdc:create-single config-ref="Salesforce"
+			doc:name="Create empty" type="#[payload.type]">
+			<sfdc:object ref="#[payload.sObjectEmptyFieldMappingsFromMessage]" />
 		</sfdc:create-single>
 	</flow>
 
@@ -303,7 +317,13 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 	            <sfdc:job-info ref="#[payload.jobInfoRef]"/>
 	        </sfdc:create-batch-stream>
 	</flow>
-
+	
+	<flow name="create-batch-zip" doc:name="create-batch-zip">
+	        <sfdc:create-batch-stream config-ref="Salesforce"  doc:name="Create Batch Zip" stream-ref="#[payload.stream]">
+	            <sfdc:job-info ref="#[payload.jobInfoRef]"/>
+	        </sfdc:create-batch-stream>
+	</flow>
+	
     <flow name="create-metadata">
         <sfdc:create-metadata config-ref="Salesforce" type="#[payload.type]">
             <sfdc:objects ref="#[payload.objects]" />
@@ -312,6 +332,12 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 
     <flow name="list-metadata">
         <sfdc:list-metadata config-ref="Salesforce" type="#[payload.type]" />
+    </flow>
+    
+    <flow name="read-metadata" doc:name="read-metadata">
+        <sfdc:read-metadata config-ref="Salesforce" type="#[payload.type]">
+            <sfdc:full-names ref="#[payload.fullNames]"/>
+        </sfdc:read-metadata>
     </flow>
 
     <flow name="delete-metadata">
