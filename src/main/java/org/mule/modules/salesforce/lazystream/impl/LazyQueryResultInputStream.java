@@ -21,7 +21,7 @@ import java.io.InputStream;
 
 public class LazyQueryResultInputStream extends LazyInputStream {
 
-    private static final Log LOGGER = LogFactory.getLog(LazyInputStream.class);
+    private static final Log logger = LogFactory.getLog(LazyInputStream.class);
 
     private String jobId;
     private String batchId;
@@ -38,9 +38,9 @@ public class LazyQueryResultInputStream extends LazyInputStream {
     @Override
     protected InputStream openLazyInputStream() throws IOException {
         try {
-            LOGGER.debug(String.format("OPENING LAZY STREAM -- JobId[%s] BatchId[%s] JobResultId[%s]", jobId, batchId, jobResultId));
+            logger.debug(String.format("OPENING LAZY STREAM -- JobId[%s] BatchId[%s] JobResultId[%s]", jobId, batchId, jobResultId));
             InputStream queryResultStream = getBulkConnection().getQueryResultStream(jobId, batchId, jobResultId);
-            LOGGER.debug(String.format("OPENED LAZY STREAM -- JobId[%s] BatchId[%s] JobResultId[%s]", jobId, batchId, jobResultId));
+            logger.debug(String.format("OPENED LAZY STREAM -- JobId[%s] BatchId[%s] JobResultId[%s]", jobId, batchId, jobResultId));
             return queryResultStream;
         } catch (AsyncApiException e) {
             throw new IOException(e);

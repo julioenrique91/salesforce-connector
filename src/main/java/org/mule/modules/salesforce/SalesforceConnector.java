@@ -132,7 +132,7 @@ import com.sforce.ws.ConnectionException;
 
 public class SalesforceConnector implements MuleContextAware {
 
-    private static final Logger LOGGER = Logger.getLogger(SalesforceConnector.class);
+    private static final Logger logger = Logger.getLogger(SalesforceConnector.class);
 
     @Start
     public void init() {
@@ -613,7 +613,7 @@ public class SalesforceConnector implements MuleContextAware {
 
         QueryResultList queryResultList = getSalesforceRestAdapter().getQueryResultList(batchInfo.getJobId(), batchInfo.getId());
         String[] jobResultIds = queryResultList.getResult();
-        LOGGER.debug(String.format("SF queryResultStream for JobId[%s] BatchId[%s] - Pages[%s]", batchInfo.getJobId(), batchInfo.getId(), jobResultIds.length));
+        logger.debug(String.format("SF queryResultStream for JobId[%s] BatchId[%s] - Pages[%s]", batchInfo.getJobId(), batchInfo.getId(), jobResultIds.length));
         if (jobResultIds.length > 0) {
             List<InputStream> inputStreams = new LinkedList<InputStream>();
             for (String jobResultId : jobResultIds) {
@@ -1019,8 +1019,8 @@ public class SalesforceConnector implements MuleContextAware {
         if (endTime.getTimeInMillis() - startTime.getTimeInMillis() < 60000) {
             endTime.add(Calendar.MINUTE, 1);
         }
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Getting updated " + type + " objects between " + startTime.getTime() + " and " + endTime.getTime());
+        if (logger.isDebugEnabled()) {
+            logger.debug("Getting updated " + type + " objects between " + startTime.getTime() + " and " + endTime.getTime());
         }
         return getSalesforceSoapAdapter(headers).getUpdated(type, startTime, endTime);
     }
@@ -1059,8 +1059,8 @@ public class SalesforceConnector implements MuleContextAware {
                 endTime.add(Calendar.MINUTE, 1);
             }
         }
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Getting deleted " + type + " objects between " + startTime.getTime() + " and " + endTime.getTime());
+        if (logger.isDebugEnabled()) {
+            logger.debug("Getting deleted " + type + " objects between " + startTime.getTime() + " and " + endTime.getTime());
         }
         return getSalesforceSoapAdapter(headers).getDeleted(type, startTime, endTime);
     }
@@ -1184,7 +1184,7 @@ public class SalesforceConnector implements MuleContextAware {
 
         if (getUpdatedResult.getLatestDateCovered().equals(startTime)
             && !initialTimeWindowUsed && getUpdatedResult.getIds().length > 0) {
-                LOGGER.debug("Ignoring duplicated results from getUpdated() call");
+                logger.debug("Ignoring duplicated results from getUpdated() call");
                 return Collections.emptyList();
         }
 
@@ -1207,7 +1207,7 @@ public class SalesforceConnector implements MuleContextAware {
     @Category(name = "Utility Calls", description = "API calls that your client applications can invoke to obtain the system timestamp, user information, and change user passwords.")
     public void resetUpdatedObjectsTimestamp(@MetaDataKeyParam @Placement(group = "Information") @FriendlyName("sObject Type") String type) throws ObjectStoreException {
         if (getTimeObjectStore() == null) {
-            LOGGER.warn("Trying to reset updated objects timestamp but no object store has been set, was getUpdatedObjects ever executed?");
+            logger.warn("Trying to reset updated objects timestamp but no object store has been set, was getUpdatedObjects ever executed?");
             return;
         }
         ObjectStoreHelper objectStoreHelper = getObjectStoreHelper(getSalesforceSoapAdapter().getConfig().getUsername());
@@ -1537,8 +1537,8 @@ public class SalesforceConnector implements MuleContextAware {
              * If so, throws the correct exception to reconnect.
              * TODO check if this is really necessary, as the Salesforce API has already make a successful response.
              */
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("Problem when completing the request from the batch " + jobInfo.getId() + ", threw " + e.getClass());
+            if (logger.isDebugEnabled()) {
+                logger.debug("Problem when completing the request from the batch " + jobInfo.getId() + ", threw " + e.getClass());
             }
 
             throw SalesforceExceptionHandlerAdapter.analyzeRestException(e);

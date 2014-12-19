@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class SalesforceBayeuxMessageListener implements ClientSessionChannel.MessageListener {
-    private static final Logger LOGGER = Logger.getLogger(SalesforceBayeuxMessageListener.class);
+    private static final Logger logger = Logger.getLogger(SalesforceBayeuxMessageListener.class);
     private final SourceCallback callback;
 
     public SalesforceBayeuxMessageListener(final SourceCallback callback) {
@@ -35,22 +35,22 @@ public class SalesforceBayeuxMessageListener implements ClientSessionChannel.Mes
                 HashMapMessage hashMapMessage = (HashMapMessage) message;
                 Map<String, Object> inboundProperties = new HashMap<String, Object>();
                 if (!hashMapMessage.containsKey("channel")) {
-                    LOGGER.error("The event does not contain the channel");
+                    logger.error("The event does not contain the channel");
                 } else {
                     inboundProperties.put("channel", hashMapMessage.get("channel"));
                 }
                 Map data;
                 if (!hashMapMessage.containsKey("data")) {
-                    LOGGER.error("The event does not contain any data?");
+                    logger.error("The event does not contain any data?");
                 } else {
                     data = (HashMap) hashMapMessage.get("data");
                     Map sObject = (Map) data.get("sobject");
                     Map event = (Map) data.get("event");
                     if (sObject == null) {
-                        LOGGER.error("The data of the event does not contain an SObject");
+                        logger.error("The data of the event does not contain an SObject");
                     } else {
                         if (event == null) {
-                            LOGGER.error("The data of the event does not contain event information");
+                            logger.error("The data of the event does not contain event information");
                         } else {
                             for (Map.Entry entry : (Set<Map.Entry>) event.entrySet()) {
                                 inboundProperties.put((String) entry.getKey(), entry.getValue());
@@ -63,7 +63,7 @@ public class SalesforceBayeuxMessageListener implements ClientSessionChannel.Mes
                 callback.process(message.getData());
             }
         } catch (Exception e) {
-            LOGGER.error(e);
+            logger.error(e);
         }
     }
 }

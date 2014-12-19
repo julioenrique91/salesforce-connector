@@ -24,7 +24,7 @@ import java.util.Arrays;
  * @author Mulesoft, Inc
  */
 public class SalesforceRestAdapter {
-    private static final Logger LOGGER = Logger.getLogger(SalesforceRestAdapter.class);
+    private static final Logger logger = Logger.getLogger(SalesforceRestAdapter.class);
 
     private SalesforceRestAdapter() {
     }
@@ -36,23 +36,23 @@ public class SalesforceRestAdapter {
                 new InvocationHandler() {
                     public Object invoke(Object proxy, Method method,
                                          Object[] args) throws Throwable {
-                        if (LOGGER.isDebugEnabled()) {
-                        	LOGGER.debug(String.format(
+                        if (logger.isDebugEnabled()) {
+                        	logger.debug(String.format(
                                     "Invoked method %s with arguments %s",
                                     method.getName(), Arrays.toString(args)));
                         }
                         try {
                             Object ret = method.invoke(facade, args);
-                            if (LOGGER.isDebugEnabled()) {
-                            	LOGGER.debug(String.format(
+                            if (logger.isDebugEnabled()) {
+                            	logger.debug(String.format(
                                         "Returned method %s with value %s",
                                         ret, Arrays.toString(args)));
                             }
 
                             return ret;
                         } catch (Exception e) {
-                            if (LOGGER.isDebugEnabled()) {
-                            	LOGGER.debug("Method " + method.getName() + " threw " + e.getClass());
+                            if (logger.isDebugEnabled()) {
+                            	logger.debug("Method " + method.getName() + " threw " + e.getClass());
                             }
 
                             throw SalesforceExceptionHandlerAdapter.analyzeRestException(e);
