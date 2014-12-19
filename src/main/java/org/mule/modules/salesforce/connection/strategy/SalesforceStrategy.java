@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SalesforceStrategy {
-    private static final Logger LOGGER = Logger.getLogger(SalesforceStrategy.class);
+    private static final Logger logger = Logger.getLogger(SalesforceStrategy.class);
     /**
      * Bayeux client
      */
@@ -140,7 +140,7 @@ public abstract class SalesforceStrategy {
                 }
             }
         } catch (MalformedURLException e) {
-            LOGGER.error(e.getMessage());
+            logger.error(e.getMessage());
         }
 
         return bc;

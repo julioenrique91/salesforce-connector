@@ -82,7 +82,7 @@ import com.sforce.ws.MessageHandler;
         })
 public class SalesforceOAuth2Strategy extends SalesforceStrategy {
 
-    private static final Logger LOGGER = Logger.getLogger(SalesforceOAuth2Strategy.class);
+    private static final Logger logger = Logger.getLogger(SalesforceOAuth2Strategy.class);
 
     /**
      * Connection to the SOAP API
@@ -146,18 +146,18 @@ public class SalesforceOAuth2Strategy extends SalesforceStrategy {
     @OAuthPostAuthorization
     public void postAuthorize() throws ConnectionException, MalformedURLException, AsyncApiException, Exception {
         ConnectorConfig config = new ConnectorConfig();
-        if (LOGGER.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
             config.addMessageHandler(new MessageHandler() {
                 @Override
                 public void handleRequest(URL endpoint, byte[] request) {
-                    LOGGER.debug("Sending request to " + endpoint.toString());
-                    LOGGER.debug(new String(request, Charsets.UTF_8));
+                    logger.debug("Sending request to " + endpoint.toString());
+                    logger.debug(new String(request, Charsets.UTF_8));
                 }
 
                 @Override
                 public void handleResponse(URL endpoint, byte[] response) {
-                    LOGGER.debug("Receiving response from " + endpoint.toString());
-                    LOGGER.debug(new String(response, Charsets.UTF_8));
+                    logger.debug("Receiving response from " + endpoint.toString());
+                    logger.debug(new String(response, Charsets.UTF_8));
                 }
             });
         }
