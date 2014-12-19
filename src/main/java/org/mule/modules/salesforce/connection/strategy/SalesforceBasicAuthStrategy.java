@@ -59,7 +59,7 @@ import java.net.*;
  */
 @ConnectionManagement(friendlyName="Basic authentication")
 public class SalesforceBasicAuthStrategy extends SalesforceStrategy{
-    private static final Logger LOGGER = Logger.getLogger(SalesforceBasicAuthStrategy.class);
+    private static final Logger logger = Logger.getLogger(SalesforceBasicAuthStrategy.class);
 
     /**
      * Partner connection
@@ -140,7 +140,7 @@ public class SalesforceBasicAuthStrategy extends SalesforceStrategy{
             try {
                 connection.logout();
             } catch (ConnectionException ce) {
-                LOGGER.error(ce);
+                logger.error(ce);
             } finally {
                 loginResult = null;
                 connection.setConnection(null);
@@ -191,18 +191,18 @@ public class SalesforceBasicAuthStrategy extends SalesforceStrategy{
                                      @Optional @Default("0") int connectionTimeout) throws org.mule.api.ConnectionException {
 
         ConnectorConfig connectorConfig = createConnectorConfig(url, username, password + StringUtils.defaultString(securityToken), proxyHost, proxyPort, proxyUsername, proxyPassword, readTimeout, connectionTimeout);
-        if (LOGGER.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
             connectorConfig.addMessageHandler(new MessageHandler() {
                 @Override
                 public void handleRequest(URL endpoint, byte[] request) {
-                    LOGGER.debug("Sending request to " + endpoint.toString());
-                    LOGGER.debug(new String(request, Charsets.UTF_8));
+                    logger.debug("Sending request to " + endpoint.toString());
+                    logger.debug(new String(request, Charsets.UTF_8));
                 }
 
                 @Override
                 public void handleResponse(URL endpoint, byte[] response) {
-                    LOGGER.debug("Receiving response from " + endpoint.toString());
-                    LOGGER.debug(new String(response, Charsets.UTF_8));
+                    logger.debug("Receiving response from " + endpoint.toString());
+                    logger.debug(new String(response, Charsets.UTF_8));
                 }
             });
         }
@@ -257,7 +257,7 @@ public class SalesforceBasicAuthStrategy extends SalesforceStrategy{
     }
 
     public void reconnect() throws org.mule.api.ConnectionException {
-        LOGGER.debug("Creating a Salesforce session using " + connection.getConfig().getUsername());
+        logger.debug("Creating a Salesforce session using " + connection.getConfig().getUsername());
         try {
             loginResult = connection.login(connection.getConfig().getUsername(), connection.getConfig().getPassword());
             if (loginResult.isPasswordExpired()) {
@@ -266,7 +266,7 @@ public class SalesforceBasicAuthStrategy extends SalesforceStrategy{
                 connection = null;
                 throw new org.mule.api.ConnectionException(ConnectionExceptionCode.CREDENTIALS_EXPIRED, null, "The password for the user " + username + " has expired");
             }
-            LOGGER.debug("Session established successfully with ID " + loginResult.getSessionId() + " at instance " + loginResult.getServerUrl());
+            logger.debug("Session established successfully with ID " + loginResult.getSessionId() + " at instance " + loginResult.getServerUrl());
             connection.getSessionHeader().setSessionId(loginResult.getSessionId());
             connection.getConfig().setServiceEndpoint(loginResult.getServerUrl());
             connection.getConfig().setSessionId(loginResult.getSessionId());
