@@ -1480,6 +1480,49 @@ public class SalesforceConnector implements MuleContextAware {
 
 		return getSalesforceMetadaAdapter().describeMetadata(getSalesforceStrategy().getApiVersion());
 	}
+	
+	/**
+	 * Deploy.
+	 * File-based call to deploy XML components.
+	 * Use this call to take file representations of components and deploy them into an organization by creating, updating, or deleting the components they represent.
+	 * <p/>
+	 * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:deploy-metadata}
+	 * 
+	 * @param stream  A stream containing the data. This parameter defaults to payload content.
+	 * @return 
+	 * @throws Exception when there is an error
+	 */
+	@Processor
+	@OAuthProtected
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public String deployMetadata(@Default("#[payload]") InputStream stream) throws Exception {
+		return MetadataService.callDeployService(getSalesforceMetadaAdapter(), stream);
+	}
+	
+	/**
+	 * Retrieve.
+	 * This call retrieves XML file representations of components in an organization.
+	 * <p/>
+	 * {@sample.xml ../../../doc/mule-module-sfdc.xml.sample sfdc:retrieve-metadata}
+	 * 
+	 * @param  packageNames A list of package names to be retrieved.
+	 * If you are retrieving only unpackaged components, do not specify a name here.
+	 * You can retrieve packaged and unpackaged components in the same retrieve.
+	 * @param specificFiles A list of file names to be retrieved.
+	 * If a value is specified for this property, packageNames must be set to null.
+	 * @param unpackaged A zip file containing a list of components to retrieve that are not in a package.
+	 * @param output output file
+	 * @return {@link java.io.InputStream} representing result of the retrieve job.
+	 * @throws Exception when there is an error
+	 */
+	@Processor
+	@OAuthProtected
+	@Category(name = "Metadata Calls", description = "A set of calls that compromise the metadata of the API.")
+	@MetaDataScope(MetadataCategory.class)
+	public InputStream retrieveMetadata(List<String> packageNames, List<String> specificFiles, String unpackaged) throws Exception {
+		return MetadataService.callRetrieveService(getSalesforceMetadaAdapter(), packageNames, specificFiles, unpackaged);
+	}
 
     /**
      * Subscribe to a topic.
